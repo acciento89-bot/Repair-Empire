@@ -17,7 +17,7 @@ P00 Product Definition - freeze decisions and terminology.
 P01 Technical Foundation - project/source structure, config, remotes, service skeleton.
 P02 Player Foundation - profile, spawn, HUD, input.
 P03 Job Engine - offer/accept/stages/complete/reward.
-P04 Economy & Progression - Cash, XP, levels, unlocks.
+P04 Economy & Progression - Cash, XP, levels, unlocks and four-branch Skill Tree.
 P05 Tools - ownership, equip, tiers, gating.
 P06 Vehicles - ownership, spawn, travel integration.
 P07 Company Tycoon - workshop, employees, passive systems.
@@ -26,7 +26,7 @@ P09 Multiplayer & Co-op - parties/contribution/large contracts.
 P10 Monetization - passes, products, receipts.
 P11 Retention - daily jobs, login reward, achievements.
 P12 Prestige & Endgame - reset/meta progression.
-P13 UI/UX Polish - responsive layouts, controller, accessibility.
+P13 UI/UX Polish - responsive layouts, controller, accessibility and complete progression/management screens.
 P14 Security Hardening - remote audit, rate limits, exploit tests.
 P15 Analytics & Balancing - event schema, dashboards/checklists, pacing passes.
 P16 Release - QA matrix, store presentation checklist, staged launch.
