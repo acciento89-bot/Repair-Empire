@@ -205,8 +205,7 @@ function JobService:Accept(player: Player, offerId: any)
 	self._offers[player.UserId] = nil
 
 	local skillTree = require(script.Parent.SkillTreeService)
-	local speedMultiplier = toolService:GetEquippedSpeedMultiplier(player)
-		* skillTree:GetSpeedMultiplier(player, definition.Category)
+	local speedMultiplier = toolService:GetEquippedSpeedMultiplier(player) * skillTree:GetSpeedMultiplier(player, definition.Category)
 	local payload = {
 		kind = "job_started",
 		instanceId = instanceId,
@@ -274,12 +273,8 @@ function JobService:PerformAction(player: Player, payload: any)
 
 	local toolService = require(script.Parent.ToolService)
 	local skillTree = require(script.Parent.SkillTreeService)
-	local speedMultiplier = if definition
-		then toolService:GetEquippedSpeedMultiplier(player) * skillTree:GetSpeedMultiplier(player, definition.Category)
-		else 1
-	local effectiveSeconds = if stage
-		then ToolRules.GetEffectiveStageSeconds(stage.MinimumSeconds, speedMultiplier)
-		else math.huge
+	local speedMultiplier = if definition then toolService:GetEquippedSpeedMultiplier(player) * skillTree:GetSpeedMultiplier(player, definition.Category) else 1
+	local effectiveSeconds = if stage then ToolRules.GetEffectiveStageSeconds(stage.MinimumSeconds, speedMultiplier) else math.huge
 	local elapsed = os.clock() - active.StageStartedAt
 	local decision = JobActionRules.Validate({
 		active = active,
@@ -328,8 +323,7 @@ function JobService:PerformAction(player: Player, payload: any)
 		* prestigeService:GetRewardMultiplier(player)
 		* skillTreeService:GetCashMultiplier(player, definition.Category)
 	local cashReward = math.floor(definition.BaseReward * rewardMultiplier)
-	local xpReward =
-		math.max(1, math.floor(definition.XP * skillTreeService:GetXPMultiplier(player, definition.Category)))
+	local xpReward = math.max(1, math.floor(definition.XP * skillTreeService:GetXPMultiplier(player, definition.Category)))
 	economyService:Grant(player, "cash", cashReward, "job:" .. definition.Id)
 	progressionService:AddXP(player, xpReward)
 	progressionService:AddCompanyPoints(player, math.max(1, math.floor(cashReward * 0.03)))
