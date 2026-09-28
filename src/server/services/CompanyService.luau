@@ -9,7 +9,7 @@ local CompanyConfig = require(Shared.config.CompanyConfig)
 
 local CompanyService = {
 	Name = "CompanyService",
-	Dependencies = { "PlayerDataService", "EconomyService" },
+	Dependencies = { "PlayerDataService", "EconomyService", "SecurityService", "EntitlementService" },
 }
 
 local function remote(name: string): RemoteFunction
@@ -37,11 +37,20 @@ local function passiveRate(profile): number
 	return rate
 end
 
-function CompanyService:GetEmployeeSlots(profile): number
-	return CompanyConfig.EmployeeSlotsByWorkshopTier[profile.WorkshopTier] or 0
+function CompanyService:GetEmployeeSlots(player: Player, profile): number
+	local slots = CompanyConfig.EmployeeSlotsByWorkshopTier[profile.WorkshopTier] or 0
+	local entitlementService = require(script.Parent.EntitlementService)
+	if entitlementService:HasPass(player, "extra_employee_slot") then
+		slots += 1
+	end
+	return slots
 end
 
 function CompanyService:UpgradeWorkshop(player: Player)
+	local security = require(script.Parent.SecurityService)
+	if not security:Allow(player, "PurchaseUpgrade") then
+		return { ok = false, error = "rate_limited" }
+	end
 	local dataService = require(script.Parent.PlayerDataService)
 	local economy = require(script.Parent.EconomyService)
 	local profile = dataService:RequireProfile(player)
@@ -65,6 +74,10 @@ function CompanyService:UpgradeWorkshop(player: Player)
 end
 
 function CompanyService:HireEmployee(player: Player, employeeId: any)
+	local security = require(script.Parent.SecurityService)
+	if not security:Allow(player, "HireEmployee") then
+		return { ok = false, error = "rate_limited" }
+	end
 	if type(employeeId) ~= "string" then
 		return { ok = false, error = "invalid_employee" }
 	end
@@ -84,7 +97,7 @@ function CompanyService:HireEmployee(player: Player, employeeId: any)
 	if profile.CompanyLevel < definition.MinimumCompanyLevel then
 		return { ok = false, error = "company_level_locked" }
 	end
-	if employeeCount(profile) >= self:GetEmployeeSlots(profile) then
+	if employeeCount(profile) >= self:GetEmployeeSlots(player, profile) then
 		return { ok = false, error = "employee_slots_full" }
 	end
 	if not economy:Spend(player, "cash", definition.Cost, "employee:" .. employeeId) then
@@ -93,7 +106,7 @@ function CompanyService:HireEmployee(player: Player, employeeId: any)
 
 	profile.Employees[employeeId] = (profile.Employees[employeeId] or 0) + 1
 	dataService:Publish(player)
-	return { ok = true, slotsUsed = employeeCount(profile), slotsTotal = self:GetEmployeeSlots(profile) }
+	return { ok = true, slotsUsed = employeeCount(profile), slotsTotal = self:GetEmployeeSlots(player, profile) }
 end
 
 function CompanyService:ApplyPassiveIncome(player: Player)
