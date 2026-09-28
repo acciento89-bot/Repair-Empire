@@ -8,7 +8,7 @@ local MonetizationConfig = require(ReplicatedStorage.RepairEmpire.Shared.config.
 
 local PurchaseService = {
 	Name = "PurchaseService",
-	Dependencies = { "PlayerDataService", "EntitlementService" },
+	Dependencies = { "PlayerDataService", "EntitlementService", "SecurityService", "AnalyticsService" },
 }
 
 local function remote(name: string): RemoteFunction
@@ -42,6 +42,10 @@ local function applyGrant(profile, grant)
 end
 
 function PurchaseService:PromptGamePass(player: Player, passKey: any)
+	local security = require(script.Parent.SecurityService)
+	if not security:Allow(player, "PromptGamePass") then
+		return { ok = false, error = "rate_limited" }
+	end
 	if type(passKey) ~= "string" then
 		return { ok = false, error = "invalid_pass" }
 	end
@@ -58,6 +62,10 @@ function PurchaseService:PromptGamePass(player: Player, passKey: any)
 end
 
 function PurchaseService:PromptProduct(player: Player, productKey: any)
+	local security = require(script.Parent.SecurityService)
+	if not security:Allow(player, "PromptDeveloperProduct") then
+		return { ok = false, error = "rate_limited" }
+	end
 	if type(productKey) ~= "string" then
 		return { ok = false, error = "invalid_product" }
 	end
@@ -106,6 +114,8 @@ function PurchaseService:Init()
 		end)
 
 		if ok then
+			local analytics = require(script.Parent.AnalyticsService)
+			analytics:LogCustom(player, "purchase_granted", 1)
 			return Enum.ProductPurchaseDecision.PurchaseGranted
 		end
 		return Enum.ProductPurchaseDecision.NotProcessedYet
