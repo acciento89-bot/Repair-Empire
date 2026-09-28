@@ -7,6 +7,7 @@ local HttpService = game:GetService("HttpService")
 local Shared = ReplicatedStorage.RepairEmpire.Shared
 local JobDefinitions = require(Shared.jobs.JobDefinitions)
 local JobRules = require(Shared.jobs.JobRules)
+local ToolRules = require(Shared.tools.ToolRules)
 
 local OFFER_COUNT = 4
 local OFFER_TTL_SECONDS = 120
@@ -165,11 +166,12 @@ function JobService:Accept(player: Player, offerId: any)
 	}
 	self._offers[player.UserId] = nil
 
+	local speedMultiplier = toolService:GetEquippedSpeedMultiplier(player)
 	local payload = {
 		kind = "job_started",
 		instanceId = instanceId,
 		job = safeDefinition(definition),
-		stage = definition.Stages[1],
+		stage = ToolRules.ToClientStage(definition.Stages[1], speedMultiplier),
 		targetPosition = anchor.Position,
 	}
 	getStateEvent():FireClient(player, payload)
@@ -235,15 +237,17 @@ function JobService:PerformAction(player: Player, payload: any)
 		return { ok = false, error = "too_far_from_job" }
 	end
 
+	local toolService = require(script.Parent.ToolService)
+	local effectiveSeconds = ToolRules.GetEffectiveStageSeconds(stage.MinimumSeconds, toolService:GetEquippedSpeedMultiplier(player))
 	local elapsed = os.clock() - active.StageStartedAt
-	if elapsed + 0.15 < stage.MinimumSeconds then
+	if elapsed + 0.15 < effectiveSeconds then
 		return { ok = false, error = "too_fast" }
 	end
 
 	active.StageIndex += 1
 	active.StageStartedAt = os.clock()
 	if active.StageIndex <= #definition.Stages then
-		local nextStage = definition.Stages[active.StageIndex]
+		local nextStage = ToolRules.ToClientStage(definition.Stages[active.StageIndex], toolService:GetEquippedSpeedMultiplier(player))
 		getStateEvent():FireClient(player, {
 			kind = "job_stage",
 			instanceId = active.InstanceId,
