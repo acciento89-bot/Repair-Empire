@@ -29,6 +29,7 @@ local MenuController = {
 	_content = nil :: Frame?,
 	_openButton = nil :: TextButton?,
 	_currentTab = "Jobs",
+	_tabButtons = {} :: { [string]: TextButton },
 }
 
 local function remote(name: string): RemoteFunction
@@ -517,14 +518,18 @@ function MenuController.Render(tab: string)
 	end
 end
 
-function MenuController.Open()
+function MenuController.Open(selectForController: boolean?)
 	local panel = MenuController._panel
 	if panel == nil then
 		return
 	end
 	panel.Visible = true
 	MenuController.Render(MenuController._currentTab)
-	GuiService.SelectedObject = nil
+	if selectForController == true then
+		GuiService.SelectedObject = MenuController._tabButtons[MenuController._currentTab]
+	else
+		GuiService.SelectedObject = nil
+	end
 end
 
 function MenuController.Close()
@@ -606,6 +611,7 @@ function MenuController.Start()
 		button.Text = tab.Label
 		button.Selectable = true
 		button.Parent = tabs
+		MenuController._tabButtons[tab.Id] = button
 		button.Activated:Connect(function()
 			MenuController.Render(tab.Id)
 		end)
@@ -644,9 +650,9 @@ function MenuController.Start()
 			if panel.Visible then
 				MenuController.Close()
 			else
-				MenuController.Open()
+				MenuController.Open(input.KeyCode == Enum.KeyCode.ButtonStart)
 			end
-		elseif input.KeyCode == Enum.KeyCode.Escape and panel.Visible then
+		elseif (input.KeyCode == Enum.KeyCode.Escape or input.KeyCode == Enum.KeyCode.ButtonB) and panel.Visible then
 			MenuController.Close()
 		end
 	end)
