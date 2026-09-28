@@ -5,7 +5,7 @@ Status legend: [ ] open, [~] implemented/partially verified, [x] verified comple
 Implementation is active. Core systems are implemented and the repository is CI-green.
 
 Verification baseline:
-- GitHub Actions run #311: success
+- GitHub Actions run #326: success
 - Head verified through formatting, Selene lint, Rojo build and 26 pure-Luau tests; release-readiness reports Sandbox-ready: yes
 - External/runtime-only blockers are documented in `docs/EXTERNAL-ROBLOX-BLOCKERS.md`
 
@@ -67,9 +67,9 @@ Verification baseline:
 - [x] P07-T05 Passive economy balancing guardrails
 
 ## P08 World
-- [x] P08-T01 Residential district — connected procedural district with spawn, workshop, roads, signage and job locations
-- [x] P08-T02 Downtown district — connected procedural district with distinct building scale/dressing and job locations
-- [x] P08-T03 Industrial district — connected procedural district with industrial dressing and co-op-capable job locations
+- [x] P08-T01 Residential district — connected procedural district with spawn, workshop, roads, sidewalks, lighting, street-facing facades, trees, signage and job locations; Studio visual pass verified
+- [x] P08-T02 Downtown district — connected procedural district with distinct building scale, glass bands, roof crowns, streetscape dressing and job locations
+- [x] P08-T03 Industrial district — connected procedural district with industrial dressing, tanks/vents/pipes and co-op-capable job locations
 - [x] P08-T04 Job anchor/building system
 - [x] P08-T05 Navigation markers
 - [!] P08-T06 Performance/streaming pass — StreamingEnabled is configured; actual client/server profiling requires Roblox Studio/runtime
@@ -108,7 +108,7 @@ Verification baseline:
 - [~] P13-T02 Tablet/desktop layouts — responsive implementation exists; visual/runtime QA remains
 - [~] P13-T03 Controller navigation — focusable UI/ButtonStart/ButtonX paths implemented; controller runtime QA remains
 - [~] P13-T04 Accessibility pass — text/context and non-color-only critical states implemented; contrast/device audit remains
-- [~] P13-T05 Feedback/audio/effects polish — HUD/reward/error feedback exists; final sound/VFX asset pass remains
+- [~] P13-T05 Feedback/audio/effects polish — HUD/reward/error feedback exists and the self-contained world/workshop art pass is Studio-verified; final sound/VFX asset pass remains
 
 ## P14 Security Hardening
 - [x] P14-T01 Remote inventory/audit
