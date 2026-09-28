@@ -4,7 +4,7 @@ local PlatformConfig = {
 	Environment = "development",
 	UniverseId = 10768475286,
 	ProductionStartPlaceId = 79925227687072,
-	DevelopmentPlaceIds = {} :: { number },
+	DevelopmentPlaceIds = { 138882349802835 },
 	GamePassIds = {} :: { [string]: number },
 	DeveloperProductIds = {} :: { [string]: number },
 }
