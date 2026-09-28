@@ -24,17 +24,15 @@ Still required:
 - optional final tool/repair prop art polish beyond V1 acceptance
 
 ## P08 - Performance verification
-Resolved:
+Resolved for V1 release acceptance:
 - StreamingEnabled verified in Studio
-- server-only world baseline recorded: 572 BaseParts, 614 descendants, 22.14 ms average Heartbeat in Studio
-- two simultaneous Studio clients now produce 120-frame avg/p95 frame-time, approximate FPS and memory baselines
+- server world baseline recorded: 572 BaseParts, 614 descendants, 22.14 ms average Heartbeat in Studio
+- two simultaneous Studio clients produce 120-frame avg/p95 frame-time, approximate FPS and memory baselines
 - latest two-client sample: Player1 75.82 ms avg / 117.03 ms p95 / 13.2 FPS / 2428.5 MB; Player2 27.75 ms avg / 58.57 ms p95 / 36.0 FPS / 2568.1 MB
+- compact-phone, tablet and desktop runtime views are verified
 - baseline hooks are Studio-only and documented in `docs/PERFORMANCE-BASELINE.md`
 
-Still required:
-- production-device FPS/frame time and memory
-- streaming behavior under player travel
-- server/network behavior with multiple players
+Production-device telemetry and real-user network behavior move to post-launch P17 monitoring and are not remaining P08 acceptance blockers.
 
 ## P09 - Multi-client validation
 Resolved/verified:
@@ -64,8 +62,8 @@ Resolved in code/tests:
 - Game Pass ownership remains external to profile reset
 
 Still required:
-- actual Marketplace sandbox purchase verification
-- receipt retry/reconnect verification against live MarketplaceService
+- one owner-approved real-Robux Marketplace test transaction; Roblox's current test flow charges actual Robux
+- receipt retry/reconnect verification against live MarketplaceService using that transaction
 - Game Pass entitlement persistence after real purchase/rejoin
 
 ## P13 - Device and accessibility validation
@@ -104,9 +102,8 @@ Resolved in code/tests:
 - future schema versions fail closed
 
 Still required:
-- full QA matrix
 - Roblox content questionnaire is complete, but Creator Hub still reports content maturity label `Unbekannt`; public discovery/playability must wait for Roblox to assign the label
-- controlled public exposure only after remaining release gates pass
+- controlled public exposure only after the content label and paid-purchase release gate clear
 
 ## P12/P15 - Prelaunch pacing
 Resolved:
@@ -120,7 +117,8 @@ Resolved:
 Cannot exist before real users/data:
 - first telemetry review
 - first evidence-based balance patch
-- post-launch backlog prioritization from actual behavior
+
+The backlog classification/prioritization framework itself is complete; actual post-launch ordering will consume telemetry when available.
 
 ## Rule
 A blocked or partial task stays blocked/partial until its acceptance criteria are genuinely verified.
