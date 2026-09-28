@@ -97,7 +97,7 @@ local function renderJobs(content: Frame)
 
 	for index, offer in result.offers or {} do
 		local job = offer.Job
-		local stepCount = #(job.Stages or {})
+		local stepCount = job.StageCount or 0
 		local text = ("%s\n%s • %s • %d steps • ~%ds • $%d • %d XP • Tool T%d"):format(
 			pretty(job.Id),
 			pretty(job.Category),
