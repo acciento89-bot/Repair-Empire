@@ -14,6 +14,7 @@ local tests = {
 	require("../tests/profile-migration.spec"),
 	require("../tests/job-validator.spec"),
 	require("../tests/tool-rules.spec"),
+	require("../tests/economy-model.spec"),
 }
 
 local passed = 0
