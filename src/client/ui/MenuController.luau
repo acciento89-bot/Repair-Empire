@@ -506,6 +506,20 @@ local renderers = {
 	Prestige = renderPrestige,
 }
 
+local function refreshTabStyles()
+	for id, button in MenuController._tabButtons do
+		local selected = id == MenuController._currentTab
+		button.BackgroundColor3 = color(if selected then UiPalette.Accent else UiPalette.SurfaceRaised)
+		button.TextColor3 = color(if selected then UiPalette.TextOnAccent else UiPalette.TextMuted)
+		button.Font = if selected then Enum.Font.GothamBold else Enum.Font.GothamMedium
+		local stroke = button:FindFirstChildOfClass("UIStroke")
+		if stroke then
+			stroke.Color = color(if selected then UiPalette.Gold else UiPalette.Stroke)
+			stroke.Transparency = if selected then 0.08 else 0.35
+		end
+	end
+end
+
 function MenuController.Render(tab: string)
 	local content = MenuController._content
 	if content == nil then
@@ -513,6 +527,7 @@ function MenuController.Render(tab: string)
 	end
 	clear(content)
 	MenuController._currentTab = tab
+	refreshTabStyles()
 	local renderer = renderers[tab]
 	if renderer then
 		renderer(content)
@@ -553,14 +568,16 @@ function MenuController.Start()
 	openButton.Name = "OpenMenu"
 	openButton.Position = UDim2.fromOffset(16, 68)
 	openButton.Size = UDim2.fromOffset(132, 48)
-	openButton.BackgroundColor3 = color(UiPalette.Button)
-	openButton.TextColor3 = color(UiPalette.Text)
+	openButton.BackgroundColor3 = color(UiPalette.Accent)
+	openButton.TextColor3 = color(UiPalette.TextOnAccent)
 	openButton.BorderSizePixel = 0
 	openButton.Font = Enum.Font.GothamBold
 	openButton.TextSize = 16
-	openButton.Text = "Menu"
+	openButton.Text = "WORK TABLET"
 	openButton.Selectable = true
 	openButton.Parent = screen
+	UiFactory.Round(openButton, 14)
+	UiFactory.Stroke(openButton, UiPalette.Gold, 1.5, 0.08)
 	MenuController._openButton = openButton
 
 	local panel = Instance.new("Frame")
@@ -568,7 +585,7 @@ function MenuController.Start()
 	panel.AnchorPoint = Vector2.new(0.5, 0.5)
 	panel.Position = UDim2.fromScale(0.5, 0.5)
 	panel.Size = UDim2.fromScale(0.92, 0.86)
-	panel.BackgroundTransparency = 0.02
+	panel.BackgroundTransparency = 0
 	panel.BackgroundColor3 = color(UiPalette.Panel)
 	panel.BorderSizePixel = 0
 	panel.Visible = false
@@ -580,14 +597,54 @@ function MenuController.Start()
 	size.MaxSize = Vector2.new(980, 760)
 	size.Parent = panel
 
-	local corner = Instance.new("UICorner")
-	corner.CornerRadius = UDim.new(0, 16)
-	corner.Parent = panel
+	UiFactory.Round(panel, 18)
+	UiFactory.Stroke(panel, UiPalette.Stroke, 1.5, 0.1)
+
+	local gradient = Instance.new("UIGradient")
+	gradient.Rotation = 90
+	gradient.Color = ColorSequence.new({
+		ColorSequenceKeypoint.new(0, color(UiPalette.Surface)),
+		ColorSequenceKeypoint.new(1, color(UiPalette.Panel)),
+	})
+	gradient.Parent = panel
+
+	local title = Instance.new("TextLabel")
+	title.Name = "Title"
+	title.Position = UDim2.fromOffset(18, 12)
+	title.Size = UDim2.new(1, -120, 0, 28)
+	title.BackgroundTransparency = 1
+	title.Font = Enum.Font.GothamBold
+	title.TextSize = 22
+	title.TextXAlignment = Enum.TextXAlignment.Left
+	title.TextColor3 = color(UiPalette.Text)
+	title.Text = "REPAIR EMPIRE"
+	title.Parent = panel
+
+	local subtitle = Instance.new("TextLabel")
+	subtitle.Name = "Subtitle"
+	subtitle.Position = UDim2.fromOffset(19, 39)
+	subtitle.Size = UDim2.new(1, -130, 0, 20)
+	subtitle.BackgroundTransparency = 1
+	subtitle.Font = Enum.Font.GothamMedium
+	subtitle.TextSize = 12
+	subtitle.TextXAlignment = Enum.TextXAlignment.Left
+	subtitle.TextColor3 = color(UiPalette.TextMuted)
+	subtitle.Text = "Jobs • Fleet • Workshop • Company"
+	subtitle.Parent = panel
+
+	local accentBar = Instance.new("Frame")
+	accentBar.Name = "AccentBar"
+	accentBar.Position = UDim2.fromOffset(18, 64)
+	accentBar.Size = UDim2.new(1, -36, 0, 3)
+	accentBar.BackgroundColor3 = color(UiPalette.Accent)
+	accentBar.BorderSizePixel = 0
+	accentBar.Parent = panel
+	UiFactory.Round(accentBar, 2)
 
 	local tabs = Instance.new("ScrollingFrame")
 	tabs.Name = "Tabs"
-	tabs.Size = UDim2.new(1, -16, 0, 56)
-	tabs.Position = UDim2.fromOffset(8, 8)
+	tabs.Size = UDim2.new(1, -16, 0, 54)
+	tabs.Position = UDim2.fromOffset(8, 74)
 	tabs.BackgroundTransparency = 1
 	tabs.AutomaticCanvasSize = Enum.AutomaticSize.X
 	tabs.CanvasSize = UDim2.new()
@@ -604,14 +661,16 @@ function MenuController.Start()
 		local button = Instance.new("TextButton")
 		button.Name = tab.Id .. "Tab"
 		button.Size = UDim2.fromOffset(116, 48)
-		button.BackgroundColor3 = color(UiPalette.Button)
-		button.TextColor3 = color(UiPalette.Text)
+		button.BackgroundColor3 = color(UiPalette.SurfaceRaised)
+		button.TextColor3 = color(UiPalette.TextMuted)
 		button.BorderSizePixel = 0
 		button.Font = Enum.Font.GothamMedium
 		button.TextSize = 14
 		button.Text = tab.Label
 		button.Selectable = true
 		button.Parent = tabs
+		UiFactory.Round(button, 10)
+		UiFactory.Stroke(button, UiPalette.Stroke, 1, 0.35)
 		MenuController._tabButtons[tab.Id] = button
 		button.Activated:Connect(function()
 			MenuController.Render(tab.Id)
@@ -621,23 +680,29 @@ function MenuController.Start()
 	local close = Instance.new("TextButton")
 	close.Name = "Close"
 	close.AnchorPoint = Vector2.new(1, 0)
-	close.Position = UDim2.new(1, -10, 0, 70)
-	close.Size = UDim2.fromOffset(72, 42)
-	close.BackgroundColor3 = color(UiPalette.Button)
-	close.TextColor3 = color(UiPalette.Text)
+	close.Position = UDim2.new(1, -16, 0, 14)
+	close.Size = UDim2.fromOffset(82, 40)
+	close.BackgroundColor3 = color(UiPalette.SurfaceRaised)
+	close.TextColor3 = color(UiPalette.TextMuted)
 	close.BorderSizePixel = 0
 	close.Font = Enum.Font.GothamBold
 	close.TextSize = 14
-	close.Text = "Close"
+	close.Text = "CLOSE"
 	close.Selectable = true
 	close.Parent = panel
+	UiFactory.Round(close, 10)
+	UiFactory.Stroke(close, UiPalette.Stroke, 1, 0.3)
 
 	local content = Instance.new("Frame")
 	content.Name = "Content"
-	content.Position = UDim2.fromOffset(8, 120)
-	content.Size = UDim2.new(1, -16, 1, -128)
-	content.BackgroundTransparency = 1
+	content.Position = UDim2.fromOffset(12, 136)
+	content.Size = UDim2.new(1, -24, 1, -148)
+	content.BackgroundTransparency = 0
+	content.BackgroundColor3 = color(UiPalette.Surface)
+	content.BorderSizePixel = 0
 	content.Parent = panel
+	UiFactory.Round(content, 14)
+	UiFactory.Stroke(content, UiPalette.Stroke, 1, 0.45)
 	MenuController._content = content
 
 	openButton.Activated:Connect(MenuController.Open)
