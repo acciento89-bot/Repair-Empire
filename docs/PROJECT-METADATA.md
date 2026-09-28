@@ -19,7 +19,7 @@ Decisions that are fixed without requiring Roblox account access:
 - All environment-specific Roblox IDs are centralized in `src/shared/config/PlatformConfig.luau` once known.
 
 Resolved Roblox platform values:
-- ownership type: authenticated personal Roblox creator account used to create the experience; no group ownership configured
+- Roblox owner: **Acciento865** (personal creator account; no group ownership configured)
 - production universe ID: `10768475286`
 - production start place ID: `79925227687072`
 - development/test place ID: `138882349802835`
