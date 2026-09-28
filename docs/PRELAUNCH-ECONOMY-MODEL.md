@@ -3,7 +3,7 @@
 This is a deterministic configuration model, not live-player telemetry.
 
 ## Model inputs
-- balance version: `v1-prelaunch-001`
+- balance version: `v1-prelaunch-002`
 - fastest launch tool timing multiplier: 0.76
 - modeled travel allowance for throughput comparison: 45 seconds/job
 - offline passive cap: 240 minutes
@@ -12,10 +12,10 @@ This is a deterministic configuration model, not live-player telemetry.
 
 ## Current modeled outputs
 - XP required from level 1 to 100: **344,296 XP**
-- total launch tool purchase sink: **$74,000**
+- total launch tool purchase sink: **$73,920**
 - total launch vehicle purchase sink: **$264,500**
 - workshop tier upgrade sink: **$166,000**
-- hard progression sink subtotal before employee hires: **$504,500**
+- hard progression sink subtotal before employee hires: **$504,420**
 - conservative maximum passive rate: **$660/min**
 - 4-hour conservative offline passive ceiling: **$158,400**
 - modeled highest unboosted solo throughput with 45s travel and fastest tool: roughly **$1.69k/min**
