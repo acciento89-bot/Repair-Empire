@@ -8,7 +8,7 @@ local RetentionConfig = require(Shared.retention.RetentionConfig)
 
 local RetentionService = {
 	Name = "RetentionService",
-	Dependencies = { "PlayerDataService", "EconomyService", "ProgressionService" },
+	Dependencies = { "PlayerDataService", "EconomyService", "ProgressionService", "SecurityService" },
 }
 
 local function remote(name: string): RemoteFunction
@@ -56,6 +56,10 @@ function RetentionService:_EnsureDailyState(profile, dayNumber: number)
 end
 
 function RetentionService:GetDailyJobs(player: Player)
+	local security = require(script.Parent.SecurityService)
+	if not security:Allow(player, "RequestDailyJobs") then
+		return { ok = false, error = "rate_limited" }
+	end
 	local dataService = require(script.Parent.PlayerDataService)
 	local profile = dataService:RequireProfile(player)
 	local day = RetentionConfig.GetDayNumber()
@@ -106,6 +110,10 @@ function RetentionService:OnJobCompleted(player: Player, definition)
 end
 
 function RetentionService:ClaimLoginReward(player: Player)
+	local security = require(script.Parent.SecurityService)
+	if not security:Allow(player, "ClaimDailyReward") then
+		return { ok = false, error = "rate_limited" }
+	end
 	local dataService = require(script.Parent.PlayerDataService)
 	local economy = require(script.Parent.EconomyService)
 	local profile = dataService:RequireProfile(player)
@@ -153,6 +161,10 @@ function RetentionService:RefreshAchievements(player: Player)
 end
 
 function RetentionService:ClaimAchievement(player: Player, achievementId: any)
+	local security = require(script.Parent.SecurityService)
+	if not security:Allow(player, "ClaimAchievement") then
+		return { ok = false, error = "rate_limited" }
+	end
 	if type(achievementId) ~= "string" then
 		return { ok = false, error = "invalid_achievement" }
 	end
