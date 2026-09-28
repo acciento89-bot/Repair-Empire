@@ -72,12 +72,16 @@ Still required:
 ## P13 - Device and accessibility validation
 Resolved/verified:
 - iPhone XR landscape emulator view is visually usable
+- iPhone XR portrait runtime is enabled and visually usable; menu remains within the display and tabs scroll horizontally
+- StarterGui defaults to Sensor orientation and active PlayerGui receives the same runtime preference
+- desktop mouse runtime navigation is verified for opening the menu and switching to the Shop
+- live Shop rendering displays configured Roblox prices
 - explicit UI palette has automated 4.5:1 minimum contrast checks in CI
 
 Still required:
-- smallest phone portrait/compact-device QA
+- a smaller compact-phone preset
 - tablet
-- desktop mouse/keyboard runtime pass
+- full desktop keyboard-only traversal
 - controller
 - remaining safe-area/input-overlap validation
 
