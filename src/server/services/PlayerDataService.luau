@@ -102,7 +102,7 @@ function PlayerDataService:_Load(player: Player)
 	self._loadedAt[player.UserId] = os.clock()
 	publishSummary(player, loaded)
 	local analytics = require(script.Parent.AnalyticsService)
-	analytics:LogCustom(player, "session_start", 1)
+	analytics:LogOnce(player, "session_start", 1)
 end
 
 function PlayerDataService:_Save(player: Player, releaseLock: boolean)
