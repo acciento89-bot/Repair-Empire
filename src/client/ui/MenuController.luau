@@ -88,16 +88,30 @@ end
 
 local function renderJobs(content: Frame)
 	local scroll = UiFactory.Scroll(content)
+	UiFactory.SectionTitle(scroll, "Available service calls", 0)
 	local result = remote("RequestJobOffers"):InvokeServer()
 	if type(result) ~= "table" or not result.ok then
 		UiFactory.Label(scroll, "Jobs could not be loaded.")
 		return
 	end
 
-	for order, offer in result.offers or {} do
+	for index, offer in result.offers or {} do
 		local job = offer.Job
-		local text = ("%s • $%d • %d XP • Tier %d"):format(pretty(job.Id), job.BaseReward, job.XP, job.RequiredToolTier)
-		local button = UiFactory.Button(scroll, text, order)
+		local stepCount = #(job.Stages or {})
+		local text = ("%s\n%s • %s • %d steps • ~%ds • $%d • %d XP • Tool T%d"):format(
+			pretty(job.Id),
+			pretty(job.Category),
+			pretty(job.District),
+			stepCount,
+			job.ExpectedDurationSeconds or 0,
+			job.BaseReward,
+			job.XP,
+			job.RequiredToolTier
+		)
+		local button = UiFactory.Button(scroll, text, index + 1)
+		button.Size = UDim2.new(1, 0, 0, 68)
+		button.Font = Enum.Font.GothamMedium
+		button.TextSize = 14
 		button.Activated:Connect(function()
 			local accepted = remote("AcceptJob"):InvokeServer(offer.OfferId)
 			if type(accepted) == "table" and accepted.ok then
@@ -312,6 +326,139 @@ local function renderTools(content: Frame)
 	end
 end
 
+local VEHICLE_COLORS = {
+	compact_van = Color3.fromRGB(188, 198, 207),
+	service_van = Color3.fromRGB(73, 142, 188),
+	long_van = Color3.fromRGB(66, 126, 167),
+	premium_van = Color3.fromRGB(38, 48, 58),
+	pickup = Color3.fromRGB(188, 119, 55),
+	crew_van = Color3.fromRGB(55, 126, 92),
+	truck = Color3.fromRGB(108, 112, 116),
+	elite = Color3.fromRGB(25, 31, 38),
+}
+
+local function previewPart(parent: Instance, name: string, size: Vector3, position: Vector3, partColor: Color3): Part
+	local part = Instance.new("Part")
+	part.Name = name
+	part.Size = size
+	part.Position = position
+	part.Anchored = true
+	part.CanCollide = false
+	part.Material = Enum.Material.SmoothPlastic
+	part.Color = partColor
+	part.Parent = parent
+	return part
+end
+
+local function createVehiclePreview(parent: Instance, definition, selected: boolean): ViewportFrame
+	local viewport = Instance.new("ViewportFrame")
+	viewport.Name = "VehiclePreview"
+	viewport.Size = UDim2.fromOffset(150, 86)
+	viewport.Position = UDim2.fromOffset(10, 10)
+	viewport.BackgroundColor3 = color(UiPalette.Hud)
+	viewport.BackgroundTransparency = 0
+	viewport.BorderSizePixel = 0
+	viewport.Ambient = Color3.fromRGB(190, 195, 205)
+	viewport.LightColor = Color3.fromRGB(255, 244, 220)
+	viewport.LightDirection = Vector3.new(-1, -1, -1)
+	viewport.Parent = parent
+	UiFactory.Round(viewport, 10)
+	UiFactory.Stroke(viewport, if selected then UiPalette.Accent else UiPalette.Stroke, if selected then 1.5 else 1, 0.2)
+
+	local model = Instance.new("Model")
+	model.Name = "PreviewModel"
+	model.Parent = viewport
+
+	local width = definition.BodySize[1]
+	local height = definition.BodySize[2]
+	local length = definition.BodySize[3]
+	local bodyColor = VEHICLE_COLORS[definition.Style] or Color3.fromRGB(120, 135, 150)
+
+	local chassis = previewPart(model, "Chassis", Vector3.new(width, 0.8, length), Vector3.new(0, 0, 0), Color3.fromRGB(58, 62, 68))
+	local cabinLength = math.max(4.2, length * 0.38)
+	local cabinZ = -length / 2 + cabinLength / 2 + 0.4
+	previewPart(model, "Cabin", Vector3.new(width * 0.92, height, cabinLength), Vector3.new(0, height / 2 + 0.4, cabinZ), bodyColor)
+
+	local cargoLength = math.max(3.2, length - cabinLength - 1.0)
+	local cargoHeight = if definition.Style == "pickup" then height * 0.45 else if definition.Style == "truck" then height * 1.15 else height * 0.9
+	local cargoZ = length / 2 - cargoLength / 2 - 0.3
+	previewPart(model, "Cargo", Vector3.new(width * 0.94, cargoHeight, cargoLength), Vector3.new(0, cargoHeight / 2 + 0.4, cargoZ), bodyColor)
+
+	local windscreen = previewPart(
+		model,
+		"Windscreen",
+		Vector3.new(width * 0.72, height * 0.45, 0.18),
+		Vector3.new(0, height * 0.68, cabinZ - cabinLength / 2 - 0.1),
+		Color3.fromRGB(91, 158, 188)
+	)
+	windscreen.Material = Enum.Material.Glass
+	windscreen.Transparency = 0.15
+
+	for axle = 1, definition.Axles do
+		local alpha = if definition.Axles == 1 then 0.5 else (axle - 1) / (definition.Axles - 1)
+		local z = -length * 0.36 + alpha * length * 0.72
+		for _, side in { -1, 1 } do
+			local wheel = previewPart(
+				model,
+				"Wheel",
+				Vector3.new(1.0, 1.8, 1.8),
+				Vector3.new(side * width * 0.52, -0.55, z),
+				Color3.fromRGB(25, 27, 30)
+			)
+			wheel.Shape = Enum.PartType.Cylinder
+			wheel.Orientation = Vector3.new(0, 0, 90)
+		end
+	end
+
+	model.PrimaryPart = chassis
+	local camera = Instance.new("Camera")
+	camera.CFrame = CFrame.new(Vector3.new(width * 1.6, height * 1.6 + 2, length * 1.25), Vector3.new(0, height * 0.45, 0))
+	camera.FieldOfView = 35
+	camera.Parent = viewport
+	viewport.CurrentCamera = camera
+
+	return viewport
+end
+
+local function createVehicleCard(scroll: ScrollingFrame, definition, owned: boolean, selected: boolean, order: number): TextButton
+	local card = Instance.new("Frame")
+	card.Name = definition.Id .. "Card"
+	card.Size = UDim2.new(1, 0, 0, 106)
+	card.BackgroundColor3 = color(if selected then UiPalette.AccentSoft else UiPalette.SurfaceRaised)
+	card.BorderSizePixel = 0
+	card.LayoutOrder = order
+	card.Parent = scroll
+	UiFactory.Round(card, 14)
+	UiFactory.Stroke(card, if selected then UiPalette.Accent else UiPalette.Stroke, if selected then 1.5 else 1, 0.22)
+
+	createVehiclePreview(card, definition, selected)
+
+	local action = Instance.new("TextButton")
+	action.Name = definition.Id .. "Action"
+	action.Position = UDim2.new(0, 170, 0, 10)
+	action.Size = UDim2.new(1, -180, 1, -20)
+	action.BackgroundTransparency = 1
+	action.TextXAlignment = Enum.TextXAlignment.Left
+	action.TextYAlignment = Enum.TextYAlignment.Center
+	action.TextWrapped = true
+	action.Font = Enum.Font.GothamMedium
+	action.TextSize = 14
+	action.TextColor3 = color(UiPalette.Text)
+	action.Selectable = true
+	action:SetAttribute("ResponsiveSkipSize", true)
+	local status = if selected then "SELECTED" elseif owned then "SELECT" else ("BUY $%d"):format(definition.Cost)
+	action.Text = ("%s\nTier %d • Lv%d • Speed %d • %d seats • %s"):format(
+		pretty(definition.Id),
+		definition.Tier,
+		definition.MinimumLevel,
+		definition.Speed,
+		definition.Seats,
+		status
+	)
+	action.Parent = card
+	return action
+end
+
 local function renderVehicles(content: Frame)
 	local state = getState()
 	local scroll = UiFactory.Scroll(content)
@@ -320,18 +467,28 @@ local function renderVehicles(content: Frame)
 		return
 	end
 
-	local spawn = UiFactory.Button(scroll, "Spawn selected vehicle", 0)
+	UiFactory.SectionTitle(scroll, "Company garage", 0)
+	local selectedDefinition = VehicleDefinitions.ById[state.SelectedVehicle]
+	local spawn = UiFactory.Button(
+		scroll,
+		("SPAWN %s"):format(if selectedDefinition then pretty(selectedDefinition.Id) else "SELECTED VEHICLE"),
+		1
+	)
+	spawn.BackgroundColor3 = color(UiPalette.Accent)
+	spawn.TextColor3 = color(UiPalette.TextOnAccent)
 	spawn.Activated:Connect(function()
-		remote("SpawnVehicle"):InvokeServer()
-		MenuController.Close()
+		local result = remote("SpawnVehicle"):InvokeServer()
+		if type(result) == "table" and result.ok then
+			MenuController.Close()
+		else
+			spawn.Text = "Vehicle spawn unavailable"
+		end
 	end)
 
-	for order, definition in VehicleDefinitions.List do
+	for index, definition in VehicleDefinitions.List do
 		local owned = state.OwnedVehicles[definition.Id] == true
 		local selected = state.SelectedVehicle == definition.Id
-		local status = if selected then "Selected" elseif owned then "Select" else ("Buy $%d"):format(definition.Cost)
-		local button =
-			UiFactory.Button(scroll, ("%s • T%d • Lv%d • %s"):format(pretty(definition.Id), definition.Tier, definition.MinimumLevel, status), order + 1)
+		local button = createVehicleCard(scroll, definition, owned, selected, index + 1)
 		button.Activated:Connect(function()
 			local result
 			if owned then
