@@ -435,7 +435,7 @@ local function createVehicleCard(scroll: ScrollingFrame, definition, owned: bool
 
 	local action = Instance.new("TextButton")
 	action.Name = definition.Id .. "Action"
-	action.Position = UDim2.new(0, 170, 0, 10)
+	action.Position = UDim2.fromOffset(170, 10)
 	action.Size = UDim2.new(1, -180, 1, -20)
 	action.BackgroundTransparency = 1
 	action.TextXAlignment = Enum.TextXAlignment.Left
