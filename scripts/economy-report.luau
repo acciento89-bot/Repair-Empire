@@ -52,3 +52,5 @@ local lateCompanyPointsPerJob = lateJob and math.max(1, math.floor(lateJob.BaseR
 local optimisticJobsToCompany10 = math.ceil(companyPointTarget / lateCompanyPointsPerJob)
 print(("Optimistic lower-bound solo jobs to level 100: %d"):format(optimisticJobsToLevel100))
 print(("Late-job equivalent jobs to company level 10: %d"):format(optimisticJobsToCompany10))
+local levelingMinutes = model.EstimateLevelingMinutes(progression.MaxPlayerLevel, jobs.List, tools.List, progression, 45)
+print(("Modeled active time to level 100 @45s travel: %.1f hours"):format(levelingMinutes / 60))
