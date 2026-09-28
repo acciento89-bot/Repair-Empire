@@ -37,16 +37,7 @@ function AnalyticsService:LogEconomy(
 )
 	local flow = if isSource then Enum.AnalyticsEconomyFlowType.Source else Enum.AnalyticsEconomyFlowType.Sink
 	safeCall("economy:" .. transactionType, function()
-		RobloxAnalytics:LogEconomyEvent(
-			player,
-			flow,
-			currencyType,
-			amount,
-			endingBalance,
-			transactionType,
-			itemSku,
-			{}
-		)
+		RobloxAnalytics:LogEconomyEvent(player, flow, currencyType, amount, endingBalance, transactionType, itemSku, {})
 	end)
 end
 
