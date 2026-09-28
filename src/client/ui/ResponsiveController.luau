@@ -138,6 +138,7 @@ function ResponsiveController.Start()
 	end)
 
 	local playerGui = Players.LocalPlayer:WaitForChild("PlayerGui")
+	playerGui.ScreenOrientation = Enum.ScreenOrientation.Sensor
 	playerGui.DescendantAdded:Connect(function()
 		task.defer(apply)
 	end)
