@@ -9,6 +9,11 @@ local Shared = ReplicatedStorage.RepairEmpire.Shared
 local TutorialConfig = require(Shared.config.TutorialConfig)
 local ProgressionConfig = require(Shared.config.ProgressionConfig)
 local UiLayoutRules = require(Shared.ui.UiLayoutRules)
+local UiPalette = require(Shared.ui.UiPalette)
+
+local function color(rgb)
+	return Color3.fromRGB(rgb[1], rgb[2], rgb[3])
+end
 
 local HudController = {
 	_objectiveLabel = nil :: TextLabel?,
@@ -54,23 +59,27 @@ function HudController.Start()
 	status.Name = "Status"
 	status.Position = UDim2.fromOffset(16, 16)
 	status.Size = UDim2.fromOffset(720, 42)
-	status.BackgroundTransparency = 0.18
+	status.BackgroundTransparency = 0.08
+	status.BackgroundColor3 = color(UiPalette.Hud)
+	status.BorderSizePixel = 0
 	status.TextScaled = true
 	status.TextWrapped = true
 	status.Font = Enum.Font.GothamMedium
 	status.TextXAlignment = Enum.TextXAlignment.Left
-	status.TextColor3 = Color3.new(1, 1, 1)
+	status.TextColor3 = color(UiPalette.Text)
 	status.Parent = screen
 
 	local tutorial = Instance.new("TextLabel")
 	tutorial.Name = "Tutorial"
 	tutorial.Position = UDim2.fromOffset(16, 68)
 	tutorial.Size = UDim2.fromOffset(360, 54)
-	tutorial.BackgroundTransparency = 0.18
+	tutorial.BackgroundTransparency = 0.08
+	tutorial.BackgroundColor3 = color(UiPalette.Hud)
+	tutorial.BorderSizePixel = 0
 	tutorial.TextWrapped = true
 	tutorial.TextScaled = true
 	tutorial.Font = Enum.Font.GothamMedium
-	tutorial.TextColor3 = Color3.new(1, 1, 1)
+	tutorial.TextColor3 = color(UiPalette.Text)
 	tutorial.Parent = screen
 	HudController._tutorialLabel = tutorial
 
@@ -79,11 +88,13 @@ function HudController.Start()
 	objective.AnchorPoint = Vector2.new(0, 0.5)
 	objective.Position = UDim2.new(0, 16, 0.5, 0)
 	objective.Size = UDim2.fromOffset(280, 72)
-	objective.BackgroundTransparency = 0.18
+	objective.BackgroundTransparency = 0.08
+	objective.BackgroundColor3 = color(UiPalette.Hud)
+	objective.BorderSizePixel = 0
 	objective.TextWrapped = true
 	objective.TextScaled = true
 	objective.Font = Enum.Font.GothamMedium
-	objective.TextColor3 = Color3.new(1, 1, 1)
+	objective.TextColor3 = color(UiPalette.Text)
 	objective.Text = "Choose a job"
 	objective.Parent = screen
 	HudController._objectiveLabel = objective
