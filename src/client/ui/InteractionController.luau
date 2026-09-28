@@ -135,7 +135,7 @@ function InteractionController.Start()
 			InteractionController._stage = payload.stage
 			InteractionController._readyAt = os.clock() + ((payload.stage and payload.stage.MinimumSeconds) or 0)
 			instant.Visible = (player:GetAttribute("InstantJobFinishes") or 0) > 0
-		elseif payload.kind == "job_stage" then
+		elseif payload.kind == "job_stage" or payload.kind == "coop_stage" then
 			InteractionController._stage = payload.stage
 			InteractionController._readyAt = os.clock() + ((payload.stage and payload.stage.MinimumSeconds) or 0)
 		elseif payload.kind == "coop_started" then
@@ -144,9 +144,6 @@ function InteractionController.Start()
 			InteractionController._stage = payload.stage
 			InteractionController._readyAt = os.clock() + ((payload.stage and payload.stage.MinimumSeconds) or 0)
 			instant.Visible = false
-		elseif payload.kind == "coop_stage" then
-			InteractionController._stage = payload.stage
-			InteractionController._readyAt = os.clock() + ((payload.stage and payload.stage.MinimumSeconds) or 0)
 		elseif payload.kind == "job_completed" or payload.kind == "job_abandoned" or payload.kind == "coop_completed" or payload.kind == "coop_left" then
 			InteractionController._mode = nil
 			InteractionController._instanceId = nil
