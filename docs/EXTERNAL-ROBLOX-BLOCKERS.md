@@ -107,9 +107,11 @@ Resolved in code/tests:
 - active foreign session locks cannot be overwritten during save
 - future schema versions fail closed
 
+Resolved in Creator Hub:
+- content questionnaire is complete and content maturity is now assigned as `Minimal`
+
 Still required:
-- Roblox content questionnaire is complete, but Creator Hub still reports content maturity label `Unbekannt`; public discovery/playability must wait for Roblox to assign the label
-- controlled public exposure only after the content label and paid-purchase release gate clear
+- controlled public exposure only after the paid Developer Product release gate clears and the current Roblox Studio publishing incident recovers
 
 ## P12/P15 - Prelaunch pacing
 Resolved:
