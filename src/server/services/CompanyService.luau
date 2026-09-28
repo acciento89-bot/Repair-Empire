@@ -9,7 +9,7 @@ local CompanyConfig = require(Shared.config.CompanyConfig)
 
 local CompanyService = {
 	Name = "CompanyService",
-	Dependencies = { "PlayerDataService", "EconomyService", "SecurityService", "EntitlementService" },
+	Dependencies = { "PlayerDataService", "EconomyService", "SecurityService", "EntitlementService", "AnalyticsService" },
 }
 
 local function remote(name: string): RemoteFunction
@@ -106,6 +106,8 @@ function CompanyService:HireEmployee(player: Player, employeeId: any)
 
 	profile.Employees[employeeId] = (profile.Employees[employeeId] or 0) + 1
 	dataService:Publish(player)
+	local analytics = require(script.Parent.AnalyticsService)
+	analytics:LogOnce(player, "first_employee_hired", 1)
 	return { ok = true, slotsUsed = employeeCount(profile), slotsTotal = self:GetEmployeeSlots(player, profile) }
 end
 
