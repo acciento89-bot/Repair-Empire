@@ -82,11 +82,12 @@ local function apply()
 		local metrics = UiLayoutRules.GetHudMetrics(viewport.X, viewport.Y, touch)
 		local status = hud:FindFirstChild("Status")
 		if status and status:IsA("TextLabel") then
-			status.Size = UDim2.fromOffset(math.max(300, math.min(viewport.X - 32, 760)), 42)
-			textConstraint(status, 11, 18)
+			status.Size = UDim2.fromOffset(metrics.StatusWidth, metrics.StatusHeight)
+			textConstraint(status, if metrics.Class == "small_phone" then 13 else 11, 18)
 		end
 		local tutorial = hud:FindFirstChild("Tutorial")
 		if tutorial and tutorial:IsA("TextLabel") then
+			tutorial.Position = UDim2.fromOffset(16, metrics.TutorialY)
 			tutorial.Size = UDim2.fromOffset(metrics.TutorialWidth, 54)
 			textConstraint(tutorial, 12, 18)
 		end
