@@ -10,6 +10,11 @@ return function()
 	assert(phoneMenu.PanelScaleX <= 0.96 and phoneMenu.PanelScaleY <= 0.92, "phone menu exceeds viewport guardrails")
 	assert(phoneMenu.MaxWidth <= 374, "phone menu maximum width ignores safe margin")
 
+	local phoneHud = rules.GetHudMetrics(844, 390, true)
+	assert(phoneHud.StatusWidth <= 674, "phone status must leave room for right-side menu controls")
+	assert(phoneHud.StatusHeight >= 54, "phone status must support two readable lines")
+	assert(phoneHud.TutorialY >= 78, "phone tutorial must sit below expanded status")
+
 	local phoneInteraction = rules.GetInteractionOffsets(390, 844, true)
 	assert(phoneInteraction.Bottom >= 180, "phone repair action risks overlapping default jump control")
 	assert(phoneInteraction.Width <= 220, "phone repair action is oversized")
