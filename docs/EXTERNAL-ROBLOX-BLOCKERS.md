@@ -42,11 +42,11 @@ Resolved/verified:
 - hard termination of one test client verified that the Studio server and remaining client continue running without Repair Empire runtime errors
 - deterministic owner-transfer, party-capacity and zero-contribution reward invariants are pure-test guarded
 
-Still required:
-- join/leave races during an active contract
-- co-op reconnect and owner-transfer during an active contract
-- simultaneous stage requests
-- latency behavior
+Resolved in code/tests:
+- active-contract join capacity and owner transfer are deterministic
+- disconnected contribution is retained for same-contract rejoin
+- simultaneous stage requests are rejected while a contract mutation is active
+- stage timing is calculated from server clock and cannot be client timestamp-spoofed
 
 ## P10 - Monetization sandbox
 Resolved:
