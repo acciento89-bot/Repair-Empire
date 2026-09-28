@@ -363,7 +363,15 @@ function WorldService:IsPlayerNearAnchor(player: Player, anchorId: string): bool
 	if root == nil or not root:IsA("BasePart") then
 		return false
 	end
-	return (root.Position - anchor.Position).Magnitude <= WorldConfig.AnchorInteractionDistance
+	return SpatialRules.IsWithinDistance(
+		root.Position.X,
+		root.Position.Y,
+		root.Position.Z,
+		anchor.Position.X,
+		anchor.Position.Y,
+		anchor.Position.Z,
+		WorldConfig.AnchorInteractionDistance
+	)
 end
 
 local function logStudioWorldBaseline(world: Folder)
