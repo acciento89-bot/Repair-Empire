@@ -4,8 +4,6 @@ local PlatformConfig = {
 	UniverseId = 10768475286,
 	ProductionStartPlaceId = 79925227687072,
 	DevelopmentPlaceIds = { 138882349802835 },
-	GamePassIds = {} :: { [string]: number },
-	DeveloperProductIds = {} :: { [string]: number },
 }
 
 function PlatformConfig.EnvironmentForPlace(placeId: number, isStudio: boolean): string
