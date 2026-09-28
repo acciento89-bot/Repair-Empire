@@ -25,4 +25,11 @@ function SessionRules.Owns(lock, token: string): boolean
 	return type(lock) == "table" and lock.Token == token
 end
 
+function SessionRules.CanWrite(lock, token: string): boolean
+	if lock == nil then
+		return true
+	end
+	return SessionRules.Owns(lock, token)
+end
+
 return SessionRules
