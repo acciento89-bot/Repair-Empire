@@ -78,7 +78,10 @@ function UiLayoutRules.GetHudMetrics(width: number, height: number, touchEnabled
 	local class = UiLayoutRules.Classify(width, height, touchEnabled)
 	if class == "small_phone" then
 		return {
-			TutorialWidth = math.min(330, width - 32),
+			StatusWidth = math.max(280, width - 170),
+			StatusHeight = 58,
+			TutorialY = 82,
+			TutorialWidth = math.min(340, width - 170),
 			ObjectiveWidth = math.min(260, width - 32),
 			ObjectiveHeight = 68,
 			MenuTop = 16,
@@ -86,6 +89,9 @@ function UiLayoutRules.GetHudMetrics(width: number, height: number, touchEnabled
 	end
 
 	return {
+		StatusWidth = math.max(300, math.min(width - 32, 760)),
+		StatusHeight = 42,
+		TutorialY = 68,
 		TutorialWidth = math.min(380, width - 48),
 		ObjectiveWidth = math.min(320, width - 48),
 		ObjectiveHeight = 72,
