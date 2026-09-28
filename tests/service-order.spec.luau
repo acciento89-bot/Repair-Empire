@@ -1,6 +1,4 @@
 return function()
-	-- This smoke test intentionally validates the dependency algorithm contract
-	-- without importing Roblox services.
 	local order = {}
 	local services = {
 		A = { deps = {} },
@@ -19,5 +17,5 @@ return function()
 		table.insert(order, name)
 	end
 	visit("C")
-	assert(table.concat(order, ",") == "A,B,C")
+	assert(table.concat(order, ",") == "A,B,C", "service dependency order is invalid")
 end
