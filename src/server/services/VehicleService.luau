@@ -49,12 +49,8 @@ local function buildPlaceholderVehicle(player: Player, definition)
 
 	local cabinLength = math.max(4.2, length * 0.38)
 	local cabinCenterZ = -length / 2 + cabinLength / 2 + 0.4
-	local cabin = createVehiclePart(
-		"Cabin",
-		Vector3.new(width * 0.92, height, cabinLength),
-		CFrame.new(origin + Vector3.new(0, height / 2 + 0.5, cabinCenterZ)),
-		model
-	)
+	local cabin =
+		createVehiclePart("Cabin", Vector3.new(width * 0.92, height, cabinLength), CFrame.new(origin + Vector3.new(0, height / 2 + 0.5, cabinCenterZ)), model)
 	cabin.Material = Enum.Material.SmoothPlastic
 
 	local cargoLength = math.max(3.2, length - cabinLength - 1.0)
