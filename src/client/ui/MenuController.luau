@@ -698,7 +698,11 @@ function MenuController.Start()
 		if processed then
 			return
 		end
-		if input.KeyCode == Enum.KeyCode.M or input.KeyCode == Enum.KeyCode.ButtonStart then
+		if
+			input.KeyCode == Enum.KeyCode.M
+			or input.KeyCode == Enum.KeyCode.ButtonY
+			or input.KeyCode == Enum.KeyCode.ButtonStart
+		then
 			if panel.Visible then
 				MenuController.Close()
 			else
