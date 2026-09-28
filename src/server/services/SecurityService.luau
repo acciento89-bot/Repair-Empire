@@ -29,12 +29,7 @@ function SecurityService:RecordAnomaly(player: Player, code: string, detail: str
 	local count = (self._anomalyCounts[userId] or 0) + 1
 	self._anomalyCounts[userId] = count
 
-	warn(("[Repair Empire][Security] user=%d code=%s count=%d detail=%s"):format(
-		userId,
-		code,
-		count,
-		detail or ""
-	))
+	warn(("[Repair Empire][Security] user=%d code=%s count=%d detail=%s"):format(userId, code, count, detail or ""))
 
 	if count >= KICK_THRESHOLD then
 		player:Kick("Too many invalid requests.")
