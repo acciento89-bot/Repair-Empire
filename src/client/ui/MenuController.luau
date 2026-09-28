@@ -326,7 +326,7 @@ function MenuController.Start()
 	panel.Name = "Panel"
 	panel.AnchorPoint = Vector2.new(0.5, 0.5)
 	panel.Position = UDim2.fromScale(0.5, 0.5)
-	panel.Size = UDim2.new(0.92, 0, 0.86, 0)
+	panel.Size = UDim2.fromScale(0.92, 0.86)
 	panel.BackgroundTransparency = 0.04
 	panel.Visible = false
 	panel.Parent = screen
@@ -361,7 +361,7 @@ function MenuController.Start()
 		local button = Instance.new("TextButton")
 		button.Name = tab .. "Tab"
 		button.Size = UDim2.fromOffset(116, 48)
-		button.Font = Enum.Font.GothamSemibold
+		button.Font = Enum.Font.GothamMedium
 		button.TextSize = 14
 		button.Text = tab
 		button.Selectable = true
