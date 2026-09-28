@@ -148,8 +148,7 @@ end
 function PlayerDataService:ApplyReceipt(player: Player, receiptId: string, mutator): (boolean, string)
 	local entered, result = MutationGuard.TryRun(player.UserId, "profile_value_mutation", function()
 		local current = self:RequireProfile(player)
-		local ok, reason, candidate, changed, detail =
-			ReceiptRules.BuildCandidate(current, receiptId, unixNow(), ProfileSchema.Clone, mutator)
+		local ok, reason, candidate, changed, detail = ReceiptRules.BuildCandidate(current, receiptId, unixNow(), ProfileSchema.Clone, mutator)
 
 		if not ok then
 			if detail then
