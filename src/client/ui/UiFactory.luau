@@ -1,6 +1,13 @@
 --!strict
 
 local GuiService = game:GetService("GuiService")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+local UiPalette = require(ReplicatedStorage.RepairEmpire.Shared.ui.UiPalette)
+
+local function color(rgb)
+	return Color3.fromRGB(rgb[1], rgb[2], rgb[3])
+end
 
 local UiFactory = {}
 
@@ -8,7 +15,10 @@ function UiFactory.Button(parent: Instance, text: string, order: number?): TextB
 	local button = Instance.new("TextButton")
 	button.Name = text:gsub("%W+", "") .. "Button"
 	button.Size = UDim2.new(1, 0, 0, 50)
-	button.BackgroundTransparency = 0.08
+	button.BackgroundTransparency = 0.02
+	button.BackgroundColor3 = color(UiPalette.Button)
+	button.TextColor3 = color(UiPalette.Text)
+	button.BorderSizePixel = 0
 	button.AutoButtonColor = true
 	button.Font = Enum.Font.GothamMedium
 	button.TextSize = 16
@@ -29,6 +39,7 @@ function UiFactory.Label(parent: Instance, text: string, height: number?): TextL
 	local label = Instance.new("TextLabel")
 	label.Size = UDim2.new(1, 0, 0, height or 42)
 	label.BackgroundTransparency = 1
+	label.TextColor3 = color(UiPalette.Text)
 	label.Font = Enum.Font.Gotham
 	label.TextSize = 15
 	label.TextWrapped = true
@@ -42,6 +53,7 @@ function UiFactory.Scroll(parent: Instance): ScrollingFrame
 	local scroll = Instance.new("ScrollingFrame")
 	scroll.Size = UDim2.fromScale(1, 1)
 	scroll.BackgroundTransparency = 1
+	scroll.ScrollBarImageColor3 = color(UiPalette.TextMuted)
 	scroll.BorderSizePixel = 0
 	scroll.AutomaticCanvasSize = Enum.AutomaticSize.Y
 	scroll.CanvasSize = UDim2.new()
