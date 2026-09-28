@@ -99,6 +99,9 @@ Still required:
 - live network timing cases
 
 ## P16 - Data/runtime and public release
+Resolved in runtime:
+- isolated development DataStore recovery probe passed v1→v2 migration, expired-lock acquisition, active foreign-lock rejection, foreign-write rejection and temporary-key cleanup
+
 Resolved in code/tests:
 - expired session locks are acquirable
 - active foreign session locks block acquisition
@@ -106,7 +109,6 @@ Resolved in code/tests:
 - future schema versions fail closed
 
 Still required:
-- migration/recovery runtime cases beyond the successful boot smoke test
 - full QA matrix
 - Roblox content questionnaire is submitted; resulting label is still pending/unknown in Creator Hub
 - icon and thumbnails
