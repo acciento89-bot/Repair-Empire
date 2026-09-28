@@ -15,7 +15,7 @@ Implemented core systems include:
 - server-authoritative job offers, staged repair interactions and rewards
 - player/company progression, district unlocks and Prestige
 - 20 tools with tier gates and speed modifiers
-- 8 vehicle definitions with purchase/select/spawn and a self-contained placeholder driving controller
+- 8 vehicle definitions with purchase/select/spawn and a self-contained procedural driving controller
 - workshop/company progression, 12 employee definitions and bounded passive income
 - three procedural districts with reusable tagged job anchors
 - 1-6 player co-op contracts with discovery, contribution tracking and validated reward splits
@@ -82,14 +82,18 @@ selene src tests scripts
 lune run scripts/run-tests
 ```
 
-## Roblox setup still required
-Do not invent platform IDs. Before sandbox/release validation, the authenticated Roblox owner must supply:
-- owner/group
-- production Universe ID
-- production Start Place ID
-- development/test Place ID(s)
-- configured Game Pass IDs
-- configured Developer Product IDs
+## Roblox platform status
+Repair Empire is configured in Roblox and remains private while QA is incomplete.
+
+Configured:
+- Universe ID: `10768475286`
+- production Start Place ID: `79925227687072`
+- development/test Place ID: `138882349802835`
+- five Game Passes
+- six Developer Products
+- isolated development/production DataStores
+
+Remaining Roblox-side gates are runtime/device/security/Marketplace sandbox verification plus final store assets and release declarations.
 
 Use:
 - [Roblox Dashboard Setup](docs/ROBLOX-DASHBOARD-SETUP.md)
