@@ -13,6 +13,8 @@ local EmployeeDefinitions = require(Shared.company.EmployeeDefinitions)
 local MonetizationConfig = require(Shared.config.MonetizationConfig)
 local JobDefinitions = require(Shared.jobs.JobDefinitions)
 local CoopContracts = require(Shared.coop.CoopContracts)
+local SkillTreeConfig = require(Shared.progression.SkillTreeConfig)
+local RetentionConfig = require(Shared.retention.RetentionConfig)
 local UiFactory = require(script.Parent.UiFactory)
 
 local MenuController = {
@@ -158,6 +160,113 @@ local function renderCoop(content: Frame)
 			end
 		end)
 		order += 1
+	end
+end
+
+local function renderSkills(content: Frame)
+	local state = getState()
+	local scroll = UiFactory.Scroll(content)
+	if state == nil then
+		UiFactory.Label(scroll, "Player state unavailable.")
+		return
+	end
+
+	UiFactory.Label(scroll, ("Available skill points: %d"):format(state.SkillPoints or 0), 40)
+
+	local branchOrder = { "plumbing", "heating", "climate", "energy" }
+	for order, branchId in branchOrder do
+		local branch = SkillTreeConfig.Branches[branchId]
+		local rank = state.Skills[branchId] or 0
+		local speedBonus = rank * 2
+		local cashBonus = rank
+		local xpBonus = rank
+		local button = UiFactory.Button(
+			scroll,
+			("%s • Rank %d/%d • %d%% faster • +%d%% Cash/XP"):format(
+				branch.DisplayName,
+				rank,
+				SkillTreeConfig.MaxRankPerBranch,
+				speedBonus,
+				cashBonus
+			),
+			order
+		)
+		button.Active = rank < SkillTreeConfig.MaxRankPerBranch and (state.SkillPoints or 0) > 0
+		if button.Active then
+			button.Text ..= " • Spend 1 point"
+		elseif rank >= SkillTreeConfig.MaxRankPerBranch then
+			button.Text ..= " • MAX"
+		else
+			button.Text ..= " • Next point every 5 levels"
+		end
+		button.Activated:Connect(function()
+			if not button.Active then
+				return
+			end
+			local result = remote("PurchaseSkill"):InvokeServer(branchId)
+			if type(result) == "table" and result.ok then
+				MenuController.Render("Skills")
+			else
+				button.Text = "Unavailable: " .. tostring(result and result.error or "unknown")
+			end
+		end)
+	end
+end
+
+local function achievementProgress(state, definition): number
+	if definition.Metric == "JobsCompleted" then
+		return state.Stats and state.Stats.JobsCompleted or 0
+	elseif definition.Metric == "Level" then
+		return state.Level or 1
+	elseif definition.Metric == "CompanyLevel" then
+		return state.CompanyLevel or 1
+	elseif definition.Metric == "PrestigeLevel" then
+		return state.PrestigeLevel or 0
+	end
+	return 0
+end
+
+local function renderAchievements(content: Frame)
+	local state = getState()
+	local scroll = UiFactory.Scroll(content)
+	if state == nil then
+		UiFactory.Label(scroll, "Player state unavailable.")
+		return
+	end
+
+	local ids = {}
+	for achievementId in RetentionConfig.Achievements do
+		table.insert(ids, achievementId)
+	end
+	table.sort(ids)
+
+	for order, achievementId in ids do
+		local definition = RetentionConfig.Achievements[achievementId]
+		local status = state.Achievements[achievementId] or "locked"
+		local progress = achievementProgress(state, definition)
+		local button = UiFactory.Button(
+			scroll,
+			("%s • %d/%d • Reward $%d • %s"):format(
+				pretty(achievementId),
+				math.min(progress, definition.Threshold),
+				definition.Threshold,
+				definition.RewardCash,
+				if status == "claimed" then "Claimed" else if status == "unlocked" then "Claim" else "Locked"
+			),
+			order
+		)
+		button.Active = status == "unlocked"
+		button.Activated:Connect(function()
+			if not button.Active then
+				return
+			end
+			local result = remote("ClaimAchievement"):InvokeServer(achievementId)
+			if type(result) == "table" and result.ok then
+				MenuController.Render("Achievements")
+			else
+				button.Text = "Unavailable: " .. tostring(result and result.error or "unknown")
+			end
+		end)
 	end
 end
 
@@ -366,6 +475,8 @@ local renderers = {
 	Jobs = renderJobs,
 	["Co-op"] = renderCoop,
 	Tools = renderTools,
+	Skills = renderSkills,
+	Achievements = renderAchievements,
 	Vehicles = renderVehicles,
 	Company = renderCompany,
 	Daily = renderDaily,
@@ -458,7 +569,7 @@ function MenuController.Start()
 	tabLayout.Padding = UDim.new(0, 6)
 	tabLayout.Parent = tabs
 
-	for _, tab in { "Jobs", "Co-op", "Tools", "Vehicles", "Company", "Daily", "Shop", "Prestige" } do
+	for _, tab in { "Jobs", "Co-op", "Tools", "Skills", "Vehicles", "Company", "Daily", "Achievements", "Shop", "Prestige" } do
 		local button = Instance.new("TextButton")
 		button.Name = tab .. "Tab"
 		button.Size = UDim2.fromOffset(116, 48)
