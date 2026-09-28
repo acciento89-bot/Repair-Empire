@@ -113,7 +113,19 @@ local function addResidentialWorkshop(parent: Instance, center: Vector3, groundS
 
 	local pad = createPart("WorkshopPad", Vector3.new(58, 0.5, 48), CFrame.new(x, 0.25, z), model)
 	pad.Material = Enum.Material.Concrete
-	pad.Color = Color3.fromRGB(126, 126, 126)
+	pad.Color = Color3.fromRGB(112, 116, 120)
+
+	for stripeIndex = -1, 1 do
+		local stripe = createPart(
+			"ServiceBayStripe",
+			Vector3.new(2.2, 0.08, 26),
+			CFrame.new(x + stripeIndex * 9, 0.55, z - 1),
+			model
+		)
+		stripe.Material = Enum.Material.SmoothPlastic
+		stripe.Color = Color3.fromRGB(245, 151, 49)
+		stripe.CanCollide = false
+	end
 
 	local building = createPart("WorkshopBuilding", Vector3.new(36, 12, 30), CFrame.new(x - 6, 6, z), model)
 	building.Material = Enum.Material.Brick
@@ -137,10 +149,45 @@ local function addResidentialWorkshop(parent: Instance, center: Vector3, groundS
 
 	local awning = createPart("WorkshopAwning", Vector3.new(18, 0.5, 4), CFrame.new(x - 6, 9.2, z - 17), model)
 	awning.Material = Enum.Material.Metal
-	awning.Color = Color3.fromRGB(47, 125, 163)
+	awning.Color = Color3.fromRGB(245, 151, 49)
 
-	local signAnchor = Vector3.new(x - 6, 11, z - 15.8)
-	addDistrictSign(model, signAnchor, "REPAIR EMPIRE")
+	local brandSign = createPart("WorkshopBrandSign", Vector3.new(20, 4.5, 0.5), CFrame.new(x - 6, 10.2, z - 15.7), model)
+	brandSign.Material = Enum.Material.Metal
+	brandSign.Color = Color3.fromRGB(20, 34, 46)
+	local brandGui = Instance.new("SurfaceGui")
+	brandGui.Face = Enum.NormalId.Front
+	brandGui.SizingMode = Enum.SurfaceGuiSizingMode.PixelsPerStud
+	brandGui.PixelsPerStud = 42
+	brandGui.Parent = brandSign
+	local brandText = Instance.new("TextLabel")
+	brandText.Size = UDim2.fromScale(1, 1)
+	brandText.BackgroundTransparency = 1
+	brandText.Font = Enum.Font.GothamBold
+	brandText.TextScaled = true
+	brandText.TextColor3 = Color3.fromRGB(245, 151, 49)
+	brandText.Text = "REPAIR EMPIRE"
+	brandText.Parent = brandGui
+
+	for _, side in { -1, 1 } do
+		local bollard = createPart("SafetyBollard", Vector3.new(0.8, 3.2, 0.8), CFrame.new(x - 6 + side * 8, 1.6, z - 17.2), model)
+		bollard.Material = Enum.Material.Metal
+		bollard.Color = Color3.fromRGB(245, 151, 49)
+	end
+
+	local toolRack = createPart("ToolRack", Vector3.new(8, 5, 1), CFrame.new(x - 20, 2.5, z + 8), model)
+	toolRack.Material = Enum.Material.Metal
+	toolRack.Color = Color3.fromRGB(42, 52, 60)
+	for toolIndex = -2, 2 do
+		local tool = createPart(
+			"DisplayTool",
+			Vector3.new(0.35, 3.2, 0.35),
+			CFrame.new(x - 20 + toolIndex * 1.2, 2.8, z + 7.4),
+			model
+		)
+		tool.Material = Enum.Material.Metal
+		tool.Color = if toolIndex % 2 == 0 then Color3.fromRGB(245, 151, 49) else Color3.fromRGB(186, 196, 205)
+		tool.CanCollide = false
+	end
 
 	local spawn = Instance.new("SpawnLocation")
 	spawn.Name = "MainSpawn"
@@ -430,6 +477,25 @@ function WorldService:Init()
 	Lighting.EnvironmentDiffuseScale = 0.45
 	Lighting.EnvironmentSpecularScale = 0.35
 	Lighting.OutdoorAmbient = Color3.fromRGB(145, 145, 155)
+
+	local colorCorrection = Lighting:FindFirstChildOfClass("ColorCorrectionEffect")
+	if colorCorrection == nil then
+		colorCorrection = Instance.new("ColorCorrectionEffect")
+		colorCorrection.Parent = Lighting
+	end
+	colorCorrection.Brightness = 0.02
+	colorCorrection.Contrast = 0.08
+	colorCorrection.Saturation = 0.05
+	colorCorrection.TintColor = Color3.fromRGB(255, 248, 238)
+
+	local bloom = Lighting:FindFirstChildOfClass("BloomEffect")
+	if bloom == nil then
+		bloom = Instance.new("BloomEffect")
+		bloom.Parent = Lighting
+	end
+	bloom.Intensity = 0.12
+	bloom.Size = 18
+	bloom.Threshold = 1.8
 
 	local atmosphere = Lighting:FindFirstChildOfClass("Atmosphere")
 	if atmosphere == nil then
