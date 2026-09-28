@@ -6,6 +6,7 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local ProfileSchema = require(ReplicatedStorage.RepairEmpire.Shared.data.ProfileSchema)
 local ReceiptRules = require(ReplicatedStorage.RepairEmpire.Shared.data.ReceiptRules)
+local SessionRules = require(ReplicatedStorage.RepairEmpire.Shared.data.SessionRules)
 local DataStoreAdapter = require(script.Parent.Parent.datastore.DataStoreAdapter)
 local ProfileMigrations = require(script.Parent.Parent.datastore.ProfileMigrations)
 
@@ -84,15 +85,12 @@ function PlayerDataService:_Load(player: Player)
 	local ok, loaded = DataStoreAdapter.UpdateUser(player.UserId, function(existing)
 		local profile = existing or ProfileSchema.NewProfile()
 		local lock = profile.SessionLock
-		if lock and lock.Token and lock.ExpiresAt and lock.ExpiresAt > now then
+		if not SessionRules.CanAcquire(lock, now) then
 			return nil
 		end
 
 		profile = ProfileMigrations.Migrate(profile)
-		profile.SessionLock = {
-			Token = sessionToken,
-			ExpiresAt = now + SESSION_LOCK_SECONDS,
-		}
+		profile.SessionLock = SessionRules.Create(sessionToken, now, SESSION_LOCK_SECONDS)
 		return profile
 	end)
 
@@ -125,7 +123,7 @@ function PlayerDataService:_Save(player: Player, releaseLock: boolean)
 	self._loadedAt[player.UserId] = os.clock()
 
 	local ok = DataStoreAdapter.UpdateUser(player.UserId, function(existing)
-		if existing and existing.SessionLock and existing.SessionLock.Token ~= sessionToken then
+		if existing and existing.SessionLock and not SessionRules.Owns(existing.SessionLock, sessionToken) then
 			error("Session lock ownership changed; refusing to overwrite")
 		end
 
@@ -133,10 +131,7 @@ function PlayerDataService:_Save(player: Player, releaseLock: boolean)
 		if releaseLock then
 			toSave.SessionLock = nil
 		else
-			toSave.SessionLock = {
-				Token = sessionToken,
-				ExpiresAt = now + SESSION_LOCK_SECONDS,
-			}
+			toSave.SessionLock = SessionRules.Create(sessionToken, now, SESSION_LOCK_SECONDS)
 		end
 		return toSave
 	end)
