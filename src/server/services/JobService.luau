@@ -26,6 +26,7 @@ local JobService = {
 		"RetentionService",
 		"SecurityService",
 		"AnalyticsService",
+		"TutorialService",
 	},
 	_offers = {},
 	_active = {},
@@ -180,6 +181,8 @@ function JobService:Accept(player: Player, offerId: any)
 	local analytics = require(script.Parent.AnalyticsService)
 	analytics:LogCustom(player, "job_accepted", 1)
 	analytics:LogOnce(player, "first_job_accepted", 1)
+	local tutorial = require(script.Parent.TutorialService)
+	tutorial:Advance(player, "first_job")
 	return {
 		ok = true,
 		instanceId = instanceId,
@@ -246,6 +249,9 @@ function JobService:PerformAction(player: Player, payload: any)
 		return { ok = false, error = "too_fast" }
 	end
 
+	local tutorial = require(script.Parent.TutorialService)
+	tutorial:Advance(player, "first_repair")
+
 	active.StageIndex += 1
 	active.StageStartedAt = os.clock()
 	if active.StageIndex <= #definition.Stages then
@@ -290,6 +296,7 @@ function JobService:PerformAction(player: Player, payload: any)
 	local analytics = require(script.Parent.AnalyticsService)
 	analytics:LogCustom(player, "job_completed", 1)
 	analytics:LogOnce(player, "first_job_completed", 1)
+	tutorial:Advance(player, "first_reward")
 	getStateEvent():FireClient(player, {
 		kind = "job_completed",
 		reward = cashReward,
