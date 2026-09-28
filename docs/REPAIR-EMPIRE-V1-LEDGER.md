@@ -5,8 +5,8 @@ Status legend: [ ] open, [~] implemented/partially verified, [x] verified comple
 Implementation is active. Core systems are implemented and the repository is CI-green.
 
 Verification baseline:
-- GitHub Actions run #347+: success
-- Head verified through formatting, Selene lint, Rojo build and 28 pure-Luau tests; release-readiness reports Sandbox-ready: yes
+- GitHub Actions run #364: success
+- Head verified through formatting, Selene lint, Rojo build and 28 pure-Luau tests; release-readiness reports Sandbox-ready: yes; latest phone HUD fixes are included
 - External/runtime-only blockers are documented in `docs/EXTERNAL-ROBLOX-BLOCKERS.md`
 
 ## P00 Product Definition
