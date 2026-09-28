@@ -16,6 +16,22 @@ MenuNavigation.Tabs = table.freeze({
 	{ Id = "Shop", Label = "Shop" },
 })
 
+function MenuNavigation.IndexOf(id: string): number?
+	for index, tab in MenuNavigation.Tabs do
+		if tab.Id == id then
+			return index
+		end
+	end
+	return nil
+end
+
+function MenuNavigation.Move(id: string, delta: number): string
+	local index = MenuNavigation.IndexOf(id) or 1
+	local count = #MenuNavigation.Tabs
+	local nextIndex = ((index - 1 + delta) % count) + 1
+	return MenuNavigation.Tabs[nextIndex].Id
+end
+
 function MenuNavigation.GetIds(): { string }
 	local ids = {}
 	for _, tab in MenuNavigation.Tabs do
