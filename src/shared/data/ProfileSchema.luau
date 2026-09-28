@@ -28,6 +28,13 @@ local DEFAULT_PROFILE = {
 	SelectedVehicle = "old_compact_van",
 	Employees = {},
 	LastPassiveTimestamp = 0,
+	ProcessedReceipts = {},
+	Boosts = {
+		CashMultiplierUntil = 0,
+	},
+	Consumables = {
+		InstantJobFinishes = 0,
+	},
 	Tutorial = {
 		Step = "first_job",
 		Completed = false,
@@ -59,6 +66,10 @@ local function deepCopy(value)
 		result[key] = deepCopy(nested)
 	end
 	return result
+end
+
+function ProfileSchema.Clone(profile)
+	return deepCopy(profile)
 end
 
 function ProfileSchema.NewProfile()
