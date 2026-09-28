@@ -13,6 +13,7 @@ local tests = {
 	require("../tests/balance-guardrails.spec"),
 	require("../tests/profile-migration.spec"),
 	require("../tests/job-validator.spec"),
+	require("../tests/tool-rules.spec"),
 }
 
 local passed = 0
