@@ -7,7 +7,7 @@ local ToolDefinitions = require(Shared.tools.ToolDefinitions)
 
 local ToolService = {
 	Name = "ToolService",
-	Dependencies = { "PlayerDataService", "EconomyService", "SecurityService", "AnalyticsService" },
+	Dependencies = { "PlayerDataService", "EconomyService", "SecurityService", "AnalyticsService", "TutorialService" },
 }
 
 local function remote(name: string): RemoteFunction
@@ -63,6 +63,8 @@ function ToolService:Purchase(player: Player, toolId: any)
 	dataService:Publish(player)
 	local analytics = require(script.Parent.AnalyticsService)
 	analytics:LogOnce(player, "first_upgrade_bought", 1)
+	local tutorial = require(script.Parent.TutorialService)
+	tutorial:Advance(player, "first_upgrade")
 	return { ok = true }
 end
 
