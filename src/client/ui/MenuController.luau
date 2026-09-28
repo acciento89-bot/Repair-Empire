@@ -5,6 +5,7 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local UserInputService = game:GetService("UserInputService")
 local GuiService = game:GetService("GuiService")
 local MarketplaceService = game:GetService("MarketplaceService")
+local RunService = game:GetService("RunService")
 
 local Shared = ReplicatedStorage.RepairEmpire.Shared
 local ToolDefinitions = require(Shared.tools.ToolDefinitions)
@@ -643,6 +644,9 @@ function MenuController.Start()
 	close.Activated:Connect(MenuController.Close)
 
 	UserInputService.InputBegan:Connect(function(input, processed)
+		if RunService:IsStudio() and input.UserInputType == Enum.UserInputType.Gamepad1 then
+			print("[Repair Empire] StudioGamepadInput " .. tostring(input.KeyCode))
+		end
 		if processed then
 			return
 		end
