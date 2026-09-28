@@ -1,6 +1,11 @@
 --!strict
 
-local ProfileSchema = require(script.Parent.ProfileSchema)
+local ProfileSchema
+if script ~= nil then
+	ProfileSchema = require(script.Parent.ProfileSchema)
+else
+	ProfileSchema = require("./ProfileSchema")
+end
 
 local ProfileMigrationRules = {}
 
