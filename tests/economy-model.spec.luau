@@ -43,4 +43,9 @@ return function()
 	local lateCompanyPointsPerJob = math.max(1, math.floor(lateJob.BaseReward * 0.03))
 	local optimisticJobsToCompany10 = math.ceil(companyPointTarget / lateCompanyPointsPerJob)
 	assert(optimisticJobsToCompany10 <= optimisticJobsToLevel100, "company-level gate is modeled to block Prestige after player level 100")
+
+	local levelingMinutes = model.EstimateLevelingMinutes(progression.MaxPlayerLevel, jobs.List, tools.List, progression, 45)
+	local levelingHours = levelingMinutes / 60
+	assert(levelingHours >= 20, "modeled first-prestige leveling is too short for V1 endgame pacing")
+	assert(levelingHours <= 80, "modeled first-prestige leveling is too long for V1 endgame pacing")
 end
