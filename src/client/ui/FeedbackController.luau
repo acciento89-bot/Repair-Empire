@@ -3,6 +3,12 @@
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
+local UiPalette = require(ReplicatedStorage.RepairEmpire.Shared.ui.UiPalette)
+
+local function color(rgb)
+	return Color3.fromRGB(rgb[1], rgb[2], rgb[3])
+end
+
 local FeedbackController = {}
 
 local function pretty(id: string): string
@@ -45,7 +51,10 @@ function FeedbackController.Start()
 	toast.AnchorPoint = Vector2.new(0.5, 0)
 	toast.Position = UDim2.new(0.5, 0, 0, 20)
 	toast.Size = UDim2.fromOffset(420, 54)
-	toast.BackgroundTransparency = 0.08
+	toast.BackgroundTransparency = 0.04
+	toast.BackgroundColor3 = color(UiPalette.Hud)
+	toast.TextColor3 = color(UiPalette.Text)
+	toast.BorderSizePixel = 0
 	toast.Font = Enum.Font.GothamBold
 	toast.TextSize = 17
 	toast.TextWrapped = true
