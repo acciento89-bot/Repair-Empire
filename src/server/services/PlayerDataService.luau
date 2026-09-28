@@ -34,6 +34,8 @@ local function publishSummary(player: Player, profile)
 	player:SetAttribute("CompanyLevel", profile.CompanyLevel)
 	player:SetAttribute("WorkshopTier", profile.WorkshopTier)
 	player:SetAttribute("PrestigeLevel", profile.PrestigeLevel)
+	player:SetAttribute("SkillPoints", profile.SkillPoints)
+	player:SetAttribute("EquippedTool", profile.EquippedTool)
 	player:SetAttribute("InstantJobFinishes", profile.Consumables.InstantJobFinishes)
 	player:SetAttribute("TutorialStep", profile.Tutorial.Step)
 	player:SetAttribute("TutorialCompleted", profile.Tutorial.Completed)
@@ -66,6 +68,8 @@ function PlayerDataService:GetSafeState(player: Player)
 		CompanyLevel = profile.CompanyLevel,
 		WorkshopTier = profile.WorkshopTier,
 		PrestigeLevel = profile.PrestigeLevel,
+		SkillPoints = profile.SkillPoints,
+		Skills = ProfileSchema.Clone(profile.Skills),
 		OwnedTools = ProfileSchema.Clone(profile.OwnedTools),
 		EquippedTool = profile.EquippedTool,
 		OwnedVehicles = ProfileSchema.Clone(profile.OwnedVehicles),
