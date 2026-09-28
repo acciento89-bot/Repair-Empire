@@ -7,7 +7,7 @@ local VehicleDefinitions = require(ReplicatedStorage.RepairEmpire.Shared.vehicle
 
 local VehicleService = {
 	Name = "VehicleService",
-	Dependencies = { "PlayerDataService", "EconomyService" },
+	Dependencies = { "PlayerDataService", "EconomyService", "SecurityService" },
 	_spawned = {},
 }
 
@@ -46,6 +46,10 @@ local function buildPlaceholderVehicle(player: Player, definition)
 end
 
 function VehicleService:Purchase(player: Player, vehicleId: any)
+	local security = require(script.Parent.SecurityService)
+	if not security:Allow(player, "PurchaseVehicle") then
+		return { ok = false, error = "rate_limited" }
+	end
 	if type(vehicleId) ~= "string" then
 		return { ok = false, error = "invalid_vehicle" }
 	end
@@ -74,6 +78,10 @@ function VehicleService:Purchase(player: Player, vehicleId: any)
 end
 
 function VehicleService:Select(player: Player, vehicleId: any)
+	local security = require(script.Parent.SecurityService)
+	if not security:Allow(player, "SelectVehicle") then
+		return { ok = false, error = "rate_limited" }
+	end
 	if type(vehicleId) ~= "string" then
 		return { ok = false, error = "invalid_vehicle" }
 	end
@@ -88,6 +96,10 @@ function VehicleService:Select(player: Player, vehicleId: any)
 end
 
 function VehicleService:Spawn(player: Player)
+	local security = require(script.Parent.SecurityService)
+	if not security:Allow(player, "SpawnVehicle") then
+		return { ok = false, error = "rate_limited" }
+	end
 	local dataService = require(script.Parent.PlayerDataService)
 	local profile = dataService:RequireProfile(player)
 	local definition = VehicleDefinitions.ById[profile.SelectedVehicle]
