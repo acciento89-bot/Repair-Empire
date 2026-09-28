@@ -26,6 +26,8 @@ local definitions = {
 
 	{ Name = "ClaimDailyReward", Kind = "Function", RateLimitPerSecond = 1 },
 	{ Name = "RequestDailyJobs", Kind = "Function", RateLimitPerSecond = 2 },
+	{ Name = "RequestRetentionStatus", Kind = "Function", RateLimitPerSecond = 2 },
+	{ Name = "ClaimPlaytimeReward", Kind = "Function", RateLimitPerSecond = 2 },
 	{ Name = "ClaimAchievement", Kind = "Function", RateLimitPerSecond = 2 },
 	{ Name = "RequestPrestige", Kind = "Function", RateLimitPerSecond = 1 },
 
