@@ -140,6 +140,7 @@ local function renderVehicles(content: Frame)
 end
 
 local function renderCompany(content: Frame)
+	remote("RecordFunnelEvent"):InvokeServer("company_system_opened")
 	local state = getState()
 	local scroll = UiFactory.Scroll(content)
 	if state == nil then
@@ -199,6 +200,7 @@ local function renderDaily(content: Frame)
 end
 
 local function renderShop(content: Frame)
+	remote("RecordFunnelEvent"):InvokeServer("shop_opened")
 	local scroll = UiFactory.Scroll(content)
 	UiFactory.Label(scroll, "Game Passes", 38)
 
