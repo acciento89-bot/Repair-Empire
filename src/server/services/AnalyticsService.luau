@@ -29,6 +29,10 @@ function AnalyticsService:Init()
 			return { ok = false, error = "invalid_event" }
 		end
 		self:LogOnce(player, eventName, 1)
+		if eventName == "company_system_opened" then
+			local tutorial = require(script.Parent.TutorialService)
+			tutorial:Advance(player, "company_intro")
+		end
 		return { ok = true }
 	end
 end
