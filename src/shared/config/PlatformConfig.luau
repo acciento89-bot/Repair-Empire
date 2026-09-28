@@ -2,8 +2,8 @@
 
 local PlatformConfig = {
 	Environment = "development",
-	UniverseId = nil :: number?,
-	ProductionStartPlaceId = nil :: number?,
+	UniverseId = 10768475286,
+	ProductionStartPlaceId = 79925227687072,
 	DevelopmentPlaceIds = {} :: { number },
 	GamePassIds = {} :: { [string]: number },
 	DeveloperProductIds = {} :: { [string]: number },
