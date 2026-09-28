@@ -93,7 +93,7 @@ function InteractionController.Start()
 	instant.AnchorPoint = Vector2.new(1, 1)
 	instant.Position = UDim2.new(1, -24, 1, -164)
 	instant.Size = UDim2.fromOffset(220, 48)
-	instant.Font = Enum.Font.GothamSemibold
+	instant.Font = Enum.Font.GothamMedium
 	instant.TextSize = 14
 	instant.Text = "Use Instant Finish"
 	instant.Visible = false
