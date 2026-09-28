@@ -6,4 +6,9 @@ return function()
 	assert(#jobs.List == 30, "launch job catalog must contain 30 jobs")
 	assert(#tools.List == 20, "launch tool catalog must contain 20 tools")
 	assert(#vehicles.List == 8, "launch vehicle catalog must contain 8 vehicles")
+	for _, definition in vehicles.List do
+		assert(definition.BodySize[1] > 0 and definition.BodySize[2] > 0 and definition.BodySize[3] > 0, "vehicle body dimensions must be positive")
+		assert(definition.Axles >= 2, "launch vehicles must define at least two axles")
+		assert(definition.Seats >= 2, "launch vehicles must support driver plus passenger")
+	end
 end
