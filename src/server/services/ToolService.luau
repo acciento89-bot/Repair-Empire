@@ -27,6 +27,11 @@ function ToolService:GetEquippedTier(player: Player): number
 	return if definition then definition.Tier else 0
 end
 
+function ToolService:GetEquippedSpeedMultiplier(player: Player): number
+	local definition = self:GetEquippedDefinition(player)
+	return if definition then definition.SpeedMultiplier else 1
+end
+
 function ToolService:Purchase(player: Player, toolId: any)
 	local security = require(script.Parent.SecurityService)
 	if not security:Allow(player, "PurchaseTool") then
