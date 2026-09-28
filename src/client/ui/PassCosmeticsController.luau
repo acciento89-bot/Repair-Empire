@@ -2,6 +2,13 @@
 
 local Players = game:GetService("Players")
 local Workspace = game:GetService("Workspace")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+local UiPalette = require(ReplicatedStorage.RepairEmpire.Shared.ui.UiPalette)
+
+local function color(rgb)
+	return Color3.fromRGB(rgb[1], rgb[2], rgb[3])
+end
 
 local PassCosmeticsController = {}
 
@@ -22,7 +29,10 @@ local function applyVipBadge(player: Player)
 		badge.AnchorPoint = Vector2.new(1, 0)
 		badge.Position = UDim2.new(1, -16, 0, 72)
 		badge.Size = UDim2.fromOffset(72, 32)
-		badge.BackgroundTransparency = 0.08
+		badge.BackgroundTransparency = 0.04
+		badge.BackgroundColor3 = color(UiPalette.Hud)
+		badge.TextColor3 = color(UiPalette.Gold)
+		badge.BorderSizePixel = 0
 		badge.Font = Enum.Font.GothamBold
 		badge.TextSize = 15
 		badge.Text = "VIP"
@@ -83,7 +93,10 @@ local function applyPremiumWorkshop(player: Player)
 
 		local label = Instance.new("TextLabel")
 		label.Size = UDim2.fromScale(1, 1)
-		label.BackgroundTransparency = 0.15
+		label.BackgroundTransparency = 0.04
+		label.BackgroundColor3 = color(UiPalette.Hud)
+		label.TextColor3 = color(UiPalette.Text)
+		label.BorderSizePixel = 0
 		label.Font = Enum.Font.GothamBold
 		label.TextSize = 15
 		label.Text = "PREMIUM WORKSHOP"
