@@ -15,6 +15,9 @@ return function()
 	assert(migrated.UnlockedDistricts.residential == true, "migration must restore required default unlock")
 	assert(migrated.Skills.plumbing == 0, "migration must add plumbing skill branch")
 	assert(migrated.Skills.energy == 0, "migration must add energy skill branch")
+	assert(migrated.Daily.PlaytimeDay == 0, "migration must add daily playtime day")
+	assert(migrated.Daily.PlaytimeSeconds == 0, "migration must add daily playtime seconds")
+	assert(type(migrated.Daily.PlaytimeClaims) == "table", "migration must add playtime claim state")
 
 	local v1 = {
 		SchemaVersion = 1,
