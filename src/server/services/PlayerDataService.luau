@@ -10,6 +10,7 @@ local SessionRules = require(ReplicatedStorage.RepairEmpire.Shared.data.SessionR
 local DataStoreAdapter = require(script.Parent.Parent.datastore.DataStoreAdapter)
 local ProfileMigrations = require(script.Parent.Parent.datastore.ProfileMigrations)
 local MutationGuard = require(script.Parent.Parent.security.MutationGuard)
+local DataRecoveryProbe = require(script.Parent.Parent.qa.DataRecoveryProbe)
 
 local AUTOSAVE_SECONDS = 60
 local SESSION_LOCK_SECONDS = 180
@@ -211,6 +212,10 @@ function PlayerDataService:Init()
 end
 
 function PlayerDataService:Start()
+	task.spawn(function()
+		DataRecoveryProbe.Run()
+	end)
+
 	task.spawn(function()
 		while true do
 			task.wait(AUTOSAVE_SECONDS)
