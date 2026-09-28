@@ -5,7 +5,7 @@ Status legend: [ ] open, [~] in progress, [x] verified complete, [!] blocked.
 Planning baseline is complete. Implementation is intentionally not started.
 
 ## P00 Product Definition
-- [ ] P00-T01 Initialize standalone implementation repository and project metadata
+- [x] P00-T01 Initialize standalone implementation repository and project metadata
 - [ ] P00-T02 Confirm Roblox experience ownership/naming/place structure
 - [ ] P00-T03 Freeze V1 config identifiers and terminology
 
