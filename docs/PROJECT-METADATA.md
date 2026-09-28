@@ -3,7 +3,7 @@
 ## Repository
 - Repository: `acciento89-bot/Repair-Empire`
 - Default branch: `main`
-- Visibility: private
+- Visibility: public
 - Product/brand owner: Kamilunavo
 - Final working display name: **Repair Empire**
 - Platform: Roblox
@@ -18,13 +18,14 @@ Decisions that are fixed without requiring Roblox account access:
 - Development/test places are never referenced by gameplay feature modules directly.
 - All environment-specific Roblox IDs are centralized in `src/shared/config/PlatformConfig.luau` once known.
 
-Values that require an authenticated Roblox owner/dashboard and therefore remain unresolved:
-- Roblox owner/group: **TBD - external Roblox account action required**
-- Production universe ID: **TBD - external Roblox account action required**
-- Production start place ID: **TBD - external Roblox account action required**
-- Development/test place ID(s): **TBD - external Roblox account action required**
+Resolved Roblox platform values:
+- ownership type: authenticated personal Roblox creator account used to create the experience; no group ownership configured
+- production universe ID: `10768475286`
+- production start place ID: `79925227687072`
+- development/test place ID: `138882349802835`
+- development place name: **Repair Empire Dev**
 
-Do not invent these values and do not block unrelated implementation on them.
+The experience and both places remain private while QA is incomplete.
 
 ## Environment names
 Stable internal environment keys:
