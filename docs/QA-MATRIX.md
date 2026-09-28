@@ -45,7 +45,8 @@
 - Developer Product receipt grants exactly once.
 - Duplicate receipt returns granted without duplicate value.
 - Receipt save failure returns NotProcessedYet.
-- Paid entitlements survive prestige.
+- Paid entitlements survive prestige. Pure rules verify Cash, Developer Product consumables and active boosts; live Game Pass rejoin still requires Marketplace sandbox evidence.
+- Duplicate receipt retries do not duplicate value or purchase analytics.
 - Free path remains complete.
 
 ## UI/input
