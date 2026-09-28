@@ -1,7 +1,7 @@
 # Repair Empire - Prelaunch Balance Review
 
 ## Current balance version
-`v1-prelaunch-001`
+`v1-prelaunch-002`
 
 ## Guardrails already enforced
 - Vehicle purchase costs rise by progression tier.
