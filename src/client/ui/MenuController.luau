@@ -15,7 +15,7 @@ local JobDefinitions = require(Shared.jobs.JobDefinitions)
 local CoopContracts = require(Shared.coop.CoopContracts)
 local SkillTreeConfig = require(Shared.progression.SkillTreeConfig)
 local RetentionConfig = require(Shared.retention.RetentionConfig)
-local UiFactory = require(script.Parent.UiFactory)
+local UiFactory = require(script.Parent.UiFactory)\nlocal MenuNavigation = require(Shared.ui.MenuNavigation)
 
 local MenuController = {
 	_screen = nil :: ScreenGui?,
