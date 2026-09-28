@@ -9,7 +9,7 @@ local VehicleDefinitions = require(ReplicatedStorage.RepairEmpire.Shared.vehicle
 
 local VehicleService = {
 	Name = "VehicleService",
-	Dependencies = { "PlayerDataService", "EconomyService", "SecurityService" },
+	Dependencies = { "PlayerDataService", "EconomyService", "SecurityService", "EntitlementService" },
 	_spawned = {},
 }
 
@@ -32,9 +32,9 @@ local function createVehiclePart(name: string, size: Vector3, cframe: CFrame, pa
 	return part
 end
 
-local function buildPlaceholderVehicle(player: Player, definition)
+local function buildPlaceholderVehicle(player: Player, definition, slotIndex: number)
 	local model = Instance.new("Model")
-	model.Name = ("Vehicle_%d"):format(player.UserId)
+	model.Name = ("Vehicle_%d_%d"):format(player.UserId, slotIndex)
 	model:SetAttribute("OwnerUserId", player.UserId)
 	model:SetAttribute("VehicleId", definition.Id)
 	model:SetAttribute("VehicleStyle", definition.Style)
@@ -168,9 +168,13 @@ function VehicleService:Select(player: Player, vehicleId: any)
 end
 
 function VehicleService:_DestroySpawned(userId: number)
-	local entry = self._spawned[userId]
-	if entry and entry.Model and entry.Model.Parent then
-		entry.Model:Destroy()
+	local entries = self._spawned[userId]
+	if entries then
+		for _, entry in entries do
+			if entry.Model and entry.Model.Parent then
+				entry.Model:Destroy()
+			end
+		end
 	end
 	self._spawned[userId] = nil
 end
@@ -187,54 +191,73 @@ function VehicleService:Spawn(player: Player)
 		return { ok = false, error = "invalid_selected_vehicle" }
 	end
 
-	self:_DestroySpawned(player.UserId)
+	local entitlement = require(script.Parent.EntitlementService)
+	local maxVehicles = if entitlement:HasPass(player, "extra_vehicle_slot") then 2 else 1
+	local entries = self._spawned[player.UserId] or {}
 
-	local model, seat = buildPlaceholderVehicle(player, definition)
+	while #entries >= maxVehicles do
+		local oldest = table.remove(entries, 1)
+		if oldest and oldest.Model and oldest.Model.Parent then
+			oldest.Model:Destroy()
+		end
+	end
+
+	local slotIndex = #entries + 1
+	local model, seat = buildPlaceholderVehicle(player, definition, slotIndex)
 	local character = player.Character
 	local root = character and character:FindFirstChild("HumanoidRootPart")
 	if root and root:IsA("BasePart") and model.PrimaryPart then
-		model:PivotTo(root.CFrame * CFrame.new(8, 1.5, -12))
+		local lateralOffset = if slotIndex == 1 then 8 else -8
+		model:PivotTo(root.CFrame * CFrame.new(lateralOffset, 1.5, -12))
 	end
 
-	self._spawned[player.UserId] = {
+	table.insert(entries, {
 		Model = model,
 		Seat = seat,
 		Definition = definition,
-	}
-	return { ok = true }
+	})
+	self._spawned[player.UserId] = entries
+	return { ok = true, activeVehicles = #entries, maxVehicles = maxVehicles }
 end
 
 function VehicleService:_Step(dt: number)
-	for ownerUserId, entry in self._spawned do
-		local model = entry.Model
-		local seat = entry.Seat
-		if model.Parent == nil or seat.Parent == nil then
+	for ownerUserId, entries in self._spawned do
+		for index = #entries, 1, -1 do
+			local entry = entries[index]
+			local model = entry.Model
+			local seat = entry.Seat
+			if model.Parent == nil or seat.Parent == nil then
+				table.remove(entries, index)
+				continue
+			end
+
+			local occupant = seat.Occupant
+			if occupant == nil then
+				continue
+			end
+
+			local driver = Players:GetPlayerFromCharacter(occupant.Parent)
+			if driver == nil or driver.UserId ~= ownerUserId then
+				occupant.Sit = false
+				continue
+			end
+
+			local throttle = seat.ThrottleFloat
+			local steer = seat.SteerFloat
+			if math.abs(throttle) < 0.01 and math.abs(steer) < 0.01 then
+				continue
+			end
+
+			local current = model:GetPivot()
+			local turnRate = math.rad(55) * (0.35 + math.abs(throttle) * 0.65)
+			local rotated = current * CFrame.Angles(0, -steer * turnRate * dt, 0)
+			local distance = throttle * entry.Definition.Speed * dt
+			model:PivotTo(rotated * CFrame.new(0, 0, -distance))
+		end
+
+		if #entries == 0 then
 			self._spawned[ownerUserId] = nil
-			continue
 		end
-
-		local occupant = seat.Occupant
-		if occupant == nil then
-			continue
-		end
-
-		local driver = Players:GetPlayerFromCharacter(occupant.Parent)
-		if driver == nil or driver.UserId ~= ownerUserId then
-			occupant.Sit = false
-			continue
-		end
-
-		local throttle = seat.ThrottleFloat
-		local steer = seat.SteerFloat
-		if math.abs(throttle) < 0.01 and math.abs(steer) < 0.01 then
-			continue
-		end
-
-		local current = model:GetPivot()
-		local turnRate = math.rad(55) * (0.35 + math.abs(throttle) * 0.65)
-		local rotated = current * CFrame.Angles(0, -steer * turnRate * dt, 0)
-		local distance = throttle * entry.Definition.Speed * dt
-		model:PivotTo(rotated * CFrame.new(0, 0, -distance))
 	end
 end
 
