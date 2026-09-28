@@ -63,12 +63,16 @@ Still required:
 - Game Pass entitlement persistence after real purchase/rejoin
 
 ## P13 - Device and accessibility validation
+Resolved/verified:
+- iPhone XR landscape emulator view is visually usable
+- explicit UI palette has automated 4.5:1 minimum contrast checks in CI
+
 Still required:
-- small phone
+- smallest phone portrait/compact-device QA
 - tablet
-- desktop mouse/keyboard
+- desktop mouse/keyboard runtime pass
 - controller
-- safe-area/input-overlap validation
+- remaining safe-area/input-overlap validation
 
 ## P14 - Runtime exploit validation
 Still required:
