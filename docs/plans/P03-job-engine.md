@@ -4,12 +4,12 @@
 Build the reusable data-driven engine that powers all repair content.
 
 ### P03-T01 Job data schema and registry
-Fields: id, category, district, level gates, weight, reward, XP, duration target, required tool tier, stages, co-op flag.
+Fields: id, category, district, player/company level gates, weighted rarity, reward, XP, expected duration, required tool tier, repetition cooldown, stages and co-op flag.
 Acceptance: malformed content fails validation in development.
 
 ### P03-T02 Server job offer generation
-Generate offers from eligible config using server state.
-Acceptance: locked districts/tools/jobs never appear as eligible offers.
+Generate weighted offers from eligible config using server state and per-job repetition cooldowns.
+Acceptance: locked districts/tools/jobs and cooling-down jobs never appear as eligible offers; weighted sampling does not repeat an offer.
 
 ### P03-T03 Accept/abandon lifecycle
 One authoritative active-job model with unique instance ID.
