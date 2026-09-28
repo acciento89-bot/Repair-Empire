@@ -60,12 +60,7 @@ local function renderJobs(content: Frame)
 
 	for order, offer in result.offers or {} do
 		local job = offer.Job
-		local text = ("%s • $%d • %d XP • Tier %d"):format(
-			pretty(job.Id),
-			job.BaseReward,
-			job.XP,
-			job.RequiredToolTier
-		)
+		local text = ("%s • $%d • %d XP • Tier %d"):format(pretty(job.Id), job.BaseReward, job.XP, job.RequiredToolTier)
 		local button = UiFactory.Button(scroll, text, order)
 		button.Activated:Connect(function()
 			local accepted = remote("AcceptJob"):InvokeServer(offer.OfferId)
@@ -90,11 +85,8 @@ local function renderTools(content: Frame)
 		local owned = state.OwnedTools[definition.Id] == true
 		local equipped = state.EquippedTool == definition.Id
 		local status = if equipped then "Equipped" elseif owned then "Equip" else ("Buy $%d"):format(definition.Cost)
-		local button = UiFactory.Button(
-			scroll,
-			("%s • T%d • Lv%d • %s"):format(pretty(definition.Id), definition.Tier, definition.MinimumLevel, status),
-			order
-		)
+		local button =
+			UiFactory.Button(scroll, ("%s • T%d • Lv%d • %s"):format(pretty(definition.Id), definition.Tier, definition.MinimumLevel, status), order)
 		button.Activated:Connect(function()
 			local result
 			if owned then
@@ -129,11 +121,8 @@ local function renderVehicles(content: Frame)
 		local owned = state.OwnedVehicles[definition.Id] == true
 		local selected = state.SelectedVehicle == definition.Id
 		local status = if selected then "Selected" elseif owned then "Select" else ("Buy $%d"):format(definition.Cost)
-		local button = UiFactory.Button(
-			scroll,
-			("%s • T%d • Lv%d • %s"):format(pretty(definition.Id), definition.Tier, definition.MinimumLevel, status),
-			order + 1
-		)
+		local button =
+			UiFactory.Button(scroll, ("%s • T%d • Lv%d • %s"):format(pretty(definition.Id), definition.Tier, definition.MinimumLevel, status), order + 1)
 		button.Activated:Connect(function()
 			local result
 			if owned then
@@ -173,12 +162,7 @@ local function renderCompany(content: Frame)
 		local owned = state.Employees[definition.Id] or 0
 		local button = UiFactory.Button(
 			scroll,
-			("%s • %d/min • owned %d • Hire $%d"):format(
-				pretty(definition.Id),
-				definition.CashPerMinute,
-				owned,
-				definition.Cost
-			),
+			("%s • %d/min • owned %d • Hire $%d"):format(pretty(definition.Id), definition.CashPerMinute, owned, definition.Cost),
 			order + 1
 		)
 		button.Activated:Connect(function()
@@ -221,11 +205,7 @@ local function renderShop(content: Frame)
 	local order = 1
 	for key, config in MonetizationConfig.GamePasses do
 		local configured = config.Id ~= nil
-		local text = ("%s • %d R$ • %s"):format(
-			pretty(key),
-			config.PriceHypothesis,
-			if configured then "Buy" else "Awaiting Roblox ID"
-		)
+		local text = ("%s • %d R$ • %s"):format(pretty(key), config.PriceHypothesis, if configured then "Buy" else "Awaiting Roblox ID")
 		local button = UiFactory.Button(scroll, text, order)
 		button.Active = configured
 		button.Activated:Connect(function()
@@ -273,11 +253,7 @@ local function renderPrestige(content: Frame)
 			return
 		end
 
-		preview.Text = ("Confirm Prestige %d → %d (x%.2f rewards)"):format(
-			result.currentPrestige,
-			result.nextPrestige,
-			result.nextRewardMultiplier
-		)
+		preview.Text = ("Confirm Prestige %d → %d (x%.2f rewards)"):format(result.currentPrestige, result.nextPrestige, result.nextRewardMultiplier)
 		local token = result.token
 		preview.Activated:Once(function()
 			local confirmed = remote("RequestPrestige"):InvokeServer({ action = "confirm", token = token })
