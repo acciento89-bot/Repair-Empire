@@ -4,6 +4,7 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local Shared = ReplicatedStorage.RepairEmpire.Shared
 local ToolDefinitions = require(Shared.tools.ToolDefinitions)
+local MutationGuard = require(script.Parent.Parent.security.MutationGuard)
 
 local ToolService = {
 	Name = "ToolService",
@@ -45,27 +46,33 @@ function ToolService:Purchase(player: Player, toolId: any)
 		return { ok = false, error = "invalid_tool" }
 	end
 
-	local dataService = require(script.Parent.PlayerDataService)
-	local profile = dataService:RequireProfile(player)
-	if profile.OwnedTools[toolId] then
-		return { ok = false, error = "already_owned" }
-	end
-	if profile.Level < definition.MinimumLevel then
-		return { ok = false, error = "level_locked" }
-	end
+	local entered, result = MutationGuard.TryRun(player.UserId, "profile_value_mutation", function()
+		local dataService = require(script.Parent.PlayerDataService)
+		local profile = dataService:RequireProfile(player)
+		if profile.OwnedTools[toolId] then
+			return { ok = false, error = "already_owned" }
+		end
+		if profile.Level < definition.MinimumLevel then
+			return { ok = false, error = "level_locked" }
+		end
 
-	local economy = require(script.Parent.EconomyService)
-	if not economy:Spend(player, "cash", definition.Cost, "tool:" .. toolId) then
-		return { ok = false, error = "insufficient_funds" }
-	end
+		local economy = require(script.Parent.EconomyService)
+		if not economy:Spend(player, "cash", definition.Cost, "tool:" .. toolId) then
+			return { ok = false, error = "insufficient_funds" }
+		end
 
-	profile.OwnedTools[toolId] = true
-	dataService:Publish(player)
-	local analytics = require(script.Parent.AnalyticsService)
-	analytics:LogOnce(player, "first_upgrade_bought", 1)
-	local tutorial = require(script.Parent.TutorialService)
-	tutorial:Advance(player, "first_upgrade")
-	return { ok = true }
+		profile.OwnedTools[toolId] = true
+		dataService:Publish(player)
+		local analytics = require(script.Parent.AnalyticsService)
+		analytics:LogOnce(player, "first_upgrade_bought", 1)
+		local tutorial = require(script.Parent.TutorialService)
+		tutorial:Advance(player, "first_upgrade")
+		return { ok = true }
+	end)
+	if not entered then
+		return { ok = false, error = "mutation_in_progress" }
+	end
+	return result
 end
 
 function ToolService:Equip(player: Player, toolId: any)
