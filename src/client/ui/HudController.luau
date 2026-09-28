@@ -1,9 +1,13 @@
 --!strict
 
 local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+local TutorialConfig = require(ReplicatedStorage.RepairEmpire.Shared.config.TutorialConfig)
 
 local HudController = {
 	_objectiveLabel = nil :: TextLabel?,
+	_tutorialLabel = nil :: TextLabel?,
 }
 
 local function createLabel(parent: Instance, name: string, position: UDim2): TextLabel
@@ -40,6 +44,18 @@ function HudController.Start()
 	local cash = createLabel(screen, "Cash", UDim2.fromOffset(16, 16))
 	local level = createLabel(screen, "Level", UDim2.fromOffset(208, 16))
 
+	local tutorial = Instance.new("TextLabel")
+	tutorial.Name = "Tutorial"
+	tutorial.Position = UDim2.fromOffset(16, 68)
+	tutorial.Size = UDim2.fromOffset(360, 54)
+	tutorial.BackgroundTransparency = 0.18
+	tutorial.TextWrapped = true
+	tutorial.TextScaled = true
+	tutorial.Font = Enum.Font.GothamMedium
+	tutorial.TextColor3 = Color3.new(1, 1, 1)
+	tutorial.Parent = screen
+	HudController._tutorialLabel = tutorial
+
 	local objective = Instance.new("TextLabel")
 	objective.Name = "Objective"
 	objective.AnchorPoint = Vector2.new(0, 0.5)
@@ -57,10 +73,17 @@ function HudController.Start()
 	local function refresh()
 		cash.Text = ("$ %d"):format(player:GetAttribute("Cash") or 0)
 		level.Text = ("Level %d"):format(player:GetAttribute("Level") or 1)
+
+		local tutorialStep = player:GetAttribute("TutorialStep") or "first_job"
+		local completed = player:GetAttribute("TutorialCompleted") == true
+		tutorial.Visible = not completed
+		tutorial.Text = if completed then "" else (TutorialConfig.Messages[tutorialStep] or "")
 	end
 
 	player:GetAttributeChangedSignal("Cash"):Connect(refresh)
 	player:GetAttributeChangedSignal("Level"):Connect(refresh)
+	player:GetAttributeChangedSignal("TutorialStep"):Connect(refresh)
+	player:GetAttributeChangedSignal("TutorialCompleted"):Connect(refresh)
 	refresh()
 end
 
