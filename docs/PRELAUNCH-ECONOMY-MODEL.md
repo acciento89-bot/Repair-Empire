@@ -21,6 +21,20 @@ This is a deterministic configuration model, not live-player telemetry.
 - modeled highest unboosted solo throughput with 45s travel and fastest tool: roughly **$1.69k/min**
 - maximum passive rate is therefore roughly **39%** of the modeled high-end active solo rate
 
+## Progression-band checks
+The executable model also evaluates representative bands using the fastest tool available at the modeled tier:
+- early: level 5, tool tier 1, Residential only
+- mid: level 25, tool tier 2, Residential + Downtown
+- late: level 55, tool tier 4, all three districts
+
+The CI guardrail requires modeled active earning throughput to rise from early -> mid -> late.
+
+For Prestige feasibility, the model compares:
+- an optimistic lower bound on jobs required to accumulate level-100 XP using the highest solo XP reward;
+- late-job-equivalent jobs needed to reach company level 10 from Company Points.
+
+CI fails if company level 10 becomes the tighter modeled gate after player level 100. Workshop tier 5 remains a Cash sink and is separately included in the hard progression sink subtotal.
+
 ## Interpretation
 The passive system is bounded and remains below half of modeled high-end active throughput, but the four-hour offline ceiling is economically meaningful. It must be watched during real playtests for employee ROI and whether offline income invalidates vehicle/tool/workshop sinks.
 
