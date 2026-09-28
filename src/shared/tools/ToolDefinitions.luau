@@ -17,7 +17,7 @@ local Tools = {
 	tool("pro_wrench", "wrench", 3, 2_400, 22, 0.84),
 	tool("master_wrench", "wrench", 4, 8_500, 45, 0.76),
 
-	tool("basic_screwdriver", "screwdriver", 1, 180, 2, 1.00),
+	tool("basic_screwdriver", "screwdriver", 1, 100, 1, 0.97),
 	tool("service_screwdriver", "screwdriver", 2, 700, 9, 0.92),
 	tool("pro_screwdriver", "screwdriver", 3, 2_700, 24, 0.84),
 	tool("master_screwdriver", "screwdriver", 4, 9_000, 47, 0.76),
