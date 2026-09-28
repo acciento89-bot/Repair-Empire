@@ -1,6 +1,7 @@
 --!strict
 
 local definitions = {
+	{ Name = "RequestPlayerState", Kind = "Function", RateLimitPerSecond = 3 },
 	{ Name = "RequestJobOffers", Kind = "Function", RateLimitPerSecond = 2 },
 	{ Name = "AcceptJob", Kind = "Function", RateLimitPerSecond = 2 },
 	{ Name = "AbandonJob", Kind = "Function", RateLimitPerSecond = 2 },
