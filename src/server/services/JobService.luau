@@ -8,7 +8,6 @@ local Shared = ReplicatedStorage.RepairEmpire.Shared
 local JobDefinitions = require(Shared.jobs.JobDefinitions)
 local JobRules = require(Shared.jobs.JobRules)
 local RemoteDefinitions = require(Shared.remotes.RemoteDefinitions)
-local RateLimiter = require(script.Parent.Parent.security.RateLimiter)
 
 local OFFER_COUNT = 4
 local OFFER_TTL_SECONDS = 120
@@ -25,11 +24,11 @@ local JobService = {
 		"EntitlementService",
 		"PrestigeService",
 		"RetentionService",
+		"SecurityService",
 	},
 	_offers = {},
 	_active = {},
 	_completed = {},
-	_limiter = RateLimiter.new(),
 }
 
 local function getRemoteFunction(name: string): RemoteFunction
@@ -61,11 +60,8 @@ local function safeDefinition(definition)
 end
 
 function JobService:_Allow(player: Player, remoteName: string): boolean
-	local definition = RemoteDefinitions.ByName[remoteName]
-	if definition == nil then
-		return false
-	end
-	return self._limiter:Allow(player, remoteName, definition.RateLimitPerSecond)
+	local security = require(script.Parent.SecurityService)
+	return security:Allow(player, remoteName)
 end
 
 function JobService:_CleanupCompletions(userId: number)
@@ -352,7 +348,6 @@ function JobService:Init()
 		self._offers[player.UserId] = nil
 		self._active[player.UserId] = nil
 		self._completed[player.UserId] = nil
-		self._limiter:Clear(player)
 	end)
 end
 
