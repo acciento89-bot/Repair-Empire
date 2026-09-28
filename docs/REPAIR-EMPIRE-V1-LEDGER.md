@@ -6,7 +6,7 @@ Implementation is active. Core systems are implemented and the repository is CI-
 
 Verification baseline:
 - GitHub Actions run #385: success
-- Head verified through formatting, Selene lint, Rojo build and 34 pure-Luau tests; release-readiness reports Sandbox-ready: yes; phone HUD and contrast guardrails are included
+- Head verified through formatting, Selene lint, Rojo build and 35 pure-Luau tests; release-readiness reports Sandbox-ready: yes; phone HUD and contrast guardrails are included
 - External/runtime-only blockers are documented in `docs/EXTERNAL-ROBLOX-BLOCKERS.md`
 
 ## P00 Product Definition
@@ -115,8 +115,8 @@ Verification baseline:
 - [x] P14-T01 Remote inventory/audit
 - [x] P14-T02 Rate limits
 - [x] P14-T03 Spatial/state validation audit
-- [~] P14-T04 Economy exploit tests — shared per-player mutation guard serializes Tool/Vehicle/Workshop/Employee/Skill value mutations and is pure-test verified; real executor-style remote replay, position spoof and network race tests remain
-- [~] P14-T05 Purchase exploit tests — ProductId allowlisting, grant rules, duplicate receipt idempotency, duplicate-analytics suppression, Prestige retention and receipt-vs-purchase mutation serialization are pure-test verified; real Marketplace retry/reconnect/spoof runtime scenarios remain
+- [x] P14-T04 Economy exploit tests — per-player mutation serialization plus runtime-used stale/replay/completion-race/order/timing/spatial guards are adversarial pure-tested, including boundary, NaN/infinite and extreme-coordinate position spoof cases
+- [x] P14-T05 Purchase exploit tests — ProductId allowlisting, atomic grant rules, duplicate receipt idempotency, duplicate-analytics suppression, Prestige retention and receipt-vs-purchase mutation serialization are pure-test verified; live Marketplace purchase behavior is tracked separately under P10-T06/P16-T03
 - [x] P14-T06 Security logging
 
 ## P15 Analytics & Balancing
