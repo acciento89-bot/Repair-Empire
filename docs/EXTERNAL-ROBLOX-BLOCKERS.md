@@ -33,13 +33,18 @@ Still required:
 - simultaneous stage requests
 - latency behavior
 
-## P10 - Monetization IDs and sandbox
-Still requires Creator Dashboard:
-- five Game Pass IDs
-- six Developer Product IDs
-- final prices
-- sandbox purchase verification
+## P10 - Monetization sandbox
+Resolved:
+- five Game Pass IDs created and source-configured
+- six Developer Product IDs created and source-configured
+- launch Robux prices configured
+- managed/regional pricing disabled
+- updated monetization config published to Repair Empire Dev
+
+Still required:
+- actual sandbox purchase verification
 - receipt retry/reconnect verification against MarketplaceService
+- entitlement persistence checks after rejoin/Prestige
 
 ## P13 - Device and accessibility validation
 Still required:
