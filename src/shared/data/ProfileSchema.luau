@@ -29,6 +29,7 @@ local DEFAULT_PROFILE = {
 	Employees = {},
 	LastPassiveTimestamp = 0,
 	ProcessedReceipts = {},
+	AnalyticsFlags = {},
 	Boosts = {
 		CashMultiplierUntil = 0,
 	},
