@@ -175,6 +175,7 @@ function JobService:Accept(player: Player, offerId: any)
 	getStateEvent():FireClient(player, payload)
 	local analytics = require(script.Parent.AnalyticsService)
 	analytics:LogCustom(player, "job_accepted", 1)
+	analytics:LogOnce(player, "first_job_accepted", 1)
 	return {
 		ok = true,
 		instanceId = instanceId,
@@ -282,6 +283,7 @@ function JobService:PerformAction(player: Player, payload: any)
 
 	local analytics = require(script.Parent.AnalyticsService)
 	analytics:LogCustom(player, "job_completed", 1)
+	analytics:LogOnce(player, "first_job_completed", 1)
 	getStateEvent():FireClient(player, {
 		kind = "job_completed",
 		reward = cashReward,
