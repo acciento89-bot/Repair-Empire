@@ -19,6 +19,14 @@ local InteractionController = {
 	_readyAt = 0,
 }
 
+local function prettyAction(id: string): string
+	local words = string.split(id, "_")
+	for index, word in words do
+		words[index] = word:sub(1, 1):upper() .. word:sub(2)
+	end
+	return table.concat(words, " ")
+end
+
 local function remoteFunction(name: string): RemoteFunction
 	local instance = ReplicatedStorage:WaitForChild("RepairEmpireRemotes"):WaitForChild(name)
 	assert(instance:IsA("RemoteFunction"), name .. " must be a RemoteFunction")
@@ -40,7 +48,9 @@ local function updateButton()
 
 	local remaining = math.max(0, InteractionController._readyAt - os.clock())
 	button.Active = remaining <= 0
-	button.Text = if remaining <= 0 then ("Repair: %s"):format(stage.Action or "Continue") else ("Ready in %.1fs"):format(remaining)
+	button.Text = if remaining <= 0
+		then ("DO REPAIR\n%s"):format(prettyAction(stage.Action or "continue"))
+		else ("PREPARING\n%.1fs"):format(remaining)
 end
 
 local function perform()
@@ -89,8 +99,8 @@ function InteractionController.Start()
 	button.AnchorPoint = Vector2.new(1, 1)
 	button.Position = UDim2.new(1, -24, 1, -92)
 	button.Size = UDim2.fromOffset(220, 64)
-	button.BackgroundColor3 = color(UiPalette.Button)
-	button.TextColor3 = color(UiPalette.Text)
+	button.BackgroundColor3 = color(UiPalette.Accent)
+	button.TextColor3 = color(UiPalette.TextOnAccent)
 	button.BorderSizePixel = 0
 	button.Font = Enum.Font.GothamBold
 	button.TextSize = 18
@@ -110,12 +120,12 @@ function InteractionController.Start()
 	instant.AnchorPoint = Vector2.new(1, 1)
 	instant.Position = UDim2.new(1, -24, 1, -164)
 	instant.Size = UDim2.fromOffset(220, 48)
-	instant.BackgroundColor3 = color(UiPalette.Button)
-	instant.TextColor3 = color(UiPalette.Text)
+	instant.BackgroundColor3 = color(UiPalette.SurfaceRaised)
+	instant.TextColor3 = color(UiPalette.Gold)
 	instant.BorderSizePixel = 0
 	instant.Font = Enum.Font.GothamMedium
 	instant.TextSize = 14
-	instant.Text = "Use Instant Finish"
+	instant.Text = "INSTANT FINISH"
 	instant.Visible = false
 	instant.Selectable = true
 	instant.Parent = gui
