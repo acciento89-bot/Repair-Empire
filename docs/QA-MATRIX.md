@@ -67,4 +67,4 @@
 See `SECURITY-TEST-MATRIX.md`.
 
 ## External-runtime requirement
-Items involving real DataStore, MarketplaceService sandbox, multi-client network timing, device emulation and Roblox publish state require Roblox Studio/client access before public release.
+The executable QA matrix has been run across Studio/device emulation and deterministic server-side abuse/recovery tests. The remaining release-only external evidence is the real-Robux Marketplace receipt test and Roblox assigning the submitted content maturity label.
