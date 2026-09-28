@@ -76,15 +76,18 @@ function EconomyModel.FastestToolMultiplierAtTier(toolDefinitions, maxTier: numb
 	return fastest
 end
 
-function EconomyModel.BestEligibleSoloJob(jobDefinitions, level: number, maxToolTier: number, unlockedDistricts, toolMultiplier: number, assumedTravelSeconds: number)
+function EconomyModel.BestEligibleSoloJob(
+	jobDefinitions,
+	level: number,
+	maxToolTier: number,
+	unlockedDistricts,
+	toolMultiplier: number,
+	assumedTravelSeconds: number
+)
 	local bestRate = 0
 	local bestJob = nil
 	for _, job in jobDefinitions do
-		if not job.Coop
-			and job.MinimumLevel <= level
-			and job.RequiredToolTier <= maxToolTier
-			and unlockedDistricts[job.District] == true
-		then
+		if not job.Coop and job.MinimumLevel <= level and job.RequiredToolTier <= maxToolTier and unlockedDistricts[job.District] == true then
 			local cycleSeconds = assumedTravelSeconds + EconomyModel.StageSeconds(job, toolMultiplier)
 			local rate = job.BaseReward * 60 / cycleSeconds
 			if rate > bestRate then
