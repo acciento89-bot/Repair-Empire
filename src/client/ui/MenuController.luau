@@ -17,6 +17,11 @@ local SkillTreeConfig = require(Shared.progression.SkillTreeConfig)
 local RetentionConfig = require(Shared.retention.RetentionConfig)
 local UiFactory = require(script.Parent.UiFactory)
 local MenuNavigation = require(Shared.ui.MenuNavigation)
+local UiPalette = require(Shared.ui.UiPalette)
+
+local function color(rgb)
+	return Color3.fromRGB(rgb[1], rgb[2], rgb[3])
+end
 
 local MenuController = {
 	_screen = nil :: ScreenGui?,
@@ -542,6 +547,9 @@ function MenuController.Start()
 	openButton.Name = "OpenMenu"
 	openButton.Position = UDim2.fromOffset(16, 68)
 	openButton.Size = UDim2.fromOffset(132, 48)
+	openButton.BackgroundColor3 = color(UiPalette.Button)
+	openButton.TextColor3 = color(UiPalette.Text)
+	openButton.BorderSizePixel = 0
 	openButton.Font = Enum.Font.GothamBold
 	openButton.TextSize = 16
 	openButton.Text = "Menu"
@@ -554,7 +562,9 @@ function MenuController.Start()
 	panel.AnchorPoint = Vector2.new(0.5, 0.5)
 	panel.Position = UDim2.fromScale(0.5, 0.5)
 	panel.Size = UDim2.fromScale(0.92, 0.86)
-	panel.BackgroundTransparency = 0.04
+	panel.BackgroundTransparency = 0.02
+	panel.BackgroundColor3 = color(UiPalette.Panel)
+	panel.BorderSizePixel = 0
 	panel.Visible = false
 	panel.Parent = screen
 	MenuController._panel = panel
@@ -588,6 +598,9 @@ function MenuController.Start()
 		local button = Instance.new("TextButton")
 		button.Name = tab.Id .. "Tab"
 		button.Size = UDim2.fromOffset(116, 48)
+		button.BackgroundColor3 = color(UiPalette.Button)
+		button.TextColor3 = color(UiPalette.Text)
+		button.BorderSizePixel = 0
 		button.Font = Enum.Font.GothamMedium
 		button.TextSize = 14
 		button.Text = tab.Label
@@ -603,6 +616,9 @@ function MenuController.Start()
 	close.AnchorPoint = Vector2.new(1, 0)
 	close.Position = UDim2.new(1, -10, 0, 70)
 	close.Size = UDim2.fromOffset(72, 42)
+	close.BackgroundColor3 = color(UiPalette.Button)
+	close.TextColor3 = color(UiPalette.Text)
+	close.BorderSizePixel = 0
 	close.Font = Enum.Font.GothamBold
 	close.TextSize = 14
 	close.Text = "Close"
