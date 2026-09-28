@@ -71,12 +71,8 @@ end
 
 local function addRoadDetails(parent: Instance, center: Vector3, groundX: number)
 	for _, side in { -1, 1 } do
-		local sidewalk = createPart(
-			"Sidewalk",
-			Vector3.new(groundX, 0.5, 5),
-			CFrame.new(center + Vector3.new(0, 0.25, side * (WorldConfig.RoadWidth / 2 + 2.5))),
-			parent
-		)
+		local sidewalk =
+			createPart("Sidewalk", Vector3.new(groundX, 0.5, 5), CFrame.new(center + Vector3.new(0, 0.25, side * (WorldConfig.RoadWidth / 2 + 2.5))), parent)
 		sidewalk.Material = Enum.Material.Concrete
 		sidewalk.Color = Color3.fromRGB(165, 165, 165)
 	end
@@ -129,12 +125,7 @@ local function addResidentialWorkshop(parent: Instance, center: Vector3, groundS
 	door.Color = Color3.fromRGB(95, 98, 105)
 
 	for windowIndex = -1, 1, 2 do
-		local window = createPart(
-			"WorkshopWindow",
-			Vector3.new(5.5, 3.5, 0.4),
-			CFrame.new(x - 6 + windowIndex * 10, 6.2, z - 15.35),
-			model
-		)
+		local window = createPart("WorkshopWindow", Vector3.new(5.5, 3.5, 0.4), CFrame.new(x - 6 + windowIndex * 10, 6.2, z - 15.35), model)
 		window.Material = Enum.Material.Glass
 		window.Color = Color3.fromRGB(110, 178, 210)
 		window.Transparency = 0.2
@@ -178,12 +169,8 @@ local function addBuildingDetails(building: Model, districtId: string, x: number
 
 	if districtId == "residential" then
 		for _, side in { -1, 1 } do
-			local window = createPart(
-				"FrontWindow",
-				Vector3.new(6, 4, 0.35),
-				CFrame.new(x + side * width * 0.24, math.min(height - 4, 7), z - depth / 2 - 0.2),
-				building
-			)
+			local window =
+				createPart("FrontWindow", Vector3.new(6, 4, 0.35), CFrame.new(x + side * width * 0.24, math.min(height - 4, 7), z - depth / 2 - 0.2), building)
 			window.Material = Enum.Material.Glass
 			window.Color = Color3.fromRGB(120, 180, 205)
 			window.Transparency = 0.25
@@ -194,12 +181,7 @@ local function addBuildingDetails(building: Model, districtId: string, x: number
 		for floorIndex = 1, floors do
 			local y = math.min(height - 2, floorIndex * 7)
 			for _, faceZ in { -1, 1 } do
-				local band = createPart(
-					"WindowBand",
-					Vector3.new(width * 0.78, 2.6, 0.28),
-					CFrame.new(x, y, z + faceZ * (depth / 2 + 0.16)),
-					building
-				)
+				local band = createPart("WindowBand", Vector3.new(width * 0.78, 2.6, 0.28), CFrame.new(x, y, z + faceZ * (depth / 2 + 0.16)), building)
 				band.Material = Enum.Material.Glass
 				band.Color = Color3.fromRGB(98, 150, 180)
 				band.Transparency = 0.3
@@ -212,12 +194,7 @@ local function addBuildingDetails(building: Model, districtId: string, x: number
 		vent.Color = Color3.fromRGB(90, 92, 96)
 
 		if index % 2 == 0 then
-			local pipe = createPart(
-				"ServicePipe",
-				Vector3.new(1.2, 10, 1.2),
-				CFrame.new(x - width / 2 - 1, 5, z + depth * 0.2),
-				building
-			)
+			local pipe = createPart("ServicePipe", Vector3.new(1.2, 10, 1.2), CFrame.new(x - width / 2 - 1, 5, z + depth * 0.2), building)
 			pipe.Shape = Enum.PartType.Cylinder
 			pipe.Material = Enum.Material.Metal
 			pipe.Color = Color3.fromRGB(156, 116, 72)
@@ -323,12 +300,8 @@ function WorldService:_BuildDistrict(world: Folder, districtId: string, config)
 		addBuildingDetails(building, districtId, x, z, config.BuildingSize[1], config.BuildingSize[2], height, index)
 
 		if districtId == "downtown" and index % 2 == 0 then
-			local crown = createPart(
-				"TowerCrown",
-				Vector3.new(config.BuildingSize[1] * 0.7, 5, config.BuildingSize[2] * 0.7),
-				CFrame.new(x, height + 3.3, z),
-				building
-			)
+			local crown =
+				createPart("TowerCrown", Vector3.new(config.BuildingSize[1] * 0.7, 5, config.BuildingSize[2] * 0.7), CFrame.new(x, height + 3.3, z), building)
 			crown.Material = Enum.Material.Glass
 			crown.Color = Color3.fromRGB(92, 142, 174)
 			crown.Transparency = 0.25
