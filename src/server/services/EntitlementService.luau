@@ -4,7 +4,9 @@ local MarketplaceService = game:GetService("MarketplaceService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Players = game:GetService("Players")
 
-local MonetizationConfig = require(ReplicatedStorage.RepairEmpire.Shared.config.MonetizationConfig)
+local Shared = ReplicatedStorage.RepairEmpire.Shared
+local MonetizationConfig = require(Shared.config.MonetizationConfig)
+local PassRules = require(Shared.monetization.PassRules)
 
 local EntitlementService = {
 	Name = "EntitlementService",
@@ -64,18 +66,10 @@ function EntitlementService:HasPass(player: Player, passKey: string): boolean
 end
 
 function EntitlementService:GetCashMultiplier(player: Player): number
-	local multiplier = 1
-	if self:HasPass(player, "double_cash") then
-		multiplier = 2
-	end
-
 	local dataService = require(script.Parent.PlayerDataService)
 	local profile = dataService:RequireProfile(player)
-	if profile.Boosts.CashMultiplierUntil > DateTime.now().UnixTimestamp then
-		multiplier = math.max(multiplier, 2)
-	end
-
-	return math.min(multiplier, 2)
+	local boostActive = profile.Boosts.CashMultiplierUntil > DateTime.now().UnixTimestamp
+	return PassRules.CashMultiplier(self:HasPass(player, "double_cash"), boostActive)
 end
 
 return EntitlementService
