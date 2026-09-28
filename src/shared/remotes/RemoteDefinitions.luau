@@ -9,6 +9,7 @@ local definitions = {
 	{ Name = "PerformJobAction", Kind = "Function", RateLimitPerSecond = 8 },
 	{ Name = "UseInstantJobFinish", Kind = "Function", RateLimitPerSecond = 1 },
 
+	{ Name = "RequestCoopContracts", Kind = "Function", RateLimitPerSecond = 2 },
 	{ Name = "CreateCoopContract", Kind = "Function", RateLimitPerSecond = 1 },
 	{ Name = "JoinCoopContract", Kind = "Function", RateLimitPerSecond = 2 },
 	{ Name = "LeaveCoopContract", Kind = "Function", RateLimitPerSecond = 2 },
