@@ -20,7 +20,7 @@ local tests = {
 	require("../tests/rate-limiter.spec"),
 	require("../tests/receipt-rules.spec"),
 	require("../tests/session-rules.spec"),
-	require("../tests/ui-layout-rules.spec"),
+	require("../tests/ui-layout-rules.spec"),\n\trequire("../tests/menu-navigation.spec"),
 	require("../tests/release-readiness.spec"),
 	require("../tests/pass-rules.spec"),
 	require("../tests/purchase-rules.spec"),
