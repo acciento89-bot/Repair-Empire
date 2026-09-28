@@ -116,7 +116,8 @@ function JobService:GetOffers(player: Player)
 	local toolService = require(script.Parent.ToolService)
 	local equippedToolTier = toolService:GetEquippedTier(player)
 	for _, definition in JobDefinitions.List do
-		if JobRules.IsEligible(definition, profile)
+		if
+			JobRules.IsEligible(definition, profile)
 			and definition.RequiredToolTier <= equippedToolTier
 			and not definition.Coop
 			and not self:_IsCoolingDown(player.UserId, definition.Id)
