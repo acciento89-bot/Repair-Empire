@@ -92,7 +92,9 @@ function JobService:GetOffers(player: Player)
 	local equippedToolTier = toolService:GetEquippedTier(player)
 	for _, definition in JobDefinitions.List do
 		if JobRules.IsEligible(definition, profile) and definition.RequiredToolTier <= equippedToolTier and not definition.Coop then
-			table.insert(eligible, definition)
+			if profile.Tutorial.Step ~= "second_job" or definition.Id == "running_toilet" then
+				table.insert(eligible, definition)
+			end
 		end
 	end
 
@@ -185,6 +187,7 @@ function JobService:Accept(player: Player, offerId: any)
 	analytics:LogOnce(player, "first_job_accepted", 1)
 	local tutorial = require(script.Parent.TutorialService)
 	tutorial:Advance(player, "first_job")
+	tutorial:Advance(player, "second_job")
 	return {
 		ok = true,
 		instanceId = instanceId,
@@ -305,6 +308,7 @@ function JobService:PerformAction(player: Player, payload: any)
 	analytics:LogCustom(player, "job_completed", 1)
 	analytics:LogOnce(player, "first_job_completed", 1)
 	tutorial:Advance(player, "first_reward")
+	tutorial:Advance(player, "second_repair")
 	getStateEvent():FireClient(player, {
 		kind = "job_completed",
 		reward = cashReward,
