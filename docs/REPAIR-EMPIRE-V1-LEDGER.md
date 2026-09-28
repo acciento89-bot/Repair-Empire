@@ -5,13 +5,13 @@ Status legend: [ ] open, [~] implemented/partially verified, [x] verified comple
 Implementation is active. Core systems are implemented and the repository is CI-green.
 
 Verification baseline:
-- GitHub Actions run #172: success
-- Head verified through formatting, Selene lint, Rojo build and pure-Luau tests
+- GitHub Actions run #300: success
+- Head verified through formatting, Selene lint, Rojo build and 26 pure-Luau tests
 - External/runtime-only blockers are documented in `docs/EXTERNAL-ROBLOX-BLOCKERS.md`
 
 ## P00 Product Definition
 - [x] P00-T01 Initialize standalone implementation repository and project metadata
-- [!] P00-T02 Confirm Roblox experience ownership/naming/place structure — architecture/name fixed; real owner, Universe ID and Place IDs require Roblox dashboard access
+- [x] P00-T02 Confirm Roblox experience ownership/naming/place structure — Repair Empire created privately; Universe 10768475286, production start place 79925227687072, development place 138882349802835
 - [x] P00-T03 Freeze V1 config identifiers and terminology
 
 ## P01 Technical Foundation
@@ -36,7 +36,7 @@ Verification baseline:
 - [x] P03-T05 Implement completion/reward transaction
 - [x] P03-T06 Implement reconnect/duplicate-completion protection — active jobs intentionally cancel on reconnect; stale/replayed instance IDs cannot grant again
 - [x] P03-T07 Add first 5 vertical-slice jobs — launch catalog currently contains 30 jobs
-- [!] P03-T08 Job engine verification pass — static/pure tests pass; multi-client, reconnect/network timing and Studio runtime cases require Roblox Studio
+- [~] P03-T08 Job engine verification pass — static/pure tests pass and single-client Studio boot verified in the dev place; multi-client, reconnect and network-timing cases remain
 
 ## P04 Economy & Progression
 - [x] P04-T01 Central EconomyService
@@ -128,10 +128,10 @@ Verification baseline:
 
 ## P16 Release
 - [~] P16-T01 Full QA matrix — matrix prepared; device/multi-client/runtime execution remains
-- [~] P16-T02 Data migration/recovery test — migration fixtures and failure/recovery policy exist; real DataStore recovery test remains
+- [~] P16-T02 Data migration/recovery test — Studio API access enabled; dev-place DataStore load/save path boots successfully and dev/prod stores are isolated; migration/expired-lock/foreign-lock runtime cases remain
 - [!] P16-T03 Purchase release checklist — checklist prepared; IDs/sandbox verification blocked externally
 - [~] P16-T04 Store metadata/assets checklist — metadata draft/checklist prepared; final icon/thumbnails/content declarations remain
-- [!] P16-T05 Controlled public launch — requires authenticated Roblox dashboard/publish actions
+- [~] P16-T05 Controlled public launch — authenticated dashboard/Studio publishing is working and both production/dev places exist privately; public exposure remains intentionally blocked by QA, assets and monetization gates
 - [x] P16-T06 Launch monitoring/rollback readiness — analytics, rollback and incident runbooks prepared
 
 ## P17 Post-launch
