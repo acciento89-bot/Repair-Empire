@@ -475,10 +475,22 @@ local function renderVehicles(content: Frame)
 		end
 	end)
 
+	local despawn = UiFactory.Button(scroll, "DESPAWN ACTIVE VEHICLES", 2)
+	despawn.BackgroundColor3 = color(UiPalette.SurfaceRaised)
+	despawn.TextColor3 = color(UiPalette.TextMuted)
+	despawn.Activated:Connect(function()
+		local result = remote("DespawnVehicle"):InvokeServer()
+		if type(result) == "table" and result.ok then
+			despawn.Text = ("DESPAWNED %d"):format(result.removed or 0)
+		else
+			despawn.Text = "Vehicle despawn unavailable"
+		end
+	end)
+
 	for index, definition in VehicleDefinitions.List do
 		local owned = state.OwnedVehicles[definition.Id] == true
 		local selected = state.SelectedVehicle == definition.Id
-		local button = createVehicleCard(scroll, definition, owned, selected, index + 1)
+		local button = createVehicleCard(scroll, definition, owned, selected, index + 2)
 		button.Activated:Connect(function()
 			local result
 			if owned then
