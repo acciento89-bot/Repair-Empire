@@ -5,6 +5,15 @@ return function()
 
 	assert(#jobs.List == 30, "launch job catalog must contain 30 jobs")
 	assert(#tools.List == 20, "launch tool catalog must contain 20 tools")
+	local toolFamilies = {}
+	for _, definition in tools.List do
+		toolFamilies[definition.Family] = true
+	end
+	local familyCount = 0
+	for _ in toolFamilies do
+		familyCount += 1
+	end
+	assert(familyCount == 9, "launch tool catalog must cover nine approved tool families")
 	assert(#vehicles.List == 8, "launch vehicle catalog must contain 8 vehicles")
 	for _, definition in vehicles.List do
 		assert(definition.BodySize[1] > 0 and definition.BodySize[2] > 0 and definition.BodySize[3] > 0, "vehicle body dimensions must be positive")
