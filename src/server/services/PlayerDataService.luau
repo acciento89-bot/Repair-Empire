@@ -33,6 +33,8 @@ local function publishSummary(player: Player, profile)
 	player:SetAttribute("WorkshopTier", profile.WorkshopTier)
 	player:SetAttribute("PrestigeLevel", profile.PrestigeLevel)
 	player:SetAttribute("InstantJobFinishes", profile.Consumables.InstantJobFinishes)
+	player:SetAttribute("TutorialStep", profile.Tutorial.Step)
+	player:SetAttribute("TutorialCompleted", profile.Tutorial.Completed)
 end
 
 function PlayerDataService:GetProfile(player: Player)
@@ -69,6 +71,8 @@ function PlayerDataService:GetSafeState(player: Player)
 		Employees = ProfileSchema.Clone(profile.Employees),
 		Achievements = ProfileSchema.Clone(profile.Achievements),
 		InstantJobFinishes = profile.Consumables.InstantJobFinishes,
+		TutorialStep = profile.Tutorial.Step,
+		TutorialCompleted = profile.Tutorial.Completed,
 	}
 end
 
