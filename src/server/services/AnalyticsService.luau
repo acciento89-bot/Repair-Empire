@@ -7,10 +7,32 @@ local BalanceConfig = require(ReplicatedStorage.RepairEmpire.Shared.config.Balan
 
 local AnalyticsService = {
 	Name = "AnalyticsService",
-	Dependencies = {},
+	Dependencies = { "SecurityService" },
 }
 
-function AnalyticsService:Init() end
+local UI_FUNNEL_EVENTS = {
+	company_system_opened = true,
+	shop_opened = true,
+}
+
+function AnalyticsService:Init()
+	local root = game:GetService("ReplicatedStorage"):WaitForChild("RepairEmpireRemotes")
+	local remote = root:WaitForChild("RecordFunnelEvent")
+	assert(remote:IsA("RemoteFunction"), "RecordFunnelEvent must be a RemoteFunction")
+	remote.OnServerInvoke = function(player, eventName)
+		local security = require(script.Parent.SecurityService)
+		if not security:Allow(player, "RecordFunnelEvent") then
+			return { ok = false, error = "rate_limited" }
+		end
+		if type(eventName) ~= "string" or UI_FUNNEL_EVENTS[eventName] ~= true then
+			security:RecordAnomaly(player, "invalid_funnel_event", tostring(eventName))
+			return { ok = false, error = "invalid_event" }
+		end
+		self:LogOnce(player, eventName, 1)
+		return { ok = true }
+	end
+end
+
 function AnalyticsService:Start() end
 
 local function safeCall(label: string, callback)
@@ -18,6 +40,17 @@ local function safeCall(label: string, callback)
 	if not ok then
 		warn(("[Repair Empire][Analytics] %s failed: %s"):format(label, tostring(err)))
 	end
+end
+
+function AnalyticsService:LogOnce(player: Player, eventName: string, value: number?)
+	local dataService = require(script.Parent.PlayerDataService)
+	local profile = dataService:GetProfile(player)
+	if profile == nil or profile.AnalyticsFlags[eventName] == true then
+		return false
+	end
+	profile.AnalyticsFlags[eventName] = true
+	self:LogCustom(player, eventName, value)
+	return true
 end
 
 function AnalyticsService:LogCustom(player: Player, eventName: string, value: number?)
