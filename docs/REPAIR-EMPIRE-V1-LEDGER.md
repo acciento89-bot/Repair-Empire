@@ -6,7 +6,7 @@ Implementation is active. Core systems are implemented and the repository is CI-
 
 Verification baseline:
 - GitHub Actions run #385: success
-- Head verified through formatting, Selene lint, Rojo build and 32 pure-Luau tests; release-readiness reports Sandbox-ready: yes; phone HUD and contrast guardrails are included
+- Head verified through formatting, Selene lint, Rojo build and 33 pure-Luau tests; release-readiness reports Sandbox-ready: yes; phone HUD and contrast guardrails are included
 - External/runtime-only blockers are documented in `docs/EXTERNAL-ROBLOX-BLOCKERS.md`
 
 ## P00 Product Definition
@@ -72,7 +72,7 @@ Verification baseline:
 - [x] P08-T03 Industrial district — connected procedural district with industrial dressing, tanks/vents/pipes and co-op-capable job locations
 - [x] P08-T04 Job anchor/building system
 - [x] P08-T05 Navigation markers
-- [~] P08-T06 Performance/streaming pass — StreamingEnabled verified in Studio; server-only baseline recorded at 572 parts / 614 descendants / 22.14 ms average Heartbeat; real client/network/multi-player profiling remains
+- [~] P08-T06 Performance/streaming pass — StreamingEnabled verified; server world baseline recorded at 572 parts / 614 descendants / 22.14 ms average Heartbeat and a reproducible 120-frame Studio client probe now records avg/p95 frame time, FPS and memory for two simultaneous clients; production-device, travel/streaming and network profiling remain
 
 ## P09 Multiplayer & Co-op
 - [x] P09-T01 Co-op contract state model
