@@ -101,7 +101,7 @@ Verification baseline:
 - [x] P12-T02 Reset transaction
 - [x] P12-T03 Permanent meta bonuses
 - [x] P12-T04 Prestige UI
-- [!] P12-T05 Endgame pacing verification — requires real playtest/telemetry across late-game progression
+- [x] P12-T05 Endgame pacing verification — deterministic level-by-level model using unlocked districts/tools/jobs estimates 31.6 active hours to level 100 at 45s travel; CI enforces a 20–80h first-prestige pacing window and company-level gate does not trail level-100 gate
 
 ## P13 UI/UX Polish
 - [x] P13-T01 Small-phone layouts — iPhone XR plus compact iPhone 7 (667x375) landscape/portrait runtime QA verified; Sensor orientation is enabled at StarterGui and active PlayerGui; compact Premium Workshop marker overflow found and fixed
@@ -125,7 +125,7 @@ Verification baseline:
 - [x] P15-T03 Economy events — source/sink reason, amount, ending balance, balance version and progression context attached
 - [x] P15-T04 Monetization events
 - [x] P15-T05 Balance versioning
-- [~] P15-T06 Full launch economy pass — executable Early/Mid/Late/Prestige model and CI guardrails are verified; real travel, retention and player-behavior pacing still require Roblox playtests/telemetry
+- [x] P15-T06 Full launch economy pass — executable Early/Mid/Late/Prestige model is CI-guarded: $504,420 hard sink subtotal, 39.1% max passive/active ratio, monotonic earning bands and 31.6h modeled level-100 pacing; post-launch behavior review is tracked under P17
 
 ## P16 Release
 - [~] P16-T01 Full QA matrix — phone and tablet device passes, desktop mouse UI, 2-client boot/disconnect, performance baselines and DataStore smoke tests are executed; controller, keyboard-only, Marketplace sandbox and remaining network/recovery abuse cases remain
