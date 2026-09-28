@@ -86,8 +86,10 @@ function JobService:GetOffers(player: Player)
 	local dataService = require(script.Parent.PlayerDataService)
 	local profile = dataService:RequireProfile(player)
 	local eligible = {}
+	local toolService = require(script.Parent.ToolService)
+	local equippedToolTier = toolService:GetEquippedTier(player)
 	for _, definition in JobDefinitions.List do
-		if JobRules.IsEligible(definition, profile) and not definition.Coop then
+		if JobRules.IsEligible(definition, profile) and definition.RequiredToolTier <= equippedToolTier and not definition.Coop then
 			table.insert(eligible, definition)
 		end
 	end
