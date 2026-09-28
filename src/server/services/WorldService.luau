@@ -49,7 +49,7 @@ function WorldService:_BuildDistrict(world: Folder, districtId: string, config)
 	folder.Name = districtId
 	folder.Parent = world
 
-	local center = config.Center
+	local center = Vector3.new(config.Center[1], config.Center[2], config.Center[3])
 	local base = createPart("DistrictBase", Vector3.new(config.Spacing * 6, 1, config.Spacing * 4), CFrame.new(center + Vector3.new(0, -0.5, 0)), folder)
 	base.Material = Enum.Material.Concrete
 
