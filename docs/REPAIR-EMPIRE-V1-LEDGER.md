@@ -6,7 +6,7 @@ Implementation is active. Core systems are implemented and the repository is CI-
 
 Verification baseline:
 - GitHub Actions run #385: success
-- Head verified through formatting, Selene lint, Rojo build and 30 pure-Luau tests; release-readiness reports Sandbox-ready: yes; phone HUD and contrast guardrails are included
+- Head verified through formatting, Selene lint, Rojo build and 32 pure-Luau tests; release-readiness reports Sandbox-ready: yes; phone HUD and contrast guardrails are included
 - External/runtime-only blockers are documented in `docs/EXTERNAL-ROBLOX-BLOCKERS.md`
 
 ## P00 Product Definition
@@ -115,8 +115,8 @@ Verification baseline:
 - [x] P14-T01 Remote inventory/audit
 - [x] P14-T02 Rate limits
 - [x] P14-T03 Spatial/state validation audit
-- [!] P14-T04 Economy exploit tests — test matrix and server guards exist; race/executor-style runtime tests require Studio/multi-client
-- [~] P14-T05 Purchase exploit tests — ProductId allowlisting, grant rules, duplicate receipt idempotency, duplicate-analytics suppression and Prestige retention are pure-test verified; real Marketplace retry/reconnect/spoof runtime scenarios remain
+- [~] P14-T04 Economy exploit tests — shared per-player mutation guard serializes Tool/Vehicle/Workshop/Employee/Skill value mutations and is pure-test verified; real executor-style remote replay, position spoof and network race tests remain
+- [~] P14-T05 Purchase exploit tests — ProductId allowlisting, grant rules, duplicate receipt idempotency, duplicate-analytics suppression, Prestige retention and receipt-vs-purchase mutation serialization are pure-test verified; real Marketplace retry/reconnect/spoof runtime scenarios remain
 - [x] P14-T06 Security logging
 
 ## P15 Analytics & Balancing
@@ -129,7 +129,7 @@ Verification baseline:
 
 ## P16 Release
 - [~] P16-T01 Full QA matrix — matrix prepared; device/multi-client/runtime execution remains
-- [~] P16-T02 Data migration/recovery test — Studio API access enabled; isolated development store verified with fresh-load 404, stop/save, and successful second load without a repeated 404; migration/expired-lock/foreign-lock runtime cases remain
+- [~] P16-T02 Data migration/recovery test — Studio API access enabled; isolated development store verified with fresh-load 404, stop/save and successful second load; schema migration, expired-lock acquisition and foreign-lock write rejection are pure-test guarded; corresponding live DataStore recovery cases remain
 - [~] P16-T03 Purchase release checklist — live IDs/prices configured and Dev published; actual purchase/receipt sandbox verification remains
 - [~] P16-T04 Store metadata/assets checklist — final metadata is configured and the 17-section Roblox content questionnaire was submitted successfully; final icon/thumbnails remain
 - [~] P16-T05 Controlled public launch — authenticated dashboard/Studio publishing is working and both production/dev places exist privately; public exposure remains intentionally blocked by QA, assets and monetization gates
