@@ -1,7 +1,7 @@
 --!strict
 
 local BalanceConfig = {
-	Version = "v1-prelaunch-001",
+	Version = "v1-prelaunch-002",
 	MaxPlayerLevel = 100,
 	BaseJobReward = 100,
 	BaseJobXp = 20,
