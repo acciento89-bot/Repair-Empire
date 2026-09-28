@@ -80,6 +80,11 @@ local function apply()
 	local hud = playerGui:FindFirstChild("RepairEmpireHUD")
 	if hud and hud:IsA("ScreenGui") then
 		local metrics = UiLayoutRules.GetHudMetrics(viewport.X, viewport.Y, touch)
+		local status = hud:FindFirstChild("Status")
+		if status and status:IsA("TextLabel") then
+			status.Size = UDim2.fromOffset(math.max(300, math.min(viewport.X - 32, 760)), 42)
+			textConstraint(status, 11, 18)
+		end
 		local tutorial = hud:FindFirstChild("Tutorial")
 		if tutorial and tutorial:IsA("TextLabel") then
 			tutorial.Size = UDim2.fromOffset(metrics.TutorialWidth, 54)
