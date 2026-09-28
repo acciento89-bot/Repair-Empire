@@ -5,8 +5,8 @@ Status legend: [ ] open, [~] implemented/partially verified, [x] verified comple
 Implementation is active. Core systems are implemented and the repository is CI-green.
 
 Verification baseline:
-- GitHub Actions run #300: success
-- Head verified through formatting, Selene lint, Rojo build and 26 pure-Luau tests
+- GitHub Actions run #311: success
+- Head verified through formatting, Selene lint, Rojo build and 26 pure-Luau tests; release-readiness reports Sandbox-ready: yes
 - External/runtime-only blockers are documented in `docs/EXTERNAL-ROBLOX-BLOCKERS.md`
 
 ## P00 Product Definition
@@ -82,12 +82,12 @@ Verification baseline:
 - [!] P09-T05 Multi-client abuse/reconnect tests — implementation handles join/leave/owner transfer/state sync; real simultaneous-client validation requires Roblox Studio
 
 ## P10 Monetization
-- [!] P10-T01 Monetization config and catalog IDs — catalog/config complete; real Game Pass and Developer Product IDs require Creator Dashboard
+- [x] P10-T01 Monetization config and catalog IDs — 5 Game Passes and 6 Developer Products created with live Roblox IDs and configured prices
 - [x] P10-T02 Game Pass entitlement service
 - [x] P10-T03 Developer Product receipt handler
 - [x] P10-T04 Idempotency/duplicate receipt protection
 - [x] P10-T05 Shop UI and explicit purchase flow — real Roblox prices are read when IDs are configured
-- [!] P10-T06 Sandbox verification — requires real product/pass IDs and Roblox purchase sandbox
+- [~] P10-T06 Sandbox verification — live IDs/prices are configured and published to Repair Empire Dev; real purchase/receipt sandbox verification remains
 
 ## P11 Retention
 - [x] P11-T01 Daily jobs
@@ -129,7 +129,7 @@ Verification baseline:
 ## P16 Release
 - [~] P16-T01 Full QA matrix — matrix prepared; device/multi-client/runtime execution remains
 - [~] P16-T02 Data migration/recovery test — Studio API access enabled; isolated development store verified with fresh-load 404, stop/save, and successful second load without a repeated 404; migration/expired-lock/foreign-lock runtime cases remain
-- [!] P16-T03 Purchase release checklist — checklist prepared; IDs/sandbox verification blocked externally
+- [~] P16-T03 Purchase release checklist — live IDs/prices configured and Dev published; actual purchase/receipt sandbox verification remains
 - [~] P16-T04 Store metadata/assets checklist — metadata draft/checklist prepared; final icon/thumbnails/content declarations remain
 - [~] P16-T05 Controlled public launch — authenticated dashboard/Studio publishing is working and both production/dev places exist privately; public exposure remains intentionally blocked by QA, assets and monetization gates
 - [x] P16-T06 Launch monitoring/rollback readiness — analytics, rollback and incident runbooks prepared
