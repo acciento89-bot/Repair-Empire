@@ -12,26 +12,24 @@ Configured:
 - values are present in `src/shared/config/PlatformConfig.luau`
 - Studio/API tests use an isolated development DataStore
 
-## 2. Game Passes
-Create these Game Passes if the launch catalog is retained:
-- double_cash
-- vip
-- extra_employee_slot
-- extra_vehicle_slot
-- premium_workshop
+## 2. Game Passes — DONE
+Configured:
+- double_cash — `1997847285` — 299 R$
+- vip — `1998201387` — 399 R$
+- extra_employee_slot — `1998489332` — 149 R$
+- extra_vehicle_slot — `1997979360` — 149 R$
+- premium_workshop — `1999077322` — 249 R$
 
-Record each numeric Roblox ID.
+## 3. Developer Products — DONE
+Configured:
+- small_cash — `3715317811` — 49 R$
+- medium_cash — `3715317874` — 149 R$
+- large_cash — `3715318066` — 399 R$
+- boost_15 — `3715318201` — 39 R$
+- boost_60 — `3715318256` — 99 R$
+- instant_job_finish — `3715318304` — 29 R$
 
-## 3. Developer Products
-Create these Developer Products:
-- small_cash
-- medium_cash
-- large_cash
-- boost_15
-- boost_60
-- instant_job_finish
-
-Record each numeric Roblox ID.
+All 11 IDs are source-configured and the updated build has been published to Repair Empire Dev.
 
 ## 4. Runtime verification in Roblox Studio
 Once the IDs/experience exist, run the prepared QA matrix:
