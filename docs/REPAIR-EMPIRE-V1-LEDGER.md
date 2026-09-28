@@ -131,7 +131,7 @@ Verification baseline:
 - [~] P16-T01 Full QA matrix — phone and tablet device passes, desktop mouse UI, 2-client boot/disconnect, performance baselines and DataStore smoke tests are executed; controller, keyboard-only, Marketplace sandbox and remaining network/recovery abuse cases remain
 - [x] P16-T02 Data migration/recovery test — isolated development DataStore live-probe verified v1→v2 migration with value preservation, expired-lock acquisition, active foreign-lock acquisition rejection, foreign-lock write rejection and cleanup=true
 - [~] P16-T03 Purchase release checklist — live IDs/prices configured and Dev published; actual purchase/receipt sandbox verification remains
-- [~] P16-T04 Store metadata/assets checklist — final metadata is configured and the 17-section Roblox content questionnaire was submitted successfully; final icon/thumbnails remain
+- [x] P16-T04 Store metadata/assets checklist — final name/description reviewed in Creator Hub; custom Repair Empire icon and three custom thumbnails are uploaded and processed; 17-section content questionnaire is complete
 - [~] P16-T05 Controlled public launch — authenticated dashboard/Studio publishing is working and both production/dev places exist privately; public exposure remains intentionally blocked by QA, assets and monetization gates
 - [x] P16-T06 Launch monitoring/rollback readiness — analytics, rollback and incident runbooks prepared
 
