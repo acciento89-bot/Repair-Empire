@@ -21,6 +21,7 @@ local tests = {
 	require("../tests/receipt-rules.spec"),
 	require("../tests/session-rules.spec"),
 	require("../tests/ui-layout-rules.spec"),
+	require("../tests/ui-contrast.spec"),
 	require("../tests/menu-navigation.spec"),
 	require("../tests/release-readiness.spec"),
 	require("../tests/pass-rules.spec"),
