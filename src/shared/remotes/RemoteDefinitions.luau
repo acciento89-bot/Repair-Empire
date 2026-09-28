@@ -16,6 +16,7 @@ local definitions = {
 	{ Name = "PerformCoopAction", Kind = "Function", RateLimitPerSecond = 8 },
 
 	{ Name = "PurchaseUpgrade", Kind = "Function", RateLimitPerSecond = 3 },
+	{ Name = "PurchaseSkill", Kind = "Function", RateLimitPerSecond = 3 },
 	{ Name = "PurchaseTool", Kind = "Function", RateLimitPerSecond = 3 },
 	{ Name = "EquipTool", Kind = "Function", RateLimitPerSecond = 4 },
 	{ Name = "PurchaseVehicle", Kind = "Function", RateLimitPerSecond = 2 },
