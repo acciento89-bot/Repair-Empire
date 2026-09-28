@@ -5,6 +5,7 @@ local HttpService = game:GetService("HttpService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local ProfileSchema = require(ReplicatedStorage.RepairEmpire.Shared.data.ProfileSchema)
+local ReceiptRules = require(ReplicatedStorage.RepairEmpire.Shared.data.ReceiptRules)
 local DataStoreAdapter = require(script.Parent.Parent.datastore.DataStoreAdapter)
 local ProfileMigrations = require(script.Parent.Parent.datastore.ProfileMigrations)
 
@@ -144,30 +145,30 @@ function PlayerDataService:_Save(player: Player, releaseLock: boolean)
 end
 
 function PlayerDataService:ApplyReceipt(player: Player, receiptId: string, mutator): (boolean, string)
-	assert(#receiptId > 0 and #receiptId <= 200, "Invalid receipt ID")
-	local profile = self:RequireProfile(player)
-	if profile.ProcessedReceipts[receiptId] ~= nil then
-		return true, "already_processed"
+	local current = self:RequireProfile(player)
+	local ok, reason, candidate, changed, detail =
+		ReceiptRules.BuildCandidate(current, receiptId, unixNow(), ProfileSchema.Clone, mutator)
+
+	if not ok then
+		if detail then
+			warn("[Repair Empire] Receipt candidate failed: " .. detail)
+		end
+		return false, reason
+	end
+	if not changed then
+		return true, reason
 	end
 
-	local backup = ProfileSchema.Clone(profile)
-	local okMutate, mutateError = pcall(mutator, profile)
-	if not okMutate then
-		self._profiles[player.UserId] = backup
-		warn("[Repair Empire] Receipt grant mutator failed: " .. tostring(mutateError))
-		return false, "grant_failed"
-	end
-
-	profile.ProcessedReceipts[receiptId] = unixNow()
+	self._profiles[player.UserId] = candidate
 	local saved = self:_Save(player, false)
 	if not saved then
-		self._profiles[player.UserId] = backup
+		self._profiles[player.UserId] = current
 		self:Publish(player)
 		return false, "save_failed"
 	end
 
 	self:Publish(player)
-	return true, "granted"
+	return true, reason
 end
 
 function PlayerDataService:_Release(player: Player)
