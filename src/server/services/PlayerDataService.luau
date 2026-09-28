@@ -9,6 +9,7 @@ local ReceiptRules = require(ReplicatedStorage.RepairEmpire.Shared.data.ReceiptR
 local SessionRules = require(ReplicatedStorage.RepairEmpire.Shared.data.SessionRules)
 local DataStoreAdapter = require(script.Parent.Parent.datastore.DataStoreAdapter)
 local ProfileMigrations = require(script.Parent.Parent.datastore.ProfileMigrations)
+local MutationGuard = require(script.Parent.Parent.security.MutationGuard)
 
 local AUTOSAVE_SECONDS = 60
 local SESSION_LOCK_SECONDS = 180
@@ -145,29 +146,36 @@ function PlayerDataService:_Save(player: Player, releaseLock: boolean)
 end
 
 function PlayerDataService:ApplyReceipt(player: Player, receiptId: string, mutator): (boolean, string)
-	local current = self:RequireProfile(player)
-	local ok, reason, candidate, changed, detail = ReceiptRules.BuildCandidate(current, receiptId, unixNow(), ProfileSchema.Clone, mutator)
+	local entered, result = MutationGuard.TryRun(player.UserId, "profile_value_mutation", function()
+		local current = self:RequireProfile(player)
+		local ok, reason, candidate, changed, detail =
+			ReceiptRules.BuildCandidate(current, receiptId, unixNow(), ProfileSchema.Clone, mutator)
 
-	if not ok then
-		if detail then
-			warn("[Repair Empire] Receipt candidate failed: " .. detail)
+		if not ok then
+			if detail then
+				warn("[Repair Empire] Receipt candidate failed: " .. detail)
+			end
+			return { ok = false, reason = reason }
 		end
-		return false, reason
-	end
-	if not changed then
-		return true, reason
-	end
+		if not changed then
+			return { ok = true, reason = reason }
+		end
 
-	self._profiles[player.UserId] = candidate
-	local saved = self:_Save(player, false)
-	if not saved then
-		self._profiles[player.UserId] = current
+		self._profiles[player.UserId] = candidate
+		local saved = self:_Save(player, false)
+		if not saved then
+			self._profiles[player.UserId] = current
+			self:Publish(player)
+			return { ok = false, reason = "save_failed" }
+		end
+
 		self:Publish(player)
-		return false, "save_failed"
+		return { ok = true, reason = reason }
+	end)
+	if not entered then
+		return false, "mutation_in_progress"
 	end
-
-	self:Publish(player)
-	return true, reason
+	return result.ok, result.reason
 end
 
 function PlayerDataService:_Release(player: Player)
