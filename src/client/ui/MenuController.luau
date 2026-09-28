@@ -143,7 +143,7 @@ local function renderCoop(content: Frame)
 		end)
 	end
 
-	UiFactory.Label(scroll, "Start a large contract", 40).LayoutOrder = 1
+	UiFactory.SectionTitle(scroll, "Start a large contract", 1)
 	local order = 2
 	for _, definition in JobDefinitions.List do
 		if definition.Coop and CoopContracts[definition.Id] == true then
@@ -169,7 +169,7 @@ local function renderCoop(content: Frame)
 		end
 	end
 
-	UiFactory.Label(scroll, "Open contracts in this server", 40).LayoutOrder = order
+	UiFactory.SectionTitle(scroll, "Open contracts in this server", order)
 	order += 1
 
 	if #(discovery.contracts or {}) == 0 then
@@ -204,7 +204,10 @@ local function renderSkills(content: Frame)
 		return
 	end
 
-	UiFactory.Label(scroll, ("Available skill points: %d"):format(state.SkillPoints or 0), 40)
+	UiFactory.SectionTitle(scroll, "Skill Tree", 0)
+	local skillSummary = UiFactory.Label(scroll, ("Available skill points: %d"):format(state.SkillPoints or 0), 40)
+	skillSummary.LayoutOrder = 1
+	skillSummary.TextColor3 = color(UiPalette.Gold)
 
 	local branchOrder = { "plumbing", "heating", "climate", "energy" }
 	for order, branchId in branchOrder do
@@ -260,6 +263,7 @@ local function renderAchievements(content: Frame)
 		return
 	end
 
+	UiFactory.SectionTitle(scroll, "Achievements", 0)
 	local ids = {}
 	for achievementId in RetentionConfig.Achievements do
 		table.insert(ids, achievementId)
@@ -304,6 +308,7 @@ local function renderTools(content: Frame)
 		return
 	end
 
+	UiFactory.SectionTitle(scroll, "Tool locker", 0)
 	for order, definition in ToolDefinitions.List do
 		local owned = state.OwnedTools[definition.Id] == true
 		local equipped = state.EquippedTool == definition.Id
@@ -516,9 +521,18 @@ local function renderWorkshop(content: Frame)
 		return
 	end
 
-	UiFactory.Label(scroll, ("Workshop Tier %d • Company Level %d • Company Points %d"):format(state.WorkshopTier, state.CompanyLevel, state.CompanyPoints))
+	UiFactory.SectionTitle(scroll, "Workshop", 0)
+	local summary = UiFactory.Label(
+		scroll,
+		("Workshop Tier %d • Company Level %d • Company Points %d"):format(state.WorkshopTier, state.CompanyLevel, state.CompanyPoints),
+		44
+	)
+	summary.LayoutOrder = 1
+	summary.TextColor3 = color(UiPalette.Gold)
 
-	local upgrade = UiFactory.Button(scroll, "Upgrade workshop", 1)
+	local upgrade = UiFactory.Button(scroll, "UPGRADE WORKSHOP", 2)
+	upgrade.BackgroundColor3 = color(UiPalette.Accent)
+	upgrade.TextColor3 = color(UiPalette.TextOnAccent)
 	upgrade.Activated:Connect(function()
 		local result = remote("PurchaseUpgrade"):InvokeServer({ kind = "workshop" })
 		if type(result) == "table" and result.ok then
@@ -528,7 +542,9 @@ local function renderWorkshop(content: Frame)
 		end
 	end)
 
-	UiFactory.Label(scroll, "Workshop tiers increase employee capacity. Premium Workshop is cosmetic only and never gates progression.", 64).LayoutOrder = 2
+	local note = UiFactory.Label(scroll, "Workshop tiers increase employee capacity. Premium Workshop is cosmetic only and never gates progression.", 64)
+	note.LayoutOrder = 3
+	note.TextColor3 = color(UiPalette.TextMuted)
 end
 
 local function renderEmployees(content: Frame)
@@ -539,7 +555,10 @@ local function renderEmployees(content: Frame)
 		return
 	end
 
-	UiFactory.Label(scroll, ("Company Level %d • Workshop Tier %d"):format(state.CompanyLevel, state.WorkshopTier))
+	UiFactory.SectionTitle(scroll, "Employees", 0)
+	local employeeSummary = UiFactory.Label(scroll, ("Company Level %d • Workshop Tier %d"):format(state.CompanyLevel, state.WorkshopTier), 40)
+	employeeSummary.LayoutOrder = 1
+	employeeSummary.TextColor3 = color(UiPalette.Gold)
 
 	for order, definition in EmployeeDefinitions.List do
 		local owned = state.Employees[definition.Id] or 0
@@ -665,7 +684,7 @@ end
 local function renderShop(content: Frame)
 	remote("RecordFunnelEvent"):InvokeServer("shop_opened")
 	local scroll = UiFactory.Scroll(content)
-	UiFactory.Label(scroll, "Game Passes", 38)
+	UiFactory.SectionTitle(scroll, "Game Passes", 0)
 
 	local order = 1
 	for key, config in MonetizationConfig.GamePasses do
@@ -682,7 +701,7 @@ local function renderShop(content: Frame)
 		order += 1
 	end
 
-	UiFactory.Label(scroll, "Developer Products", 38).LayoutOrder = order
+	UiFactory.SectionTitle(scroll, "Developer Products", order)
 	order += 1
 	for key, config in MonetizationConfig.DeveloperProducts do
 		local configured = config.Id ~= nil
@@ -701,14 +720,19 @@ end
 
 local function renderPrestige(content: Frame)
 	local scroll = UiFactory.Scroll(content)
+	UiFactory.SectionTitle(scroll, "Prestige", 0)
 	local description = UiFactory.Label(
 		scroll,
 		"Prestige resets earned progression but keeps Cash, paid entitlements, consumables, boosts, achievements and lifetime stats.",
 		84
 	)
 	description.TextWrapped = true
+	description.LayoutOrder = 1
+	description.TextColor3 = color(UiPalette.TextMuted)
 
-	local preview = UiFactory.Button(scroll, "Preview Prestige", 1)
+	local preview = UiFactory.Button(scroll, "PREVIEW PRESTIGE", 2)
+	preview.BackgroundColor3 = color(UiPalette.Accent)
+	preview.TextColor3 = color(UiPalette.TextOnAccent)
 	local confirmationToken = nil :: string?
 
 	preview.Activated:Connect(function()
