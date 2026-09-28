@@ -26,6 +26,7 @@ local tests = {
 	require("../tests/ui-contrast.spec"),
 	require("../tests/menu-navigation.spec"),
 	require("../tests/release-readiness.spec"),
+	require("../tests/performance-rules.spec"),
 	require("../tests/pass-rules.spec"),
 	require("../tests/purchase-rules.spec"),
 	require("../tests/skill-tree.spec"),
