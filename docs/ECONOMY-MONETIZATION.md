@@ -20,13 +20,13 @@ Uses: company-tier unlocks and selected meta upgrades.
 No premium custom currency in V1. Robux purchases map to explicit products/passes.
 
 ## Launch Game Pass hypotheses
-- 2x Cash - 299 R$
-- VIP - 399 R$
-- Extra Employee Slot - 149 R$
-- Extra Vehicle Slot - 149 R$
-- Premium Workshop cosmetics/convenience - 249 R$
+- 2x Cash - 299 R$ — doubles server-validated active job Cash rewards; paid/earned 2x effects do not stack above 2x.
+- VIP - 399 R$ — cosmetic VIP badge only in V1.
+- Extra Employee Slot - 149 R$ — adds one employee slot above the workshop-tier allowance.
+- Extra Vehicle Slot - 149 R$ — allows two concurrently spawned owned vehicles instead of one.
+- Premium Workshop - 249 R$ — local cosmetic workshop treatment/badge only in V1.
 
-Prices are test hypotheses, not immutable promises.
+Prices are test hypotheses, not immutable promises. All five passes now have explicit V1 behavior; none is required for free progression.
 
 ## Developer Product hypotheses
 - Small Cash Pack - 49 R$
