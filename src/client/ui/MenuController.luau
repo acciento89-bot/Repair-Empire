@@ -584,17 +584,17 @@ function MenuController.Start()
 	tabLayout.Padding = UDim.new(0, 6)
 	tabLayout.Parent = tabs
 
-	for _, tab in { "Jobs", "Co-op", "Tools", "Skills", "Vehicles", "Workshop", "Employees", "Daily", "Achievements", "Shop", "Prestige" } do
+	for _, tab in MenuNavigation.Tabs do
 		local button = Instance.new("TextButton")
-		button.Name = tab .. "Tab"
+		button.Name = tab.Id .. "Tab"
 		button.Size = UDim2.fromOffset(116, 48)
 		button.Font = Enum.Font.GothamMedium
 		button.TextSize = 14
-		button.Text = tab
+		button.Text = tab.Label
 		button.Selectable = true
 		button.Parent = tabs
 		button.Activated:Connect(function()
-			MenuController.Render(tab)
+			MenuController.Render(tab.Id)
 		end)
 	end
 
