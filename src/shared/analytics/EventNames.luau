@@ -12,9 +12,13 @@ local EventNames = {
 	FirstCoopJobCompleted = "first_coop_job_completed",
 	PrestigeAvailable = "prestige_available",
 	PrestigeCompleted = "prestige_completed",
+	FirstPrestigeCompleted = "first_prestige_completed",
 	JobAccepted = "job_accepted",
 	JobCompleted = "job_completed",
 	JobAbandoned = "job_abandoned",
+	ShopOpened = "shop_opened",
+	GamePassPrompted = "gamepass_prompted",
+	ProductPrompted = "product_prompted",
 	PurchaseGranted = "purchase_granted",
 }
 
