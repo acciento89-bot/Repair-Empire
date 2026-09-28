@@ -17,12 +17,11 @@ Resolved:
 - self-contained procedural city/workshop art pass is implemented and Studio-verified
 - streets, sidewalks, markings, lighting, district dressing and street-facing facades are present
 - vehicles remain self-contained procedural models rather than external Marketplace assets
+- self-contained feedback sound and tween VFX pass is implemented; Studio audio preload verified
 
 Still required:
 - driving validation on actual client input
-- final tool/repair prop polish where desired
-- audio asset IDs and final effects
-- device-specific visual QA in Roblox clients
+- optional final tool/repair prop art polish beyond V1 acceptance
 
 ## P08 - Performance verification
 Resolved:
@@ -81,9 +80,7 @@ Resolved/verified:
 - explicit UI palette has automated 4.5:1 minimum contrast checks in CI
 
 Still required:
-- full desktop keyboard-only traversal
-- controller
-- remaining safe-area/input-overlap validation
+- controller runtime verification
 
 ## P14 - Runtime exploit validation
 Resolved/verified:
