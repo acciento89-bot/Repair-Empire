@@ -652,7 +652,8 @@ function MenuController.Start()
 			else
 				MenuController.Open(true)
 			end
-		elseif panel.Visible
+		elseif
+			panel.Visible
 			and (
 				input.KeyCode == Enum.KeyCode.Left
 				or input.KeyCode == Enum.KeyCode.Right
