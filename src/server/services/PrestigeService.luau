@@ -6,6 +6,7 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Shared = ReplicatedStorage.RepairEmpire.Shared
 local PrestigeConfig = require(Shared.prestige.PrestigeConfig)
 local PrestigeRules = require(Shared.prestige.PrestigeRules)
+local MutationGuard = require(script.Parent.Parent.security.MutationGuard)
 
 local PrestigeService = {
 	Name = "PrestigeService",
@@ -76,33 +77,40 @@ function PrestigeService:Confirm(player: Player, token: any)
 	if type(token) ~= "string" then
 		return { ok = false, error = "invalid_confirmation" }
 	end
-	local confirmation = self._confirmations[player.UserId]
-	if confirmation == nil or confirmation.Token ~= token or confirmation.ExpiresAt < os.clock() then
-		return { ok = false, error = "confirmation_expired" }
+
+	local entered, result = MutationGuard.TryRun(player.UserId, "profile_value_mutation", function()
+		local confirmation = self._confirmations[player.UserId]
+		if confirmation == nil or confirmation.Token ~= token or confirmation.ExpiresAt < os.clock() then
+			return { ok = false, error = "confirmation_expired" }
+		end
+
+		local dataService = require(script.Parent.PlayerDataService)
+		local profile = dataService:RequireProfile(player)
+		if not self:IsEligible(profile) then
+			return { ok = false, error = "not_eligible" }
+		end
+
+		PrestigeRules.ApplyReset(profile, DateTime.now().UnixTimestamp)
+
+		self._confirmations[player.UserId] = nil
+		dataService:Publish(player)
+
+		local retentionService = require(script.Parent.RetentionService)
+		retentionService:RefreshAchievements(player)
+		local analytics = require(script.Parent.AnalyticsService)
+		analytics:LogCustom(player, "prestige_completed", profile.PrestigeLevel)
+		analytics:LogOnce(player, "first_prestige_completed", 1)
+
+		return {
+			ok = true,
+			prestigeLevel = profile.PrestigeLevel,
+			rewardMultiplier = PrestigeConfig.GetRewardMultiplier(profile.PrestigeLevel),
+		}
+	end)
+	if not entered then
+		return { ok = false, error = "mutation_in_progress" }
 	end
-
-	local dataService = require(script.Parent.PlayerDataService)
-	local profile = dataService:RequireProfile(player)
-	if not self:IsEligible(profile) then
-		return { ok = false, error = "not_eligible" }
-	end
-
-	PrestigeRules.ApplyReset(profile, DateTime.now().UnixTimestamp)
-
-	self._confirmations[player.UserId] = nil
-	dataService:Publish(player)
-
-	local retentionService = require(script.Parent.RetentionService)
-	retentionService:RefreshAchievements(player)
-	local analytics = require(script.Parent.AnalyticsService)
-	analytics:LogCustom(player, "prestige_completed", profile.PrestigeLevel)
-	analytics:LogOnce(player, "first_prestige_completed", 1)
-
-	return {
-		ok = true,
-		prestigeLevel = profile.PrestigeLevel,
-		rewardMultiplier = PrestigeConfig.GetRewardMultiplier(profile.PrestigeLevel),
-	}
+	return result
 end
 
 function PrestigeService:Handle(player: Player, payload: any)
