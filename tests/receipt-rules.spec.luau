@@ -13,11 +13,16 @@ return function()
 	assert(granted.ProcessedReceipts["receipt-1"] == 123, "receipt ID was not marked on candidate")
 
 	local duplicateCalls = 0
-	local duplicateOk, duplicateReason, duplicateProfile, duplicateChanged =
-		ReceiptRules.BuildCandidate(granted, "receipt-1", 456, ProfileSchema.Clone, function(candidate)
+	local duplicateOk, duplicateReason, duplicateProfile, duplicateChanged = ReceiptRules.BuildCandidate(
+		granted,
+		"receipt-1",
+		456,
+		ProfileSchema.Clone,
+		function(candidate)
 			duplicateCalls += 1
 			candidate.Cash += 500
-		end)
+		end
+	)
 	assert(duplicateOk and duplicateReason == "already_processed", "duplicate receipt must resolve idempotently")
 	assert(not duplicateChanged and duplicateCalls == 0, "duplicate receipt must not execute the grant mutator")
 	assert(duplicateProfile.Cash == 500, "duplicate receipt changed persistent value")
