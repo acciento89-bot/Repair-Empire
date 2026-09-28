@@ -57,7 +57,7 @@ Verification baseline:
 - [x] P06-T02 Spawn/despawn rules
 - [x] P06-T03 Vehicle shop/garage
 - [x] P06-T04 Travel integration — navigation plus server-driven placeholder vehicle controller
-- [~] P06-T05 Launch vehicle catalog — 8 configs complete; final production vehicle assets and Roblox runtime driving validation remain
+- [x] P06-T05 Launch vehicle catalog — 8 distinct self-contained procedural vehicle variants with geometry, seats and axle definitions
 
 ## P07 Company Tycoon
 - [x] P07-T01 Workshop/company progression
@@ -67,9 +67,9 @@ Verification baseline:
 - [x] P07-T05 Passive economy balancing guardrails
 
 ## P08 World
-- [~] P08-T01 Residential district — functional procedural district exists; production dressing/mobile route playtest remains
-- [~] P08-T02 Downtown district — functional procedural district exists; production dressing/mobile route playtest remains
-- [~] P08-T03 Industrial district — functional procedural district exists; production dressing/co-op space polish remains
+- [x] P08-T01 Residential district — connected procedural district with spawn, workshop, roads, signage and job locations
+- [x] P08-T02 Downtown district — connected procedural district with distinct building scale/dressing and job locations
+- [x] P08-T03 Industrial district — connected procedural district with industrial dressing and co-op-capable job locations
 - [x] P08-T04 Job anchor/building system
 - [x] P08-T05 Navigation markers
 - [!] P08-T06 Performance/streaming pass — StreamingEnabled is configured; actual client/server profiling requires Roblox Studio/runtime
@@ -124,7 +124,7 @@ Verification baseline:
 - [x] P15-T03 Economy events — source/sink reason, amount, ending balance, balance version and progression context attached
 - [x] P15-T04 Monetization events
 - [x] P15-T05 Balance versioning
-- [~] P15-T06 Full launch economy pass — deterministic guardrails/prelaunch review exist; full pacing validation still needs Roblox playtests/telemetry
+- [~] P15-T06 Full launch economy pass — executable Early/Mid/Late/Prestige model and CI guardrails are verified; real travel, retention and player-behavior pacing still require Roblox playtests/telemetry
 
 ## P16 Release
 - [~] P16-T01 Full QA matrix — matrix prepared; device/multi-client/runtime execution remains
