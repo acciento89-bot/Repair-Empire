@@ -38,11 +38,12 @@ Still required:
 ## P09 - Multi-client validation
 Resolved/verified:
 - Studio server boot with 2 simultaneous clients (Player1/Player2) verified; both clients initialized successfully
+- hard termination of one test client verified that the Studio server and remaining client continue running without Repair Empire runtime errors
 - deterministic owner-transfer, party-capacity and zero-contribution reward invariants are pure-test guarded
 
 Still required:
-- join/leave races
-- co-op disconnect/reconnect
+- join/leave races during an active contract
+- co-op reconnect and owner-transfer during an active contract
 - simultaneous stage requests
 - latency behavior
 
