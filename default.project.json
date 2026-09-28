@@ -1,0 +1,25 @@
+{
+  "name": "RepairEmpire",
+  "tree": {
+    "$className": "DataModel",
+    "ReplicatedStorage": {
+      "RepairEmpire": {
+        "Shared": {
+          "$path": "src/shared"
+        }
+      }
+    },
+    "ServerScriptService": {
+      "RepairEmpireServer": {
+        "$path": "src/server"
+      }
+    },
+    "StarterPlayer": {
+      "StarterPlayerScripts": {
+        "RepairEmpireClient": {
+          "$path": "src/client"
+        }
+      }
+    }
+  }
+}
