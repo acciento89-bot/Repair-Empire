@@ -52,6 +52,26 @@ function PlayerDataService:Publish(player: Player)
 	end
 end
 
+function PlayerDataService:GetSafeState(player: Player)
+	local profile = self:RequireProfile(player)
+	return {
+		Level = profile.Level,
+		XP = profile.XP,
+		Cash = profile.Cash,
+		CompanyPoints = profile.CompanyPoints,
+		CompanyLevel = profile.CompanyLevel,
+		WorkshopTier = profile.WorkshopTier,
+		PrestigeLevel = profile.PrestigeLevel,
+		OwnedTools = ProfileSchema.Clone(profile.OwnedTools),
+		EquippedTool = profile.EquippedTool,
+		OwnedVehicles = ProfileSchema.Clone(profile.OwnedVehicles),
+		SelectedVehicle = profile.SelectedVehicle,
+		Employees = ProfileSchema.Clone(profile.Employees),
+		Achievements = ProfileSchema.Clone(profile.Achievements),
+		InstantJobFinishes = profile.Consumables.InstantJobFinishes,
+	}
+end
+
 function PlayerDataService:_Load(player: Player)
 	local sessionToken = HttpService:GenerateGUID(false)
 	local now = unixNow()
@@ -149,6 +169,12 @@ function PlayerDataService:_Release(player: Player)
 end
 
 function PlayerDataService:Init()
+	local stateRemote = ReplicatedStorage:WaitForChild("RepairEmpireRemotes"):WaitForChild("RequestPlayerState")
+	assert(stateRemote:IsA("RemoteFunction"), "RequestPlayerState must be a RemoteFunction")
+	stateRemote.OnServerInvoke = function(player)
+		return { ok = true, state = self:GetSafeState(player) }
+	end
+
 	Players.PlayerAdded:Connect(function(player)
 		self:_Load(player)
 	end)
