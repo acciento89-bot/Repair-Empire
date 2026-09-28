@@ -5,8 +5,8 @@ Status legend: [ ] open, [~] implemented/partially verified, [x] verified comple
 Implementation is active. Core systems are implemented and the repository is CI-green.
 
 Verification baseline:
-- GitHub Actions run #330: success
-- Head verified through formatting, Selene lint, Rojo build and 26 pure-Luau tests; release-readiness reports Sandbox-ready: yes
+- GitHub Actions run #347+: success
+- Head verified through formatting, Selene lint, Rojo build and 28 pure-Luau tests; release-readiness reports Sandbox-ready: yes
 - External/runtime-only blockers are documented in `docs/EXTERNAL-ROBLOX-BLOCKERS.md`
 
 ## P00 Product Definition
@@ -87,7 +87,7 @@ Verification baseline:
 - [x] P10-T03 Developer Product receipt handler
 - [x] P10-T04 Idempotency/duplicate receipt protection
 - [x] P10-T05 Shop UI and explicit purchase flow — real Roblox prices are read when IDs are configured
-- [~] P10-T06 Sandbox verification — live IDs/prices are configured and published to Repair Empire Dev; real purchase/receipt sandbox verification remains
+- [~] P10-T06 Sandbox verification — live IDs/prices are configured; receipt idempotency, duplicate-analytics suppression and paid-state survival across Prestige are pure-test verified; real Marketplace purchase/reconnect sandbox verification remains
 
 ## P11 Retention
 - [x] P11-T01 Daily jobs
@@ -115,7 +115,7 @@ Verification baseline:
 - [x] P14-T02 Rate limits
 - [x] P14-T03 Spatial/state validation audit
 - [!] P14-T04 Economy exploit tests — test matrix and server guards exist; race/executor-style runtime tests require Studio/multi-client
-- [!] P14-T05 Purchase exploit tests — receipt/idempotency logic exists; real Marketplace retry/spoof scenarios require sandbox/runtime
+- [~] P14-T05 Purchase exploit tests — ProductId allowlisting, grant rules, duplicate receipt idempotency, duplicate-analytics suppression and Prestige retention are pure-test verified; real Marketplace retry/reconnect/spoof runtime scenarios remain
 - [x] P14-T06 Security logging
 
 ## P15 Analytics & Balancing
