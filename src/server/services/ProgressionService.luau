@@ -1,7 +1,9 @@
 --!strict
 
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local ProgressionConfig = require(ReplicatedStorage.RepairEmpire.Shared.config.ProgressionConfig)
+local Shared = ReplicatedStorage.RepairEmpire.Shared
+local ProgressionConfig = require(Shared.config.ProgressionConfig)
+local SkillTreeConfig = require(Shared.progression.SkillTreeConfig)
 
 local ProgressionService = {
 	Name = "ProgressionService",
@@ -16,6 +18,7 @@ function ProgressionService:AddXP(player: Player, amount: number)
 	local dataService = require(script.Parent.PlayerDataService)
 	local profile = dataService:RequireProfile(player)
 
+	local oldLevel = profile.Level
 	profile.XP += math.floor(amount)
 	while profile.Level < ProgressionConfig.MaxPlayerLevel do
 		local needed = ProgressionConfig.XpForNextLevel(profile.Level)
@@ -24,6 +27,11 @@ function ProgressionService:AddXP(player: Player, amount: number)
 		end
 		profile.XP -= needed
 		profile.Level += 1
+	end
+
+	local earnedSkillPoints = SkillTreeConfig.TotalPointsByLevel(profile.Level) - SkillTreeConfig.TotalPointsByLevel(oldLevel)
+	if earnedSkillPoints > 0 then
+		profile.SkillPoints += earnedSkillPoints
 	end
 
 	for districtId, requiredLevel in ProgressionConfig.DistrictUnlockLevels do
