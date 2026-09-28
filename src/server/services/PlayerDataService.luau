@@ -129,7 +129,7 @@ function PlayerDataService:_Save(player: Player, releaseLock: boolean)
 	self._loadedAt[player.UserId] = os.clock()
 
 	local ok = DataStoreAdapter.UpdateUser(player.UserId, function(existing)
-		if existing and existing.SessionLock and not SessionRules.Owns(existing.SessionLock, sessionToken) then
+		if existing and not SessionRules.CanWrite(existing.SessionLock, sessionToken) then
 			error("Session lock ownership changed; refusing to overwrite")
 		end
 
