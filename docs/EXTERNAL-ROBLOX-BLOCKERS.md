@@ -105,10 +105,8 @@ Resolved in code/tests:
 
 Still required:
 - full QA matrix
-- Roblox content questionnaire is submitted; resulting label is still pending/unknown in Creator Hub
-- icon and thumbnails
-- final experience metadata review
-- controlled public exposure only after release gates pass
+- Roblox content questionnaire is complete, but Creator Hub still reports content maturity label `Unbekannt`; public discovery/playability must wait for Roblox to assign the label
+- controlled public exposure only after remaining release gates pass
 
 ## P12/P15 - Prelaunch pacing
 Resolved:
