@@ -105,12 +105,7 @@ local function addConnectorRoad(parent: Instance, fromCenter: Vector3, toCenter:
 	end
 
 	local midpoint = (from + to) / 2
-	local road = createPart(
-		"ConnectorRoad",
-		Vector3.new(WorldConfig.ConnectorRoadWidth, 0.4, distance),
-		CFrame.lookAt(midpoint, to),
-		parent
-	)
+	local road = createPart("ConnectorRoad", Vector3.new(WorldConfig.ConnectorRoadWidth, 0.4, distance), CFrame.lookAt(midpoint, to), parent)
 	road.Material = Enum.Material.Asphalt
 end
 
@@ -164,12 +159,7 @@ function WorldService:_BuildDistrict(world: Folder, districtId: string, config)
 		building:SetAttribute("DistrictId", districtId)
 		building.Parent = folder
 
-		local shell = createPart(
-			"Shell",
-			Vector3.new(config.BuildingSize[1], height, config.BuildingSize[2]),
-			CFrame.new(x, height / 2, z),
-			building
-		)
+		local shell = createPart("Shell", Vector3.new(config.BuildingSize[1], height, config.BuildingSize[2]), CFrame.new(x, height / 2, z), building)
 		if districtId == "industrial" then
 			shell.Material = Enum.Material.Metal
 		elseif districtId == "downtown" then
@@ -179,12 +169,8 @@ function WorldService:_BuildDistrict(world: Folder, districtId: string, config)
 		end
 
 		if districtId == "downtown" and index % 2 == 0 then
-			local crown = createPart(
-				"TowerCrown",
-				Vector3.new(config.BuildingSize[1] * 0.7, 5, config.BuildingSize[2] * 0.7),
-				CFrame.new(x, height + 2.5, z),
-				building
-			)
+			local crown =
+				createPart("TowerCrown", Vector3.new(config.BuildingSize[1] * 0.7, 5, config.BuildingSize[2] * 0.7), CFrame.new(x, height + 2.5, z), building)
 			crown.Material = Enum.Material.Glass
 		elseif districtId == "industrial" and index % 2 == 1 then
 			local tank = createPart("ServiceTank", Vector3.new(8, 12, 8), CFrame.new(x + 15, 6, z), building)
