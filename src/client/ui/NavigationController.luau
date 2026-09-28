@@ -2,6 +2,13 @@
 
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+local UiPalette = require(ReplicatedStorage.RepairEmpire.Shared.ui.UiPalette)
+
+local function color(rgb)
+	return Color3.fromRGB(rgb[1], rgb[2], rgb[3])
+end
 
 local NavigationController = {
 	_target = nil :: Vector3?,
@@ -27,10 +34,12 @@ function NavigationController.Start()
 	label.AnchorPoint = Vector2.new(0.5, 1)
 	label.Position = UDim2.new(0.5, 0, 1, -28)
 	label.Size = UDim2.fromOffset(220, 44)
-	label.BackgroundTransparency = 0.2
+	label.BackgroundTransparency = 0.08
+	label.BackgroundColor3 = color(UiPalette.Hud)
+	label.BorderSizePixel = 0
 	label.Font = Enum.Font.GothamMedium
 	label.TextScaled = true
-	label.TextColor3 = Color3.new(1, 1, 1)
+	label.TextColor3 = color(UiPalette.Text)
 	label.Visible = false
 	label.Parent = gui
 
