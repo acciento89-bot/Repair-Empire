@@ -35,11 +35,12 @@ end
 
 function AnalyticsService:Start() end
 
-local function safeCall(label: string, callback)
+local function safeCall(label: string, callback): boolean
 	local ok, err = pcall(callback)
 	if not ok then
 		warn(("[Repair Empire][Analytics] %s failed: %s"):format(label, tostring(err)))
 	end
+	return ok
 end
 
 function AnalyticsService:LogOnce(player: Player, eventName: string, value: number?)
@@ -48,13 +49,15 @@ function AnalyticsService:LogOnce(player: Player, eventName: string, value: numb
 	if profile == nil or profile.AnalyticsFlags[eventName] == true then
 		return false
 	end
+	if not self:LogCustom(player, eventName, value) then
+		return false
+	end
 	profile.AnalyticsFlags[eventName] = true
-	self:LogCustom(player, eventName, value)
 	return true
 end
 
-function AnalyticsService:LogCustom(player: Player, eventName: string, value: number?)
-	safeCall("custom:" .. eventName, function()
+function AnalyticsService:LogCustom(player: Player, eventName: string, value: number?): boolean
+	return safeCall("custom:" .. eventName, function()
 		RobloxAnalytics:LogCustomEvent(player, eventName, value or 1, {})
 	end)
 end
