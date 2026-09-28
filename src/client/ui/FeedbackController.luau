@@ -37,6 +37,14 @@ local function messageFor(payload): string?
 		return "Job abandoned"
 	elseif payload.kind == "coop_left" then
 		return "Left co-op contract"
+	elseif payload.kind == "daily_job_completed" then
+		return ("Daily job bonus • +$%d • +%d Company Points"):format(payload.reward or 0, payload.companyPoints or 0)
+	elseif payload.kind == "daily_reward" then
+		return ("Daily login • +$%d • Streak %d"):format(payload.reward or 0, payload.streak or 1)
+	elseif payload.kind == "playtime_reward" then
+		return ("Online reward • +$%d"):format(payload.reward or 0)
+	elseif payload.kind == "achievement_claimed" then
+		return ("Achievement claimed • +$%d"):format(payload.reward or 0)
 	end
 	return nil
 end
