@@ -50,12 +50,7 @@ function WorldService:_BuildDistrict(world: Folder, districtId: string, config)
 	folder.Parent = world
 
 	local center = config.Center
-	local base = createPart(
-		"DistrictBase",
-		Vector3.new(config.Spacing * 6, 1, config.Spacing * 4),
-		CFrame.new(center + Vector3.new(0, -0.5, 0)),
-		folder
-	)
+	local base = createPart("DistrictBase", Vector3.new(config.Spacing * 6, 1, config.Spacing * 4), CFrame.new(center + Vector3.new(0, -0.5, 0)), folder)
 	base.Material = Enum.Material.Concrete
 
 	for index = 1, config.BuildingCount do
@@ -69,23 +64,13 @@ function WorldService:_BuildDistrict(world: Folder, districtId: string, config)
 		building.Name = ("Building_%02d"):format(index)
 		building.Parent = folder
 
-		local shell = createPart(
-			"Shell",
-			Vector3.new(28, height, 28),
-			CFrame.new(x, height / 2, z),
-			building
-		)
+		local shell = createPart("Shell", Vector3.new(28, height, 28), CFrame.new(x, height / 2, z), building)
 		shell.Material = if districtId == "industrial" then Enum.Material.Metal else Enum.Material.Brick
 
 		for categoryIndex, categoryId in CATEGORIES do
 			local offsetAngle = (categoryIndex - 1) * (math.pi / 2)
 			local offset = Vector3.new(math.cos(offsetAngle) * 18, 2, math.sin(offsetAngle) * 18)
-			local anchor = createPart(
-				"JobAnchor",
-				Vector3.new(4, 4, 4),
-				CFrame.new(Vector3.new(x, 2, z) + offset),
-				building
-			)
+			local anchor = createPart("JobAnchor", Vector3.new(4, 4, 4), CFrame.new(Vector3.new(x, 2, z) + offset), building)
 			local anchorId = ("%s_%02d_%s"):format(districtId, index, categoryId)
 			self:_RegisterAnchor(anchor, districtId, categoryId, anchorId)
 		end
