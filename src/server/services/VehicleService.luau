@@ -22,6 +22,17 @@ local function remote(name: string): RemoteFunction
 	return instance
 end
 
+local VEHICLE_COLORS = {
+	compact_van = Color3.fromRGB(188, 198, 207),
+	service_van = Color3.fromRGB(73, 142, 188),
+	long_van = Color3.fromRGB(66, 126, 167),
+	premium_van = Color3.fromRGB(38, 48, 58),
+	pickup = Color3.fromRGB(188, 119, 55),
+	crew_van = Color3.fromRGB(55, 126, 92),
+	truck = Color3.fromRGB(108, 112, 116),
+	elite = Color3.fromRGB(25, 31, 38),
+}
+
 local function createVehiclePart(name: string, size: Vector3, cframe: CFrame, parent: Instance): Part
 	local part = Instance.new("Part")
 	part.Name = name
@@ -47,14 +58,18 @@ local function buildProceduralVehicle(player: Player, definition, slotIndex: num
 	local length = definition.BodySize[3]
 	local origin = Vector3.new(0, 4, 0)
 
+	local bodyColor = VEHICLE_COLORS[definition.Style] or Color3.fromRGB(120, 135, 150)
+
 	local chassis = createVehiclePart("Chassis", Vector3.new(width, 1.0, length), CFrame.new(origin), model)
 	chassis.Material = Enum.Material.Metal
+	chassis.Color = Color3.fromRGB(48, 52, 58)
 
 	local cabinLength = math.max(4.2, length * 0.38)
 	local cabinCenterZ = -length / 2 + cabinLength / 2 + 0.4
 	local cabin =
 		createVehiclePart("Cabin", Vector3.new(width * 0.92, height, cabinLength), CFrame.new(origin + Vector3.new(0, height / 2 + 0.5, cabinCenterZ)), model)
 	cabin.Material = Enum.Material.SmoothPlastic
+	cabin.Color = bodyColor
 
 	local cargoLength = math.max(3.2, length - cabinLength - 1.0)
 	local cargoHeight = if definition.Style == "pickup" then height * 0.45 else if definition.Style == "truck" then height * 1.15 else height * 0.9
@@ -66,6 +81,7 @@ local function buildProceduralVehicle(player: Player, definition, slotIndex: num
 		model
 	)
 	cargo.Material = if definition.Style == "truck" then Enum.Material.Metal else Enum.Material.SmoothPlastic
+	cargo.Color = bodyColor
 
 	if definition.Style == "premium_van" or definition.Style == "elite" then
 		local roof = createVehiclePart(
@@ -75,6 +91,40 @@ local function buildProceduralVehicle(player: Player, definition, slotIndex: num
 			model
 		)
 		roof.Material = Enum.Material.Metal
+		roof.Color = Color3.fromRGB(238, 170, 66)
+	end
+
+	local windscreen = createVehiclePart(
+		"Windscreen",
+		Vector3.new(width * 0.72, height * 0.44, 0.18),
+		CFrame.new(origin + Vector3.new(0, height * 0.7, cabinCenterZ - cabinLength / 2 - 0.1)),
+		model
+	)
+	windscreen.Material = Enum.Material.Glass
+	windscreen.Color = Color3.fromRGB(91, 158, 188)
+	windscreen.Transparency = 0.18
+	windscreen.CanCollide = false
+
+	local stripe = createVehiclePart(
+		"CompanyStripe",
+		Vector3.new(width * 0.96, 0.35, cargoLength * 0.8),
+		CFrame.new(origin + Vector3.new(0, math.max(1.0, cargoHeight * 0.55), cargoCenterZ + width * 0.48)),
+		model
+	)
+	stripe.Material = Enum.Material.SmoothPlastic
+	stripe.Color = Color3.fromRGB(245, 151, 49)
+	stripe.CanCollide = false
+
+	for _, side in { -1, 1 } do
+		local headlight = createVehiclePart(
+			"Headlight",
+			Vector3.new(1.0, 0.55, 0.18),
+			CFrame.new(origin + Vector3.new(side * width * 0.28, 0.5, -length / 2 - 0.1)),
+			model
+		)
+		headlight.Material = Enum.Material.Neon
+		headlight.Color = Color3.fromRGB(255, 240, 188)
+		headlight.CanCollide = false
 	end
 
 	local seat = Instance.new("VehicleSeat")
@@ -112,6 +162,7 @@ local function buildProceduralVehicle(player: Player, definition, slotIndex: num
 			)
 			wheel.Shape = Enum.PartType.Cylinder
 			wheel.Material = Enum.Material.SmoothPlastic
+			wheel.Color = Color3.fromRGB(28, 30, 33)
 		end
 	end
 
