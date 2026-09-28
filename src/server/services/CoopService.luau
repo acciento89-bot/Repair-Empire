@@ -142,14 +142,11 @@ function CoopService:Join(player: Player, contractId: any)
 	}
 end
 
-function CoopService:Leave(player: Player)
-	if not self:_Allow(player, "LeaveCoopContract") then
-		return { ok = false, error = "rate_limited" }
-	end
+function CoopService:_RemovePlayer(player: Player)
 	local contractId = self._playerContract[player.UserId]
 	local contract = contractId and self._contracts[contractId]
 	if contract == nil then
-		return { ok = false, error = "not_in_contract" }
+		return false
 	end
 
 	contract.Participants[player.UserId] = nil
@@ -164,7 +161,16 @@ function CoopService:Leave(player: Player)
 			break
 		end
 	end
+	return true
+end
 
+function CoopService:Leave(player: Player)
+	if not self:_Allow(player, "LeaveCoopContract") then
+		return { ok = false, error = "rate_limited" }
+	end
+	if not self:_RemovePlayer(player) then
+		return { ok = false, error = "not_in_contract" }
+	end
 	return { ok = true }
 end
 
@@ -267,7 +273,7 @@ function CoopService:Init()
 
 	Players.PlayerRemoving:Connect(function(player)
 		if self._playerContract[player.UserId] then
-			self:Leave(player)
+			self:_RemovePlayer(player)
 		end
 	end)
 end
