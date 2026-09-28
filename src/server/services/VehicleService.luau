@@ -8,6 +8,7 @@ local Workspace = game:GetService("Workspace")
 local Shared = ReplicatedStorage.RepairEmpire.Shared
 local VehicleDefinitions = require(Shared.vehicles.VehicleDefinitions)
 local PassRules = require(Shared.monetization.PassRules)
+local MutationGuard = require(script.Parent.Parent.security.MutationGuard)
 
 local VehicleService = {
 	Name = "VehicleService",
@@ -132,23 +133,29 @@ function VehicleService:Purchase(player: Player, vehicleId: any)
 		return { ok = false, error = "invalid_vehicle" }
 	end
 
-	local dataService = require(script.Parent.PlayerDataService)
-	local profile = dataService:RequireProfile(player)
-	if profile.OwnedVehicles[vehicleId] then
-		return { ok = false, error = "already_owned" }
-	end
-	if profile.Level < definition.MinimumLevel then
-		return { ok = false, error = "level_locked" }
-	end
+	local entered, result = MutationGuard.TryRun(player.UserId, "profile_value_mutation", function()
+		local dataService = require(script.Parent.PlayerDataService)
+		local profile = dataService:RequireProfile(player)
+		if profile.OwnedVehicles[vehicleId] then
+			return { ok = false, error = "already_owned" }
+		end
+		if profile.Level < definition.MinimumLevel then
+			return { ok = false, error = "level_locked" }
+		end
 
-	local economy = require(script.Parent.EconomyService)
-	if not economy:Spend(player, "cash", definition.Cost, "vehicle:" .. vehicleId) then
-		return { ok = false, error = "insufficient_funds" }
-	end
+		local economy = require(script.Parent.EconomyService)
+		if not economy:Spend(player, "cash", definition.Cost, "vehicle:" .. vehicleId) then
+			return { ok = false, error = "insufficient_funds" }
+		end
 
-	profile.OwnedVehicles[vehicleId] = true
-	dataService:Publish(player)
-	return { ok = true }
+		profile.OwnedVehicles[vehicleId] = true
+		dataService:Publish(player)
+		return { ok = true }
+	end)
+	if not entered then
+		return { ok = false, error = "mutation_in_progress" }
+	end
+	return result
 end
 
 function VehicleService:Select(player: Player, vehicleId: any)
