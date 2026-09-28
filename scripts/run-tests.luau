@@ -12,6 +12,7 @@ local tests = {
 	require("../tests/coop-action-rules.spec"),
 	require("../tests/monetization-config.spec"),
 	require("../tests/retention.spec"),
+	require("../tests/playtime-rewards.spec"),
 	require("../tests/prestige.spec"),
 	require("../tests/prestige-rules.spec"),
 	require("../tests/balance-guardrails.spec"),
