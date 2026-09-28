@@ -18,6 +18,7 @@ local tests = {
 	require("../tests/tool-rules.spec"),
 	require("../tests/economy-model.spec"),
 	require("../tests/security-rules.spec"),
+	require("../tests/mutation-guard.spec"),
 	require("../tests/rate-limiter.spec"),
 	require("../tests/receipt-rules.spec"),
 	require("../tests/session-rules.spec"),
