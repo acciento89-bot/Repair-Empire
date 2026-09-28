@@ -10,7 +10,7 @@ function UiFactory.Button(parent: Instance, text: string, order: number?): TextB
 	button.Size = UDim2.new(1, 0, 0, 50)
 	button.BackgroundTransparency = 0.08
 	button.AutoButtonColor = true
-	button.Font = Enum.Font.GothamSemibold
+	button.Font = Enum.Font.GothamMedium
 	button.TextSize = 16
 	button.TextWrapped = true
 	button.Text = text
