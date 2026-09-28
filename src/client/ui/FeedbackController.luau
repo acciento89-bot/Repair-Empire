@@ -2,8 +2,12 @@
 
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local TweenService = game:GetService("TweenService")
+local ContentProvider = game:GetService("ContentProvider")
+local RunService = game:GetService("RunService")
 
 local UiPalette = require(ReplicatedStorage.RepairEmpire.Shared.ui.UiPalette)
+local FeedbackRules = require(ReplicatedStorage.RepairEmpire.Shared.ui.FeedbackRules)
 
 local function color(rgb)
 	return Color3.fromRGB(rgb[1], rgb[2], rgb[3])
@@ -70,12 +74,46 @@ function FeedbackController.Start()
 	textConstraint.MaxTextSize = 18
 	textConstraint.Parent = toast
 
+	local scale = Instance.new("UIScale")
+	scale.Scale = 1
+	scale.Parent = toast
+
+	local sound = Instance.new("Sound")
+	sound.Name = "FeedbackSound"
+	sound.SoundId = "rbxasset://sounds/electronicpingshort.wav"
+	sound.Parent = gui
+
+	if RunService:IsStudio() then
+		task.spawn(function()
+			local ok = pcall(ContentProvider.PreloadAsync, ContentProvider, { sound })
+			print("[Repair Empire] FeedbackAudio ready=" .. tostring(ok))
+		end)
+	end
+
 	local generation = 0
-	local function show(text: string)
+	local function show(text: string, kind: string)
 		generation += 1
 		local current = generation
 		toast.Text = text
 		toast.Visible = true
+
+		scale.Scale = 0.92
+		toast.TextTransparency = 0.18
+		toast.BackgroundTransparency = 0.12
+		TweenService:Create(scale, TweenInfo.new(0.12, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), { Scale = 1 }):Play()
+		TweenService:Create(toast, TweenInfo.new(0.12), {
+			TextTransparency = 0,
+			BackgroundTransparency = 0.04,
+		}):Play()
+
+		local tone = FeedbackRules.ForKind(kind)
+		if tone then
+			sound.PlaybackSpeed = tone.Pitch
+			sound.Volume = tone.Volume
+			sound.TimePosition = 0
+			sound:Play()
+		end
+
 		task.delay(2.5, function()
 			if generation == current then
 				toast.Visible = false
@@ -91,7 +129,7 @@ function FeedbackController.Start()
 		end
 		local text = messageFor(payload)
 		if text then
-			show(text)
+			show(text, payload.kind)
 		end
 	end)
 end
