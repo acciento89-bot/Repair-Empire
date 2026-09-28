@@ -100,7 +100,8 @@ function FeedbackController.Start()
 		scale.Scale = 0.92
 		toast.TextTransparency = 0.18
 		toast.BackgroundTransparency = 0.12
-		TweenService:Create(scale, TweenInfo.new(0.12, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), { Scale = 1 }):Play()
+		TweenService:Create(scale, TweenInfo.new(0.12, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), { Scale = 1 })
+			:Play()
 		TweenService:Create(toast, TweenInfo.new(0.12), {
 			TextTransparency = 0,
 			BackgroundTransparency = 0.04,
