@@ -50,9 +50,9 @@
 - Free path remains complete.
 
 ## UI/input
-- Small phone: no critical control overlaps Roblox movement controls.
+- Small phone: no critical control overlaps Roblox movement controls. iPhone XR landscape and portrait are runtime-verified; smaller compact preset remains.
 - Tablet: panels remain readable and centered.
-- Desktop: mouse/keyboard can complete core loop.
+- Desktop: mouse navigation/menu rendering is runtime-verified; full keyboard-only core-loop traversal remains.
 - Controller: selectable controls and ButtonX repair action work.
 - Critical states use text plus context, not color alone.
 - No mandatory animation is required to understand state.
