@@ -13,10 +13,14 @@ Everything in this document still requires Roblox runtime/dashboard evidence, re
 - the dev place has completed a server/client boot smoke test without the previous API-services block
 
 ## P06/P08/P13 - Final visual/runtime assets
-Source code provides functional self-contained systems. Final release quality still requires:
-- polished vehicle models and driving validation
-- polished city/workshop art
-- final tool/repair props
+Resolved:
+- self-contained procedural city/workshop art pass is implemented and Studio-verified
+- streets, sidewalks, markings, lighting, district dressing and street-facing facades are present
+- vehicles remain self-contained procedural models rather than external Marketplace assets
+
+Still required:
+- driving validation on actual client input
+- final tool/repair prop polish where desired
 - audio asset IDs and final effects
 - device-specific visual QA in Roblox clients
 
