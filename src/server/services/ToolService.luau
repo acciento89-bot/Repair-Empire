@@ -7,7 +7,7 @@ local ToolDefinitions = require(Shared.tools.ToolDefinitions)
 
 local ToolService = {
 	Name = "ToolService",
-	Dependencies = { "PlayerDataService", "EconomyService" },
+	Dependencies = { "PlayerDataService", "EconomyService", "SecurityService" },
 }
 
 local function remote(name: string): RemoteFunction
@@ -28,6 +28,10 @@ function ToolService:GetEquippedTier(player: Player): number
 end
 
 function ToolService:Purchase(player: Player, toolId: any)
+	local security = require(script.Parent.SecurityService)
+	if not security:Allow(player, "PurchaseTool") then
+		return { ok = false, error = "rate_limited" }
+	end
 	if type(toolId) ~= "string" then
 		return { ok = false, error = "invalid_tool" }
 	end
@@ -56,6 +60,10 @@ function ToolService:Purchase(player: Player, toolId: any)
 end
 
 function ToolService:Equip(player: Player, toolId: any)
+	local security = require(script.Parent.SecurityService)
+	if not security:Allow(player, "EquipTool") then
+		return { ok = false, error = "rate_limited" }
+	end
 	if type(toolId) ~= "string" then
 		return { ok = false, error = "invalid_tool" }
 	end
