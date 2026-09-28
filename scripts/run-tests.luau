@@ -15,6 +15,8 @@ local tests = {
 	require("../tests/job-validator.spec"),
 	require("../tests/tool-rules.spec"),
 	require("../tests/economy-model.spec"),
+	require("../tests/security-rules.spec"),
+	require("../tests/rate-limiter.spec"),
 }
 
 local passed = 0
