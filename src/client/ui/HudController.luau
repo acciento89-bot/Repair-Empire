@@ -14,7 +14,7 @@ local function createLabel(parent: Instance, name: string, position: UDim2): Tex
 	label.Size = UDim2.fromOffset(180, 42)
 	label.BackgroundTransparency = 0.18
 	label.TextScaled = true
-	label.Font = Enum.Font.GothamSemibold
+	label.Font = Enum.Font.GothamMedium
 	label.TextColor3 = Color3.new(1, 1, 1)
 	label.Parent = parent
 	return label
@@ -44,7 +44,7 @@ function HudController.Start()
 	objective.Name = "Objective"
 	objective.AnchorPoint = Vector2.new(0, 0.5)
 	objective.Position = UDim2.new(0, 16, 0.5, 0)
-	objective.Size = UDim2.new(0, 280, 0, 72)
+	objective.Size = UDim2.fromOffset(280, 72)
 	objective.BackgroundTransparency = 0.18
 	objective.TextWrapped = true
 	objective.TextScaled = true
