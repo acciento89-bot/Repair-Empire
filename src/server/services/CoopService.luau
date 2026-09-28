@@ -20,6 +20,7 @@ local CoopService = {
 		"ToolService",
 		"WorldService",
 		"SecurityService",
+		"AnalyticsService",
 	},
 	_contracts = {},
 	_playerContract = {},
@@ -202,6 +203,8 @@ function CoopService:_Complete(contract, definition)
 			local profile = dataService:RequireProfile(player)
 			profile.Stats.JobsCompleted += 1
 			dataService:Publish(player)
+			local analytics = require(script.Parent.AnalyticsService)
+			analytics:LogOnce(player, "first_coop_job_completed", 1)
 		end
 		self._playerContract[userId] = nil
 	end
