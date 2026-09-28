@@ -121,15 +121,7 @@ function PurchaseService:Init()
 			local analytics = require(script.Parent.AnalyticsService)
 			if config.Grant.Kind == "cash" then
 				local profile = dataService:RequireProfile(player)
-				analytics:LogEconomy(
-					player,
-					true,
-					"cash",
-					config.Grant.Amount,
-					profile.Cash,
-					"developer_product:" .. productKey,
-					productKey
-				)
+				analytics:LogEconomy(player, true, "cash", config.Grant.Amount, profile.Cash, "developer_product:" .. productKey, productKey)
 			end
 			analytics:LogCustom(player, "purchase_granted", 1)
 			return Enum.ProductPurchaseDecision.PurchaseGranted
