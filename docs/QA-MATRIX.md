@@ -53,7 +53,7 @@
 - Small phone: no critical control overlaps Roblox movement controls. iPhone XR and compact iPhone 7 landscape/portrait are runtime-verified; compact Premium Workshop marker overflow was fixed.
 - Tablet: iPad 6th Generation landscape and portrait runtime views remain readable and within the device display.
 - Desktop: mouse navigation/menu rendering is runtime-verified; full keyboard-only core-loop traversal remains.
-- Controller: selectable controls and ButtonX repair action work.
+- Controller: Generic Gamepad runtime verifies Repair Empire menu access/focus via ButtonY and close/back via ButtonB; D-pad traversal is deterministic and pure-tested; repair action remains bound to ButtonX through ContextActionService.
 - Critical states use text plus context, not color alone.
 - No mandatory animation is required to understand state.
 
