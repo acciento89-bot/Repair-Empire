@@ -87,7 +87,12 @@ function EconomyModel.BestEligibleSoloJob(
 	local bestRate = 0
 	local bestJob = nil
 	for _, job in jobDefinitions do
-		if not job.Coop and job.MinimumLevel <= level and job.RequiredToolTier <= maxToolTier and unlockedDistricts[job.District] == true then
+		if
+			not job.Coop
+			and job.MinimumLevel <= level
+			and job.RequiredToolTier <= maxToolTier
+			and unlockedDistricts[job.District] == true
+		then
 			local cycleSeconds = assumedTravelSeconds + EconomyModel.StageSeconds(job, toolMultiplier)
 			local rate = job.BaseReward * 60 / cycleSeconds
 			if rate > bestRate then
@@ -131,7 +136,12 @@ function EconomyModel.BestSoloXpPerMinute(
 ): number
 	local bestRate = 0
 	for _, job in jobDefinitions do
-		if not job.Coop and job.MinimumLevel <= level and job.RequiredToolTier <= maxToolTier and unlockedDistricts[job.District] == true then
+		if
+			not job.Coop
+			and job.MinimumLevel <= level
+			and job.RequiredToolTier <= maxToolTier
+			and unlockedDistricts[job.District] == true
+		then
 			local cycleSeconds = assumedTravelSeconds + EconomyModel.StageSeconds(job, toolMultiplier)
 			bestRate = math.max(bestRate, job.XP * 60 / cycleSeconds)
 		end
@@ -139,13 +149,25 @@ function EconomyModel.BestSoloXpPerMinute(
 	return bestRate
 end
 
-function EconomyModel.EstimateLevelingMinutes(maxLevel: number, jobDefinitions, toolDefinitions, progressionConfig, assumedTravelSeconds: number): number
+function EconomyModel.EstimateLevelingMinutes(
+	maxLevel: number,
+	jobDefinitions,
+	toolDefinitions,
+	progressionConfig,
+	assumedTravelSeconds: number
+): number
 	local totalMinutes = 0
 	for level = 1, maxLevel - 1 do
 		local toolMultiplier, maxTier = EconomyModel.FastestEligibleTool(toolDefinitions, level)
 		local districts = EconomyModel.UnlockedDistrictsForLevel(progressionConfig, level)
-		local xpPerMinute =
-			EconomyModel.BestSoloXpPerMinute(jobDefinitions, level, maxTier, districts, toolMultiplier, assumedTravelSeconds)
+		local xpPerMinute = EconomyModel.BestSoloXpPerMinute(
+			jobDefinitions,
+			level,
+			maxTier,
+			districts,
+			toolMultiplier,
+			assumedTravelSeconds
+		)
 		if xpPerMinute <= 0 then
 			return math.huge
 		end
