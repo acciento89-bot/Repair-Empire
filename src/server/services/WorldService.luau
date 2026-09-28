@@ -156,12 +156,22 @@ local function addResidentialWorkshop(parent: Instance, center: Vector3, groundS
 	end
 end
 
-local function addBuildingDetails(building: Model, districtId: string, x: number, z: number, width: number, depth: number, height: number, index: number)
+local function addBuildingDetails(
+	building: Model,
+	districtId: string,
+	x: number,
+	z: number,
+	width: number,
+	depth: number,
+	height: number,
+	index: number,
+	frontSign: number
+)
 	local roof = createPart("Roof", Vector3.new(width + 1.2, 0.8, depth + 1.2), CFrame.new(x, height + 0.4, z), building)
 	roof.Material = Enum.Material.Metal
 	roof.Color = Color3.fromRGB(68, 70, 76)
 
-	local entrance = createPart("Entrance", Vector3.new(4.5, 6, 0.45), CFrame.new(x, 3, z - depth / 2 - 0.25), building)
+	local entrance = createPart("Entrance", Vector3.new(4.5, 6, 0.45), CFrame.new(x, 3, z + frontSign * (depth / 2 + 0.25)), building)
 	entrance.Material = Enum.Material.Glass
 	entrance.Color = Color3.fromRGB(86, 142, 170)
 	entrance.Transparency = 0.2
@@ -170,7 +180,7 @@ local function addBuildingDetails(building: Model, districtId: string, x: number
 	if districtId == "residential" then
 		for _, side in { -1, 1 } do
 			local window =
-				createPart("FrontWindow", Vector3.new(6, 4, 0.35), CFrame.new(x + side * width * 0.24, math.min(height - 4, 7), z - depth / 2 - 0.2), building)
+				createPart("FrontWindow", Vector3.new(6, 4, 0.35), CFrame.new(x + side * width * 0.24, math.min(height - 4, 7), z + frontSign * (depth / 2 + 0.2)), building)
 			window.Material = Enum.Material.Glass
 			window.Color = Color3.fromRGB(120, 180, 205)
 			window.Transparency = 0.25
@@ -297,7 +307,8 @@ function WorldService:_BuildDistrict(world: Folder, districtId: string, config)
 			shell.Color = if index % 2 == 0 then Color3.fromRGB(156, 113, 86) else Color3.fromRGB(177, 145, 105)
 		end
 
-		addBuildingDetails(building, districtId, x, z, config.BuildingSize[1], config.BuildingSize[2], height, index)
+		local frontSign = if z > center.Z then -1 else 1
+		addBuildingDetails(building, districtId, x, z, config.BuildingSize[1], config.BuildingSize[2], height, index, frontSign)
 
 		if districtId == "downtown" and index % 2 == 0 then
 			local crown =
