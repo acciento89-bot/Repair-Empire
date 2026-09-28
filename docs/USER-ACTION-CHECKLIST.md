@@ -2,14 +2,15 @@
 
 This document intentionally contains only work that cannot be completed from the repository alone.
 
-## 1. Roblox ownership and experience IDs
-In Creator Dashboard / Roblox Studio, provide or confirm:
-- Roblox owner or group that will own Repair Empire
-- production Universe ID
-- production Start Place ID
-- development/test Place ID
-
-After these values exist, they go into `src/shared/config/PlatformConfig.luau`.
+## 1. Roblox ownership and experience IDs — DONE
+Configured:
+- production Universe ID: `10768475286`
+- production Start Place ID: `79925227687072`
+- development/test Place ID: `138882349802835`
+- development place: **Repair Empire Dev**
+- both places private
+- values are present in `src/shared/config/PlatformConfig.luau`
+- Studio/API tests use an isolated development DataStore
 
 ## 2. Game Passes
 Create these Game Passes if the launch catalog is retained:
