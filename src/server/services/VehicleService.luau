@@ -19,48 +19,104 @@ local function remote(name: string): RemoteFunction
 	return instance
 end
 
+local function createVehiclePart(name: string, size: Vector3, cframe: CFrame, parent: Instance): Part
+	local part = Instance.new("Part")
+	part.Name = name
+	part.Size = size
+	part.CFrame = cframe
+	part.Anchored = true
+	part.CanCollide = name == "Chassis" or name == "CargoBody" or name == "Cabin"
+	part.TopSurface = Enum.SurfaceType.Smooth
+	part.BottomSurface = Enum.SurfaceType.Smooth
+	part.Parent = parent
+	return part
+end
+
 local function buildPlaceholderVehicle(player: Player, definition)
 	local model = Instance.new("Model")
 	model.Name = ("Vehicle_%d"):format(player.UserId)
 	model:SetAttribute("OwnerUserId", player.UserId)
 	model:SetAttribute("VehicleId", definition.Id)
+	model:SetAttribute("VehicleStyle", definition.Style)
 
-	local body = Instance.new("Part")
-	body.Name = "Body"
-	body.Size = Vector3.new(7, 2.4, 12)
-	body.Anchored = true
-	body.CanCollide = true
-	body.Position = Vector3.new(0, 4, 0)
-	body.Parent = model
+	local width = definition.BodySize[1]
+	local height = definition.BodySize[2]
+	local length = definition.BodySize[3]
+	local origin = Vector3.new(0, 4, 0)
+
+	local chassis = createVehiclePart("Chassis", Vector3.new(width, 1.0, length), CFrame.new(origin), model)
+	chassis.Material = Enum.Material.Metal
+
+	local cabinLength = math.max(4.2, length * 0.38)
+	local cabinCenterZ = -length / 2 + cabinLength / 2 + 0.4
+	local cabin = createVehiclePart(
+		"Cabin",
+		Vector3.new(width * 0.92, height, cabinLength),
+		CFrame.new(origin + Vector3.new(0, height / 2 + 0.5, cabinCenterZ)),
+		model
+	)
+	cabin.Material = Enum.Material.SmoothPlastic
+
+	local cargoLength = math.max(3.2, length - cabinLength - 1.0)
+	local cargoHeight = if definition.Style == "pickup" then height * 0.45 else if definition.Style == "truck" then height * 1.15 else height * 0.9
+	local cargoCenterZ = length / 2 - cargoLength / 2 - 0.3
+	local cargo = createVehiclePart(
+		"CargoBody",
+		Vector3.new(width * 0.94, cargoHeight, cargoLength),
+		CFrame.new(origin + Vector3.new(0, cargoHeight / 2 + 0.5, cargoCenterZ)),
+		model
+	)
+	cargo.Material = if definition.Style == "truck" then Enum.Material.Metal else Enum.Material.SmoothPlastic
+
+	if definition.Style == "premium_van" or definition.Style == "elite" then
+		local roof = createVehiclePart(
+			"RoofModule",
+			Vector3.new(width * 0.6, 0.4, cabinLength * 0.55),
+			CFrame.new(origin + Vector3.new(0, height + 1.0, cabinCenterZ)),
+			model
+		)
+		roof.Material = Enum.Material.Metal
+	end
 
 	local seat = Instance.new("VehicleSeat")
 	seat.Name = "DriverSeat"
 	seat.Size = Vector3.new(2, 1, 2)
 	seat.Anchored = true
 	seat.CanCollide = false
-	seat.Position = body.Position + Vector3.new(0, 1.8, 1)
+	seat.CFrame = CFrame.new(origin + Vector3.new(-width * 0.2, 1.45, cabinCenterZ))
 	seat.MaxSpeed = definition.Speed
 	seat.Parent = model
 
-	for index, offset in
-		{
-			Vector3.new(-3.4, -1.1, -4),
-			Vector3.new(3.4, -1.1, -4),
-			Vector3.new(-3.4, -1.1, 4),
-			Vector3.new(3.4, -1.1, 4),
-		}
-	do
-		local wheel = Instance.new("Part")
-		wheel.Name = ("Wheel_%d"):format(index)
-		wheel.Shape = Enum.PartType.Cylinder
-		wheel.Size = Vector3.new(1.4, 2.2, 2.2)
-		wheel.Anchored = true
-		wheel.CanCollide = false
-		wheel.CFrame = CFrame.new(body.Position + offset) * CFrame.Angles(0, 0, math.rad(90))
-		wheel.Parent = model
+	local passengerCount = math.max(0, definition.Seats - 1)
+	for passengerIndex = 1, passengerCount do
+		local passenger = Instance.new("Seat")
+		passenger.Name = ("PassengerSeat_%d"):format(passengerIndex)
+		passenger.Size = Vector3.new(2, 1, 2)
+		passenger.Anchored = true
+		passenger.CanCollide = false
+		local row = math.floor((passengerIndex - 1) / 2)
+		local side = if passengerIndex % 2 == 1 then 1 else -1
+		passenger.CFrame = CFrame.new(origin + Vector3.new(side * width * 0.2, 1.45, cabinCenterZ + row * 2.1))
+		passenger.Parent = model
 	end
 
-	model.PrimaryPart = body
+	local axleCount = definition.Axles
+	for axleIndex = 1, axleCount do
+		local alpha = if axleCount == 1 then 0.5 else (axleIndex - 1) / (axleCount - 1)
+		local z = -length * 0.36 + alpha * length * 0.72
+		for _, side in { -1, 1 } do
+			local wheel = createVehiclePart(
+				("Wheel_%d_%d"):format(axleIndex, side),
+				Vector3.new(1.2, 2.2, 2.2),
+				CFrame.new(origin + Vector3.new(side * width * 0.52, -0.65, z)) * CFrame.Angles(0, 0, math.rad(90)),
+				model
+			)
+			wheel.Shape = Enum.PartType.Cylinder
+			wheel.Material = Enum.Material.SmoothPlastic
+		end
+	end
+
+	model.PrimaryPart = chassis
 	model.Parent = Workspace
 	return model, seat
 end
