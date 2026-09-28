@@ -338,10 +338,7 @@ local function renderWorkshop(content: Frame)
 		return
 	end
 
-	UiFactory.Label(
-		scroll,
-		("Workshop Tier %d • Company Level %d • Company Points %d"):format(state.WorkshopTier, state.CompanyLevel, state.CompanyPoints)
-	)
+	UiFactory.Label(scroll, ("Workshop Tier %d • Company Level %d • Company Points %d"):format(state.WorkshopTier, state.CompanyLevel, state.CompanyPoints))
 
 	local upgrade = UiFactory.Button(scroll, "Upgrade workshop", 1)
 	upgrade.Activated:Connect(function()
@@ -353,11 +350,7 @@ local function renderWorkshop(content: Frame)
 		end
 	end)
 
-	UiFactory.Label(
-		scroll,
-		"Workshop tiers increase employee capacity. Premium Workshop is cosmetic only and never gates progression.",
-		64
-	).LayoutOrder = 2
+	UiFactory.Label(scroll, "Workshop tiers increase employee capacity. Premium Workshop is cosmetic only and never gates progression.", 64).LayoutOrder = 2
 end
 
 local function renderEmployees(content: Frame)
