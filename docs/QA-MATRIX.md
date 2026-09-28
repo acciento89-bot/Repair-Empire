@@ -5,8 +5,8 @@
 - Remotes are created exactly once.
 - New player receives default profile.
 - Returning player loads existing profile.
-- Profile schema migration fixture reaches current version.
-- Save failure never silently overwrites a newer locked session.
+- Profile schema migration fixture reaches current version; live development-DataStore probe verifies v1→v2 migration and preserved values.
+- Save failure never silently overwrites a newer locked session; live probe verifies active foreign-lock writes are blocked.
 
 ## Solo gameplay
 - Player requests offers.
