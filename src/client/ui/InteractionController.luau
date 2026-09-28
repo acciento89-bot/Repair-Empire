@@ -48,9 +48,7 @@ local function updateButton()
 
 	local remaining = math.max(0, InteractionController._readyAt - os.clock())
 	button.Active = remaining <= 0
-	button.Text = if remaining <= 0
-		then ("DO REPAIR\n%s"):format(prettyAction(stage.Action or "continue"))
-		else ("PREPARING\n%.1fs"):format(remaining)
+	button.Text = if remaining <= 0 then ("DO REPAIR\n%s"):format(prettyAction(stage.Action or "continue")) else ("PREPARING\n%.1fs"):format(remaining)
 end
 
 local function perform()
