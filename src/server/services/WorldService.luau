@@ -4,6 +4,8 @@ local CollectionService = game:GetService("CollectionService")
 local Lighting = game:GetService("Lighting")
 local Workspace = game:GetService("Workspace")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local RunService = game:GetService("RunService")
+local Stats = game:GetService("Stats")
 
 local WorldConfig = require(ReplicatedStorage.RepairEmpire.Shared.world.WorldConfig)
 
@@ -364,6 +366,47 @@ function WorldService:IsPlayerNearAnchor(player: Player, anchorId: string): bool
 	return (root.Position - anchor.Position).Magnitude <= WorldConfig.AnchorInteractionDistance
 end
 
+local function logStudioWorldBaseline(world: Folder)
+	if not RunService:IsStudio() then
+		return
+	end
+
+	task.spawn(function()
+		local partCount = 0
+		for _, descendant in world:GetDescendants() do
+			if descendant:IsA("BasePart") then
+				partCount += 1
+			end
+		end
+
+		local memoryMb = 0
+		local memoryOk, memoryValue = pcall(function()
+			return Stats:GetTotalMemoryUsageMb()
+		end)
+		if memoryOk then
+			memoryMb = memoryValue
+		end
+
+		local elapsed = 0
+		for _ = 1, 120 do
+			elapsed += RunService.Heartbeat:Wait()
+		end
+		local averageHeartbeat = elapsed / 120
+		local approximateFps = if averageHeartbeat > 0 then 1 / averageHeartbeat else 0
+
+		print(
+			("[Repair Empire] StudioWorldBaseline streaming=%s parts=%d descendants=%d memoryMb=%.1f heartbeatMs=%.2f approxFps=%.1f"):format(
+				tostring(Workspace.StreamingEnabled),
+				partCount,
+				#world:GetDescendants(),
+				memoryMb,
+				averageHeartbeat * 1000,
+				approximateFps
+			)
+		)
+	end)
+end
+
 function WorldService:Init()
 	local existing = Workspace:FindFirstChild("RepairEmpireWorld")
 	if existing then
@@ -403,6 +446,8 @@ function WorldService:Init()
 		local toConfig = WorldConfig.Districts[WorldConfig.DistrictOrder[index + 1]]
 		addConnectorRoad(world, vectorFromArray(fromConfig.Center), vectorFromArray(toConfig.Center))
 	end
+
+	logStudioWorldBaseline(world)
 end
 
 function WorldService:Start() end
