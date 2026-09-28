@@ -6,6 +6,7 @@ local ContextActionService = game:GetService("ContextActionService")
 
 local InteractionController = {
 	_instanceId = nil :: string?,
+	_mode = nil :: string?,
 	_stage = nil,
 	_button = nil :: TextButton?,
 	_instantButton = nil :: TextButton?,
@@ -44,10 +45,17 @@ local function perform()
 		return
 	end
 
-	local result = remoteFunction("PerformJobAction"):InvokeServer({
-		instanceId = InteractionController._instanceId,
-		action = InteractionController._stage.Action,
-	})
+	local result
+	if InteractionController._mode == "coop" then
+		result = remoteFunction("PerformCoopAction"):InvokeServer({
+			action = InteractionController._stage.Action,
+		})
+	else
+		result = remoteFunction("PerformJobAction"):InvokeServer({
+			instanceId = InteractionController._instanceId,
+			action = InteractionController._stage.Action,
+		})
+	end
 	if type(result) == "table" and result.ok and result.completed ~= true and result.stage then
 		InteractionController._stage = result.stage
 		InteractionController._readyAt = os.clock() + (result.stage.MinimumSeconds or 0)
@@ -122,6 +130,7 @@ function InteractionController.Start()
 		end
 
 		if payload.kind == "job_started" then
+			InteractionController._mode = "solo"
 			InteractionController._instanceId = payload.instanceId
 			InteractionController._stage = payload.stage
 			InteractionController._readyAt = os.clock() + ((payload.stage and payload.stage.MinimumSeconds) or 0)
@@ -129,7 +138,21 @@ function InteractionController.Start()
 		elseif payload.kind == "job_stage" then
 			InteractionController._stage = payload.stage
 			InteractionController._readyAt = os.clock() + ((payload.stage and payload.stage.MinimumSeconds) or 0)
-		elseif payload.kind == "job_completed" or payload.kind == "job_abandoned" then
+		elseif payload.kind == "coop_started" then
+			InteractionController._mode = "coop"
+			InteractionController._instanceId = payload.contractId
+			InteractionController._stage = payload.stage
+			InteractionController._readyAt = os.clock() + ((payload.stage and payload.stage.MinimumSeconds) or 0)
+			instant.Visible = false
+		elseif payload.kind == "coop_stage" then
+			InteractionController._stage = payload.stage
+			InteractionController._readyAt = os.clock() + ((payload.stage and payload.stage.MinimumSeconds) or 0)
+		elseif payload.kind == "job_completed"
+			or payload.kind == "job_abandoned"
+			or payload.kind == "coop_completed"
+			or payload.kind == "coop_left"
+		then
+			InteractionController._mode = nil
 			InteractionController._instanceId = nil
 			InteractionController._stage = nil
 			instant.Visible = false
@@ -138,7 +161,7 @@ function InteractionController.Start()
 	end)
 
 	player:GetAttributeChangedSignal("InstantJobFinishes"):Connect(function()
-		instant.Visible = InteractionController._instanceId ~= nil and (player:GetAttribute("InstantJobFinishes") or 0) > 0
+		instant.Visible = InteractionController._mode == "solo" and InteractionController._instanceId ~= nil and (player:GetAttribute("InstantJobFinishes") or 0) > 0
 	end)
 
 	task.spawn(function()
