@@ -85,7 +85,12 @@ local function renderJobs(content: Frame)
 
 	for order, offer in result.offers or {} do
 		local job = offer.Job
-		local text = ("%s • $%d • %d XP • Tier %d"):format(pretty(job.Id), job.BaseReward, job.XP, job.RequiredToolTier)
+		local text = ("%s • $%d • %d XP • Tier %d"):format(
+			pretty(job.Id),
+			job.BaseReward,
+			job.XP,
+			job.RequiredToolTier
+		)
 		local button = UiFactory.Button(scroll, text, order)
 		button.Activated:Connect(function()
 			local accepted = remote("AcceptJob"):InvokeServer(offer.OfferId)
@@ -156,7 +161,12 @@ local function renderCoop(content: Frame)
 	for _, contract in discovery.contracts do
 		local button = UiFactory.Button(
 			scroll,
-			("%s • %s • %d/%d players"):format(pretty(contract.Job.Id), contract.OwnerName, contract.Participants, contract.MaxParticipants),
+			("%s • %s • %d/%d players"):format(
+				pretty(contract.Job.Id),
+				contract.OwnerName,
+				contract.Participants,
+				contract.MaxParticipants
+			),
 			order
 		)
 		button.Activated:Connect(function()
@@ -189,7 +199,13 @@ local function renderSkills(content: Frame)
 		local cashBonus = rank
 		local button = UiFactory.Button(
 			scroll,
-			("%s • Rank %d/%d • %d%% faster • +%d%% Cash/XP"):format(branch.DisplayName, rank, SkillTreeConfig.MaxRankPerBranch, speedBonus, cashBonus),
+			("%s • Rank %d/%d • %d%% faster • +%d%% Cash/XP"):format(
+				branch.DisplayName,
+				rank,
+				SkillTreeConfig.MaxRankPerBranch,
+				speedBonus,
+				cashBonus
+			),
 			order
 		)
 		button.Active = rank < SkillTreeConfig.MaxRankPerBranch and (state.SkillPoints or 0) > 0
@@ -283,8 +299,16 @@ local function renderTools(content: Frame)
 		local owned = state.OwnedTools[definition.Id] == true
 		local equipped = state.EquippedTool == definition.Id
 		local status = if equipped then "Equipped" elseif owned then "Equip" else ("Buy $%d"):format(definition.Cost)
-		local button =
-			UiFactory.Button(scroll, ("%s • T%d • Lv%d • %s"):format(pretty(definition.Id), definition.Tier, definition.MinimumLevel, status), order)
+		local button = UiFactory.Button(
+			scroll,
+			("%s • T%d • Lv%d • %s"):format(
+				pretty(definition.Id),
+				definition.Tier,
+				definition.MinimumLevel,
+				status
+			),
+			order
+		)
 		button.Activated:Connect(function()
 			local result
 			if owned then
@@ -319,8 +343,16 @@ local function renderVehicles(content: Frame)
 		local owned = state.OwnedVehicles[definition.Id] == true
 		local selected = state.SelectedVehicle == definition.Id
 		local status = if selected then "Selected" elseif owned then "Select" else ("Buy $%d"):format(definition.Cost)
-		local button =
-			UiFactory.Button(scroll, ("%s • T%d • Lv%d • %s"):format(pretty(definition.Id), definition.Tier, definition.MinimumLevel, status), order + 1)
+		local button = UiFactory.Button(
+			scroll,
+			("%s • T%d • Lv%d • %s"):format(
+				pretty(definition.Id),
+				definition.Tier,
+				definition.MinimumLevel,
+				status
+			),
+			order + 1
+		)
 		button.Activated:Connect(function()
 			local result
 			if owned then
@@ -346,7 +378,14 @@ local function renderWorkshop(content: Frame)
 		return
 	end
 
-	UiFactory.Label(scroll, ("Workshop Tier %d • Company Level %d • Company Points %d"):format(state.WorkshopTier, state.CompanyLevel, state.CompanyPoints))
+	UiFactory.Label(
+		scroll,
+		("Workshop Tier %d • Company Level %d • Company Points %d"):format(
+			state.WorkshopTier,
+			state.CompanyLevel,
+			state.CompanyPoints
+		)
+	)
 
 	local upgrade = UiFactory.Button(scroll, "Upgrade workshop", 1)
 	upgrade.Activated:Connect(function()
@@ -358,7 +397,12 @@ local function renderWorkshop(content: Frame)
 		end
 	end)
 
-	UiFactory.Label(scroll, "Workshop tiers increase employee capacity. Premium Workshop is cosmetic only and never gates progression.", 64).LayoutOrder = 2
+	UiFactory.Label(
+		scroll,
+		"Workshop tiers increase employee capacity. Premium Workshop is cosmetic only and never gates progression.",
+		64
+	).LayoutOrder =
+		2
 end
 
 local function renderEmployees(content: Frame)
@@ -488,7 +532,11 @@ local function renderPrestige(content: Frame)
 		end
 
 		confirmationToken = result.token
-		preview.Text = ("Confirm Prestige %d → %d (x%.2f rewards)"):format(result.currentPrestige, result.nextPrestige, result.nextRewardMultiplier)
+		preview.Text = ("Confirm Prestige %d → %d (x%.2f rewards)"):format(
+			result.currentPrestige,
+			result.nextPrestige,
+			result.nextRewardMultiplier
+		)
 	end)
 end
 
