@@ -36,6 +36,10 @@ function EntitlementService:Start()
 			self:RefreshAttributes(player)
 		end)
 	end
+
+	Players.PlayerRemoving:Connect(function(player)
+		self._cache[player.UserId] = nil
+	end)
 end
 
 function EntitlementService:Invalidate(player: Player)
