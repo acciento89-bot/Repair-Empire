@@ -9,6 +9,7 @@ local tests = {
 	require("../tests/world-config.spec"),
 	require("../tests/coop.spec"),
 	require("../tests/coop-rules.spec"),
+	require("../tests/coop-action-rules.spec"),
 	require("../tests/monetization-config.spec"),
 	require("../tests/retention.spec"),
 	require("../tests/prestige.spec"),
