@@ -28,6 +28,18 @@ function JobValidator.Validate(definition): (boolean, string?)
 	if type(definition.MinimumLevel) ~= "number" or definition.MinimumLevel < 1 then
 		return false, "invalid_minimum_level"
 	end
+	if type(definition.MinimumCompanyLevel) ~= "number" or definition.MinimumCompanyLevel < 1 then
+		return false, "invalid_minimum_company_level"
+	end
+	if type(definition.Weight) ~= "number" or definition.Weight <= 0 then
+		return false, "invalid_weight"
+	end
+	if type(definition.ExpectedDurationSeconds) ~= "number" or definition.ExpectedDurationSeconds <= 0 then
+		return false, "invalid_expected_duration"
+	end
+	if type(definition.CooldownSeconds) ~= "number" or definition.CooldownSeconds < 0 then
+		return false, "invalid_cooldown"
+	end
 	if type(definition.BaseReward) ~= "number" or definition.BaseReward <= 0 then
 		return false, "invalid_reward"
 	end
