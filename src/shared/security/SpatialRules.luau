@@ -18,7 +18,17 @@ function SpatialRules.IsWithinDistance(
 	if maxDistance < 0 then
 		return false
 	end
-	if not (finite(px) and finite(py) and finite(pz) and finite(ax) and finite(ay) and finite(az) and finite(maxDistance)) then
+	if
+		not (
+			finite(px)
+			and finite(py)
+			and finite(pz)
+			and finite(ax)
+			and finite(ay)
+			and finite(az)
+			and finite(maxDistance)
+		)
+	then
 		return false
 	end
 	local dx = px - ax
