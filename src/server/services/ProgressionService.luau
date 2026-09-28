@@ -5,7 +5,7 @@ local ProgressionConfig = require(ReplicatedStorage.RepairEmpire.Shared.config.P
 
 local ProgressionService = {
 	Name = "ProgressionService",
-	Dependencies = { "PlayerDataService" },
+	Dependencies = { "PlayerDataService", "AnalyticsService" },
 }
 
 function ProgressionService:Init() end
@@ -27,8 +27,12 @@ function ProgressionService:AddXP(player: Player, amount: number)
 	end
 
 	for districtId, requiredLevel in ProgressionConfig.DistrictUnlockLevels do
-		if profile.Level >= requiredLevel then
+		if profile.Level >= requiredLevel and profile.UnlockedDistricts[districtId] ~= true then
 			profile.UnlockedDistricts[districtId] = true
+			if districtId == "downtown" then
+				local analytics = require(script.Parent.AnalyticsService)
+				analytics:LogOnce(player, "district_2_unlocked", 1)
+			end
 		end
 	end
 
