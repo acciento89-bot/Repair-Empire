@@ -12,6 +12,7 @@ local DEFAULT_PROFILE = {
 	CompanyPoints = 0,
 	CompanyLevel = 1,
 	CompanyXP = 0,
+	WorkshopTier = 1,
 	PrestigeLevel = 0,
 	SkillPoints = 0,
 	UnlockedDistricts = {
@@ -26,6 +27,7 @@ local DEFAULT_PROFILE = {
 	},
 	SelectedVehicle = "old_compact_van",
 	Employees = {},
+	LastPassiveTimestamp = 0,
 	Tutorial = {
 		Step = "first_job",
 		Completed = false,
@@ -43,6 +45,7 @@ local DEFAULT_PROFILE = {
 		MoneySpent = 0,
 		PlayTimeSeconds = 0,
 		Prestiges = 0,
+		PassiveCashEarned = 0,
 	},
 }
 
