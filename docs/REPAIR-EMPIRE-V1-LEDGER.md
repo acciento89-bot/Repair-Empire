@@ -104,8 +104,8 @@ Verification baseline:
 - [!] P12-T05 Endgame pacing verification — requires real playtest/telemetry across late-game progression
 
 ## P13 UI/UX Polish
-- [~] P13-T01 Small-phone layouts — responsive implementation plus iPhone XR landscape and portrait runtime QA are verified; StarterGui and active PlayerGui both use Sensor orientation; a smaller compact-device preset remains
-- [~] P13-T02 Tablet/desktop layouts — responsive implementation exists; desktop runtime UI and mouse navigation are verified, including live Shop rendering; tablet-specific runtime QA remains
+- [x] P13-T01 Small-phone layouts — iPhone XR plus compact iPhone 7 (667x375) landscape/portrait runtime QA verified; Sensor orientation is enabled at StarterGui and active PlayerGui; compact Premium Workshop marker overflow found and fixed
+- [~] P13-T02 Tablet/desktop layouts — iPad 6th Generation landscape/portrait visual runtime QA verified; desktop UI and mouse navigation are verified including live Shop rendering; full keyboard-only traversal remains
 - [~] P13-T03 Controller navigation — focusable UI, ButtonStart open/toggle and ButtonB back/close paths implemented; controller runtime QA remains
 - [~] P13-T04 Accessibility pass — text/context and non-color-only critical states implemented; explicit accessible palette plus 4.5:1 contrast CI guardrail verified; final device/visual audit remains
 - [~] P13-T05 Feedback/audio/effects polish — HUD/reward/error feedback exists and the self-contained world/workshop art pass is Studio-verified; final sound/VFX asset pass remains
@@ -128,7 +128,7 @@ Verification baseline:
 - [~] P15-T06 Full launch economy pass — executable Early/Mid/Late/Prestige model and CI guardrails are verified; real travel, retention and player-behavior pacing still require Roblox playtests/telemetry
 
 ## P16 Release
-- [~] P16-T01 Full QA matrix — matrix prepared; device/multi-client/runtime execution remains
+- [~] P16-T01 Full QA matrix — phone and tablet device passes, desktop mouse UI, 2-client boot/disconnect, performance baselines and DataStore smoke tests are executed; controller, keyboard-only, Marketplace sandbox and remaining network/recovery abuse cases remain
 - [~] P16-T02 Data migration/recovery test — Studio API access enabled; isolated development store verified with fresh-load 404, stop/save and successful second load; schema migration, expired-lock acquisition and foreign-lock write rejection are pure-test guarded; corresponding live DataStore recovery cases remain
 - [~] P16-T03 Purchase release checklist — live IDs/prices configured and Dev published; actual purchase/receipt sandbox verification remains
 - [~] P16-T04 Store metadata/assets checklist — final metadata is configured and the 17-section Roblox content questionnaire was submitted successfully; final icon/thumbnails remain
