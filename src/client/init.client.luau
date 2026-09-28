@@ -9,6 +9,7 @@ local InteractionController = require(script.ui.InteractionController)
 local MenuController = require(script.ui.MenuController)
 local ResponsiveController = require(script.ui.ResponsiveController)
 local FeedbackController = require(script.ui.FeedbackController)
+local PassCosmeticsController = require(script.ui.PassCosmeticsController)
 
 local player = Players.LocalPlayer
 assert(player ~= nil, "LocalPlayer unavailable")
@@ -19,6 +20,7 @@ InteractionController.Start()
 MenuController.Start()
 ResponsiveController.Start()
 FeedbackController.Start()
+PassCosmeticsController.Start()
 
 local remotes = ReplicatedStorage:WaitForChild("RepairEmpireRemotes")
 local stateUpdated = remotes:WaitForChild("StateUpdated")
