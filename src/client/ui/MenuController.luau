@@ -329,7 +329,7 @@ local function renderVehicles(content: Frame)
 	end
 end
 
-local function renderCompany(content: Frame)
+local function renderWorkshop(content: Frame)
 	remote("RecordFunnelEvent"):InvokeServer("company_system_opened")
 	local state = getState()
 	local scroll = UiFactory.Scroll(content)
@@ -338,28 +338,55 @@ local function renderCompany(content: Frame)
 		return
 	end
 
-	UiFactory.Label(scroll, ("Workshop Tier %d • Company Level %d"):format(state.WorkshopTier, state.CompanyLevel))
+	UiFactory.Label(
+		scroll,
+		("Workshop Tier %d • Company Level %d • Company Points %d"):format(state.WorkshopTier, state.CompanyLevel, state.CompanyPoints)
+	)
+
 	local upgrade = UiFactory.Button(scroll, "Upgrade workshop", 1)
 	upgrade.Activated:Connect(function()
 		local result = remote("PurchaseUpgrade"):InvokeServer({ kind = "workshop" })
 		if type(result) == "table" and result.ok then
-			MenuController.Render("Company")
+			MenuController.Render("Workshop")
 		else
 			upgrade.Text = "Unavailable: " .. tostring(result and result.error or "unknown")
 		end
 	end)
 
+	UiFactory.Label(
+		scroll,
+		"Workshop tiers increase employee capacity. Premium Workshop is cosmetic only and never gates progression.",
+		64
+	).LayoutOrder = 2
+end
+
+local function renderEmployees(content: Frame)
+	local state = getState()
+	local scroll = UiFactory.Scroll(content)
+	if state == nil then
+		UiFactory.Label(scroll, "Player state unavailable.")
+		return
+	end
+
+	UiFactory.Label(scroll, ("Company Level %d • Workshop Tier %d"):format(state.CompanyLevel, state.WorkshopTier))
+
 	for order, definition in EmployeeDefinitions.List do
 		local owned = state.Employees[definition.Id] or 0
 		local button = UiFactory.Button(
 			scroll,
-			("%s • %d/min • owned %d • Hire $%d"):format(pretty(definition.Id), definition.CashPerMinute, owned, definition.Cost),
+			("%s • %s • %d/min • owned %d • Hire $%d"):format(
+				pretty(definition.Id),
+				pretty(definition.Role),
+				definition.CashPerMinute,
+				owned,
+				definition.Cost
+			),
 			order + 1
 		)
 		button.Activated:Connect(function()
 			local result = remote("HireEmployee"):InvokeServer(definition.Id)
 			if type(result) == "table" and result.ok then
-				MenuController.Render("Company")
+				MenuController.Render("Employees")
 			else
 				button.Text = "Unavailable: " .. tostring(result and result.error or "unknown")
 			end
@@ -471,7 +498,8 @@ local renderers = {
 	Skills = renderSkills,
 	Achievements = renderAchievements,
 	Vehicles = renderVehicles,
-	Company = renderCompany,
+	Workshop = renderWorkshop,
+	Employees = renderEmployees,
 	Daily = renderDaily,
 	Shop = renderShop,
 	Prestige = renderPrestige,
@@ -562,7 +590,7 @@ function MenuController.Start()
 	tabLayout.Padding = UDim.new(0, 6)
 	tabLayout.Parent = tabs
 
-	for _, tab in { "Jobs", "Co-op", "Tools", "Skills", "Vehicles", "Company", "Daily", "Achievements", "Shop", "Prestige" } do
+	for _, tab in { "Jobs", "Co-op", "Tools", "Skills", "Vehicles", "Workshop", "Employees", "Daily", "Achievements", "Shop", "Prestige" } do
 		local button = Instance.new("TextButton")
 		button.Name = tab .. "Tab"
 		button.Size = UDim2.fromOffset(116, 48)
