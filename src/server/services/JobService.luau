@@ -7,7 +7,6 @@ local HttpService = game:GetService("HttpService")
 local Shared = ReplicatedStorage.RepairEmpire.Shared
 local JobDefinitions = require(Shared.jobs.JobDefinitions)
 local JobRules = require(Shared.jobs.JobRules)
-local RemoteDefinitions = require(Shared.remotes.RemoteDefinitions)
 
 local OFFER_COUNT = 4
 local OFFER_TTL_SECONDS = 120
@@ -25,6 +24,7 @@ local JobService = {
 		"PrestigeService",
 		"RetentionService",
 		"SecurityService",
+		"AnalyticsService",
 	},
 	_offers = {},
 	_active = {},
@@ -173,6 +173,8 @@ function JobService:Accept(player: Player, offerId: any)
 		targetPosition = anchor.Position,
 	}
 	getStateEvent():FireClient(player, payload)
+	local analytics = require(script.Parent.AnalyticsService)
+	analytics:LogCustom(player, "job_accepted", 1)
 	return {
 		ok = true,
 		instanceId = instanceId,
@@ -190,6 +192,8 @@ function JobService:Abandon(player: Player)
 		return { ok = false, error = "no_active_job" }
 	end
 	self._active[player.UserId] = nil
+	local analytics = require(script.Parent.AnalyticsService)
+	analytics:LogCustom(player, "job_abandoned", 1)
 	getStateEvent():FireClient(player, { kind = "job_abandoned" })
 	return { ok = true }
 end
@@ -276,6 +280,8 @@ function JobService:PerformAction(player: Player, payload: any)
 	self._active[player.UserId] = nil
 	dataService:Publish(player)
 
+	local analytics = require(script.Parent.AnalyticsService)
+	analytics:LogCustom(player, "job_completed", 1)
 	getStateEvent():FireClient(player, {
 		kind = "job_completed",
 		reward = cashReward,
@@ -321,10 +327,15 @@ function JobService:UseInstantFinish(player: Player)
 	active.StageStartedAt = -math.huge
 
 	local finalStage = definition.Stages[#definition.Stages]
-	return self:PerformAction(player, {
+	local result = self:PerformAction(player, {
 		instanceId = active.InstanceId,
 		action = finalStage.Action,
 	})
+	if type(result) ~= "table" or result.ok ~= true then
+		profile.Consumables.InstantJobFinishes += 1
+		dataService:Publish(player)
+	end
+	return result
 end
 
 function JobService:Init()
