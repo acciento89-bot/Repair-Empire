@@ -5,6 +5,7 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Shared = ReplicatedStorage.RepairEmpire.Shared
 local JobDefinitions = require(Shared.jobs.JobDefinitions)
 local RetentionConfig = require(Shared.retention.RetentionConfig)
+local MutationGuard = require(script.Parent.Parent.security.MutationGuard)
 
 local RetentionService = {
 	Name = "RetentionService",
@@ -114,26 +115,33 @@ function RetentionService:ClaimLoginReward(player: Player)
 	if not security:Allow(player, "ClaimDailyReward") then
 		return { ok = false, error = "rate_limited" }
 	end
-	local dataService = require(script.Parent.PlayerDataService)
-	local economy = require(script.Parent.EconomyService)
-	local profile = dataService:RequireProfile(player)
-	local day = RetentionConfig.GetDayNumber()
 
-	if profile.Daily.LastClaimDay == day then
-		return { ok = false, error = "already_claimed" }
+	local entered, result = MutationGuard.TryRun(player.UserId, "profile_value_mutation", function()
+		local dataService = require(script.Parent.PlayerDataService)
+		local economy = require(script.Parent.EconomyService)
+		local profile = dataService:RequireProfile(player)
+		local day = RetentionConfig.GetDayNumber()
+
+		if profile.Daily.LastClaimDay == day then
+			return { ok = false, error = "already_claimed" }
+		end
+
+		if profile.Daily.LastClaimDay == day - 1 then
+			profile.Daily.ClaimStreak = math.min(profile.Daily.ClaimStreak + 1, #RetentionConfig.LoginRewards)
+		else
+			profile.Daily.ClaimStreak = 1
+		end
+		profile.Daily.LastClaimDay = day
+
+		local reward = RetentionConfig.LoginRewards[profile.Daily.ClaimStreak]
+		economy:Grant(player, "cash", reward, "daily_login")
+		dataService:Publish(player)
+		return { ok = true, streak = profile.Daily.ClaimStreak, reward = reward }
+	end)
+	if not entered then
+		return { ok = false, error = "mutation_in_progress" }
 	end
-
-	if profile.Daily.LastClaimDay == day - 1 then
-		profile.Daily.ClaimStreak = math.min(profile.Daily.ClaimStreak + 1, #RetentionConfig.LoginRewards)
-	else
-		profile.Daily.ClaimStreak = 1
-	end
-	profile.Daily.LastClaimDay = day
-
-	local reward = RetentionConfig.LoginRewards[profile.Daily.ClaimStreak]
-	economy:Grant(player, "cash", reward, "daily_login")
-	dataService:Publish(player)
-	return { ok = true, streak = profile.Daily.ClaimStreak, reward = reward }
+	return result
 end
 
 local function metricValue(profile, metric: string): number
@@ -173,18 +181,24 @@ function RetentionService:ClaimAchievement(player: Player, achievementId: any)
 		return { ok = false, error = "invalid_achievement" }
 	end
 
-	self:RefreshAchievements(player)
-	local dataService = require(script.Parent.PlayerDataService)
-	local profile = dataService:RequireProfile(player)
-	if profile.Achievements[achievementId] ~= "unlocked" then
-		return { ok = false, error = "not_claimable" }
-	end
+	local entered, result = MutationGuard.TryRun(player.UserId, "profile_value_mutation", function()
+		self:RefreshAchievements(player)
+		local dataService = require(script.Parent.PlayerDataService)
+		local profile = dataService:RequireProfile(player)
+		if profile.Achievements[achievementId] ~= "unlocked" then
+			return { ok = false, error = "not_claimable" }
+		end
 
-	profile.Achievements[achievementId] = "claimed"
-	local economy = require(script.Parent.EconomyService)
-	economy:Grant(player, "cash", definition.RewardCash, "achievement:" .. achievementId)
-	dataService:Publish(player)
-	return { ok = true, reward = definition.RewardCash }
+		profile.Achievements[achievementId] = "claimed"
+		local economy = require(script.Parent.EconomyService)
+		economy:Grant(player, "cash", definition.RewardCash, "achievement:" .. achievementId)
+		dataService:Publish(player)
+		return { ok = true, reward = definition.RewardCash }
+	end)
+	if not entered then
+		return { ok = false, error = "mutation_in_progress" }
+	end
+	return result
 end
 
 function RetentionService:Init()
