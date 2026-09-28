@@ -32,14 +32,7 @@ return function()
 	local lateMultiplier = model.FastestToolMultiplierAtTier(tools.List, 4)
 	local earlyRate, earlyJob = model.BestEligibleSoloJob(jobs.List, 5, 1, { residential = true }, earlyMultiplier, 45)
 	local midRate, midJob = model.BestEligibleSoloJob(jobs.List, 25, 2, { residential = true, downtown = true }, midMultiplier, 45)
-	local lateRate, lateJob = model.BestEligibleSoloJob(
-		jobs.List,
-		55,
-		4,
-		{ residential = true, downtown = true, industrial = true },
-		lateMultiplier,
-		45
-	)
+	local lateRate, lateJob = model.BestEligibleSoloJob(jobs.List, 55, 4, { residential = true, downtown = true, industrial = true }, lateMultiplier, 45)
 	assert(earlyJob ~= nil and earlyRate > 0, "early-game model has no viable solo job")
 	assert(midJob ~= nil and midRate > earlyRate, "midgame active earning rate must improve over early game")
 	assert(lateJob ~= nil and lateRate > midRate, "late-game active earning rate must improve over midgame")
