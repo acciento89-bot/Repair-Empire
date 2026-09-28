@@ -2,7 +2,7 @@
 
 local ProfileSchema = {}
 
-ProfileSchema.CurrentVersion = 1
+ProfileSchema.CurrentVersion = 2
 
 local DEFAULT_PROFILE = {
 	SchemaVersion = ProfileSchema.CurrentVersion,
@@ -15,6 +15,12 @@ local DEFAULT_PROFILE = {
 	WorkshopTier = 1,
 	PrestigeLevel = 0,
 	SkillPoints = 0,
+	Skills = {
+		plumbing = 0,
+		heating = 0,
+		climate = 0,
+		energy = 0,
+	},
 	UnlockedDistricts = {
 		residential = true,
 	},
