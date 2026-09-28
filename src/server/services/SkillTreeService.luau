@@ -3,6 +3,7 @@
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local SkillTreeConfig = require(ReplicatedStorage.RepairEmpire.Shared.progression.SkillTreeConfig)
+local MutationGuard = require(script.Parent.Parent.security.MutationGuard)
 
 local SkillTreeService = {
 	Name = "SkillTreeService",
@@ -42,26 +43,32 @@ function SkillTreeService:Purchase(player: Player, categoryId: any)
 		return { ok = false, error = "invalid_branch" }
 	end
 
-	local dataService = require(script.Parent.PlayerDataService)
-	local profile = dataService:RequireProfile(player)
-	local currentRank = profile.Skills[categoryId] or 0
-	if currentRank >= SkillTreeConfig.MaxRankPerBranch then
-		return { ok = false, error = "max_rank" }
-	end
-	if profile.SkillPoints <= 0 then
-		return { ok = false, error = "no_skill_points" }
-	end
+	local entered, result = MutationGuard.TryRun(player.UserId, "profile_value_mutation", function()
+		local dataService = require(script.Parent.PlayerDataService)
+		local profile = dataService:RequireProfile(player)
+		local currentRank = profile.Skills[categoryId] or 0
+		if currentRank >= SkillTreeConfig.MaxRankPerBranch then
+			return { ok = false, error = "max_rank" }
+		end
+		if profile.SkillPoints <= 0 then
+			return { ok = false, error = "no_skill_points" }
+		end
 
-	profile.SkillPoints -= 1
-	profile.Skills[categoryId] = currentRank + 1
-	dataService:Publish(player)
+		profile.SkillPoints -= 1
+		profile.Skills[categoryId] = currentRank + 1
+		dataService:Publish(player)
 
-	return {
-		ok = true,
-		category = categoryId,
-		rank = profile.Skills[categoryId],
-		skillPoints = profile.SkillPoints,
-	}
+		return {
+			ok = true,
+			category = categoryId,
+			rank = profile.Skills[categoryId],
+			skillPoints = profile.SkillPoints,
+		}
+	end)
+	if not entered then
+		return { ok = false, error = "mutation_in_progress" }
+	end
+	return result
 end
 
 function SkillTreeService:Init()
