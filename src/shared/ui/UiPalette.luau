@@ -1,14 +1,25 @@
 --!strict
 
 local UiPalette = {
-	Text = { 245, 247, 250 },
-	TextMuted = { 204, 210, 218 },
-	Panel = { 30, 33, 39 },
-	Button = { 50, 55, 64 },
-	ButtonDisabled = { 72, 76, 84 },
-	Hud = { 22, 25, 30 },
-	Accent = { 70, 145, 205 },
-	Gold = { 242, 199, 76 },
+	Text = { 246, 249, 252 },
+	TextMuted = { 178, 192, 207 },
+	TextOnAccent = { 24, 30, 36 },
+
+	Panel = { 18, 31, 43 },
+	Surface = { 25, 43, 58 },
+	SurfaceRaised = { 33, 55, 72 },
+	Button = { 37, 61, 79 },
+	ButtonDisabled = { 67, 78, 88 },
+	Hud = { 14, 28, 40 },
+
+	Accent = { 245, 151, 49 },
+	AccentSoft = { 90, 59, 30 },
+	Gold = { 249, 199, 79 },
+	Success = { 75, 184, 124 },
+	Warning = { 244, 185, 66 },
+	Danger = { 224, 88, 88 },
+	Stroke = { 79, 105, 126 },
+	Shadow = { 8, 16, 24 },
 }
 
 local function channelToLinear(value: number): number
