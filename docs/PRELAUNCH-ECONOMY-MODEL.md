@@ -27,13 +27,22 @@ The executable model also evaluates representative bands using the fastest tool 
 - mid: level 25, tool tier 2, Residential + Downtown
 - late: level 55, tool tier 4, all three districts
 
+Current CI output:
+- early (Lv5/T1): **cold_radiator — $300/min**
+- mid (Lv25/T2): **system_pressure_restore — $1,050/min**
+- late (Lv55/T4): **commercial_cooling_service — $1,687/min**
+
 The CI guardrail requires modeled active earning throughput to rise from early -> mid -> late.
 
 For Prestige feasibility, the model compares:
 - an optimistic lower bound on jobs required to accumulate level-100 XP using the highest solo XP reward;
 - late-job-equivalent jobs needed to reach company level 10 from Company Points.
 
-CI fails if company level 10 becomes the tighter modeled gate after player level 100. Workshop tier 5 remains a Cash sink and is separately included in the hard progression sink subtotal.
+Current CI output:
+- optimistic lower-bound solo jobs to level 100: **2,026**
+- late-job-equivalent jobs to company level 10: **1,556**
+
+CI fails if company level 10 becomes the tighter modeled gate after player level 100. On the current configuration, the player-level requirement remains the later modeled gate. Workshop tier 5 remains a Cash sink and is separately included in the hard progression sink subtotal.
 
 ## Interpretation
 The passive system is bounded and remains below half of modeled high-end active throughput, but the four-hour offline ceiling is economically meaningful. It must be watched during real playtests for employee ROI and whether offline income invalidates vehicle/tool/workshop sinks.
