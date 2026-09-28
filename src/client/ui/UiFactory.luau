@@ -17,7 +17,7 @@ function UiFactory.Round(object: GuiObject, radius: number?)
 	corner.Parent = object
 end
 
-function UiFactory.Stroke(object: GuiObject, rgb?, thickness: number?, transparency: number?)
+function UiFactory.Stroke(object: GuiObject, rgb: { number }?, thickness: number?, transparency: number?)
 	local stroke = Instance.new("UIStroke")
 	stroke.Color = color(rgb or UiPalette.Stroke)
 	stroke.Thickness = thickness or 1
