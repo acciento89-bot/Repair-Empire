@@ -4,7 +4,9 @@ local Players = game:GetService("Players")
 local MarketplaceService = game:GetService("MarketplaceService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
-local MonetizationConfig = require(ReplicatedStorage.RepairEmpire.Shared.config.MonetizationConfig)
+local Shared = ReplicatedStorage.RepairEmpire.Shared
+local MonetizationConfig = require(Shared.config.MonetizationConfig)
+local PurchaseRules = require(Shared.monetization.PurchaseRules)
 
 local PurchaseService = {
 	Name = "PurchaseService",
@@ -15,30 +17,6 @@ local function remote(name: string): RemoteFunction
 	local instance = ReplicatedStorage:WaitForChild("RepairEmpireRemotes"):WaitForChild(name)
 	assert(instance:IsA("RemoteFunction"), name .. " must be a RemoteFunction")
 	return instance
-end
-
-local function productById(productId: number)
-	for key, config in MonetizationConfig.DeveloperProducts do
-		if config.Id == productId then
-			return key, config
-		end
-	end
-	return nil, nil
-end
-
-local function applyGrant(profile, grant)
-	if grant.Kind == "cash" then
-		profile.Cash += grant.Amount
-		profile.Stats.MoneyEarned += grant.Amount
-	elseif grant.Kind == "cash_boost" then
-		local now = DateTime.now().UnixTimestamp
-		local base = math.max(profile.Boosts.CashMultiplierUntil, now)
-		profile.Boosts.CashMultiplierUntil = base + grant.Seconds
-	elseif grant.Kind == "instant_job_finish" then
-		profile.Consumables.InstantJobFinishes += grant.Amount
-	else
-		error("Unsupported product grant: " .. tostring(grant.Kind))
-	end
 end
 
 function PurchaseService:PromptGamePass(player: Player, passKey: any)
@@ -101,7 +79,7 @@ function PurchaseService:Init()
 	end)
 
 	MarketplaceService.ProcessReceipt = function(receiptInfo)
-		local productKey, config = productById(receiptInfo.ProductId)
+		local productKey, config = PurchaseRules.ProductById(MonetizationConfig, receiptInfo.ProductId)
 		if productKey == nil or config == nil then
 			warn(("[Repair Empire] Unconfigured Developer Product ID %d"):format(receiptInfo.ProductId))
 			return Enum.ProductPurchaseDecision.NotProcessedYet
@@ -113,17 +91,19 @@ function PurchaseService:Init()
 		end
 
 		local dataService = require(script.Parent.PlayerDataService)
-		local ok = dataService:ApplyReceipt(player, tostring(receiptInfo.PurchaseId), function(profile)
-			applyGrant(profile, config.Grant)
+		local ok, reason = dataService:ApplyReceipt(player, tostring(receiptInfo.PurchaseId), function(profile)
+			PurchaseRules.ApplyGrant(profile, config.Grant, DateTime.now().UnixTimestamp)
 		end)
 
 		if ok then
-			local analytics = require(script.Parent.AnalyticsService)
-			if config.Grant.Kind == "cash" then
-				local profile = dataService:RequireProfile(player)
-				analytics:LogEconomy(player, true, "cash", config.Grant.Amount, profile.Cash, "developer_product:" .. productKey, productKey)
+			if PurchaseRules.ShouldEmitGrantAnalytics(reason) then
+				local analytics = require(script.Parent.AnalyticsService)
+				if config.Grant.Kind == "cash" then
+					local profile = dataService:RequireProfile(player)
+					analytics:LogEconomy(player, true, "cash", config.Grant.Amount, profile.Cash, "developer_product:" .. productKey, productKey)
+				end
+				analytics:LogCustom(player, "purchase_granted", 1)
 			end
-			analytics:LogCustom(player, "purchase_granted", 1)
 			return Enum.ProductPurchaseDecision.PurchaseGranted
 		end
 		return Enum.ProductPurchaseDecision.NotProcessedYet
