@@ -10,6 +10,8 @@ local ToolDefinitions = require(Shared.tools.ToolDefinitions)
 local VehicleDefinitions = require(Shared.vehicles.VehicleDefinitions)
 local EmployeeDefinitions = require(Shared.company.EmployeeDefinitions)
 local MonetizationConfig = require(Shared.config.MonetizationConfig)
+local JobDefinitions = require(Shared.jobs.JobDefinitions)
+local CoopContracts = require(Shared.coop.CoopContracts)
 local UiFactory = require(script.Parent.UiFactory)
 
 local MenuController = {
@@ -70,6 +72,84 @@ local function renderJobs(content: Frame)
 				button.Text = "Cannot accept: " .. tostring(accepted and accepted.error or "unknown")
 			end
 		end)
+	end
+end
+
+local function renderCoop(content: Frame)
+	local scroll = UiFactory.Scroll(content)
+	local discovery = remote("RequestCoopContracts"):InvokeServer()
+	if type(discovery) ~= "table" or not discovery.ok then
+		UiFactory.Label(scroll, "Co-op contracts could not be loaded.")
+		return
+	end
+
+	if discovery.currentContractId ~= nil then
+		local leave = UiFactory.Button(scroll, "Leave current co-op contract", 0)
+		leave.Activated:Connect(function()
+			local result = remote("LeaveCoopContract"):InvokeServer()
+			if type(result) == "table" and result.ok then
+				MenuController.Render("Co-op")
+			else
+				leave.Text = "Unable to leave contract"
+			end
+		end)
+	end
+
+	UiFactory.Label(scroll, "Start a large contract", 40).LayoutOrder = 1
+	local order = 2
+	for _, definition in JobDefinitions.List do
+		if definition.Coop and CoopContracts[definition.Id] == true then
+			local button = UiFactory.Button(
+				scroll,
+				("%s • Lv%d • Tier %d • $%d base"):format(
+					pretty(definition.Id),
+					definition.MinimumLevel,
+					definition.RequiredToolTier,
+					definition.BaseReward
+				),
+				order
+			)
+			button.Activated:Connect(function()
+				local result = remote("CreateCoopContract"):InvokeServer(definition.Id)
+				if type(result) == "table" and result.ok then
+					MenuController.Close()
+				else
+					button.Text = "Unavailable: " .. tostring(result and result.error or "unknown")
+				end
+			end)
+			order += 1
+		end
+	end
+
+	UiFactory.Label(scroll, "Open contracts in this server", 40).LayoutOrder = order
+	order += 1
+
+	if #(discovery.contracts or {}) == 0 then
+		local none = UiFactory.Label(scroll, "No open contracts right now.", 38)
+		none.LayoutOrder = order
+		return
+	end
+
+	for _, contract in discovery.contracts do
+		local button = UiFactory.Button(
+			scroll,
+			("%s • %s • %d/%d players"):format(
+				pretty(contract.Job.Id),
+				contract.OwnerName,
+				contract.Participants,
+				contract.MaxParticipants
+			),
+			order
+		)
+		button.Activated:Connect(function()
+			local result = remote("JoinCoopContract"):InvokeServer(contract.ContractId)
+			if type(result) == "table" and result.ok then
+				MenuController.Close()
+			else
+				button.Text = "Cannot join: " .. tostring(result and result.error or "unknown")
+			end
+		end)
+		order += 1
 	end
 end
 
@@ -274,6 +354,7 @@ end
 
 local renderers = {
 	Jobs = renderJobs,
+	["Co-op"] = renderCoop,
 	Tools = renderTools,
 	Vehicles = renderVehicles,
 	Company = renderCompany,
@@ -367,7 +448,7 @@ function MenuController.Start()
 	tabLayout.Padding = UDim.new(0, 6)
 	tabLayout.Parent = tabs
 
-	for _, tab in { "Jobs", "Tools", "Vehicles", "Company", "Daily", "Shop", "Prestige" } do
+	for _, tab in { "Jobs", "Co-op", "Tools", "Vehicles", "Company", "Daily", "Shop", "Prestige" } do
 		local button = Instance.new("TextButton")
 		button.Name = tab .. "Tab"
 		button.Size = UDim2.fromOffset(116, 48)
