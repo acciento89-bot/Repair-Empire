@@ -116,12 +116,7 @@ local function addResidentialWorkshop(parent: Instance, center: Vector3, groundS
 	pad.Color = Color3.fromRGB(112, 116, 120)
 
 	for stripeIndex = -1, 1 do
-		local stripe = createPart(
-			"ServiceBayStripe",
-			Vector3.new(2.2, 0.08, 26),
-			CFrame.new(x + stripeIndex * 9, 0.55, z - 1),
-			model
-		)
+		local stripe = createPart("ServiceBayStripe", Vector3.new(2.2, 0.08, 26), CFrame.new(x + stripeIndex * 9, 0.55, z - 1), model)
 		stripe.Material = Enum.Material.SmoothPlastic
 		stripe.Color = Color3.fromRGB(245, 151, 49)
 		stripe.CanCollide = false
@@ -178,12 +173,7 @@ local function addResidentialWorkshop(parent: Instance, center: Vector3, groundS
 	toolRack.Material = Enum.Material.Metal
 	toolRack.Color = Color3.fromRGB(42, 52, 60)
 	for toolIndex = -2, 2 do
-		local tool = createPart(
-			"DisplayTool",
-			Vector3.new(0.35, 3.2, 0.35),
-			CFrame.new(x - 20 + toolIndex * 1.2, 2.8, z + 7.4),
-			model
-		)
+		local tool = createPart("DisplayTool", Vector3.new(0.35, 3.2, 0.35), CFrame.new(x - 20 + toolIndex * 1.2, 2.8, z + 7.4), model)
 		tool.Material = Enum.Material.Metal
 		tool.Color = if toolIndex % 2 == 0 then Color3.fromRGB(245, 151, 49) else Color3.fromRGB(186, 196, 205)
 		tool.CanCollide = false
