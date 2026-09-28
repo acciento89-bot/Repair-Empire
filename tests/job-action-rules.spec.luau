@@ -46,8 +46,30 @@ return function()
 		Completing = true,
 	}
 	assert(decide({ active = completing }).error == "completion_in_progress", "concurrent finalization must reject")
-	assert(decide({ definition = nil }).error == "invalid_server_state", "missing definition must fail closed")
-	assert(decide({ stage = nil }).error == "invalid_server_state", "missing stage must fail closed")
+	local missingDefinition = rules.Validate({
+		active = active,
+		instanceId = "job-a",
+		wasCompleted = false,
+		definition = nil,
+		stage = stage,
+		action = "tighten",
+		isNear = true,
+		elapsed = 2,
+		effectiveSeconds = 2,
+	})
+	assert(missingDefinition.error == "invalid_server_state", "missing definition must fail closed")
+	local missingStage = rules.Validate({
+		active = active,
+		instanceId = "job-a",
+		wasCompleted = false,
+		definition = definition,
+		stage = nil,
+		action = "tighten",
+		isNear = true,
+		elapsed = 2,
+		effectiveSeconds = 2,
+	})
+	assert(missingStage.error == "invalid_server_state", "missing stage must fail closed")
 	assert(decide({ action = "remove" }).error == "wrong_action", "out-of-order action must reject")
 	assert(decide({ isNear = false }).error == "too_far_from_job", "position spoof must reject")
 	assert(decide({ elapsed = 1.84 }).error == "too_fast", "too-early request must reject")
