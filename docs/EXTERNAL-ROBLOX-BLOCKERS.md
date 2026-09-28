@@ -36,6 +36,10 @@ Still required:
 - server/network behavior with multiple players
 
 ## P09 - Multi-client validation
+Resolved/verified:
+- Studio server boot with 2 simultaneous clients (Player1/Player2) verified; both clients initialized successfully
+- deterministic owner-transfer, party-capacity and zero-contribution reward invariants are pure-test guarded
+
 Still required:
 - join/leave races
 - co-op disconnect/reconnect
