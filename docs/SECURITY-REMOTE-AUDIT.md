@@ -15,11 +15,13 @@ The client is considered untrusted.
 | PurchaseTool | Server | ID, level, ownership, funds |
 | EquipTool | Server | ownership |
 | PurchaseVehicle | Server | ID, level, ownership, funds |
-| SelectVehicle/SpawnVehicle | Server | ownership/selected state |
+| SelectVehicle/SpawnVehicle/DespawnVehicle | Server | ownership/selected state; despawn only affects caller-owned spawned models |
 | PurchaseUpgrade | Server | known upgrade kind, funds, max tier |
 | HireEmployee | Server | ID, slot capacity, workshop/company gates, funds |
 | ClaimDailyReward | Server | day boundary, prior claim |
 | RequestDailyJobs | Server | deterministic server selection |
+| RequestRetentionStatus | Server | loaded profile, authoritative daily playtime/claim state |
+| ClaimPlaytimeReward | Server | allowlisted milestone, server time threshold, duplicate claim guard |
 | ClaimAchievement | Server | server metric condition, not already claimed |
 | RequestPrestige | Server | preview nonce, expiry, eligibility |
 | PromptGamePass/Product | Server | allowlisted config key and configured Roblox ID |
