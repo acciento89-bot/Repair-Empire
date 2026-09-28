@@ -14,6 +14,16 @@ local migrations = {
 		profile.SchemaVersion = 1
 		return profile
 	end,
+	[1] = function(profile)
+		profile.Skills = profile.Skills or {
+			plumbing = 0,
+			heating = 0,
+			climate = 0,
+			energy = 0,
+		}
+		profile.SchemaVersion = 2
+		return profile
+	end,
 }
 
 function ProfileMigrationRules.Migrate(profile)
