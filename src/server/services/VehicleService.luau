@@ -42,12 +42,14 @@ local function buildPlaceholderVehicle(player: Player, definition)
 	seat.MaxSpeed = definition.Speed
 	seat.Parent = model
 
-	for index, offset in {
-		Vector3.new(-3.4, -1.1, -4),
-		Vector3.new(3.4, -1.1, -4),
-		Vector3.new(-3.4, -1.1, 4),
-		Vector3.new(3.4, -1.1, 4),
-	} do
+	for index, offset in
+		{
+			Vector3.new(-3.4, -1.1, -4),
+			Vector3.new(3.4, -1.1, -4),
+			Vector3.new(-3.4, -1.1, 4),
+			Vector3.new(3.4, -1.1, 4),
+		}
+	do
 		local wheel = Instance.new("Part")
 		wheel.Name = ("Wheel_%d"):format(index)
 		wheel.Shape = Enum.PartType.Cylinder
