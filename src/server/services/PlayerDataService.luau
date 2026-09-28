@@ -30,7 +30,9 @@ local function publishSummary(player: Player, profile)
 	player:SetAttribute("Cash", profile.Cash)
 	player:SetAttribute("CompanyPoints", profile.CompanyPoints)
 	player:SetAttribute("CompanyLevel", profile.CompanyLevel)
+	player:SetAttribute("WorkshopTier", profile.WorkshopTier)
 	player:SetAttribute("PrestigeLevel", profile.PrestigeLevel)
+	player:SetAttribute("InstantJobFinishes", profile.Consumables.InstantJobFinishes)
 end
 
 function PlayerDataService:GetProfile(player: Player)
@@ -110,6 +112,33 @@ function PlayerDataService:_Save(player: Player, releaseLock: boolean)
 	end)
 
 	return ok
+end
+
+function PlayerDataService:ApplyReceipt(player: Player, receiptId: string, mutator): (boolean, string)
+	assert(#receiptId > 0 and #receiptId <= 200, "Invalid receipt ID")
+	local profile = self:RequireProfile(player)
+	if profile.ProcessedReceipts[receiptId] ~= nil then
+		return true, "already_processed"
+	end
+
+	local backup = ProfileSchema.Clone(profile)
+	local okMutate, mutateError = pcall(mutator, profile)
+	if not okMutate then
+		self._profiles[player.UserId] = backup
+		warn("[Repair Empire] Receipt grant mutator failed: " .. tostring(mutateError))
+		return false, "grant_failed"
+	end
+
+	profile.ProcessedReceipts[receiptId] = unixNow()
+	local saved = self:_Save(player, false)
+	if not saved then
+		self._profiles[player.UserId] = backup
+		self:Publish(player)
+		return false, "save_failed"
+	end
+
+	self:Publish(player)
+	return true, "granted"
 end
 
 function PlayerDataService:_Release(player: Player)
