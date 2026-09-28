@@ -8,6 +8,7 @@ local Shared = ReplicatedStorage.RepairEmpire.Shared
 local JobDefinitions = require(Shared.jobs.JobDefinitions)
 local JobRules = require(Shared.jobs.JobRules)
 local CoopContracts = require(Shared.coop.CoopContracts)
+local ToolRules = require(Shared.tools.ToolRules)
 
 local MAX_PARTY_SIZE = 6
 
@@ -21,6 +22,9 @@ local CoopService = {
 		"WorldService",
 		"SecurityService",
 		"AnalyticsService",
+		"EntitlementService",
+		"PrestigeService",
+		"RetentionService",
 	},
 	_contracts = {},
 	_playerContract = {},
@@ -127,6 +131,10 @@ function CoopService:Join(player: Player, contractId: any)
 	if definition == nil or not JobRules.IsEligible(definition, profile) then
 		return { ok = false, error = "not_eligible" }
 	end
+	local toolService = require(script.Parent.ToolService)
+	if toolService:GetEquippedTier(player) < definition.RequiredToolTier then
+		return { ok = false, error = "tool_tier_locked" }
+	end
 
 	contract.Participants[player.UserId] = true
 	contract.Contribution[player.UserId] = 0
@@ -138,7 +146,7 @@ function CoopService:Join(player: Player, contractId: any)
 		ok = true,
 		contractId = contractId,
 		jobId = contract.DefinitionId,
-		stage = definition.Stages[contract.StageIndex],
+		stage = ToolRules.ToClientStage(definition.Stages[contract.StageIndex], toolService:GetEquippedSpeedMultiplier(player)),
 		targetPosition = if anchor then anchor.Position else nil,
 	}
 end
@@ -195,7 +203,10 @@ function CoopService:_Complete(contract, definition)
 		local contribution = contract.Contribution[userId] or 0
 		if player and contribution > 0 and totalContribution > 0 then
 			local share = contribution / totalContribution
-			local cash = math.max(1, math.floor(contractReward * share))
+			local entitlement = require(script.Parent.EntitlementService)
+			local prestige = require(script.Parent.PrestigeService)
+			local rewardMultiplier = entitlement:GetCashMultiplier(player) * prestige:GetRewardMultiplier(player)
+			local cash = math.max(1, math.floor(contractReward * share * rewardMultiplier))
 			local xp = math.max(1, math.floor(definition.XP * share))
 			economy:Grant(player, "cash", cash, "coop:" .. definition.Id)
 			progression:AddXP(player, xp)
@@ -205,6 +216,8 @@ function CoopService:_Complete(contract, definition)
 			dataService:Publish(player)
 			local analytics = require(script.Parent.AnalyticsService)
 			analytics:LogOnce(player, "first_coop_job_completed", 1)
+			local retention = require(script.Parent.RetentionService)
+			retention:RefreshAchievements(player)
 		end
 		self._playerContract[userId] = nil
 	end
@@ -240,7 +253,12 @@ function CoopService:PerformAction(player: Player, payload: any)
 		return { ok = false, error = "too_far_from_job" }
 	end
 
-	if os.clock() - contract.StageStartedAt + 0.15 < stage.MinimumSeconds then
+	local toolService = require(script.Parent.ToolService)
+	if toolService:GetEquippedTier(player) < definition.RequiredToolTier then
+		return { ok = false, error = "tool_tier_locked" }
+	end
+	local effectiveSeconds = ToolRules.GetEffectiveStageSeconds(stage.MinimumSeconds, toolService:GetEquippedSpeedMultiplier(player))
+	if os.clock() - contract.StageStartedAt + 0.15 < effectiveSeconds then
 		return { ok = false, error = "too_fast" }
 	end
 
@@ -256,7 +274,7 @@ function CoopService:PerformAction(player: Player, payload: any)
 	return {
 		ok = true,
 		completed = false,
-		stage = definition.Stages[contract.StageIndex],
+		stage = ToolRules.ToClientStage(definition.Stages[contract.StageIndex], toolService:GetEquippedSpeedMultiplier(player)),
 	}
 end
 
