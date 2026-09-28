@@ -60,6 +60,13 @@ function PlayerDataService:Publish(player: Player)
 	end
 end
 
+function PlayerDataService:GetCurrentPlayTime(player: Player): number
+	local profile = self:RequireProfile(player)
+	local loadedAt = self._loadedAt[player.UserId]
+	local sessionSeconds = if loadedAt then math.max(0, math.floor(os.clock() - loadedAt)) else 0
+	return profile.Stats.PlayTimeSeconds + sessionSeconds
+end
+
 function PlayerDataService:GetSafeState(player: Player)
 	local profile = self:RequireProfile(player)
 	return {
@@ -78,7 +85,9 @@ function PlayerDataService:GetSafeState(player: Player)
 		SelectedVehicle = profile.SelectedVehicle,
 		Employees = ProfileSchema.Clone(profile.Employees),
 		Achievements = ProfileSchema.Clone(profile.Achievements),
+		Daily = ProfileSchema.Clone(profile.Daily),
 		Stats = ProfileSchema.Clone(profile.Stats),
+		CurrentPlayTimeSeconds = self:GetCurrentPlayTime(player),
 		InstantJobFinishes = profile.Consumables.InstantJobFinishes,
 		TutorialStep = profile.Tutorial.Step,
 		TutorialCompleted = profile.Tutorial.Completed,
