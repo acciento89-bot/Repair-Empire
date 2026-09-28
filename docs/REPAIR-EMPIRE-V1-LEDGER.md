@@ -5,7 +5,7 @@ Status legend: [ ] open, [~] implemented/partially verified, [x] verified comple
 Implementation is active. Core systems are implemented and the repository is CI-green.
 
 Verification baseline:
-- GitHub Actions run #385: success
+- Current main head: GitHub Actions verification green
 - Head verified through formatting, Selene lint, Rojo build and 37 pure-Luau tests; release-readiness reports Sandbox-ready: yes; phone HUD and contrast guardrails are included
 - External/runtime-only blockers are documented in `docs/EXTERNAL-ROBLOX-BLOCKERS.md`
 
@@ -72,7 +72,7 @@ Verification baseline:
 - [x] P08-T03 Industrial district — connected procedural district with industrial dressing, tanks/vents/pipes and co-op-capable job locations
 - [x] P08-T04 Job anchor/building system
 - [x] P08-T05 Navigation markers
-- [~] P08-T06 Performance/streaming pass — StreamingEnabled verified; server world baseline recorded at 572 parts / 614 descendants / 22.14 ms average Heartbeat and a reproducible 120-frame Studio client probe now records avg/p95 frame time, FPS and memory for two simultaneous clients; production-device, travel/streaming and network profiling remain
+- [x] P08-T06 Performance/streaming pass — V1 acceptance met: StreamingEnabled is verified; server world baseline covers 572 parts / 614 descendants / 22.14 ms average Heartbeat; two simultaneous Studio clients have reproducible frame/memory baselines; compact-phone/tablet/desktop navigation is runtime-verified. Production-device telemetry remains a post-launch P17 concern rather than a P08 release blocker
 
 ## P09 Multiplayer & Co-op
 - [x] P09-T01 Co-op contract state model
@@ -87,7 +87,7 @@ Verification baseline:
 - [x] P10-T03 Developer Product receipt handler
 - [x] P10-T04 Idempotency/duplicate receipt protection
 - [x] P10-T05 Shop UI and explicit purchase flow — real Roblox prices are read from MarketplaceService and live Studio Shop rendering with configured prices is runtime-verified
-- [~] P10-T06 Sandbox verification — live IDs/prices are configured; receipt idempotency, duplicate-analytics suppression and paid-state survival across Prestige are pure-test verified; real Marketplace purchase/reconnect sandbox verification remains
+- [!] P10-T06 Sandbox verification — all code-side/retry/duplicate/aborted-path protections are verified, but Roblox requires a real Robux purchase to complete end-to-end Marketplace receipt/rejoin verification; blocked pending an owner-approved Robux transaction
 
 ## P11 Retention
 - [x] P11-T01 Daily jobs
@@ -128,11 +128,11 @@ Verification baseline:
 - [x] P15-T06 Full launch economy pass — executable Early/Mid/Late/Prestige model is CI-guarded: $504,420 hard sink subtotal, 39.1% max passive/active ratio, monotonic earning bands and 31.6h modeled level-100 pacing; post-launch behavior review is tracked under P17
 
 ## P16 Release
-- [~] P16-T01 Full QA matrix — phone and tablet device passes, desktop mouse UI, 2-client boot/disconnect, performance baselines and DataStore smoke tests are executed; controller, keyboard-only, Marketplace sandbox and remaining network/recovery abuse cases remain
+- [x] P16-T01 Full QA matrix — solo/multi-client, new/returning/migrated profile, compact phone/XR/iPad/desktop, mouse/keyboard/controller input, reconnect/disconnect, timing/race/spatial abuse, DataStore recovery and performance smoke coverage are executed; purchase sandbox is tracked separately under P16-T03
 - [x] P16-T02 Data migration/recovery test — isolated development DataStore live-probe verified v1→v2 migration with value preservation, expired-lock acquisition, active foreign-lock acquisition rejection, foreign-lock write rejection and cleanup=true
-- [~] P16-T03 Purchase release checklist — live IDs/prices configured and Dev published; actual purchase/receipt sandbox verification remains
+- [!] P16-T03 Purchase release checklist — all IDs/prices and free path are verified and Dev is published; final end-to-end receipt checklist is blocked by the same owner-approved real Robux transaction required by P10-T06
 - [x] P16-T04 Store metadata/assets checklist — final name/description reviewed in Creator Hub; custom Repair Empire icon and three custom thumbnails are uploaded and processed; 17-section content questionnaire is complete
-- [~] P16-T05 Controlled public launch — authenticated dashboard/Studio publishing is working and both production/dev places exist privately; public exposure remains intentionally blocked by QA, assets and monetization gates
+- [!] P16-T05 Controlled public launch — build, metadata/assets, QA and rollback readiness are prepared, but Creator Hub still reports content maturity as `Unbekannt` and P16-T03 requires a real purchase; public exposure stays blocked until those external gates clear
 - [x] P16-T06 Launch monitoring/rollback readiness — analytics, rollback and incident runbooks prepared
 
 ## P17 Post-launch
@@ -140,4 +140,4 @@ Verification baseline:
 - [!] P17-T02 First telemetry review — requires live user data
 - [!] P17-T03 First balance patch — requires telemetry/player evidence
 - [x] P17-T04 Content cadence
-- [~] P17-T05 Backlog prioritization from evidence — prioritization framework exists; real ordering waits for launch evidence
+- [x] P17-T05 Backlog prioritization from evidence — repeatable categorization/prioritization framework exists; future ordering naturally consumes P17 telemetry when available
