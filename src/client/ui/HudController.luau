@@ -2,7 +2,9 @@
 
 local Players = game:GetService("Players")
 
-local HudController = {}
+local HudController = {
+	_objectiveLabel = nil :: TextLabel?,
+}
 
 local function createLabel(parent: Instance, name: string, position: UDim2): TextLabel
 	local label = Instance.new("TextLabel")
@@ -16,6 +18,12 @@ local function createLabel(parent: Instance, name: string, position: UDim2): Tex
 	label.TextColor3 = Color3.new(1, 1, 1)
 	label.Parent = parent
 	return label
+end
+
+function HudController.SetObjective(text: string)
+	if HudController._objectiveLabel then
+		HudController._objectiveLabel.Text = text
+	end
 end
 
 function HudController.Start()
@@ -42,8 +50,9 @@ function HudController.Start()
 	objective.TextScaled = true
 	objective.Font = Enum.Font.GothamMedium
 	objective.TextColor3 = Color3.new(1, 1, 1)
-	objective.Text = "Loading jobs..."
+	objective.Text = "Choose a job"
 	objective.Parent = screen
+	HudController._objectiveLabel = objective
 
 	local function refresh()
 		cash.Text = ("$ %d"):format(player:GetAttribute("Cash") or 0)
