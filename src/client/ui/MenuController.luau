@@ -452,11 +452,8 @@ local function renderDaily(content: Frame)
 
 		for _, job in daily.jobs do
 			local marker = if job.Completed then "COMPLETE" else "OPEN"
-			local label = UiFactory.Label(
-				scroll,
-				("%s • %s • +$%d • +%d CP"):format(pretty(job.Id), marker, job.RewardCash or 0, job.RewardCompanyPoints or 0),
-				42
-			)
+			local label =
+				UiFactory.Label(scroll, ("%s • %s • +$%d • +%d CP"):format(pretty(job.Id), marker, job.RewardCash or 0, job.RewardCompanyPoints or 0), 42)
 			label.LayoutOrder = order
 			label.TextColor3 = color(if job.Completed then UiPalette.Success else UiPalette.Text)
 			order += 1
