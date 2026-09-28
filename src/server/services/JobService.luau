@@ -22,6 +22,9 @@ local JobService = {
 		"ProgressionService",
 		"ToolService",
 		"WorldService",
+		"EntitlementService",
+		"PrestigeService",
+		"RetentionService",
 	},
 	_offers = {},
 	_active = {},
@@ -256,13 +259,19 @@ function JobService:PerformAction(player: Player, payload: any)
 	local economyService = require(script.Parent.EconomyService)
 	local progressionService = require(script.Parent.ProgressionService)
 	local dataService = require(script.Parent.PlayerDataService)
+	local entitlementService = require(script.Parent.EntitlementService)
+	local prestigeService = require(script.Parent.PrestigeService)
+	local retentionService = require(script.Parent.RetentionService)
 
-	economyService:Grant(player, "cash", definition.BaseReward, "job:" .. definition.Id)
+	local rewardMultiplier = entitlementService:GetCashMultiplier(player) * prestigeService:GetRewardMultiplier(player)
+	local cashReward = math.floor(definition.BaseReward * rewardMultiplier)
+	economyService:Grant(player, "cash", cashReward, "job:" .. definition.Id)
 	progressionService:AddXP(player, definition.XP)
-	progressionService:AddCompanyPoints(player, math.max(1, math.floor(definition.BaseReward * 0.03)))
+	progressionService:AddCompanyPoints(player, math.max(1, math.floor(cashReward * 0.03)))
 
 	local profile = dataService:RequireProfile(player)
 	profile.Stats.JobsCompleted += 1
+	retentionService:OnJobCompleted(player, definition)
 
 	if self._completed[player.UserId] == nil then
 		self._completed[player.UserId] = {}
@@ -273,7 +282,7 @@ function JobService:PerformAction(player: Player, payload: any)
 
 	getStateEvent():FireClient(player, {
 		kind = "job_completed",
-		reward = definition.BaseReward,
+		reward = cashReward,
 		xp = definition.XP,
 	})
 
@@ -283,6 +292,43 @@ function JobService:PerformAction(player: Player, payload: any)
 		reward = definition.BaseReward,
 		xp = definition.XP,
 	}
+end
+
+function JobService:UseInstantFinish(player: Player)
+	if not self:_Allow(player, "UseInstantJobFinish") then
+		return { ok = false, error = "rate_limited" }
+	end
+
+	local active = self._active[player.UserId]
+	if active == nil or active.Completing then
+		return { ok = false, error = "no_active_job" }
+	end
+
+	local dataService = require(script.Parent.PlayerDataService)
+	local profile = dataService:RequireProfile(player)
+	if profile.Consumables.InstantJobFinishes <= 0 then
+		return { ok = false, error = "no_consumable" }
+	end
+
+	local definition = JobDefinitions.ById[active.DefinitionId]
+	if definition == nil then
+		return { ok = false, error = "invalid_server_state" }
+	end
+
+	local worldService = require(script.Parent.WorldService)
+	if type(active.AnchorId) ~= "string" or not worldService:IsPlayerNearAnchor(player, active.AnchorId) then
+		return { ok = false, error = "too_far_from_job" }
+	end
+
+	profile.Consumables.InstantJobFinishes -= 1
+	active.StageIndex = #definition.Stages
+	active.StageStartedAt = -math.huge
+
+	local finalStage = definition.Stages[#definition.Stages]
+	return self:PerformAction(player, {
+		instanceId = active.InstanceId,
+		action = finalStage.Action,
+	})
 end
 
 function JobService:Init()
@@ -297,6 +343,9 @@ function JobService:Init()
 	end
 	getRemoteFunction("PerformJobAction").OnServerInvoke = function(player, payload)
 		return self:PerformAction(player, payload)
+	end
+	getRemoteFunction("UseInstantJobFinish").OnServerInvoke = function(player)
+		return self:UseInstantFinish(player)
 	end
 
 	Players.PlayerRemoving:Connect(function(player)
