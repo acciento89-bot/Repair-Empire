@@ -1,14 +1,8 @@
 return function()
 	local platform = require("../src/shared/config/PlatformConfig")
 
-	assert(
-		platform.EnvironmentForPlace(platform.ProductionStartPlaceId, false) == "production",
-		"live production place must use production environment"
-	)
-	assert(
-		platform.EnvironmentForPlace(platform.ProductionStartPlaceId, true) == "development",
-		"Studio must never write production DataStore"
-	)
+	assert(platform.EnvironmentForPlace(platform.ProductionStartPlaceId, false) == "production", "live production place must use production environment")
+	assert(platform.EnvironmentForPlace(platform.ProductionStartPlaceId, true) == "development", "Studio must never write production DataStore")
 	for _, placeId in platform.DevelopmentPlaceIds do
 		assert(platform.EnvironmentForPlace(placeId, false) == "development", "development place must use development environment")
 	end
