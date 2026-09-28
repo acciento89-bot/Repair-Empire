@@ -398,13 +398,7 @@ local function createVehiclePreview(parent: Instance, definition, selected: bool
 		local alpha = if definition.Axles == 1 then 0.5 else (axle - 1) / (definition.Axles - 1)
 		local z = -length * 0.36 + alpha * length * 0.72
 		for _, side in { -1, 1 } do
-			local wheel = previewPart(
-				model,
-				"Wheel",
-				Vector3.new(1.0, 1.8, 1.8),
-				Vector3.new(side * width * 0.52, -0.55, z),
-				Color3.fromRGB(25, 27, 30)
-			)
+			local wheel = previewPart(model, "Wheel", Vector3.new(1.0, 1.8, 1.8), Vector3.new(side * width * 0.52, -0.55, z), Color3.fromRGB(25, 27, 30))
 			wheel.Shape = Enum.PartType.Cylinder
 			wheel.Orientation = Vector3.new(0, 0, 90)
 		end
@@ -469,11 +463,7 @@ local function renderVehicles(content: Frame)
 
 	UiFactory.SectionTitle(scroll, "Company garage", 0)
 	local selectedDefinition = VehicleDefinitions.ById[state.SelectedVehicle]
-	local spawn = UiFactory.Button(
-		scroll,
-		("SPAWN %s"):format(if selectedDefinition then pretty(selectedDefinition.Id) else "SELECTED VEHICLE"),
-		1
-	)
+	local spawn = UiFactory.Button(scroll, ("SPAWN %s"):format(if selectedDefinition then pretty(selectedDefinition.Id) else "SELECTED VEHICLE"), 1)
 	spawn.BackgroundColor3 = color(UiPalette.Accent)
 	spawn.TextColor3 = color(UiPalette.TextOnAccent)
 	spawn.Activated:Connect(function()
