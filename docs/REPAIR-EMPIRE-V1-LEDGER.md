@@ -5,8 +5,8 @@ Status legend: [ ] open, [~] implemented/partially verified, [x] verified comple
 Implementation is active. Core systems are implemented and the repository is CI-green.
 
 Verification baseline:
-- GitHub Actions run #364: success
-- Head verified through formatting, Selene lint, Rojo build and 28 pure-Luau tests; release-readiness reports Sandbox-ready: yes; latest phone HUD fixes are included
+- GitHub Actions run #385: success
+- Head verified through formatting, Selene lint, Rojo build and 30 pure-Luau tests; release-readiness reports Sandbox-ready: yes; phone HUD and contrast guardrails are included
 - External/runtime-only blockers are documented in `docs/EXTERNAL-ROBLOX-BLOCKERS.md`
 
 ## P00 Product Definition
@@ -104,10 +104,10 @@ Verification baseline:
 - [!] P12-T05 Endgame pacing verification — requires real playtest/telemetry across late-game progression
 
 ## P13 UI/UX Polish
-- [~] P13-T01 Small-phone layouts — responsive implementation exists; smallest-device Roblox QA remains
+- [~] P13-T01 Small-phone layouts — responsive implementation and iPhone XR landscape visual QA are verified; smallest portrait/compact-device QA remains
 - [~] P13-T02 Tablet/desktop layouts — responsive implementation exists; visual/runtime QA remains
 - [~] P13-T03 Controller navigation — focusable UI/ButtonStart/ButtonX paths implemented; controller runtime QA remains
-- [~] P13-T04 Accessibility pass — text/context and non-color-only critical states implemented; contrast/device audit remains
+- [~] P13-T04 Accessibility pass — text/context and non-color-only critical states implemented; explicit accessible palette plus 4.5:1 contrast CI guardrail verified; final device/visual audit remains
 - [~] P13-T05 Feedback/audio/effects polish — HUD/reward/error feedback exists and the self-contained world/workshop art pass is Studio-verified; final sound/VFX asset pass remains\n- [~] P13-T06 Progression and management screens — complete approved navigation hierarchy is implemented and pure-test guarded; full touch/mouse/controller runtime traversal remains
 
 ## P14 Security Hardening
