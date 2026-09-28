@@ -2,10 +2,13 @@
 
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local UserInputService = game:GetService("UserInputService")
+local Workspace = game:GetService("Workspace")
 
 local Shared = ReplicatedStorage.RepairEmpire.Shared
 local TutorialConfig = require(Shared.config.TutorialConfig)
 local ProgressionConfig = require(Shared.config.ProgressionConfig)
+local UiLayoutRules = require(Shared.ui.UiLayoutRules)
 
 local HudController = {
 	_objectiveLabel = nil :: TextLabel?,
@@ -94,15 +97,30 @@ function HudController.Start()
 		local skillPoints = player:GetAttribute("SkillPoints") or 0
 		local tool = pretty(player:GetAttribute("EquippedTool") or "basic_wrench")
 
-		status.Text = ("$%d  •  Lv%d %s  •  Company %d  •  SP %d  •  %s  •  %s"):format(
-			player:GetAttribute("Cash") or 0,
-			level,
-			xpText,
-			companyLevel,
-			skillPoints,
-			tool,
-			nextDistrictText(level)
-		)
+		local camera = Workspace.CurrentCamera
+		local viewport = if camera then camera.ViewportSize else Vector2.new(1280, 720)
+		local layoutClass = UiLayoutRules.Classify(viewport.X, viewport.Y, UserInputService.TouchEnabled)
+		if layoutClass == "small_phone" then
+			status.Text = ("$%d • Lv%d %s • Co%d • SP%d\n%s • %s"):format(
+				player:GetAttribute("Cash") or 0,
+				level,
+				xpText,
+				companyLevel,
+				skillPoints,
+				tool,
+				nextDistrictText(level)
+			)
+		else
+			status.Text = ("$%d  •  Lv%d %s  •  Company %d  •  SP %d  •  %s  •  %s"):format(
+				player:GetAttribute("Cash") or 0,
+				level,
+				xpText,
+				companyLevel,
+				skillPoints,
+				tool,
+				nextDistrictText(level)
+			)
+		end
 
 		local tutorialStep = player:GetAttribute("TutorialStep") or "first_job"
 		local completed = player:GetAttribute("TutorialCompleted") == true
@@ -113,6 +131,14 @@ function HudController.Start()
 	for _, attribute in { "Cash", "Level", "XP", "CompanyLevel", "SkillPoints", "EquippedTool", "TutorialStep", "TutorialCompleted" } do
 		player:GetAttributeChangedSignal(attribute):Connect(refresh)
 	end
+
+	local camera = Workspace.CurrentCamera
+	if camera then
+		camera:GetPropertyChangedSignal("ViewportSize"):Connect(refresh)
+	end
+	Workspace:GetPropertyChangedSignal("CurrentCamera"):Connect(function()
+		task.defer(refresh)
+	end)
 	refresh()
 end
 
