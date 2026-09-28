@@ -3,7 +3,31 @@
 Roblox tycoon/simulator project by Kamilunavo.
 
 ## Product thesis
-Repair Empire combines short repair missions with company-building progression. The player starts as a solo technician and grows into a multi-crew service company. The experience is designed for Roblox mobile, desktop, tablet and controller users.
+Repair Empire combines short repair missions with company-building progression. The player starts as a solo technician and grows into a multi-crew service company. The experience targets Roblox mobile, desktop, tablet and controller users.
+
+## Current implementation status
+The V1 implementation is active and the repository is CI-green.
+
+Implemented core systems include:
+- Rojo/Luau project foundation and GitHub Actions CI
+- versioned player profiles, session locks, autosave and migrations
+- 30 data-driven launch jobs across Plumbing, Heating, Climate and Energy
+- server-authoritative job offers, staged repair interactions and rewards
+- player/company progression, district unlocks and Prestige
+- 20 tools with tier gates and speed modifiers
+- 8 vehicle definitions with purchase/select/spawn and a self-contained placeholder driving controller
+- workshop/company progression, 12 employee definitions and bounded passive income
+- three procedural districts with reusable tagged job anchors
+- 1-6 player co-op contracts with discovery, contribution tracking and validated reward splits
+- daily jobs, login streaks and achievements
+- Roblox-native analytics hooks, economy telemetry and balance versioning
+- server-side security/rate limits/spatial checks
+- purchase/receipt infrastructure with idempotent Developer Product grants
+- responsive menu/HUD/input paths for touch, keyboard/mouse and controller
+
+The authoritative status is always:
+- [V1 Ledger](docs/REPAIR-EMPIRE-V1-LEDGER.md)
+- [External Roblox Blockers](docs/EXTERNAL-ROBLOX-BLOCKERS.md)
 
 ## Core loop
 Accept job -> travel -> diagnose -> perform interaction sequence -> earn Cash/XP -> upgrade tools/company -> unlock harder districts/jobs -> repeat.
@@ -12,14 +36,67 @@ Accept job -> travel -> diagnose -> perform interaction sequence -> earn Cash/XP
 - Fun before simulation accuracy.
 - Server-authoritative economy and progression.
 - No energy gate and no mandatory paywall.
-- Monetization is convenience, cosmetics and acceleration, not required access.
-- Mobile-first UI with full PC/controller support.
+- Monetization is convenience/acceleration and never required access.
+- Mobile-first UI with PC/controller support.
 - Data-driven jobs, tools, vehicles and upgrades.
 - Co-op is additive; solo play remains complete.
-- No external backend required for V1 unless a later phase explicitly changes this.
+- No external backend is required for V1.
 
-## Canonical planning documents
-Read in this order before implementation:
+## Repository layout
+```text
+src/
+  client/       Roblox client controllers and UI
+  server/       authoritative services, datastore and security
+  shared/       configs, definitions, validation and pure rules
+tests/          pure-Luau invariant/unit tests
+scripts/        CI/test entrypoints
+docs/           product, architecture, security, release and phase plans
+default.project.json
+rokit.toml
+```
+
+## Local development
+Install the pinned toolchain:
+
+```sh
+rokit install
+```
+
+Run Rojo for Roblox Studio:
+
+```sh
+rojo serve default.project.json
+```
+
+Build a place file:
+
+```sh
+rojo build default.project.json --output build.rbxlx
+```
+
+Run the same verification gates as CI:
+
+```sh
+stylua --check src tests scripts
+selene src tests scripts
+lune run scripts/run-tests
+```
+
+## Roblox setup still required
+Do not invent platform IDs. Before sandbox/release validation, the authenticated Roblox owner must supply:
+- owner/group
+- production Universe ID
+- production Start Place ID
+- development/test Place ID(s)
+- configured Game Pass IDs
+- configured Developer Product IDs
+
+Use:
+- [Roblox Dashboard Setup](docs/ROBLOX-DASHBOARD-SETUP.md)
+- [Project Metadata](docs/PROJECT-METADATA.md)
+- [External Roblox Blockers](docs/EXTERNAL-ROBLOX-BLOCKERS.md)
+
+## Canonical product documents
 1. [Product Specification](docs/PRODUCT-SPEC.md)
 2. [Game Design](docs/GAME-DESIGN.md)
 3. [Technical Architecture](docs/TECHNICAL-ARCHITECTURE.md)
@@ -31,22 +108,9 @@ Read in this order before implementation:
 9. [Release & LiveOps](docs/RELEASE-LIVEOPS.md)
 10. [Master Plan](docs/MASTER-PLAN.md)
 11. [V1 Ledger](docs/REPAIR-EMPIRE-V1-LEDGER.md)
-12. the detail plan for the next open phase under [docs/plans](docs/plans/)
-
-Repository rules and unresolved platform metadata:
-- [Repository Conventions](docs/REPOSITORY-CONVENTIONS.md)
-- [Project Metadata](docs/PROJECT-METADATA.md)
-- [Agent Execution Contract](AGENTS.md)
-- [Implementation Start Prompt](docs/IMPLEMENTATION-START-PROMPT.md)
 
 ## Execution rule
-Do not redesign the approved V1 while implementing. Determine the next open ledger task, read its detail plan, implement only that task and its explicit dependencies, test it, commit it, then update the ledger.
+Do not redesign the approved V1 while implementing. Work from the ledger/detail plans, keep value-bearing logic server-authoritative, run CI-equivalent verification, commit completed work and update the ledger truthfully.
 
-## Status
-Planning baseline: **COMPLETE**
-
-Standalone repository initialization: **COMPLETE (P00-T01)**
-
-Implementation/product-definition status: **P00 IN PROGRESS**
-
-The next open ledger task is authoritative; do not rely on this README for task state.
+## Release rule
+Public release remains blocked until the external/runtime acceptance criteria in the ledger are genuinely verified. A green repository build is necessary but does not substitute for Roblox Studio multi-client, device, DataStore and Marketplace sandbox tests.
