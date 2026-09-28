@@ -33,9 +33,7 @@ local function updateButton()
 
 	local remaining = math.max(0, InteractionController._readyAt - os.clock())
 	button.Active = remaining <= 0
-	button.Text = if remaining <= 0
-		then ("Repair: %s"):format(stage.Action or "Continue")
-		else ("Ready in %.1fs"):format(remaining)
+	button.Text = if remaining <= 0 then ("Repair: %s"):format(stage.Action or "Continue") else ("Ready in %.1fs"):format(remaining)
 end
 
 local function perform()
@@ -140,8 +138,7 @@ function InteractionController.Start()
 	end)
 
 	player:GetAttributeChangedSignal("InstantJobFinishes"):Connect(function()
-		instant.Visible = InteractionController._instanceId ~= nil
-			and (player:GetAttribute("InstantJobFinishes") or 0) > 0
+		instant.Visible = InteractionController._instanceId ~= nil and (player:GetAttribute("InstantJobFinishes") or 0) > 0
 	end)
 
 	task.spawn(function()
