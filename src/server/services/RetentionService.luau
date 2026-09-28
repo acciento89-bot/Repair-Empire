@@ -61,6 +61,11 @@ function RetentionService:_EnsureDailyState(profile, dayNumber: number)
 		profile.Daily.ActiveJobDay = dayNumber
 		profile.Daily.CompletedDailyJobs = {}
 	end
+	if profile.Daily.PlaytimeDay ~= dayNumber then
+		profile.Daily.PlaytimeDay = dayNumber
+		profile.Daily.PlaytimeSeconds = 0
+		profile.Daily.PlaytimeClaims = {}
+	end
 	profile.Daily.PlaytimeClaims = profile.Daily.PlaytimeClaims or {}
 end
 
@@ -116,7 +121,7 @@ function RetentionService:GetRetentionStatus(player: Player)
 		previewStreak = 1
 	end
 
-	local playTimeSeconds = dataService:GetCurrentPlayTime(player)
+	local playTimeSeconds = dataService:GetCurrentDailyPlayTime(player)
 	local milestones = {}
 	for index, reward in PlaytimeRewards.Milestones do
 		local claimed = profile.Daily.PlaytimeClaims[tostring(index)] == true
@@ -240,7 +245,7 @@ function RetentionService:ClaimPlaytimeReward(player: Player, rewardIndex: any)
 			return { ok = false, error = "already_claimed" }
 		end
 
-		local playTimeSeconds = dataService:GetCurrentPlayTime(player)
+		local playTimeSeconds = dataService:GetCurrentDailyPlayTime(player)
 		if playTimeSeconds < definition.Seconds then
 			return {
 				ok = false,
