@@ -27,6 +27,7 @@ local JobService = {
 		"SecurityService",
 		"AnalyticsService",
 		"TutorialService",
+		"SkillTreeService",
 	},
 	_offers = {},
 	_active = {},
@@ -169,7 +170,8 @@ function JobService:Accept(player: Player, offerId: any)
 	}
 	self._offers[player.UserId] = nil
 
-	local speedMultiplier = toolService:GetEquippedSpeedMultiplier(player)
+	local skillTree = require(script.Parent.SkillTreeService)
+	local speedMultiplier = toolService:GetEquippedSpeedMultiplier(player) * skillTree:GetSpeedMultiplier(player, definition.Category)
 	local payload = {
 		kind = "job_started",
 		instanceId = instanceId,
@@ -243,7 +245,9 @@ function JobService:PerformAction(player: Player, payload: any)
 	end
 
 	local toolService = require(script.Parent.ToolService)
-	local effectiveSeconds = ToolRules.GetEffectiveStageSeconds(stage.MinimumSeconds, toolService:GetEquippedSpeedMultiplier(player))
+	local skillTree = require(script.Parent.SkillTreeService)
+	local speedMultiplier = toolService:GetEquippedSpeedMultiplier(player) * skillTree:GetSpeedMultiplier(player, definition.Category)
+	local effectiveSeconds = ToolRules.GetEffectiveStageSeconds(stage.MinimumSeconds, speedMultiplier)
 	local elapsed = os.clock() - active.StageStartedAt
 	if elapsed + 0.15 < effectiveSeconds then
 		return { ok = false, error = "too_fast" }
@@ -255,7 +259,7 @@ function JobService:PerformAction(player: Player, payload: any)
 	active.StageIndex += 1
 	active.StageStartedAt = os.clock()
 	if active.StageIndex <= #definition.Stages then
-		local nextStage = ToolRules.ToClientStage(definition.Stages[active.StageIndex], toolService:GetEquippedSpeedMultiplier(player))
+		local nextStage = ToolRules.ToClientStage(definition.Stages[active.StageIndex], speedMultiplier)
 		getStateEvent():FireClient(player, {
 			kind = "job_stage",
 			instanceId = active.InstanceId,
@@ -276,10 +280,14 @@ function JobService:PerformAction(player: Player, payload: any)
 	local prestigeService = require(script.Parent.PrestigeService)
 	local retentionService = require(script.Parent.RetentionService)
 
-	local rewardMultiplier = entitlementService:GetCashMultiplier(player) * prestigeService:GetRewardMultiplier(player)
+	local skillTreeService = require(script.Parent.SkillTreeService)
+	local rewardMultiplier = entitlementService:GetCashMultiplier(player)
+		* prestigeService:GetRewardMultiplier(player)
+		* skillTreeService:GetCashMultiplier(player, definition.Category)
 	local cashReward = math.floor(definition.BaseReward * rewardMultiplier)
+	local xpReward = math.max(1, math.floor(definition.XP * skillTreeService:GetXPMultiplier(player, definition.Category)))
 	economyService:Grant(player, "cash", cashReward, "job:" .. definition.Id)
-	progressionService:AddXP(player, definition.XP)
+	progressionService:AddXP(player, xpReward)
 	progressionService:AddCompanyPoints(player, math.max(1, math.floor(cashReward * 0.03)))
 
 	local profile = dataService:RequireProfile(player)
@@ -300,14 +308,14 @@ function JobService:PerformAction(player: Player, payload: any)
 	getStateEvent():FireClient(player, {
 		kind = "job_completed",
 		reward = cashReward,
-		xp = definition.XP,
+		xp = xpReward,
 	})
 
 	return {
 		ok = true,
 		completed = true,
 		reward = cashReward,
-		xp = definition.XP,
+		xp = xpReward,
 	}
 end
 
