@@ -25,4 +25,8 @@ return function()
 
 	assert(navigation.Tabs[4].Label == "Skill Tree", "skill navigation label must match product hierarchy")
 	assert(navigation.Tabs[8].Label == "Daily Jobs", "daily navigation label must match product hierarchy")
+	assert(navigation.IndexOf("Jobs") == 1, "Jobs index changed")
+	assert(navigation.Move("Jobs", 1) == "Co-op", "forward navigation changed")
+	assert(navigation.Move("Jobs", -1) == "Shop", "backward navigation must wrap")
+	assert(navigation.Move("Shop", 1) == "Jobs", "forward navigation must wrap")
 end
