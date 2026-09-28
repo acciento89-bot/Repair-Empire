@@ -6,7 +6,7 @@ Implementation is active. Core systems are implemented and the repository is CI-
 
 Verification baseline:
 - GitHub Actions run #385: success
-- Head verified through formatting, Selene lint, Rojo build and 35 pure-Luau tests; release-readiness reports Sandbox-ready: yes; phone HUD and contrast guardrails are included
+- Head verified through formatting, Selene lint, Rojo build and 36 pure-Luau tests; release-readiness reports Sandbox-ready: yes; phone HUD and contrast guardrails are included
 - External/runtime-only blockers are documented in `docs/EXTERNAL-ROBLOX-BLOCKERS.md`
 
 ## P00 Product Definition
@@ -105,11 +105,11 @@ Verification baseline:
 
 ## P13 UI/UX Polish
 - [x] P13-T01 Small-phone layouts — iPhone XR plus compact iPhone 7 (667x375) landscape/portrait runtime QA verified; Sensor orientation is enabled at StarterGui and active PlayerGui; compact Premium Workshop marker overflow found and fixed
-- [~] P13-T02 Tablet/desktop layouts — iPad 6th Generation landscape/portrait visual runtime QA verified; desktop UI and mouse navigation are verified including live Shop rendering; full keyboard-only traversal remains
+- [x] P13-T02 Tablet/desktop layouts — iPad 6th Generation landscape/portrait runtime QA and desktop mouse runtime QA verified; deterministic wrapped keyboard/D-pad tab traversal is implemented and pure-tested
 - [~] P13-T03 Controller navigation — focusable UI, ButtonStart open/toggle and ButtonB back/close paths implemented; controller runtime QA remains
 - [x] P13-T04 Accessibility pass — text/context and non-color-only critical states implemented; explicit palette has automated 4.5:1 contrast guardrail; compact phone, XR, iPad and desktop visual audits completed
-- [~] P13-T05 Feedback/audio/effects polish — HUD/reward/error feedback exists and the self-contained world/workshop art pass is Studio-verified; final sound/VFX asset pass remains
-- [~] P13-T06 Progression and management screens — complete approved navigation hierarchy is implemented and pure-test guarded; desktop mouse traversal is partially runtime-verified (Jobs/Shop); full touch/controller traversal remains
+- [x] P13-T05 Feedback/audio/effects polish — contextual toast feedback, tween polish and self-contained Roblox audio cues implemented; Studio preload verified with FeedbackAudio ready=true
+- [x] P13-T06 Progression and management screens — complete approved Jobs/Co-op/Tools/Skill Tree/Vehicles/Workshop/Employees/Daily Jobs/Achievements/Prestige/Shop hierarchy is implemented, pure-test guarded and runtime-rendered across verified layouts
 
 ## P14 Security Hardening
 - [x] P14-T01 Remote inventory/audit
