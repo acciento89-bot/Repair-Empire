@@ -17,12 +17,7 @@ local function retry(operationName: string, callback)
 			return true, result
 		end
 		lastError = result
-		warn(("[Repair Empire] %s failed (attempt %d/%d): %s"):format(
-			operationName,
-			attempt,
-			MAX_ATTEMPTS,
-			tostring(result)
-		))
+		warn(("[Repair Empire] %s failed (attempt %d/%d): %s"):format(operationName, attempt, MAX_ATTEMPTS, tostring(result)))
 		if attempt < MAX_ATTEMPTS then
 			task.wait(math.min(2 ^ (attempt - 1), 8))
 		end
