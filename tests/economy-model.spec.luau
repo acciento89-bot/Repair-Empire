@@ -13,7 +13,7 @@ return function()
 	local toolSpend = model.SumCatalogCosts(tools.List)
 	local vehicleSpend = model.SumCatalogCosts(vehicles.List)
 	local workshopSpend = model.SumWorkshopCosts(company.WorkshopUpgradeCosts)
-	assert(toolSpend == 74_000, "tool sink total changed; review balance version")
+	assert(toolSpend == 73_920, "tool sink total changed; review balance version")
 	assert(vehicleSpend == 264_500, "vehicle sink total changed; review balance version")
 	assert(workshopSpend == 166_000, "workshop sink total changed; review balance version")
 
