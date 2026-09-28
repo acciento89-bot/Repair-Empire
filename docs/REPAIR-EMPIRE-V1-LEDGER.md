@@ -128,7 +128,7 @@ Verification baseline:
 
 ## P16 Release
 - [~] P16-T01 Full QA matrix — matrix prepared; device/multi-client/runtime execution remains
-- [~] P16-T02 Data migration/recovery test — Studio API access enabled; dev-place DataStore load/save path boots successfully and dev/prod stores are isolated; migration/expired-lock/foreign-lock runtime cases remain
+- [~] P16-T02 Data migration/recovery test — Studio API access enabled; isolated development store verified with fresh-load 404, stop/save, and successful second load without a repeated 404; migration/expired-lock/foreign-lock runtime cases remain
 - [!] P16-T03 Purchase release checklist — checklist prepared; IDs/sandbox verification blocked externally
 - [~] P16-T04 Store metadata/assets checklist — metadata draft/checklist prepared; final icon/thumbnails/content declarations remain
 - [~] P16-T05 Controlled public launch — authenticated dashboard/Studio publishing is working and both production/dev places exist privately; public exposure remains intentionally blocked by QA, assets and monetization gates
