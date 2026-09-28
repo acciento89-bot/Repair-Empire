@@ -7,6 +7,7 @@ local Shared = ReplicatedStorage.RepairEmpire.Shared
 local RemoteDefinitions = require(Shared.remotes.RemoteDefinitions)
 local SecurityRules = require(Shared.security.SecurityRules)
 local RateLimiter = require(script.Parent.Parent.security.RateLimiter)
+local MutationGuard = require(script.Parent.Parent.security.MutationGuard)
 
 local SecurityService = {
 	Name = "SecurityService",
@@ -20,6 +21,7 @@ local KICK_THRESHOLD = 40
 function SecurityService:Init()
 	Players.PlayerRemoving:Connect(function(player)
 		self._limiter:Clear(player)
+		MutationGuard.Clear(player.UserId)
 		self._anomalyCounts[player.UserId] = nil
 	end)
 end
