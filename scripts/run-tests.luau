@@ -17,6 +17,7 @@ local tests = {
 	require("../tests/economy-model.spec"),
 	require("../tests/security-rules.spec"),
 	require("../tests/rate-limiter.spec"),
+	require("../tests/receipt-rules.spec"),
 }
 
 local passed = 0
