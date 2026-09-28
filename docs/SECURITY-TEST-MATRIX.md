@@ -31,4 +31,4 @@
 ## Expected result
 Every case must reject or safely defer without granting duplicate persistent value.
 
-Automated pure-Luau tests cover configuration/invariant logic. Runtime remote abuse cases require Roblox Studio multi-client verification before public launch.
+Automated pure-Luau tests cover configuration/invariant logic. A shared per-player mutation guard also serializes concurrent Tool/Vehicle/Workshop/Employee/Skill value mutations and receipt grants, preventing duplicate or overlapping value-changing requests from executing concurrently. Runtime remote replay, position spoof, latency and executor-style abuse cases still require Roblox Studio multi-client verification before public launch.
