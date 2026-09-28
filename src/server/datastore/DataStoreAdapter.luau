@@ -1,11 +1,17 @@
 --!strict
 
 local DataStoreService = game:GetService("DataStoreService")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local RunService = game:GetService("RunService")
 
-local STORE_NAME = "RepairEmpirePlayerData_v1"
+local PlatformConfig = require(ReplicatedStorage.RepairEmpire.Shared.config.PlatformConfig)
+
+local BASE_STORE_NAME = "RepairEmpirePlayerData_v1"
 local MAX_ATTEMPTS = 5
 
-local store = DataStoreService:GetDataStore(STORE_NAME)
+local environment = PlatformConfig.EnvironmentForPlace(game.PlaceId, RunService:IsStudio())
+local storeName = ("%s_%s"):format(BASE_STORE_NAME, environment)
+local store = DataStoreService:GetDataStore(storeName)
 
 local DataStoreAdapter = {}
 
@@ -30,6 +36,10 @@ function DataStoreAdapter.UpdateUser(userId: number, transform)
 	return retry("UpdateAsync", function()
 		return store:UpdateAsync(key, transform)
 	end)
+end
+
+function DataStoreAdapter.GetStoreName(): string
+	return storeName
 end
 
 return DataStoreAdapter
