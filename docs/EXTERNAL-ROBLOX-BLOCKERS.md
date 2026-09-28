@@ -79,6 +79,11 @@ Still required:
 - remaining safe-area/input-overlap validation
 
 ## P14 - Runtime exploit validation
+Resolved/verified:
+- per-player value-mutation guard serializes Tool, Vehicle, Workshop, Employee and Skill purchases/upgrades
+- Developer Product receipt grants use the same mutation guard
+- lock cleanup on disconnect and release-on-error behavior are pure-test verified
+
 Still required:
 - remote replay
 - race conditions
@@ -87,6 +92,12 @@ Still required:
 - live network timing cases
 
 ## P16 - Data/runtime and public release
+Resolved in code/tests:
+- expired session locks are acquirable
+- active foreign session locks block acquisition
+- active foreign session locks cannot be overwritten during save
+- future schema versions fail closed
+
 Still required:
 - migration/recovery runtime cases beyond the successful boot smoke test
 - full QA matrix
