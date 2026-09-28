@@ -1,42 +1,35 @@
 # Roblox Dashboard Setup Checklist
 
-These are the only platform values/actions intentionally not invented by source code.
+Confirmed platform and monetization values are now source-controlled.
 
 ## Experience
-- Create/confirm owner or Roblox group.
-- Create production experience named **Repair Empire**.
-- Record Universe ID.
-- Record production Start Place ID.
-- Create/confirm development/test place or private development experience.
-- Record development/test Place ID(s).
-
-Write the confirmed values into `src/shared/config/PlatformConfig.luau`.
+- owner: **Acciento865**
+- Universe ID: `10768475286`
+- production Start Place ID: `79925227687072`
+- development/test Place ID: `138882349802835`
+- both places remain private
 
 ## Game Passes
-Create and record IDs for:
-- double_cash
-- vip
-- extra_employee_slot
-- extra_vehicle_slot
-- premium_workshop
-
-Keep prices initially aligned with `MonetizationConfig.PriceHypothesis` unless deliberately changed.
+- double_cash — `1997847285` — 299 R$
+- vip — `1998201387` — 399 R$
+- extra_employee_slot — `1998489332` — 149 R$
+- extra_vehicle_slot — `1997979360` — 149 R$
+- premium_workshop — `1999077322` — 249 R$
 
 ## Developer Products
-Create and record IDs for:
-- small_cash
-- medium_cash
-- large_cash
-- boost_15
-- boost_60
-- instant_job_finish
+- small_cash — `3715317811` — 49 R$
+- medium_cash — `3715317874` — 149 R$
+- large_cash — `3715318066` — 399 R$
+- boost_15 — `3715318201` — 39 R$
+- boost_60 — `3715318256` — 99 R$
+- instant_job_finish — `3715318304` — 29 R$
 
-After IDs exist, update `MonetizationConfig.luau` and run sandbox purchase verification.
+Managed/regional pricing is disabled for the launch catalog so `MonetizationConfig.PriceRobux` matches Creator Hub.
 
 ## Access/testing
-- Enable Studio API access only where required for test DataStores.
-- Keep production and development IDs distinct.
-- Never test destructive data migrations against the production DataStore without a recovery plan.
+- Studio API access enabled for test DataStores.
+- production and development DataStores are isolated by environment.
+- developer product and pass sandbox verification remains required before public launch.
 
 ## Release settings
 - Confirm age/content questionnaire against actual shipped content.
