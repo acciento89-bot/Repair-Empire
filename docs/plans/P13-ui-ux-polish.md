@@ -18,6 +18,21 @@ Contrast, icon+text critical states, non-color-only signals, reduced unnecessary
 ### P13-T05 Feedback/audio/effects
 Repair stages, rewards, unlocks and errors each have consistent feedback hierarchy.
 
+### P13-T06 Progression and management screens
+Player-facing navigation includes the complete approved hierarchy:
+- Jobs / Co-op
+- Tools
+- Skill Tree
+- Vehicles
+- Workshop
+- Employees
+- Daily Jobs
+- Achievements
+- Prestige
+- Shop
+
+Acceptance: each value-bearing action routes to a server-authoritative service; screen state is read-only/client presentation.
+
 ## UX audit
 No surprise purchase prompt on spawn.
 One modal at a time.
