@@ -20,7 +20,7 @@ local function job(id, category, district, level, reward, xp, toolTier, stages, 
 end
 
 local Jobs = {
-	job("leaking_faucet", "plumbing", "residential", 1, 120, 20, 1, {
+	job("leaking_faucet", "plumbing", "residential", 1, 120, 100, 1, {
 		stage("inspect", "inspect_fixture", 1),
 		stage("isolate", "close_valve", 1),
 		stage("repair", "replace_seal", 2),
