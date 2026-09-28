@@ -4,6 +4,12 @@ local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local ContextActionService = game:GetService("ContextActionService")
 
+local UiPalette = require(ReplicatedStorage.RepairEmpire.Shared.ui.UiPalette)
+
+local function color(rgb)
+	return Color3.fromRGB(rgb[1], rgb[2], rgb[3])
+end
+
 local InteractionController = {
 	_instanceId = nil :: string?,
 	_mode = nil :: string?,
@@ -83,6 +89,9 @@ function InteractionController.Start()
 	button.AnchorPoint = Vector2.new(1, 1)
 	button.Position = UDim2.new(1, -24, 1, -92)
 	button.Size = UDim2.fromOffset(220, 64)
+	button.BackgroundColor3 = color(UiPalette.Button)
+	button.TextColor3 = color(UiPalette.Text)
+	button.BorderSizePixel = 0
 	button.Font = Enum.Font.GothamBold
 	button.TextSize = 18
 	button.TextWrapped = true
@@ -101,6 +110,9 @@ function InteractionController.Start()
 	instant.AnchorPoint = Vector2.new(1, 1)
 	instant.Position = UDim2.new(1, -24, 1, -164)
 	instant.Size = UDim2.fromOffset(220, 48)
+	instant.BackgroundColor3 = color(UiPalette.Button)
+	instant.TextColor3 = color(UiPalette.Text)
+	instant.BorderSizePixel = 0
 	instant.Font = Enum.Font.GothamMedium
 	instant.TextSize = 14
 	instant.Text = "Use Instant Finish"
