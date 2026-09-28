@@ -10,6 +10,7 @@ local tests = {
 	require("../tests/monetization-config.spec"),
 	require("../tests/retention.spec"),
 	require("../tests/prestige.spec"),
+	require("../tests/prestige-rules.spec"),
 	require("../tests/balance-guardrails.spec"),
 	require("../tests/profile-migration.spec"),
 	require("../tests/job-validator.spec"),
