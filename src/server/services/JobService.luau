@@ -16,17 +16,30 @@ local COMPLETION_MEMORY_SECONDS = 300
 
 local JobService = {
 	Name = "JobService",
-	Dependencies = { "PlayerDataService", "EconomyService", "ProgressionService" },
+	Dependencies = {
+		"PlayerDataService",
+		"EconomyService",
+		"ProgressionService",
+		"ToolService",
+		"WorldService",
+	},
 	_offers = {},
 	_active = {},
 	_completed = {},
 	_limiter = RateLimiter.new(),
 }
 
-local function getRemote(name: string): RemoteFunction
+local function getRemoteFunction(name: string): RemoteFunction
 	local root = ReplicatedStorage:WaitForChild("RepairEmpireRemotes")
 	local remote = root:WaitForChild(name)
 	assert(remote:IsA("RemoteFunction"), name .. " must be a RemoteFunction")
+	return remote
+end
+
+local function getStateEvent(): RemoteEvent
+	local root = ReplicatedStorage:WaitForChild("RepairEmpireRemotes")
+	local remote = root:WaitForChild("StateUpdated")
+	assert(remote:IsA("RemoteEvent"), "StateUpdated must be a RemoteEvent")
 	return remote
 end
 
@@ -131,21 +144,42 @@ function JobService:Accept(player: Player, offerId: any)
 		return { ok = false, error = "no_longer_eligible" }
 	end
 
+	local toolService = require(script.Parent.ToolService)
+	if toolService:GetEquippedTier(player) < definition.RequiredToolTier then
+		return { ok = false, error = "tool_tier_locked" }
+	end
+
+	local worldService = require(script.Parent.WorldService)
+	local anchor = worldService:AssignAnchor(definition.District, definition.Category)
+	if anchor == nil then
+		return { ok = false, error = "no_world_anchor" }
+	end
+
 	local instanceId = HttpService:GenerateGUID(false)
 	self._active[player.UserId] = {
 		InstanceId = instanceId,
 		DefinitionId = definition.Id,
+		AnchorId = anchor:GetAttribute("AnchorId"),
 		StageIndex = 1,
 		StageStartedAt = os.clock(),
 		Completing = false,
 	}
 	self._offers[player.UserId] = nil
 
-	return {
-		ok = true,
+	local payload = {
+		kind = "job_started",
 		instanceId = instanceId,
 		job = safeDefinition(definition),
 		stage = definition.Stages[1],
+		targetPosition = anchor.Position,
+	}
+	getStateEvent():FireClient(player, payload)
+	return {
+		ok = true,
+		instanceId = instanceId,
+		job = payload.job,
+		stage = payload.stage,
+		targetPosition = anchor.Position,
 	}
 end
 
@@ -157,6 +191,7 @@ function JobService:Abandon(player: Player)
 		return { ok = false, error = "no_active_job" }
 	end
 	self._active[player.UserId] = nil
+	getStateEvent():FireClient(player, { kind = "job_abandoned" })
 	return { ok = true }
 end
 
@@ -191,6 +226,11 @@ function JobService:PerformAction(player: Player, payload: any)
 		return { ok = false, error = "wrong_action" }
 	end
 
+	local worldService = require(script.Parent.WorldService)
+	if type(active.AnchorId) ~= "string" or not worldService:IsPlayerNearAnchor(player, active.AnchorId) then
+		return { ok = false, error = "too_far_from_job" }
+	end
+
 	local elapsed = os.clock() - active.StageStartedAt
 	if elapsed + 0.15 < stage.MinimumSeconds then
 		return { ok = false, error = "too_fast" }
@@ -199,10 +239,16 @@ function JobService:PerformAction(player: Player, payload: any)
 	active.StageIndex += 1
 	active.StageStartedAt = os.clock()
 	if active.StageIndex <= #definition.Stages then
+		local nextStage = definition.Stages[active.StageIndex]
+		getStateEvent():FireClient(player, {
+			kind = "job_stage",
+			instanceId = active.InstanceId,
+			stage = nextStage,
+		})
 		return {
 			ok = true,
 			completed = false,
-			stage = definition.Stages[active.StageIndex],
+			stage = nextStage,
 		}
 	end
 
@@ -225,6 +271,12 @@ function JobService:PerformAction(player: Player, payload: any)
 	self._active[player.UserId] = nil
 	dataService:Publish(player)
 
+	getStateEvent():FireClient(player, {
+		kind = "job_completed",
+		reward = definition.BaseReward,
+		xp = definition.XP,
+	})
+
 	return {
 		ok = true,
 		completed = true,
@@ -234,16 +286,16 @@ function JobService:PerformAction(player: Player, payload: any)
 end
 
 function JobService:Init()
-	getRemote("RequestJobOffers").OnServerInvoke = function(player)
+	getRemoteFunction("RequestJobOffers").OnServerInvoke = function(player)
 		return self:GetOffers(player)
 	end
-	getRemote("AcceptJob").OnServerInvoke = function(player, offerId)
+	getRemoteFunction("AcceptJob").OnServerInvoke = function(player, offerId)
 		return self:Accept(player, offerId)
 	end
-	getRemote("AbandonJob").OnServerInvoke = function(player)
+	getRemoteFunction("AbandonJob").OnServerInvoke = function(player)
 		return self:Abandon(player)
 	end
-	getRemote("PerformJobAction").OnServerInvoke = function(player, payload)
+	getRemoteFunction("PerformJobAction").OnServerInvoke = function(player, payload)
 		return self:PerformAction(player, payload)
 	end
 
