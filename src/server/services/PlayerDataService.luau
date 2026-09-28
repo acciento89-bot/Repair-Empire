@@ -13,7 +13,7 @@ local SESSION_LOCK_SECONDS = 180
 
 local PlayerDataService = {
 	Name = "PlayerDataService",
-	Dependencies = {},
+	Dependencies = { "SecurityService", "AnalyticsService" },
 	_profiles = {},
 	_sessionTokens = {},
 	_loadedAt = {},
@@ -101,6 +101,8 @@ function PlayerDataService:_Load(player: Player)
 	self._sessionTokens[player.UserId] = sessionToken
 	self._loadedAt[player.UserId] = os.clock()
 	publishSummary(player, loaded)
+	local analytics = require(script.Parent.AnalyticsService)
+	analytics:LogCustom(player, "session_start", 1)
 end
 
 function PlayerDataService:_Save(player: Player, releaseLock: boolean)
@@ -172,6 +174,10 @@ function PlayerDataService:Init()
 	local stateRemote = ReplicatedStorage:WaitForChild("RepairEmpireRemotes"):WaitForChild("RequestPlayerState")
 	assert(stateRemote:IsA("RemoteFunction"), "RequestPlayerState must be a RemoteFunction")
 	stateRemote.OnServerInvoke = function(player)
+		local security = require(script.Parent.SecurityService)
+		if not security:Allow(player, "RequestPlayerState") then
+			return { ok = false, error = "rate_limited" }
+		end
 		return { ok = true, state = self:GetSafeState(player) }
 	end
 
