@@ -4,6 +4,7 @@ local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local UserInputService = game:GetService("UserInputService")
 local GuiService = game:GetService("GuiService")
+local MarketplaceService = game:GetService("MarketplaceService")
 
 local Shared = ReplicatedStorage.RepairEmpire.Shared
 local ToolDefinitions = require(Shared.tools.ToolDefinitions)
@@ -42,6 +43,18 @@ local function getState()
 		return result.state
 	end
 	return nil
+end
+
+local function robuxPrice(id: number?, infoType: Enum.InfoType, fallback: number): string
+	if id == nil then
+		return ("%d R$ hypothesis"):format(fallback)
+	end
+
+	local ok, info = pcall(MarketplaceService.GetProductInfo, MarketplaceService, id, infoType)
+	if ok and type(info) == "table" and type(info.PriceInRobux) == "number" then
+		return ("%d R$"):format(info.PriceInRobux)
+	end
+	return ("%d R$"):format(fallback)
 end
 
 local function pretty(id: string): string
@@ -282,7 +295,8 @@ local function renderShop(content: Frame)
 	local order = 1
 	for key, config in MonetizationConfig.GamePasses do
 		local configured = config.Id ~= nil
-		local text = ("%s • %d R$ • %s"):format(pretty(key), config.PriceHypothesis, if configured then "Buy" else "Awaiting Roblox ID")
+		local price = robuxPrice(config.Id, Enum.InfoType.GamePass, config.PriceHypothesis)
+		local text = ("%s • %s • %s"):format(pretty(key), price, if configured then "Buy" else "Awaiting Roblox ID")
 		local button = UiFactory.Button(scroll, text, order)
 		button.Active = configured
 		button.Activated:Connect(function()
@@ -297,7 +311,8 @@ local function renderShop(content: Frame)
 	order += 1
 	for key, config in MonetizationConfig.DeveloperProducts do
 		local configured = config.Id ~= nil
-		local text = ("%s • %d R$ • %s"):format(pretty(key), config.PriceHypothesis, if configured then "Buy" else "Awaiting Roblox ID")
+		local price = robuxPrice(config.Id, Enum.InfoType.Product, config.PriceHypothesis)
+		local text = ("%s • %s • %s"):format(pretty(key), price, if configured then "Buy" else "Awaiting Roblox ID")
 		local button = UiFactory.Button(scroll, text, order)
 		button.Active = configured
 		button.Activated:Connect(function()
