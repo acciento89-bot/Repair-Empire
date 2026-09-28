@@ -1,137 +1,142 @@
 # Repair Empire V1 Ledger
 
-Status legend: [ ] open, [~] in progress, [x] verified complete, [!] blocked.
+Status legend: [ ] open, [~] implemented/partially verified, [x] verified complete, [!] blocked by external Roblox/runtime dependency.
 
-Planning baseline is complete. Implementation is intentionally not started.
+Implementation is active. Core systems are implemented and the repository is CI-green.
+
+Verification baseline:
+- GitHub Actions run #172: success
+- Head verified through formatting, Selene lint, Rojo build and pure-Luau tests
+- External/runtime-only blockers are documented in `docs/EXTERNAL-ROBLOX-BLOCKERS.md`
 
 ## P00 Product Definition
 - [x] P00-T01 Initialize standalone implementation repository and project metadata
-- [ ] P00-T02 Confirm Roblox experience ownership/naming/place structure
-- [ ] P00-T03 Freeze V1 config identifiers and terminology
+- [!] P00-T02 Confirm Roblox experience ownership/naming/place structure — architecture/name fixed; real owner, Universe ID and Place IDs require Roblox dashboard access
+- [x] P00-T03 Freeze V1 config identifiers and terminology
 
 ## P01 Technical Foundation
-- [ ] P01-T01 Initialize Rojo/Luau source layout
-- [ ] P01-T02 Add shared config/type/constants foundation
-- [ ] P01-T03 Add remotes registry and validation conventions
-- [ ] P01-T04 Add server service bootstrap/lifecycle
-- [ ] P01-T05 Add test/lint/static-check workflow
+- [x] P01-T01 Initialize Rojo/Luau source layout
+- [x] P01-T02 Add shared config/type/constants foundation
+- [x] P01-T03 Add remotes registry and validation conventions
+- [x] P01-T04 Add server service bootstrap/lifecycle
+- [x] P01-T05 Add test/lint/static-check workflow
 
 ## P02 Player Foundation
-- [ ] P02-T01 Define versioned player profile schema
-- [ ] P02-T02 Implement load/save/session lifecycle
-- [ ] P02-T03 Implement schema migration harness
-- [ ] P02-T04 Implement base HUD and responsive input shell
-- [ ] P02-T05 Implement onboarding state foundation
+- [x] P02-T01 Define versioned player profile schema
+- [x] P02-T02 Implement load/save/session lifecycle
+- [x] P02-T03 Implement schema migration harness
+- [x] P02-T04 Implement base HUD and responsive input shell
+- [x] P02-T05 Implement onboarding state foundation
 
 ## P03 Job Engine
-- [ ] P03-T01 Define job data schema and registry
-- [ ] P03-T02 Implement server job offer generation
-- [ ] P03-T03 Implement accept/abandon lifecycle
-- [ ] P03-T04 Implement staged interaction state machine
-- [ ] P03-T05 Implement completion/reward transaction
-- [ ] P03-T06 Implement reconnect/duplicate-completion protection
-- [ ] P03-T07 Add first 5 vertical-slice jobs
-- [ ] P03-T08 Job engine verification pass
+- [x] P03-T01 Define job data schema and registry
+- [x] P03-T02 Implement server job offer generation
+- [x] P03-T03 Implement accept/abandon lifecycle
+- [x] P03-T04 Implement staged interaction state machine
+- [x] P03-T05 Implement completion/reward transaction
+- [x] P03-T06 Implement reconnect/duplicate-completion protection — active jobs intentionally cancel on reconnect; stale/replayed instance IDs cannot grant again
+- [x] P03-T07 Add first 5 vertical-slice jobs — launch catalog currently contains 30 jobs
+- [!] P03-T08 Job engine verification pass — static/pure tests pass; multi-client, reconnect/network timing and Studio runtime cases require Roblox Studio
 
 ## P04 Economy & Progression
-- [ ] P04-T01 Central EconomyService
-- [ ] P04-T02 XP and player levels
-- [ ] P04-T03 district/job unlock rules
-- [ ] P04-T04 Company Points and company levels
-- [ ] P04-T05 source/sink telemetry hooks
+- [x] P04-T01 Central EconomyService
+- [x] P04-T02 XP and player levels
+- [x] P04-T03 district/job unlock rules
+- [x] P04-T04 Company Points and company levels
+- [x] P04-T05 source/sink telemetry hooks
 
 ## P05 Tools
-- [ ] P05-T01 Tool definitions and ownership
-- [ ] P05-T02 Equip flow
-- [ ] P05-T03 Tier requirements and modifiers
-- [ ] P05-T04 Tool shop UI
-- [ ] P05-T05 Launch tool catalog
+- [x] P05-T01 Tool definitions and ownership
+- [x] P05-T02 Equip flow
+- [x] P05-T03 Tier requirements and modifiers
+- [x] P05-T04 Tool shop UI
+- [x] P05-T05 Launch tool catalog — 20 tool definitions
 
 ## P06 Vehicles
-- [ ] P06-T01 Vehicle definitions/ownership
-- [ ] P06-T02 Spawn/despawn rules
-- [ ] P06-T03 Vehicle shop/garage
-- [ ] P06-T04 Travel integration
-- [ ] P06-T05 Launch vehicle catalog
+- [x] P06-T01 Vehicle definitions/ownership
+- [x] P06-T02 Spawn/despawn rules
+- [x] P06-T03 Vehicle shop/garage
+- [x] P06-T04 Travel integration — navigation plus server-driven placeholder vehicle controller
+- [~] P06-T05 Launch vehicle catalog — 8 configs complete; final production vehicle assets and Roblox runtime driving validation remain
 
 ## P07 Company Tycoon
-- [ ] P07-T01 Workshop/company progression
-- [ ] P07-T02 Employee definitions/hiring
-- [ ] P07-T03 Passive job simulation
-- [ ] P07-T04 Employee slots/upgrades
-- [ ] P07-T05 Passive economy balancing guardrails
+- [x] P07-T01 Workshop/company progression
+- [x] P07-T02 Employee definitions/hiring
+- [x] P07-T03 Passive job simulation
+- [x] P07-T04 Employee slots/upgrades
+- [x] P07-T05 Passive economy balancing guardrails
 
 ## P08 World
-- [ ] P08-T01 Residential district
-- [ ] P08-T02 Downtown district
-- [ ] P08-T03 Industrial district
-- [ ] P08-T04 Job anchor/building system
-- [ ] P08-T05 Navigation markers
-- [ ] P08-T06 Performance/streaming pass
+- [~] P08-T01 Residential district — functional procedural district exists; production dressing/mobile route playtest remains
+- [~] P08-T02 Downtown district — functional procedural district exists; production dressing/mobile route playtest remains
+- [~] P08-T03 Industrial district — functional procedural district exists; production dressing/co-op space polish remains
+- [x] P08-T04 Job anchor/building system
+- [x] P08-T05 Navigation markers
+- [!] P08-T06 Performance/streaming pass — StreamingEnabled is configured; actual client/server profiling requires Roblox Studio/runtime
 
 ## P09 Multiplayer & Co-op
-- [ ] P09-T01 Co-op contract state model
-- [ ] P09-T02 Contribution tracking
-- [ ] P09-T03 Reward split/validation
-- [ ] P09-T04 Four launch large contracts
-- [ ] P09-T05 Multi-client abuse/reconnect tests
+- [x] P09-T01 Co-op contract state model
+- [x] P09-T02 Contribution tracking
+- [x] P09-T03 Reward split/validation
+- [x] P09-T04 Four launch large contracts
+- [!] P09-T05 Multi-client abuse/reconnect tests — implementation handles join/leave/owner transfer/state sync; real simultaneous-client validation requires Roblox Studio
 
 ## P10 Monetization
-- [ ] P10-T01 Monetization config and catalog IDs
-- [ ] P10-T02 Game Pass entitlement service
-- [ ] P10-T03 Developer Product receipt handler
-- [ ] P10-T04 Idempotency/duplicate receipt protection
-- [ ] P10-T05 Shop UI and explicit purchase flow
-- [ ] P10-T06 Sandbox verification
+- [!] P10-T01 Monetization config and catalog IDs — catalog/config complete; real Game Pass and Developer Product IDs require Creator Dashboard
+- [x] P10-T02 Game Pass entitlement service
+- [x] P10-T03 Developer Product receipt handler
+- [x] P10-T04 Idempotency/duplicate receipt protection
+- [x] P10-T05 Shop UI and explicit purchase flow — real Roblox prices are read when IDs are configured
+- [!] P10-T06 Sandbox verification — requires real product/pass IDs and Roblox purchase sandbox
 
 ## P11 Retention
-- [ ] P11-T01 Daily jobs
-- [ ] P11-T02 Daily login reward
-- [ ] P11-T03 Achievement framework
-- [ ] P11-T04 Launch achievements
-- [ ] P11-T05 Rotating contract hooks
+- [x] P11-T01 Daily jobs
+- [x] P11-T02 Daily login reward
+- [x] P11-T03 Achievement framework
+- [x] P11-T04 Launch achievements
+- [x] P11-T05 Rotating contract hooks
 
 ## P12 Prestige & Endgame
-- [ ] P12-T01 Prestige eligibility
-- [ ] P12-T02 Reset transaction
-- [ ] P12-T03 Permanent meta bonuses
-- [ ] P12-T04 Prestige UI
-- [ ] P12-T05 Endgame pacing verification
+- [x] P12-T01 Prestige eligibility
+- [x] P12-T02 Reset transaction
+- [x] P12-T03 Permanent meta bonuses
+- [x] P12-T04 Prestige UI
+- [!] P12-T05 Endgame pacing verification — requires real playtest/telemetry across late-game progression
 
 ## P13 UI/UX Polish
-- [ ] P13-T01 Small-phone layouts
-- [ ] P13-T02 Tablet/desktop layouts
-- [ ] P13-T03 Controller navigation
-- [ ] P13-T04 Accessibility pass
-- [ ] P13-T05 Feedback/audio/effects polish
+- [~] P13-T01 Small-phone layouts — responsive implementation exists; smallest-device Roblox QA remains
+- [~] P13-T02 Tablet/desktop layouts — responsive implementation exists; visual/runtime QA remains
+- [~] P13-T03 Controller navigation — focusable UI/ButtonStart/ButtonX paths implemented; controller runtime QA remains
+- [~] P13-T04 Accessibility pass — text/context and non-color-only critical states implemented; contrast/device audit remains
+- [~] P13-T05 Feedback/audio/effects polish — HUD/reward/error feedback exists; final sound/VFX asset pass remains
 
 ## P14 Security Hardening
-- [ ] P14-T01 Remote inventory/audit
-- [ ] P14-T02 Rate limits
-- [ ] P14-T03 Spatial/state validation audit
-- [ ] P14-T04 Economy exploit tests
-- [ ] P14-T05 Purchase exploit tests
-- [ ] P14-T06 Security logging
+- [x] P14-T01 Remote inventory/audit
+- [x] P14-T02 Rate limits
+- [x] P14-T03 Spatial/state validation audit
+- [!] P14-T04 Economy exploit tests — test matrix and server guards exist; race/executor-style runtime tests require Studio/multi-client
+- [!] P14-T05 Purchase exploit tests — receipt/idempotency logic exists; real Marketplace retry/spoof scenarios require sandbox/runtime
+- [x] P14-T06 Security logging
 
 ## P15 Analytics & Balancing
-- [ ] P15-T01 Analytics event schema
-- [ ] P15-T02 Funnel events
-- [ ] P15-T03 Economy events
-- [ ] P15-T04 Monetization events
-- [ ] P15-T05 Balance versioning
-- [ ] P15-T06 Full launch economy pass
+- [x] P15-T01 Analytics event schema
+- [x] P15-T02 Funnel events
+- [x] P15-T03 Economy events — source/sink reason, amount, ending balance, balance version and progression context attached
+- [x] P15-T04 Monetization events
+- [x] P15-T05 Balance versioning
+- [~] P15-T06 Full launch economy pass — deterministic guardrails/prelaunch review exist; full pacing validation still needs Roblox playtests/telemetry
 
 ## P16 Release
-- [ ] P16-T01 Full QA matrix
-- [ ] P16-T02 Data migration/recovery test
-- [ ] P16-T03 Purchase release checklist
-- [ ] P16-T04 Store metadata/assets checklist
-- [ ] P16-T05 Controlled public launch
-- [ ] P16-T06 Launch monitoring/rollback readiness
+- [~] P16-T01 Full QA matrix — matrix prepared; device/multi-client/runtime execution remains
+- [~] P16-T02 Data migration/recovery test — migration fixtures and failure/recovery policy exist; real DataStore recovery test remains
+- [!] P16-T03 Purchase release checklist — checklist prepared; IDs/sandbox verification blocked externally
+- [~] P16-T04 Store metadata/assets checklist — metadata draft/checklist prepared; final icon/thumbnails/content declarations remain
+- [!] P16-T05 Controlled public launch — requires authenticated Roblox dashboard/publish actions
+- [x] P16-T06 Launch monitoring/rollback readiness — analytics, rollback and incident runbooks prepared
 
 ## P17 Post-launch
-- [ ] P17-T01 Incident process
-- [ ] P17-T02 First telemetry review
-- [ ] P17-T03 First balance patch
-- [ ] P17-T04 Content cadence
-- [ ] P17-T05 Backlog prioritization from evidence
+- [x] P17-T01 Incident process
+- [!] P17-T02 First telemetry review — requires live user data
+- [!] P17-T03 First balance patch — requires telemetry/player evidence
+- [x] P17-T04 Content cadence
+- [~] P17-T05 Backlog prioritization from evidence — prioritization framework exists; real ordering waits for launch evidence
