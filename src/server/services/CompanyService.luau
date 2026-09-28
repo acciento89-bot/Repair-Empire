@@ -6,6 +6,7 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Shared = ReplicatedStorage.RepairEmpire.Shared
 local EmployeeDefinitions = require(Shared.company.EmployeeDefinitions)
 local CompanyConfig = require(Shared.config.CompanyConfig)
+local PassRules = require(Shared.monetization.PassRules)
 
 local CompanyService = {
 	Name = "CompanyService",
@@ -38,12 +39,9 @@ local function passiveRate(profile): number
 end
 
 function CompanyService:GetEmployeeSlots(player: Player, profile): number
-	local slots = CompanyConfig.EmployeeSlotsByWorkshopTier[profile.WorkshopTier] or 0
+	local baseSlots = CompanyConfig.EmployeeSlotsByWorkshopTier[profile.WorkshopTier] or 0
 	local entitlementService = require(script.Parent.EntitlementService)
-	if entitlementService:HasPass(player, "extra_employee_slot") then
-		slots += 1
-	end
-	return slots
+	return PassRules.EmployeeSlots(baseSlots, entitlementService:HasPass(player, "extra_employee_slot"))
 end
 
 function CompanyService:UpgradeWorkshop(player: Player)
