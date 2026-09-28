@@ -3,25 +3,31 @@
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
-local TutorialConfig = require(ReplicatedStorage.RepairEmpire.Shared.config.TutorialConfig)
+local Shared = ReplicatedStorage.RepairEmpire.Shared
+local TutorialConfig = require(Shared.config.TutorialConfig)
+local ProgressionConfig = require(Shared.config.ProgressionConfig)
 
 local HudController = {
 	_objectiveLabel = nil :: TextLabel?,
 	_tutorialLabel = nil :: TextLabel?,
 }
 
-local function createLabel(parent: Instance, name: string, position: UDim2): TextLabel
-	local label = Instance.new("TextLabel")
-	label.Name = name
-	label.AnchorPoint = Vector2.new(0, 0)
-	label.Position = position
-	label.Size = UDim2.fromOffset(180, 42)
-	label.BackgroundTransparency = 0.18
-	label.TextScaled = true
-	label.Font = Enum.Font.GothamMedium
-	label.TextColor3 = Color3.new(1, 1, 1)
-	label.Parent = parent
-	return label
+local function pretty(id: string): string
+	local words = string.split(id, "_")
+	for index, word in words do
+		words[index] = word:sub(1, 1):upper() .. word:sub(2)
+	end
+	return table.concat(words, " ")
+end
+
+local function nextDistrictText(level: number): string
+	if level < ProgressionConfig.DistrictUnlockLevels.downtown then
+		return ("Next Downtown Lv%d"):format(ProgressionConfig.DistrictUnlockLevels.downtown)
+	end
+	if level < ProgressionConfig.DistrictUnlockLevels.industrial then
+		return ("Next Industrial Lv%d"):format(ProgressionConfig.DistrictUnlockLevels.industrial)
+	end
+	return "All districts unlocked"
 end
 
 function HudController.SetObjective(text: string)
@@ -41,8 +47,17 @@ function HudController.Start()
 	screen.DisplayOrder = 10
 	screen.Parent = playerGui
 
-	local cash = createLabel(screen, "Cash", UDim2.fromOffset(16, 16))
-	local level = createLabel(screen, "Level", UDim2.fromOffset(208, 16))
+	local status = Instance.new("TextLabel")
+	status.Name = "Status"
+	status.Position = UDim2.fromOffset(16, 16)
+	status.Size = UDim2.fromOffset(720, 42)
+	status.BackgroundTransparency = 0.18
+	status.TextScaled = true
+	status.TextWrapped = true
+	status.Font = Enum.Font.GothamMedium
+	status.TextXAlignment = Enum.TextXAlignment.Left
+	status.TextColor3 = Color3.new(1, 1, 1)
+	status.Parent = screen
 
 	local tutorial = Instance.new("TextLabel")
 	tutorial.Name = "Tutorial"
@@ -71,8 +86,23 @@ function HudController.Start()
 	HudController._objectiveLabel = objective
 
 	local function refresh()
-		cash.Text = ("$ %d"):format(player:GetAttribute("Cash") or 0)
-		level.Text = ("Level %d"):format(player:GetAttribute("Level") or 1)
+		local level = player:GetAttribute("Level") or 1
+		local xp = player:GetAttribute("XP") or 0
+		local xpNeeded = if level >= ProgressionConfig.MaxPlayerLevel then 0 else ProgressionConfig.XpForNextLevel(level)
+		local xpText = if xpNeeded == 0 then "MAX" else ("%d/%d XP"):format(xp, xpNeeded)
+		local companyLevel = player:GetAttribute("CompanyLevel") or 1
+		local skillPoints = player:GetAttribute("SkillPoints") or 0
+		local tool = pretty(player:GetAttribute("EquippedTool") or "basic_wrench")
+
+		status.Text = ("$%d  •  Lv%d %s  •  Company %d  •  SP %d  •  %s  •  %s"):format(
+			player:GetAttribute("Cash") or 0,
+			level,
+			xpText,
+			companyLevel,
+			skillPoints,
+			tool,
+			nextDistrictText(level)
+		)
 
 		local tutorialStep = player:GetAttribute("TutorialStep") or "first_job"
 		local completed = player:GetAttribute("TutorialCompleted") == true
@@ -80,10 +110,9 @@ function HudController.Start()
 		tutorial.Text = if completed then "" else (TutorialConfig.Messages[tutorialStep] or "")
 	end
 
-	player:GetAttributeChangedSignal("Cash"):Connect(refresh)
-	player:GetAttributeChangedSignal("Level"):Connect(refresh)
-	player:GetAttributeChangedSignal("TutorialStep"):Connect(refresh)
-	player:GetAttributeChangedSignal("TutorialCompleted"):Connect(refresh)
+	for _, attribute in { "Cash", "Level", "XP", "CompanyLevel", "SkillPoints", "EquippedTool", "TutorialStep", "TutorialCompleted" } do
+		player:GetAttributeChangedSignal(attribute):Connect(refresh)
+	end
 	refresh()
 end
 
