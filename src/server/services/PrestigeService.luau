@@ -36,6 +36,9 @@ function PrestigeService:Preview(player: Player)
 		return { ok = false, error = "not_eligible" }
 	end
 
+	local analytics = require(script.Parent.AnalyticsService)
+	analytics:LogOnce(player, "prestige_available", 1)
+
 	local token = HttpService:GenerateGUID(false)
 	self._confirmations[player.UserId] = {
 		Token = token,
@@ -113,6 +116,7 @@ function PrestigeService:Confirm(player: Player, token: any)
 	retentionService:RefreshAchievements(player)
 	local analytics = require(script.Parent.AnalyticsService)
 	analytics:LogCustom(player, "prestige_completed", profile.PrestigeLevel)
+	analytics:LogOnce(player, "first_prestige_completed", 1)
 
 	return {
 		ok = true,
