@@ -2,6 +2,11 @@
   "name": "RepairEmpire",
   "tree": {
     "$className": "DataModel",
+    "Workspace": {
+      "$properties": {
+        "StreamingEnabled": true
+      }
+    },
     "ReplicatedStorage": {
       "RepairEmpire": {
         "$className": "Folder",
