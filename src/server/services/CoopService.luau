@@ -8,8 +8,6 @@ local Shared = ReplicatedStorage.RepairEmpire.Shared
 local JobDefinitions = require(Shared.jobs.JobDefinitions)
 local JobRules = require(Shared.jobs.JobRules)
 local CoopContracts = require(Shared.coop.CoopContracts)
-local RemoteDefinitions = require(Shared.remotes.RemoteDefinitions)
-local RateLimiter = require(script.Parent.Parent.security.RateLimiter)
 
 local MAX_PARTY_SIZE = 6
 
@@ -21,10 +19,10 @@ local CoopService = {
 		"ProgressionService",
 		"ToolService",
 		"WorldService",
+		"SecurityService",
 	},
 	_contracts = {},
 	_playerContract = {},
-	_limiter = RateLimiter.new(),
 }
 
 local function remote(name: string): RemoteFunction
@@ -34,8 +32,8 @@ local function remote(name: string): RemoteFunction
 end
 
 function CoopService:_Allow(player: Player, name: string): boolean
-	local definition = RemoteDefinitions.ByName[name]
-	return definition ~= nil and self._limiter:Allow(player, name, definition.RateLimitPerSecond)
+	local security = require(script.Parent.SecurityService)
+	return security:Allow(player, name)
 end
 
 local function participantCount(contract): number
@@ -271,7 +269,6 @@ function CoopService:Init()
 		if self._playerContract[player.UserId] then
 			self:Leave(player)
 		end
-		self._limiter:Clear(player)
 	end)
 end
 
