@@ -1,0 +1,11 @@
+.DS_Store
+Thumbs.db
+*.rbxl
+*.rbxlx
+*.rbxm
+*.rbxmx
+*.lock
+out/
+build/
+.rojo/
+.lune/
