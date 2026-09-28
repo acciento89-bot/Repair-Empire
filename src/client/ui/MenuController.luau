@@ -133,12 +133,7 @@ local function renderCoop(content: Frame)
 	for _, contract in discovery.contracts do
 		local button = UiFactory.Button(
 			scroll,
-			("%s • %s • %d/%d players"):format(
-				pretty(contract.Job.Id),
-				contract.OwnerName,
-				contract.Participants,
-				contract.MaxParticipants
-			),
+			("%s • %s • %d/%d players"):format(pretty(contract.Job.Id), contract.OwnerName, contract.Participants, contract.MaxParticipants),
 			order
 		)
 		button.Activated:Connect(function()
