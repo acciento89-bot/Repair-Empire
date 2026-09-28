@@ -130,7 +130,7 @@ Verification baseline:
 - [~] P16-T01 Full QA matrix — matrix prepared; device/multi-client/runtime execution remains
 - [~] P16-T02 Data migration/recovery test — Studio API access enabled; isolated development store verified with fresh-load 404, stop/save, and successful second load without a repeated 404; migration/expired-lock/foreign-lock runtime cases remain
 - [~] P16-T03 Purchase release checklist — live IDs/prices configured and Dev published; actual purchase/receipt sandbox verification remains
-- [~] P16-T04 Store metadata/assets checklist — metadata draft/checklist prepared; final icon/thumbnails/content declarations remain
+- [~] P16-T04 Store metadata/assets checklist — final metadata is configured and the 17-section Roblox content questionnaire was submitted successfully; final icon/thumbnails remain
 - [~] P16-T05 Controlled public launch — authenticated dashboard/Studio publishing is working and both production/dev places exist privately; public exposure remains intentionally blocked by QA, assets and monetization gates
 - [x] P16-T06 Launch monitoring/rollback readiness — analytics, rollback and incident runbooks prepared
 
