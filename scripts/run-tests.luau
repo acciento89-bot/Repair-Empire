@@ -11,6 +11,8 @@ local tests = {
 	require("../tests/retention.spec"),
 	require("../tests/prestige.spec"),
 	require("../tests/balance-guardrails.spec"),
+	require("../tests/profile-migration.spec"),
+	require("../tests/job-validator.spec"),
 }
 
 local passed = 0
