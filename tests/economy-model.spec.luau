@@ -31,16 +31,8 @@ return function()
 	local midMultiplier = model.FastestToolMultiplierAtTier(tools.List, 2)
 	local lateMultiplier = model.FastestToolMultiplierAtTier(tools.List, 4)
 	local earlyRate, earlyJob = model.BestEligibleSoloJob(jobs.List, 5, 1, { residential = true }, earlyMultiplier, 45)
-	local midRate, midJob =
-		model.BestEligibleSoloJob(jobs.List, 25, 2, { residential = true, downtown = true }, midMultiplier, 45)
-	local lateRate, lateJob = model.BestEligibleSoloJob(
-		jobs.List,
-		55,
-		4,
-		{ residential = true, downtown = true, industrial = true },
-		lateMultiplier,
-		45
-	)
+	local midRate, midJob = model.BestEligibleSoloJob(jobs.List, 25, 2, { residential = true, downtown = true }, midMultiplier, 45)
+	local lateRate, lateJob = model.BestEligibleSoloJob(jobs.List, 55, 4, { residential = true, downtown = true, industrial = true }, lateMultiplier, 45)
 	assert(earlyJob ~= nil and earlyRate > 0, "early-game model has no viable solo job")
 	assert(midJob ~= nil and midRate > earlyRate, "midgame active earning rate must improve over early game")
 	assert(lateJob ~= nil and lateRate > midRate, "late-game active earning rate must improve over midgame")
@@ -50,13 +42,9 @@ return function()
 	local companyPointTarget = progression.CompanyLevelThresholds[#progression.CompanyLevelThresholds]
 	local lateCompanyPointsPerJob = math.max(1, math.floor(lateJob.BaseReward * 0.03))
 	local optimisticJobsToCompany10 = math.ceil(companyPointTarget / lateCompanyPointsPerJob)
-	assert(
-		optimisticJobsToCompany10 <= optimisticJobsToLevel100,
-		"company-level gate is modeled to block Prestige after player level 100"
-	)
+	assert(optimisticJobsToCompany10 <= optimisticJobsToLevel100, "company-level gate is modeled to block Prestige after player level 100")
 
-	local levelingMinutes =
-		model.EstimateLevelingMinutes(progression.MaxPlayerLevel, jobs.List, tools.List, progression, 45)
+	local levelingMinutes = model.EstimateLevelingMinutes(progression.MaxPlayerLevel, jobs.List, tools.List, progression, 45)
 	local levelingHours = levelingMinutes / 60
 	assert(levelingHours >= 20, "modeled first-prestige leveling is too short for V1 endgame pacing")
 	assert(levelingHours <= 80, "modeled first-prestige leveling is too long for V1 endgame pacing")
