@@ -8,6 +8,7 @@ local Shared = ReplicatedStorage.RepairEmpire.Shared
 local JobDefinitions = require(Shared.jobs.JobDefinitions)
 local JobRules = require(Shared.jobs.JobRules)
 local CoopContracts = require(Shared.coop.CoopContracts)
+local CoopRules = require(Shared.coop.CoopRules)
 local ToolRules = require(Shared.tools.ToolRules)
 
 local MAX_PARTY_SIZE = 6
@@ -44,11 +45,7 @@ local function stateEvent(): RemoteEvent
 end
 
 local function participantCount(contract): number
-	local count = 0
-	for _ in contract.Participants do
-		count += 1
-	end
-	return count
+	return CoopRules.ParticipantCount(contract.Participants)
 end
 
 local function safeJob(definition)
@@ -229,7 +226,7 @@ function CoopService:Join(player: Player, contractId: any)
 	if contract == nil or contract.Completing then
 		return { ok = false, error = "contract_unavailable" }
 	end
-	if participantCount(contract) >= MAX_PARTY_SIZE then
+	if not CoopRules.CanJoin(contract.Participants, MAX_PARTY_SIZE) then
 		return { ok = false, error = "party_full" }
 	end
 
@@ -277,10 +274,7 @@ function CoopService:_RemovePlayer(player: Player)
 	if participantCount(contract) == 0 then
 		self._contracts[contract.Id] = nil
 	elseif contract.OwnerUserId == player.UserId then
-		for userId in contract.Participants do
-			contract.OwnerUserId = userId
-			break
-		end
+		contract.OwnerUserId = CoopRules.NextOwner(contract.Participants)
 		self:_BroadcastParty(contract)
 	else
 		self:_BroadcastParty(contract)
@@ -328,8 +322,8 @@ function CoopService:_Complete(contract, definition)
 		if player then
 			local cash = 0
 			local xp = 0
-			if contribution > 0 and totalContribution > 0 then
-				local share = contribution / totalContribution
+			if CoopRules.HasContribution(contribution) and totalContribution > 0 then
+				local share = CoopRules.RewardShare(contribution, totalContribution)
 				local rewardMultiplier = entitlement:GetCashMultiplier(player) * prestige:GetRewardMultiplier(player)
 				cash = math.max(1, math.floor(contractReward * share * rewardMultiplier))
 				xp = math.max(1, math.floor(definition.XP * share))
@@ -348,7 +342,7 @@ function CoopService:_Complete(contract, definition)
 				contractId = contract.Id,
 				reward = cash,
 				xp = xp,
-				contributed = contribution > 0,
+				contributed = CoopRules.HasContribution(contribution),
 			})
 		end
 		self._playerContract[userId] = nil
