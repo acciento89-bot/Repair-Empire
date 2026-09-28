@@ -34,7 +34,7 @@ local function createVehiclePart(name: string, size: Vector3, cframe: CFrame, pa
 	return part
 end
 
-local function buildPlaceholderVehicle(player: Player, definition, slotIndex: number)
+local function buildProceduralVehicle(player: Player, definition, slotIndex: number)
 	local model = Instance.new("Model")
 	model.Name = ("Vehicle_%d_%d"):format(player.UserId, slotIndex)
 	model:SetAttribute("OwnerUserId", player.UserId)
@@ -205,7 +205,7 @@ function VehicleService:Spawn(player: Player)
 	end
 
 	local slotIndex = #entries + 1
-	local model, seat = buildPlaceholderVehicle(player, definition, slotIndex)
+	local model, seat = buildProceduralVehicle(player, definition, slotIndex)
 	local character = player.Character
 	local root = character and character:FindFirstChild("HumanoidRootPart")
 	if root and root:IsA("BasePart") and model.PrimaryPart then
