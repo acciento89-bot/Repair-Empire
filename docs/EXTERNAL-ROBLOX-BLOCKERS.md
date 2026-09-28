@@ -66,7 +66,7 @@ Still required:
 Still required:
 - migration/recovery runtime cases beyond the successful boot smoke test
 - full QA matrix
-- content/age questionnaire
+- Roblox content questionnaire is submitted; resulting label is still pending/unknown in Creator Hub
 - icon and thumbnails
 - final experience metadata review
 - controlled public exposure only after release gates pass
