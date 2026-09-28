@@ -1,6 +1,15 @@
 local tests = {
 	require("../tests/identifiers.spec"),
 	require("../tests/service-order.spec"),
+	require("../tests/job-rules.spec"),
+	require("../tests/progression.spec"),
+	require("../tests/content-catalog.spec"),
+	require("../tests/company.spec"),
+	require("../tests/world-config.spec"),
+	require("../tests/coop.spec"),
+	require("../tests/monetization-config.spec"),
+	require("../tests/retention.spec"),
+	require("../tests/prestige.spec"),
 }
 
 local passed = 0
