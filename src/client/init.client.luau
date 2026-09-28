@@ -43,8 +43,6 @@ stateUpdated.OnClientEvent:Connect(function(payload)
 		end
 	elseif payload.kind == "coop_stage" then
 		HudController.SetObjective(("Co-op: %s"):format(payload.stage and payload.stage.Action or "Continue"))
-	elseif payload.kind == "coop_party_updated" then
-		HudController.SetObjective(("Co-op team: %d players"):format(payload.participants or 1))
 	elseif payload.kind == "job_completed" then
 		HudController.SetObjective(("Job complete +$%d"):format(payload.reward or 0))
 		NavigationController.SetTarget(nil)
