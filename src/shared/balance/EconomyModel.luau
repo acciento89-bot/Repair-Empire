@@ -99,6 +99,61 @@ function EconomyModel.BestEligibleSoloJob(
 	return bestRate, bestJob
 end
 
+function EconomyModel.FastestEligibleTool(toolDefinitions, level: number)
+	local fastest = 1
+	local maxTier = 1
+	for _, definition in toolDefinitions do
+		if definition.MinimumLevel <= level then
+			fastest = math.min(fastest, definition.SpeedMultiplier)
+			maxTier = math.max(maxTier, definition.Tier)
+		end
+	end
+	return fastest, maxTier
+end
+
+function EconomyModel.UnlockedDistrictsForLevel(progressionConfig, level: number)
+	local unlocked = {}
+	for district, requiredLevel in progressionConfig.DistrictUnlockLevels do
+		if level >= requiredLevel then
+			unlocked[district] = true
+		end
+	end
+	return unlocked
+end
+
+function EconomyModel.BestSoloXpPerMinute(
+	jobDefinitions,
+	level: number,
+	maxToolTier: number,
+	unlockedDistricts,
+	toolMultiplier: number,
+	assumedTravelSeconds: number
+): number
+	local bestRate = 0
+	for _, job in jobDefinitions do
+		if not job.Coop and job.MinimumLevel <= level and job.RequiredToolTier <= maxToolTier and unlockedDistricts[job.District] == true then
+			local cycleSeconds = assumedTravelSeconds + EconomyModel.StageSeconds(job, toolMultiplier)
+			bestRate = math.max(bestRate, job.XP * 60 / cycleSeconds)
+		end
+	end
+	return bestRate
+end
+
+function EconomyModel.EstimateLevelingMinutes(maxLevel: number, jobDefinitions, toolDefinitions, progressionConfig, assumedTravelSeconds: number): number
+	local totalMinutes = 0
+	for level = 1, maxLevel - 1 do
+		local toolMultiplier, maxTier = EconomyModel.FastestEligibleTool(toolDefinitions, level)
+		local districts = EconomyModel.UnlockedDistrictsForLevel(progressionConfig, level)
+		local xpPerMinute =
+			EconomyModel.BestSoloXpPerMinute(jobDefinitions, level, maxTier, districts, toolMultiplier, assumedTravelSeconds)
+		if xpPerMinute <= 0 then
+			return math.huge
+		end
+		totalMinutes += progressionConfig.XpForNextLevel(level) / xpPerMinute
+	end
+	return totalMinutes
+end
+
 function EconomyModel.MaxSoloXp(jobDefinitions): number
 	local maxXp = 0
 	for _, job in jobDefinitions do
