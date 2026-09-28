@@ -223,16 +223,28 @@ function VehicleService:Select(player: Player, vehicleId: any)
 	return { ok = true }
 end
 
-function VehicleService:_DestroySpawned(userId: number)
+function VehicleService:_DestroySpawned(userId: number): number
 	local entries = self._spawned[userId]
+	local removed = 0
 	if entries then
 		for _, entry in entries do
 			if entry.Model and entry.Model.Parent then
 				entry.Model:Destroy()
+				removed += 1
 			end
 		end
 	end
 	self._spawned[userId] = nil
+	return removed
+end
+
+function VehicleService:Despawn(player: Player)
+	local security = require(script.Parent.SecurityService)
+	if not security:Allow(player, "DespawnVehicle") then
+		return { ok = false, error = "rate_limited" }
+	end
+	local removed = self:_DestroySpawned(player.UserId)
+	return { ok = true, removed = removed }
 end
 
 function VehicleService:Spawn(player: Player)
@@ -326,6 +338,9 @@ function VehicleService:Init()
 	end
 	remote("SpawnVehicle").OnServerInvoke = function(player)
 		return self:Spawn(player)
+	end
+	remote("DespawnVehicle").OnServerInvoke = function(player)
+		return self:Despawn(player)
 	end
 
 	Players.PlayerRemoving:Connect(function(player)
