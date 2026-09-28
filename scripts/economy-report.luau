@@ -39,15 +39,7 @@ local lateJob
 for _, band in bands do
 	local multiplier = model.FastestToolMultiplierAtTier(tools.List, band.ToolTier)
 	local rate, job = model.BestEligibleSoloJob(jobs.List, band.Level, band.ToolTier, band.Districts, multiplier, 45)
-	print(
-		("%s band (Lv%d/T%d): %s at $%.0f/min"):format(
-			band.Name,
-			band.Level,
-			band.ToolTier,
-			job and job.Id or "none",
-			rate
-		)
-	)
+	print(("%s band (Lv%d/T%d): %s at $%.0f/min"):format(band.Name, band.Level, band.ToolTier, job and job.Id or "none", rate))
 	if band.Name == "late" then
 		lateJob = job
 	end
@@ -60,6 +52,5 @@ local lateCompanyPointsPerJob = lateJob and math.max(1, math.floor(lateJob.BaseR
 local optimisticJobsToCompany10 = math.ceil(companyPointTarget / lateCompanyPointsPerJob)
 print(("Optimistic lower-bound solo jobs to level 100: %d"):format(optimisticJobsToLevel100))
 print(("Late-job equivalent jobs to company level 10: %d"):format(optimisticJobsToCompany10))
-local levelingMinutes =
-	model.EstimateLevelingMinutes(progression.MaxPlayerLevel, jobs.List, tools.List, progression, 45)
+local levelingMinutes = model.EstimateLevelingMinutes(progression.MaxPlayerLevel, jobs.List, tools.List, progression, 45)
 print(("Modeled active time to level 100 @45s travel: %.1f hours"):format(levelingMinutes / 60))
