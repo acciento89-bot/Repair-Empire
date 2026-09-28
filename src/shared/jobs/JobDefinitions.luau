@@ -5,15 +5,26 @@ local function stage(id: string, action: string, seconds: number)
 end
 
 local function job(id, category, district, level, reward, xp, toolTier, stages, coop)
+	local expectedDurationSeconds = 0
+	for _, jobStage in stages do
+		expectedDurationSeconds += jobStage.MinimumSeconds
+	end
+
+	local weight = if district == "residential" then 100 else if district == "downtown" then 80 else 60
+	local cooldownSeconds = if district == "residential" then 45 else if district == "downtown" then 75 else 120
+
 	return {
 		Id = id,
 		Category = category,
 		District = district,
 		MinimumLevel = level,
+		MinimumCompanyLevel = 1,
 		BaseReward = reward,
 		XP = xp,
 		RequiredToolTier = toolTier,
-		Weight = 1,
+		Weight = weight,
+		ExpectedDurationSeconds = expectedDurationSeconds,
+		CooldownSeconds = cooldownSeconds,
 		Stages = stages,
 		Coop = coop == true,
 	}
