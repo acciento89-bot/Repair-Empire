@@ -3,7 +3,9 @@
 local HttpService = game:GetService("HttpService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
-local PrestigeConfig = require(ReplicatedStorage.RepairEmpire.Shared.prestige.PrestigeConfig)
+local Shared = ReplicatedStorage.RepairEmpire.Shared
+local PrestigeConfig = require(Shared.prestige.PrestigeConfig)
+local PrestigeRules = require(Shared.prestige.PrestigeRules)
 
 local PrestigeService = {
 	Name = "PrestigeService",
@@ -18,9 +20,7 @@ local function remote(name: string): RemoteFunction
 end
 
 function PrestigeService:IsEligible(profile): boolean
-	return profile.Level >= PrestigeConfig.RequiredPlayerLevel
-		and profile.CompanyLevel >= PrestigeConfig.RequiredCompanyLevel
-		and profile.WorkshopTier >= PrestigeConfig.RequiredWorkshopTier
+	return PrestigeRules.IsEligible(profile, PrestigeConfig)
 end
 
 function PrestigeService:GetRewardMultiplier(player: Player): number
@@ -87,34 +87,7 @@ function PrestigeService:Confirm(player: Player, token: any)
 		return { ok = false, error = "not_eligible" }
 	end
 
-	profile.PrestigeLevel += 1
-	profile.Stats.Prestiges += 1
-	profile.Level = 1
-	profile.XP = 0
-	profile.CompanyPoints = 0
-	profile.CompanyLevel = 1
-	profile.CompanyXP = 0
-	profile.WorkshopTier = 1
-	profile.SkillPoints = 0
-	profile.Skills = {
-		plumbing = 0,
-		heating = 0,
-		climate = 0,
-		energy = 0,
-	}
-	profile.UnlockedDistricts = {
-		residential = true,
-	}
-	profile.OwnedTools = {
-		basic_wrench = true,
-	}
-	profile.EquippedTool = "basic_wrench"
-	profile.OwnedVehicles = {
-		old_compact_van = true,
-	}
-	profile.SelectedVehicle = "old_compact_van"
-	profile.Employees = {}
-	profile.LastPassiveTimestamp = DateTime.now().UnixTimestamp
+	PrestigeRules.ApplyReset(profile, DateTime.now().UnixTimestamp)
 
 	self._confirmations[player.UserId] = nil
 	dataService:Publish(player)
