@@ -5,7 +5,9 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local RunService = game:GetService("RunService")
 local Workspace = game:GetService("Workspace")
 
-local VehicleDefinitions = require(ReplicatedStorage.RepairEmpire.Shared.vehicles.VehicleDefinitions)
+local Shared = ReplicatedStorage.RepairEmpire.Shared
+local VehicleDefinitions = require(Shared.vehicles.VehicleDefinitions)
+local PassRules = require(Shared.monetization.PassRules)
 
 local VehicleService = {
 	Name = "VehicleService",
@@ -192,7 +194,7 @@ function VehicleService:Spawn(player: Player)
 	end
 
 	local entitlement = require(script.Parent.EntitlementService)
-	local maxVehicles = if entitlement:HasPass(player, "extra_vehicle_slot") then 2 else 1
+	local maxVehicles = PassRules.VehicleSlots(entitlement:HasPass(player, "extra_vehicle_slot"))
 	local entries = self._spawned[player.UserId] or {}
 
 	while #entries >= maxVehicles do
