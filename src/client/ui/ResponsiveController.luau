@@ -67,7 +67,9 @@ local function apply()
 			if content then
 				for _, descendant in content:GetDescendants() do
 					if descendant:IsA("TextButton") then
-						descendant.Size = UDim2.new(1, 0, 0, metrics.ButtonHeight)
+						if descendant:GetAttribute("ResponsiveSkipSize") ~= true then
+							descendant.Size = UDim2.new(1, 0, 0, metrics.ButtonHeight)
+						end
 						textConstraint(descendant, 12, 18)
 					elseif descendant:IsA("TextLabel") then
 						textConstraint(descendant, 12, 18)
