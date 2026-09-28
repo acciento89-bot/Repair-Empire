@@ -107,7 +107,7 @@ Verification baseline:
 - [x] P13-T01 Small-phone layouts — iPhone XR plus compact iPhone 7 (667x375) landscape/portrait runtime QA verified; Sensor orientation is enabled at StarterGui and active PlayerGui; compact Premium Workshop marker overflow found and fixed
 - [~] P13-T02 Tablet/desktop layouts — iPad 6th Generation landscape/portrait visual runtime QA verified; desktop UI and mouse navigation are verified including live Shop rendering; full keyboard-only traversal remains
 - [~] P13-T03 Controller navigation — focusable UI, ButtonStart open/toggle and ButtonB back/close paths implemented; controller runtime QA remains
-- [~] P13-T04 Accessibility pass — text/context and non-color-only critical states implemented; explicit accessible palette plus 4.5:1 contrast CI guardrail verified; final device/visual audit remains
+- [x] P13-T04 Accessibility pass — text/context and non-color-only critical states implemented; explicit palette has automated 4.5:1 contrast guardrail; compact phone, XR, iPad and desktop visual audits completed
 - [~] P13-T05 Feedback/audio/effects polish — HUD/reward/error feedback exists and the self-contained world/workshop art pass is Studio-verified; final sound/VFX asset pass remains
 - [~] P13-T06 Progression and management screens — complete approved navigation hierarchy is implemented and pure-test guarded; desktop mouse traversal is partially runtime-verified (Jobs/Shop); full touch/controller traversal remains
 
@@ -129,7 +129,7 @@ Verification baseline:
 
 ## P16 Release
 - [~] P16-T01 Full QA matrix — phone and tablet device passes, desktop mouse UI, 2-client boot/disconnect, performance baselines and DataStore smoke tests are executed; controller, keyboard-only, Marketplace sandbox and remaining network/recovery abuse cases remain
-- [~] P16-T02 Data migration/recovery test — Studio API access enabled; isolated development store verified with fresh-load 404, stop/save and successful second load; schema migration, expired-lock acquisition and foreign-lock write rejection are pure-test guarded; corresponding live DataStore recovery cases remain
+- [x] P16-T02 Data migration/recovery test — isolated development DataStore live-probe verified v1→v2 migration with value preservation, expired-lock acquisition, active foreign-lock acquisition rejection, foreign-lock write rejection and cleanup=true
 - [~] P16-T03 Purchase release checklist — live IDs/prices configured and Dev published; actual purchase/receipt sandbox verification remains
 - [~] P16-T04 Store metadata/assets checklist — final metadata is configured and the 17-section Roblox content questionnaire was submitted successfully; final icon/thumbnails remain
 - [~] P16-T05 Controlled public launch — authenticated dashboard/Studio publishing is working and both production/dev places exist privately; public exposure remains intentionally blocked by QA, assets and monetization gates
