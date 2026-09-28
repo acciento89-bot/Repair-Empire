@@ -5,7 +5,7 @@ local TutorialConfig = require(ReplicatedStorage.RepairEmpire.Shared.config.Tuto
 
 local TutorialService = {
 	Name = "TutorialService",
-	Dependencies = { "PlayerDataService" },
+	Dependencies = { "PlayerDataService", "AnalyticsService" },
 }
 
 function TutorialService:Init() end
@@ -33,6 +33,8 @@ function TutorialService:Advance(player: Player, expectedStep: string)
 	profile.Tutorial.Step = nextStep
 	profile.Tutorial.Completed = nextStep == "complete"
 	dataService:Publish(player)
+	local analytics = require(script.Parent.AnalyticsService)
+	analytics:LogOnboardingStep(player, index, expectedStep)
 	return true
 end
 
