@@ -28,7 +28,7 @@ function NavigationController.Start()
 	label.Position = UDim2.new(0.5, 0, 1, -28)
 	label.Size = UDim2.fromOffset(220, 44)
 	label.BackgroundTransparency = 0.2
-	label.Font = Enum.Font.GothamSemibold
+	label.Font = Enum.Font.GothamMedium
 	label.TextScaled = true
 	label.TextColor3 = Color3.new(1, 1, 1)
 	label.Visible = false
