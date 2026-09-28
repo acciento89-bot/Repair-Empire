@@ -52,6 +52,7 @@ local DEFAULT_PROFILE = {
 		ClaimStreak = 0,
 		ActiveJobDay = 0,
 		CompletedDailyJobs = {},
+		PlaytimeClaims = {},
 	},
 	Stats = {
 		JobsCompleted = 0,
