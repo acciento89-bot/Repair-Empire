@@ -220,11 +220,7 @@ local function renderShop(content: Frame)
 	order += 1
 	for key, config in MonetizationConfig.DeveloperProducts do
 		local configured = config.Id ~= nil
-		local text = ("%s • %d R$ • %s"):format(
-			pretty(key),
-			config.PriceHypothesis,
-			if configured then "Buy" else "Awaiting Roblox ID"
-		)
+		local text = ("%s • %d R$ • %s"):format(pretty(key), config.PriceHypothesis, if configured then "Buy" else "Awaiting Roblox ID")
 		local button = UiFactory.Button(scroll, text, order)
 		button.Active = configured
 		button.Activated:Connect(function()
