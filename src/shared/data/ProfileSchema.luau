@@ -41,9 +41,9 @@ local DEFAULT_PROFILE = {
 	},
 	Achievements = {},
 	Daily = {
-		LastClaimDay = "",
+		LastClaimDay = 0,
 		ClaimStreak = 0,
-		ActiveJobDay = "",
+		ActiveJobDay = 0,
 		CompletedDailyJobs = {},
 	},
 	Stats = {
