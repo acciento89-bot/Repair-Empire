@@ -103,6 +103,9 @@ function PlayerDataService:_Load(player: Player)
 	publishSummary(player, loaded)
 	local analytics = require(script.Parent.AnalyticsService)
 	analytics:LogOnce(player, "session_start", 1)
+	if loaded.Tutorial.Completed ~= true then
+		analytics:LogOnce(player, "tutorial_start", 1)
+	end
 end
 
 function PlayerDataService:_Save(player: Player, releaseLock: boolean)
