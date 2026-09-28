@@ -87,7 +87,7 @@ Verification baseline:
 - [x] P10-T03 Developer Product receipt handler
 - [x] P10-T04 Idempotency/duplicate receipt protection
 - [x] P10-T05 Shop UI and explicit purchase flow — real Roblox prices are read from MarketplaceService and live Studio Shop rendering with configured prices is runtime-verified
-- [!] P10-T06 Sandbox verification — all code-side/retry/duplicate/aborted-path protections are verified, but Roblox requires a real Robux purchase to complete end-to-end Marketplace receipt/rejoin verification; blocked pending an owner-approved Robux transaction
+- [!] P10-T06 Sandbox verification — live Game Pass prompt wiring and existing ownership are runtime-verified in Studio (Roblox returned "already own this item" and confirmed no charge); code-side retry/duplicate/aborted-path protections are verified. A successful Developer Product receipt/rejoin still requires an owner-approved real Robux transaction
 
 ## P11 Retention
 - [x] P11-T01 Daily jobs
@@ -130,7 +130,7 @@ Verification baseline:
 ## P16 Release
 - [x] P16-T01 Full QA matrix — solo/multi-client, new/returning/migrated profile, compact phone/XR/iPad/desktop, mouse/keyboard/controller input, reconnect/disconnect, timing/race/spatial abuse, DataStore recovery and performance smoke coverage are executed; purchase sandbox is tracked separately under P16-T03
 - [x] P16-T02 Data migration/recovery test — isolated development DataStore live-probe verified v1→v2 migration with value preservation, expired-lock acquisition, active foreign-lock acquisition rejection, foreign-lock write rejection and cleanup=true
-- [!] P16-T03 Purchase release checklist — all IDs/prices and free path are verified and Dev is published; final end-to-end receipt checklist is blocked by the same owner-approved real Robux transaction required by P10-T06
+- [!] P16-T03 Purchase release checklist — IDs/prices/free path plus live Game Pass ownership/prompt behavior are verified; final successful Developer Product receipt/rejoin checklist is blocked by the same owner-approved real Robux transaction required by P10-T06
 - [x] P16-T04 Store metadata/assets checklist — final name/description reviewed in Creator Hub; custom Repair Empire icon and three custom thumbnails are uploaded and processed; 17-section content questionnaire is complete
 - [!] P16-T05 Controlled public launch — build, metadata/assets, QA and rollback readiness are prepared, but Creator Hub still reports content maturity as `Unbekannt` and P16-T03 requires a real purchase; public exposure stays blocked until those external gates clear
 - [x] P16-T06 Launch monitoring/rollback readiness — analytics, rollback and incident runbooks prepared
