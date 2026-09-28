@@ -2,6 +2,7 @@ local tests = {
 	require("../tests/identifiers.spec"),
 	require("../tests/service-order.spec"),
 	require("../tests/job-rules.spec"),
+	require("../tests/job-experience.spec"),
 	require("../tests/job-action-rules.spec"),
 	require("../tests/progression.spec"),
 	require("../tests/content-catalog.spec"),
