@@ -6,7 +6,7 @@ Implementation is active. Core systems are implemented and the repository is CI-
 
 Verification baseline:
 - GitHub Actions run #385: success
-- Head verified through formatting, Selene lint, Rojo build and 36 pure-Luau tests; release-readiness reports Sandbox-ready: yes; phone HUD and contrast guardrails are included
+- Head verified through formatting, Selene lint, Rojo build and 37 pure-Luau tests; release-readiness reports Sandbox-ready: yes; phone HUD and contrast guardrails are included
 - External/runtime-only blockers are documented in `docs/EXTERNAL-ROBLOX-BLOCKERS.md`
 
 ## P00 Product Definition
@@ -79,7 +79,7 @@ Verification baseline:
 - [x] P09-T02 Contribution tracking
 - [x] P09-T03 Reward split/validation
 - [x] P09-T04 Four launch large contracts
-- [~] P09-T05 Multi-client abuse/reconnect tests — real Studio server boot with 2 simultaneous clients verified; hard disconnect of one test client leaves server and second client stable; deterministic owner-transfer, capacity and zero-contribution reward invariants are pure-test guarded; contract-active reconnect, simultaneous-stage and latency abuse scenarios remain
+- [x] P09-T05 Multi-client abuse/reconnect tests — real 2-client Studio boot and hard-disconnect survival verified; deterministic owner transfer, capacity, zero-contribution rewards, reconnect contribution restore, completion replay, simultaneous-stage serialization and server-timing/latency guards are runtime-used and pure-tested
 
 ## P10 Monetization
 - [x] P10-T01 Monetization config and catalog IDs — 5 Game Passes and 6 Developer Products created with live Roblox IDs and configured prices
