@@ -25,10 +25,15 @@ Still required:
 - device-specific visual QA in Roblox clients
 
 ## P08 - Performance verification
+Resolved:
+- StreamingEnabled verified in Studio
+- server-only world baseline recorded: 572 BaseParts, 614 descendants, 22.14 ms average Heartbeat in Studio
+- baseline hook is Studio-only and documented in `docs/PERFORMANCE-BASELINE.md`
+
 Still required:
-- StreamingEnabled behavior under travel
-- client/server frame and memory measurements
-- network behavior with multiple players
+- real client FPS/frame time and memory
+- streaming behavior under player travel
+- server/network behavior with multiple players
 
 ## P09 - Multi-client validation
 Still required:
