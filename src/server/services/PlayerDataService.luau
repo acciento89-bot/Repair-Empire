@@ -67,6 +67,15 @@ function PlayerDataService:GetCurrentPlayTime(player: Player): number
 	return profile.Stats.PlayTimeSeconds + sessionSeconds
 end
 
+function PlayerDataService:GetCurrentDailyPlayTime(player: Player): number
+	local profile = self:RequireProfile(player)
+	local loadedAt = self._loadedAt[player.UserId]
+	local sessionSeconds = if loadedAt then math.max(0, math.floor(os.clock() - loadedAt)) else 0
+	local day = math.floor(unixNow() / 86_400)
+	local stored = if profile.Daily.PlaytimeDay == day then profile.Daily.PlaytimeSeconds else 0
+	return stored + sessionSeconds
+end
+
 function PlayerDataService:GetSafeState(player: Player)
 	local profile = self:RequireProfile(player)
 	return {
@@ -88,6 +97,7 @@ function PlayerDataService:GetSafeState(player: Player)
 		Daily = ProfileSchema.Clone(profile.Daily),
 		Stats = ProfileSchema.Clone(profile.Stats),
 		CurrentPlayTimeSeconds = self:GetCurrentPlayTime(player),
+		CurrentDailyPlayTimeSeconds = self:GetCurrentDailyPlayTime(player),
 		InstantJobFinishes = profile.Consumables.InstantJobFinishes,
 		TutorialStep = profile.Tutorial.Step,
 		TutorialCompleted = profile.Tutorial.Completed,
@@ -135,7 +145,15 @@ function PlayerDataService:_Save(player: Player, releaseLock: boolean)
 	end
 
 	local now = unixNow()
-	profile.Stats.PlayTimeSeconds += math.max(0, math.floor(os.clock() - (self._loadedAt[player.UserId] or os.clock())))
+	local elapsed = math.max(0, math.floor(os.clock() - (self._loadedAt[player.UserId] or os.clock())))
+	profile.Stats.PlayTimeSeconds += elapsed
+	local day = math.floor(now / 86_400)
+	if profile.Daily.PlaytimeDay ~= day then
+		profile.Daily.PlaytimeDay = day
+		profile.Daily.PlaytimeSeconds = 0
+		profile.Daily.PlaytimeClaims = {}
+	end
+	profile.Daily.PlaytimeSeconds += elapsed
 	self._loadedAt[player.UserId] = os.clock()
 
 	local ok = DataStoreAdapter.UpdateUser(player.UserId, function(existing)
