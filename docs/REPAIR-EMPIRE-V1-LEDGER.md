@@ -144,8 +144,8 @@ Verification baseline:
 
 
 ## P18 Final Polish & Game Feel — mandatory pre-public-launch corrective gate
-- [ ] P18-T01 Visual design system and shell — replace prototype/dev-looking menu/HUD presentation with a coherent Repair Empire visual language
-- [ ] P18-T02 Retention loop completeness — audit/polish Daily Jobs, daily login, achievements and add server-authoritative playtime/online rewards if absent
+- [~] P18-T01 Visual design system and shell — new Repair Empire palette, reusable styled controls and redesigned HUD/menu shell implemented; HUD runtime-verified, menu visual runtime check still open
+- [~] P18-T02 Retention loop completeness — audit confirmed Daily Jobs/login/achievements exist but no playtime reward track; deterministic playtime milestone rules and tests added, server claim/persistence/UI integration still open
 - [ ] P18-T03 Jobs and quest experience — player-facing runtime pass across representative early/mid/late jobs and co-op contracts
 - [ ] P18-T04 Vehicles and garage presentation — vehicle-specific visual presentation plus representative runtime verification
 - [ ] P18-T05 World, workshop, audio and effects pass — environmental identity, workshop presentation and final feedback polish
