@@ -54,6 +54,11 @@ Resolved:
 - managed/regional pricing disabled
 - updated monetization config published to Repair Empire Dev
 
+Resolved in runtime:
+- live Game Pass prompt reached Roblox Marketplace in Studio
+- Roblox recognized an already-owned Extra Vehicle Slot pass and explicitly confirmed the account was not charged
+- live entitlement effects are visible after rejoin (VIP/Premium Workshop UI state)
+
 Resolved in code/tests:
 - ProductId lookup/allowlisting
 - atomic/idempotent receipt grants
@@ -62,7 +67,7 @@ Resolved in code/tests:
 - Game Pass ownership remains external to profile reset
 
 Still required:
-- one owner-approved real-Robux Marketplace test transaction; Roblox's current test flow charges actual Robux
+- one owner-approved real-Robux Developer Product transaction; Roblox's current test flow charges actual Robux
 - receipt retry/reconnect verification against live MarketplaceService using that transaction
 - Game Pass entitlement persistence after real purchase/rejoin
 
