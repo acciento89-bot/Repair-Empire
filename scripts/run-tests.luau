@@ -19,6 +19,7 @@ local tests = {
 	require("../tests/rate-limiter.spec"),
 	require("../tests/receipt-rules.spec"),
 	require("../tests/session-rules.spec"),
+	require("../tests/ui-layout-rules.spec"),
 }
 
 local passed = 0
