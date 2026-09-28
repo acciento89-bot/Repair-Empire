@@ -7,6 +7,7 @@ local HttpService = game:GetService("HttpService")
 local Shared = ReplicatedStorage.RepairEmpire.Shared
 local JobDefinitions = require(Shared.jobs.JobDefinitions)
 local JobRules = require(Shared.jobs.JobRules)
+local JobActionRules = require(Shared.jobs.JobActionRules)
 local ToolRules = require(Shared.tools.ToolRules)
 
 local OFFER_COUNT = 4
@@ -266,25 +267,30 @@ function JobService:PerformAction(player: Player, payload: any)
 
 	local definition = JobDefinitions.ById[active.DefinitionId]
 	local stage = definition and definition.Stages[active.StageIndex]
-	if definition == nil or stage == nil then
-		return { ok = false, error = "invalid_server_state" }
-	end
-	if payload.action ~= stage.Action then
-		return { ok = false, error = "wrong_action" }
-	end
 
 	local worldService = require(script.Parent.WorldService)
-	if type(active.AnchorId) ~= "string" or not worldService:IsPlayerNearAnchor(player, active.AnchorId) then
-		return { ok = false, error = "too_far_from_job" }
-	end
+	local isNear = type(active.AnchorId) == "string" and worldService:IsPlayerNearAnchor(player, active.AnchorId)
 
 	local toolService = require(script.Parent.ToolService)
 	local skillTree = require(script.Parent.SkillTreeService)
-	local speedMultiplier = toolService:GetEquippedSpeedMultiplier(player) * skillTree:GetSpeedMultiplier(player, definition.Category)
-	local effectiveSeconds = ToolRules.GetEffectiveStageSeconds(stage.MinimumSeconds, speedMultiplier)
+	local speedMultiplier = if definition
+		then toolService:GetEquippedSpeedMultiplier(player) * skillTree:GetSpeedMultiplier(player, definition.Category)
+		else 1
+	local effectiveSeconds = if stage then ToolRules.GetEffectiveStageSeconds(stage.MinimumSeconds, speedMultiplier) else math.huge
 	local elapsed = os.clock() - active.StageStartedAt
-	if elapsed + 0.15 < effectiveSeconds then
-		return { ok = false, error = "too_fast" }
+	local decision = JobActionRules.Validate({
+		active = active,
+		instanceId = payload.instanceId,
+		wasCompleted = completed ~= nil and completed[active.InstanceId] ~= nil,
+		definition = definition,
+		stage = stage,
+		action = payload.action,
+		isNear = isNear,
+		elapsed = elapsed,
+		effectiveSeconds = effectiveSeconds,
+	})
+	if not decision.ok then
+		return { ok = false, error = decision.error }
 	end
 
 	local tutorial = require(script.Parent.TutorialService)
