@@ -12,6 +12,32 @@ end
 
 local PassCosmeticsController = {}
 
+local function premiumMarkerSize(): UDim2
+	local camera = Workspace.CurrentCamera
+	if camera ~= nil and math.min(camera.ViewportSize.X, camera.ViewportSize.Y) < 600 then
+		return UDim2.fromOffset(112, 34)
+	end
+	return UDim2.fromOffset(180, 38)
+end
+
+local function updatePremiumMarkerLayout(marker: Instance)
+	if not marker:IsA("BillboardGui") then
+		return
+	end
+	marker.Size = premiumMarkerSize()
+	local label = marker:FindFirstChild("Label")
+	if label and label:IsA("TextLabel") then
+		label.TextScaled = true
+		local constraint = label:FindFirstChildOfClass("UITextSizeConstraint")
+		if constraint == nil then
+			constraint = Instance.new("UITextSizeConstraint")
+			constraint.MinTextSize = 9
+			constraint.MaxTextSize = 15
+			constraint.Parent = label
+		end
+	end
+end
+
 local function applyVipBadge(player: Player)
 	local playerGui = player:FindFirstChild("PlayerGui")
 	if playerGui == nil then
@@ -86,12 +112,13 @@ local function applyPremiumWorkshop(player: Player)
 		local billboard = Instance.new("BillboardGui")
 		billboard.Name = "PremiumMarker"
 		billboard.Adornee = building
-		billboard.Size = UDim2.fromOffset(180, 38)
+		billboard.Size = premiumMarkerSize()
 		billboard.StudsOffsetWorldSpace = Vector3.new(0, 9, 0)
 		billboard.AlwaysOnTop = true
 		billboard.Parent = workshop
 
 		local label = Instance.new("TextLabel")
+		label.Name = "Label"
 		label.Size = UDim2.fromScale(1, 1)
 		label.BackgroundTransparency = 0.04
 		label.BackgroundColor3 = color(UiPalette.Hud)
@@ -99,8 +126,15 @@ local function applyPremiumWorkshop(player: Player)
 		label.BorderSizePixel = 0
 		label.Font = Enum.Font.GothamBold
 		label.TextSize = 15
+		label.TextScaled = true
 		label.Text = "PREMIUM WORKSHOP"
 		label.Parent = billboard
+		local constraint = Instance.new("UITextSizeConstraint")
+		constraint.MinTextSize = 9
+		constraint.MaxTextSize = 15
+		constraint.Parent = label
+	elseif premium and marker then
+		updatePremiumMarkerLayout(marker)
 	elseif not premium and marker then
 		marker:Destroy()
 	end
@@ -126,6 +160,25 @@ function PassCosmeticsController.Start()
 		task.defer(function()
 			apply(player)
 		end)
+	end)
+
+	local function bindCamera(camera: Camera?)
+		if camera == nil then
+			return
+		end
+		camera:GetPropertyChangedSignal("ViewportSize"):Connect(function()
+			local world = Workspace:FindFirstChild("RepairEmpireWorld")
+			local residential = world and world:FindFirstChild("residential")
+			local workshop = residential and residential:FindFirstChild("PlayerWorkshop")
+			local marker = workshop and workshop:FindFirstChild("PremiumMarker")
+			if marker then
+				updatePremiumMarkerLayout(marker)
+			end
+		end)
+	end
+	bindCamera(Workspace.CurrentCamera)
+	Workspace:GetPropertyChangedSignal("CurrentCamera"):Connect(function()
+		bindCamera(Workspace.CurrentCamera)
 	end)
 
 	Workspace.ChildAdded:Connect(function(child)
