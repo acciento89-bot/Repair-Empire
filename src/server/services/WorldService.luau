@@ -179,8 +179,12 @@ local function addBuildingDetails(
 
 	if districtId == "residential" then
 		for _, side in { -1, 1 } do
-			local window =
-				createPart("FrontWindow", Vector3.new(6, 4, 0.35), CFrame.new(x + side * width * 0.24, math.min(height - 4, 7), z + frontSign * (depth / 2 + 0.2)), building)
+			local window = createPart(
+				"FrontWindow",
+				Vector3.new(6, 4, 0.35),
+				CFrame.new(x + side * width * 0.24, math.min(height - 4, 7), z + frontSign * (depth / 2 + 0.2)),
+				building
+			)
 			window.Material = Enum.Material.Glass
 			window.Color = Color3.fromRGB(120, 180, 205)
 			window.Transparency = 0.25
