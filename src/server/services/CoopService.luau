@@ -36,9 +36,10 @@ local function remote(name: string): RemoteFunction
 	return instance
 end
 
-function CoopService:_Allow(player: Player, name: string): boolean
-	local security = require(script.Parent.SecurityService)
-	return security:Allow(player, name)
+local function stateEvent(): RemoteEvent
+	local instance = ReplicatedStorage:WaitForChild("RepairEmpireRemotes"):WaitForChild("StateUpdated")
+	assert(instance:IsA("RemoteEvent"), "StateUpdated must be a RemoteEvent")
+	return instance
 end
 
 local function participantCount(contract): number
@@ -47,6 +48,107 @@ local function participantCount(contract): number
 		count += 1
 	end
 	return count
+end
+
+local function safeJob(definition)
+	return {
+		Id = definition.Id,
+		Category = definition.Category,
+		District = definition.District,
+		BaseReward = definition.BaseReward,
+		XP = definition.XP,
+		MinimumLevel = definition.MinimumLevel,
+		RequiredToolTier = definition.RequiredToolTier,
+		StageCount = #definition.Stages,
+		Coop = definition.Coop,
+	}
+end
+
+function CoopService:_Allow(player: Player, name: string): boolean
+	local security = require(script.Parent.SecurityService)
+	return security:Allow(player, name)
+end
+
+function CoopService:_StageForPlayer(player: Player, stage)
+	local toolService = require(script.Parent.ToolService)
+	return ToolRules.ToClientStage(stage, toolService:GetEquippedSpeedMultiplier(player))
+end
+
+function CoopService:_FireStarted(player: Player, contract, definition)
+	local worldService = require(script.Parent.WorldService)
+	local anchor = worldService:GetAnchor(contract.AnchorId)
+	stateEvent():FireClient(player, {
+		kind = "coop_started",
+		contractId = contract.Id,
+		job = safeJob(definition),
+		stage = self:_StageForPlayer(player, definition.Stages[contract.StageIndex]),
+		targetPosition = if anchor then anchor.Position else nil,
+		participants = participantCount(contract),
+	})
+end
+
+function CoopService:_BroadcastStage(contract, definition)
+	for userId in contract.Participants do
+		local player = Players:GetPlayerByUserId(userId)
+		if player then
+			stateEvent():FireClient(player, {
+				kind = "coop_stage",
+				contractId = contract.Id,
+				stage = self:_StageForPlayer(player, definition.Stages[contract.StageIndex]),
+				participants = participantCount(contract),
+			})
+		end
+	end
+end
+
+function CoopService:_BroadcastParty(contract)
+	for userId in contract.Participants do
+		local player = Players:GetPlayerByUserId(userId)
+		if player then
+			stateEvent():FireClient(player, {
+				kind = "coop_party_updated",
+				contractId = contract.Id,
+				participants = participantCount(contract),
+				ownerUserId = contract.OwnerUserId,
+			})
+		end
+	end
+end
+
+function CoopService:GetAvailableContracts(player: Player)
+	if not self:_Allow(player, "RequestCoopContracts") then
+		return { ok = false, error = "rate_limited" }
+	end
+
+	local contracts = {}
+	for _, contract in self._contracts do
+		if not contract.Completing and participantCount(contract) < MAX_PARTY_SIZE then
+			local definition = JobDefinitions.ById[contract.DefinitionId]
+			if definition then
+				local owner = Players:GetPlayerByUserId(contract.OwnerUserId)
+				table.insert(contracts, {
+					ContractId = contract.Id,
+					Job = safeJob(definition),
+					OwnerName = if owner then owner.DisplayName else "Player",
+					Participants = participantCount(contract),
+					MaxParticipants = MAX_PARTY_SIZE,
+				})
+			end
+		end
+	end
+
+	table.sort(contracts, function(a, b)
+		if a.Job.MinimumLevel == b.Job.MinimumLevel then
+			return a.Job.Id < b.Job.Id
+		end
+		return a.Job.MinimumLevel < b.Job.MinimumLevel
+	end)
+
+	return {
+		ok = true,
+		contracts = contracts,
+		currentContractId = self._playerContract[player.UserId],
+	}
 end
 
 function CoopService:Create(player: Player, jobId: any)
@@ -83,7 +185,7 @@ function CoopService:Create(player: Player, jobId: any)
 	end
 
 	local contractId = HttpService:GenerateGUID(false)
-	self._contracts[contractId] = {
+	local contract = {
 		Id = contractId,
 		OwnerUserId = player.UserId,
 		DefinitionId = jobId,
@@ -98,13 +200,16 @@ function CoopService:Create(player: Player, jobId: any)
 		},
 		Completing = false,
 	}
+	self._contracts[contractId] = contract
 	self._playerContract[player.UserId] = contractId
+
+	self:_FireStarted(player, contract, definition)
 
 	return {
 		ok = true,
 		contractId = contractId,
-		jobId = jobId,
-		stage = definition.Stages[1],
+		job = safeJob(definition),
+		stage = self:_StageForPlayer(player, definition.Stages[1]),
 		targetPosition = anchor.Position,
 	}
 end
@@ -113,7 +218,7 @@ function CoopService:Join(player: Player, contractId: any)
 	if not self:_Allow(player, "JoinCoopContract") then
 		return { ok = false, error = "rate_limited" }
 	end
-	if type(contractId) ~= "string" or self._playerContract[player.UserId] ~= nil then
+	if type(contractId) ~= "string" or #contractId > 80 or self._playerContract[player.UserId] ~= nil then
 		return { ok = false, error = "invalid_join" }
 	end
 
@@ -131,6 +236,7 @@ function CoopService:Join(player: Player, contractId: any)
 	if definition == nil or not JobRules.IsEligible(definition, profile) then
 		return { ok = false, error = "not_eligible" }
 	end
+
 	local toolService = require(script.Parent.ToolService)
 	if toolService:GetEquippedTier(player) < definition.RequiredToolTier then
 		return { ok = false, error = "tool_tier_locked" }
@@ -140,13 +246,16 @@ function CoopService:Join(player: Player, contractId: any)
 	contract.Contribution[player.UserId] = 0
 	self._playerContract[player.UserId] = contractId
 
+	self:_FireStarted(player, contract, definition)
+	self:_BroadcastParty(contract)
+
 	local worldService = require(script.Parent.WorldService)
 	local anchor = worldService:GetAnchor(contract.AnchorId)
 	return {
 		ok = true,
 		contractId = contractId,
-		jobId = contract.DefinitionId,
-		stage = ToolRules.ToClientStage(definition.Stages[contract.StageIndex], toolService:GetEquippedSpeedMultiplier(player)),
+		job = safeJob(definition),
+		stage = self:_StageForPlayer(player, definition.Stages[contract.StageIndex]),
 		targetPosition = if anchor then anchor.Position else nil,
 	}
 end
@@ -169,6 +278,9 @@ function CoopService:_RemovePlayer(player: Player)
 			contract.OwnerUserId = userId
 			break
 		end
+		self:_BroadcastParty(contract)
+	else
+		self:_BroadcastParty(contract)
 	end
 	return true
 end
@@ -177,6 +289,11 @@ function CoopService:Leave(player: Player)
 	if not self:_Allow(player, "LeaveCoopContract") then
 		return { ok = false, error = "rate_limited" }
 	end
+	if self._playerContract[player.UserId] == nil then
+		return { ok = false, error = "not_in_contract" }
+	end
+
+	stateEvent():FireClient(player, { kind = "coop_left" })
 	if not self:_RemovePlayer(player) then
 		return { ok = false, error = "not_in_contract" }
 	end
@@ -189,6 +306,10 @@ function CoopService:_Complete(contract, definition)
 	local economy = require(script.Parent.EconomyService)
 	local progression = require(script.Parent.ProgressionService)
 	local dataService = require(script.Parent.PlayerDataService)
+	local entitlement = require(script.Parent.EntitlementService)
+	local prestige = require(script.Parent.PrestigeService)
+	local analytics = require(script.Parent.AnalyticsService)
+	local retention = require(script.Parent.RetentionService)
 
 	local totalContribution = 0
 	for _, amount in contract.Contribution do
@@ -201,23 +322,31 @@ function CoopService:_Complete(contract, definition)
 	for userId in contract.Participants do
 		local player = Players:GetPlayerByUserId(userId)
 		local contribution = contract.Contribution[userId] or 0
-		if player and contribution > 0 and totalContribution > 0 then
-			local share = contribution / totalContribution
-			local entitlement = require(script.Parent.EntitlementService)
-			local prestige = require(script.Parent.PrestigeService)
-			local rewardMultiplier = entitlement:GetCashMultiplier(player) * prestige:GetRewardMultiplier(player)
-			local cash = math.max(1, math.floor(contractReward * share * rewardMultiplier))
-			local xp = math.max(1, math.floor(definition.XP * share))
-			economy:Grant(player, "cash", cash, "coop:" .. definition.Id)
-			progression:AddXP(player, xp)
-			progression:AddCompanyPoints(player, math.max(1, math.floor(cash * 0.03)))
-			local profile = dataService:RequireProfile(player)
-			profile.Stats.JobsCompleted += 1
-			dataService:Publish(player)
-			local analytics = require(script.Parent.AnalyticsService)
-			analytics:LogOnce(player, "first_coop_job_completed", 1)
-			local retention = require(script.Parent.RetentionService)
-			retention:RefreshAchievements(player)
+		if player then
+			local cash = 0
+			local xp = 0
+			if contribution > 0 and totalContribution > 0 then
+				local share = contribution / totalContribution
+				local rewardMultiplier = entitlement:GetCashMultiplier(player) * prestige:GetRewardMultiplier(player)
+				cash = math.max(1, math.floor(contractReward * share * rewardMultiplier))
+				xp = math.max(1, math.floor(definition.XP * share))
+				economy:Grant(player, "cash", cash, "coop:" .. definition.Id)
+				progression:AddXP(player, xp)
+				progression:AddCompanyPoints(player, math.max(1, math.floor(cash * 0.03)))
+				local profile = dataService:RequireProfile(player)
+				profile.Stats.JobsCompleted += 1
+				dataService:Publish(player)
+				analytics:LogOnce(player, "first_coop_job_completed", 1)
+				retention:RefreshAchievements(player)
+			end
+
+			stateEvent():FireClient(player, {
+				kind = "coop_completed",
+				contractId = contract.Id,
+				reward = cash,
+				xp = xp,
+				contributed = contribution > 0,
+			})
 		end
 		self._playerContract[userId] = nil
 	end
@@ -271,14 +400,18 @@ function CoopService:PerformAction(player: Player, payload: any)
 		return { ok = true, completed = true }
 	end
 
+	self:_BroadcastStage(contract, definition)
 	return {
 		ok = true,
 		completed = false,
-		stage = ToolRules.ToClientStage(definition.Stages[contract.StageIndex], toolService:GetEquippedSpeedMultiplier(player)),
+		stage = self:_StageForPlayer(player, definition.Stages[contract.StageIndex]),
 	}
 end
 
 function CoopService:Init()
+	remote("RequestCoopContracts").OnServerInvoke = function(player)
+		return self:GetAvailableContracts(player)
+	end
 	remote("CreateCoopContract").OnServerInvoke = function(player, jobId)
 		return self:Create(player, jobId)
 	end
