@@ -273,9 +273,7 @@ function JobService:PerformAction(player: Player, payload: any)
 
 	local toolService = require(script.Parent.ToolService)
 	local skillTree = require(script.Parent.SkillTreeService)
-	local speedMultiplier = if definition
-		then toolService:GetEquippedSpeedMultiplier(player) * skillTree:GetSpeedMultiplier(player, definition.Category)
-		else 1
+	local speedMultiplier = if definition then toolService:GetEquippedSpeedMultiplier(player) * skillTree:GetSpeedMultiplier(player, definition.Category) else 1
 	local effectiveSeconds = if stage then ToolRules.GetEffectiveStageSeconds(stage.MinimumSeconds, speedMultiplier) else math.huge
 	local elapsed = os.clock() - active.StageStartedAt
 	local decision = JobActionRules.Validate({
