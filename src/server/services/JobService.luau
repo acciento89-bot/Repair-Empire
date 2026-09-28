@@ -289,7 +289,7 @@ function JobService:PerformAction(player: Player, payload: any)
 	return {
 		ok = true,
 		completed = true,
-		reward = definition.BaseReward,
+		reward = cashReward,
 		xp = definition.XP,
 	}
 end
