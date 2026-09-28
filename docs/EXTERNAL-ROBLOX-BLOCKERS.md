@@ -50,10 +50,17 @@ Resolved:
 - managed/regional pricing disabled
 - updated monetization config published to Repair Empire Dev
 
+Resolved in code/tests:
+- ProductId lookup/allowlisting
+- atomic/idempotent receipt grants
+- duplicate receipt retries do not duplicate value or analytics
+- Cash, Developer Product consumables, active paid boosts, receipt history and lifetime stats survive Prestige
+- Game Pass ownership remains external to profile reset
+
 Still required:
-- actual sandbox purchase verification
-- receipt retry/reconnect verification against MarketplaceService
-- entitlement persistence checks after rejoin/Prestige
+- actual Marketplace sandbox purchase verification
+- receipt retry/reconnect verification against live MarketplaceService
+- Game Pass entitlement persistence after real purchase/rejoin
 
 ## P13 - Device and accessibility validation
 Still required:
