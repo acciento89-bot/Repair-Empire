@@ -5,8 +5,18 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local FeedbackController = {}
 
+local function pretty(id: string): string
+	local words = string.split(id, "_")
+	for index, word in words do
+		words[index] = word:sub(1, 1):upper() .. word:sub(2)
+	end
+	return table.concat(words, " ")
+end
+
 local function messageFor(payload): string?
-	if payload.kind == "job_completed" then
+	if payload.kind == "job_stage" or payload.kind == "coop_stage" then
+		return ("Stage complete • Next: %s"):format(pretty(payload.stage and payload.stage.Action or "continue"))
+	elseif payload.kind == "job_completed" then
 		return ("Job complete • +$%d • +%d XP"):format(payload.reward or 0, payload.xp or 0)
 	elseif payload.kind == "coop_completed" then
 		if payload.contributed then
