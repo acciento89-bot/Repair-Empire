@@ -71,8 +71,7 @@ end
 function CoopService:_StageForPlayer(player: Player, definition, stage)
 	local toolService = require(script.Parent.ToolService)
 	local skillTree = require(script.Parent.SkillTreeService)
-	local speedMultiplier = toolService:GetEquippedSpeedMultiplier(player)
-		* skillTree:GetSpeedMultiplier(player, definition.Category)
+	local speedMultiplier = toolService:GetEquippedSpeedMultiplier(player) * skillTree:GetSpeedMultiplier(player, definition.Category)
 	return ToolRules.ToClientStage(stage, speedMultiplier)
 end
 
@@ -377,12 +376,8 @@ function CoopService:PerformAction(player: Player, payload: any)
 	local toolService = require(script.Parent.ToolService)
 	local toolTier = toolService:GetEquippedTier(player)
 	local skillTree = require(script.Parent.SkillTreeService)
-	local speedMultiplier = if definition
-		then toolService:GetEquippedSpeedMultiplier(player) * skillTree:GetSpeedMultiplier(player, definition.Category)
-		else 1
-	local effectiveSeconds = if stage
-		then ToolRules.GetEffectiveStageSeconds(stage.MinimumSeconds, speedMultiplier)
-		else math.huge
+	local speedMultiplier = if definition then toolService:GetEquippedSpeedMultiplier(player) * skillTree:GetSpeedMultiplier(player, definition.Category) else 1
+	local effectiveSeconds = if stage then ToolRules.GetEffectiveStageSeconds(stage.MinimumSeconds, speedMultiplier) else math.huge
 	local elapsed = if contract then os.clock() - contract.StageStartedAt else 0
 
 	local decision = CoopActionRules.Validate({
