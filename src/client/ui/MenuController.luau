@@ -242,23 +242,31 @@ local function renderPrestige(content: Frame)
 	description.TextWrapped = true
 
 	local preview = UiFactory.Button(scroll, "Preview Prestige", 1)
+	local confirmationToken = nil :: string?
+
 	preview.Activated:Connect(function()
+		if confirmationToken ~= nil then
+			local confirmed = remote("RequestPrestige"):InvokeServer({
+				action = "confirm",
+				token = confirmationToken,
+			})
+			confirmationToken = nil
+			if type(confirmed) == "table" and confirmed.ok then
+				preview.Text = ("Prestige %d complete"):format(confirmed.prestigeLevel)
+			else
+				preview.Text = "Confirmation expired"
+			end
+			return
+		end
+
 		local result = remote("RequestPrestige"):InvokeServer({ action = "preview" })
 		if type(result) ~= "table" or not result.ok then
 			preview.Text = "Not eligible yet"
 			return
 		end
 
+		confirmationToken = result.token
 		preview.Text = ("Confirm Prestige %d → %d (x%.2f rewards)"):format(result.currentPrestige, result.nextPrestige, result.nextRewardMultiplier)
-		local token = result.token
-		preview.Activated:Once(function()
-			local confirmed = remote("RequestPrestige"):InvokeServer({ action = "confirm", token = token })
-			if type(confirmed) == "table" and confirmed.ok then
-				preview.Text = ("Prestige %d complete"):format(confirmed.prestigeLevel)
-			else
-				preview.Text = "Confirmation expired"
-			end
-		end)
 	end)
 end
 
