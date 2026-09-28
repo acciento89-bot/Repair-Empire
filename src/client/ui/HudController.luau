@@ -20,6 +20,26 @@ local HudController = {
 	_tutorialLabel = nil :: TextLabel?,
 }
 
+local function decorateCard(label: TextLabel, accent: boolean?)
+	local corner = Instance.new("UICorner")
+	corner.CornerRadius = UDim.new(0, 12)
+	corner.Parent = label
+
+	local stroke = Instance.new("UIStroke")
+	stroke.Color = color(if accent then UiPalette.Accent else UiPalette.Stroke)
+	stroke.Thickness = if accent then 1.5 else 1
+	stroke.Transparency = if accent then 0.08 else 0.3
+	stroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+	stroke.Parent = label
+
+	local padding = Instance.new("UIPadding")
+	padding.PaddingLeft = UDim.new(0, 14)
+	padding.PaddingRight = UDim.new(0, 14)
+	padding.PaddingTop = UDim.new(0, 8)
+	padding.PaddingBottom = UDim.new(0, 8)
+	padding.Parent = label
+end
+
 local function pretty(id: string): string
 	local words = string.split(id, "_")
 	for index, word in words do
@@ -40,7 +60,7 @@ end
 
 function HudController.SetObjective(text: string)
 	if HudController._objectiveLabel then
-		HudController._objectiveLabel.Text = text
+		HudController._objectiveLabel.Text = "CURRENT JOB\n" .. text
 	end
 end
 
@@ -59,7 +79,7 @@ function HudController.Start()
 	status.Name = "Status"
 	status.Position = UDim2.fromOffset(16, 16)
 	status.Size = UDim2.fromOffset(720, 42)
-	status.BackgroundTransparency = 0.08
+	status.BackgroundTransparency = 0
 	status.BackgroundColor3 = color(UiPalette.Hud)
 	status.BorderSizePixel = 0
 	status.TextScaled = true
@@ -68,19 +88,21 @@ function HudController.Start()
 	status.TextXAlignment = Enum.TextXAlignment.Left
 	status.TextColor3 = color(UiPalette.Text)
 	status.Parent = screen
+	decorateCard(status, false)
 
 	local tutorial = Instance.new("TextLabel")
 	tutorial.Name = "Tutorial"
 	tutorial.Position = UDim2.fromOffset(16, 68)
 	tutorial.Size = UDim2.fromOffset(360, 54)
-	tutorial.BackgroundTransparency = 0.08
-	tutorial.BackgroundColor3 = color(UiPalette.Hud)
+	tutorial.BackgroundTransparency = 0
+	tutorial.BackgroundColor3 = color(UiPalette.Surface)
 	tutorial.BorderSizePixel = 0
 	tutorial.TextWrapped = true
 	tutorial.TextScaled = true
 	tutorial.Font = Enum.Font.GothamMedium
-	tutorial.TextColor3 = color(UiPalette.Text)
+	tutorial.TextColor3 = color(UiPalette.TextMuted)
 	tutorial.Parent = screen
+	decorateCard(tutorial, false)
 	HudController._tutorialLabel = tutorial
 
 	local objective = Instance.new("TextLabel")
@@ -88,15 +110,17 @@ function HudController.Start()
 	objective.AnchorPoint = Vector2.new(0, 0.5)
 	objective.Position = UDim2.new(0, 16, 0.5, 0)
 	objective.Size = UDim2.fromOffset(280, 72)
-	objective.BackgroundTransparency = 0.08
-	objective.BackgroundColor3 = color(UiPalette.Hud)
+	objective.BackgroundTransparency = 0
+	objective.BackgroundColor3 = color(UiPalette.SurfaceRaised)
 	objective.BorderSizePixel = 0
 	objective.TextWrapped = true
 	objective.TextScaled = true
-	objective.Font = Enum.Font.GothamMedium
+	objective.Font = Enum.Font.GothamBold
+	objective.TextXAlignment = Enum.TextXAlignment.Left
 	objective.TextColor3 = color(UiPalette.Text)
-	objective.Text = "Choose a job"
+	objective.Text = "CURRENT JOB\nChoose a job"
 	objective.Parent = screen
+	decorateCard(objective, true)
 	HudController._objectiveLabel = objective
 
 	local function refresh()
