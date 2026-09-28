@@ -56,7 +56,7 @@ Verification baseline:
 - [x] P06-T01 Vehicle definitions/ownership
 - [x] P06-T02 Spawn/despawn rules
 - [x] P06-T03 Vehicle shop/garage
-- [x] P06-T04 Travel integration — navigation plus server-driven placeholder vehicle controller
+- [x] P06-T04 Travel integration — navigation plus server-driven procedural vehicle controller
 - [x] P06-T05 Launch vehicle catalog — 8 distinct self-contained procedural vehicle variants with geometry, seats and axle definitions
 
 ## P07 Company Tycoon
