@@ -15,6 +15,14 @@ local PerformanceProbe = require(script.PerformanceProbe)
 local player = Players.LocalPlayer
 assert(player ~= nil, "LocalPlayer unavailable")
 
+local function pretty(id: string): string
+	local words = string.split(id, "_")
+	for index, word in words do
+		words[index] = word:sub(1, 1):upper() .. word:sub(2)
+	end
+	return table.concat(words, " ")
+end
+
 HudController.Start()
 NavigationController.Start()
 InteractionController.Start()
@@ -36,21 +44,21 @@ stateUpdated.OnClientEvent:Connect(function(payload)
 	if payload.kind == "job_started" then
 		local job = payload.job
 		local stage = payload.stage
-		HudController.SetObjective(("%s: %s"):format(job and job.Id or "Job", stage and stage.Action or "Start"))
+		HudController.SetObjective(("%s\n%s"):format(pretty(job and job.Id or "job"), pretty(stage and stage.Action or "start")))
 		if typeof(payload.targetPosition) == "Vector3" then
 			NavigationController.SetTarget(payload.targetPosition)
 		end
 	elseif payload.kind == "job_stage" then
-		HudController.SetObjective(payload.stage and payload.stage.Action or "Continue job")
+		HudController.SetObjective(pretty(payload.stage and payload.stage.Action or "continue_job"))
 	elseif payload.kind == "coop_started" then
 		local job = payload.job
 		local stage = payload.stage
-		HudController.SetObjective(("Co-op %s: %s"):format(job and job.Id or "Contract", stage and stage.Action or "Start"))
+		HudController.SetObjective(("CO-OP • %s\n%s"):format(pretty(job and job.Id or "contract"), pretty(stage and stage.Action or "start")))
 		if typeof(payload.targetPosition) == "Vector3" then
 			NavigationController.SetTarget(payload.targetPosition)
 		end
 	elseif payload.kind == "coop_stage" then
-		HudController.SetObjective(("Co-op: %s"):format(payload.stage and payload.stage.Action or "Continue"))
+		HudController.SetObjective(("CO-OP\n%s"):format(pretty(payload.stage and payload.stage.Action or "continue")))
 	elseif payload.kind == "job_completed" then
 		HudController.SetObjective(("Job complete +$%d"):format(payload.reward or 0))
 		NavigationController.SetTarget(nil)
