@@ -59,6 +59,7 @@ function PrestigeService:Preview(player: Player)
 			"tools",
 			"vehicles",
 			"employees",
+			"skill_tree",
 		},
 		retains = {
 			"cash",
@@ -95,6 +96,12 @@ function PrestigeService:Confirm(player: Player, token: any)
 	profile.CompanyXP = 0
 	profile.WorkshopTier = 1
 	profile.SkillPoints = 0
+	profile.Skills = {
+		plumbing = 0,
+		heating = 0,
+		climate = 0,
+		energy = 0,
+	}
 	profile.UnlockedDistricts = {
 		residential = true,
 	}
