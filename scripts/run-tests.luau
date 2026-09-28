@@ -24,6 +24,7 @@ local tests = {
 	require("../tests/pass-rules.spec"),
 	require("../tests/skill-tree.spec"),
 	require("../tests/onboarding-economy.spec"),
+	require("../tests/platform-environment.spec"),
 }
 
 local passed = 0
