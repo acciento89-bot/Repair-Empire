@@ -76,6 +76,7 @@ function PlayerDataService:GetSafeState(player: Player)
 		SelectedVehicle = profile.SelectedVehicle,
 		Employees = ProfileSchema.Clone(profile.Employees),
 		Achievements = ProfileSchema.Clone(profile.Achievements),
+		Stats = ProfileSchema.Clone(profile.Stats),
 		InstantJobFinishes = profile.Consumables.InstantJobFinishes,
 		TutorialStep = profile.Tutorial.Step,
 		TutorialCompleted = profile.Tutorial.Completed,
