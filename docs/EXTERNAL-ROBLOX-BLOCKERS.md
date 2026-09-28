@@ -112,6 +112,14 @@ Still required:
 - final experience metadata review
 - controlled public exposure only after release gates pass
 
+## P12/P15 - Prelaunch pacing
+Resolved:
+- level-by-level active progression model uses actual job/tool/district unlock data
+- modeled time to level 100 at 45s travel is 31.6 hours
+- CI guardrail requires first-prestige leveling estimate to remain between 20 and 80 hours
+- maximum passive/active modeled rate ratio is 39.1%
+- company-level target does not model as a later gate than level 100
+
 ## P17 - Evidence-dependent tasks
 Cannot exist before real users/data:
 - first telemetry review
