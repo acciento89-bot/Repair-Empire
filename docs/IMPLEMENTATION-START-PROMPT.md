@@ -1,24 +1,25 @@
 # Repair Empire - Implementation Start Prompt
 
-Repository planning source:
-acciento89-bot/kamilunavo/projects/repair-empire
-
-When a dedicated Repair Empire repository exists, migrate this planning tree intact before implementation.
+Canonical repository:
+`acciento89-bot/Repair-Empire`
 
 ## Read first, in this exact order
 1. README.md
-2. docs/PRODUCT-SPEC.md
-3. docs/GAME-DESIGN.md
-4. docs/TECHNICAL-ARCHITECTURE.md
-5. docs/ECONOMY-MONETIZATION.md
-6. docs/UI-UX.md
-7. docs/SECURITY-ANTI-CHEAT.md
-8. docs/DATA-ANALYTICS.md
-9. docs/CONTENT-CATALOG.md
-10. docs/RELEASE-LIVEOPS.md
-11. docs/MASTER-PLAN.md
-12. docs/REPAIR-EMPIRE-V1-LEDGER.md
-13. the detail plan for the ledger's next open phase
+2. AGENTS.md
+3. docs/PRODUCT-SPEC.md
+4. docs/GAME-DESIGN.md
+5. docs/TECHNICAL-ARCHITECTURE.md
+6. docs/ECONOMY-MONETIZATION.md
+7. docs/UI-UX.md
+8. docs/SECURITY-ANTI-CHEAT.md
+9. docs/DATA-ANALYTICS.md
+10. docs/CONTENT-CATALOG.md
+11. docs/RELEASE-LIVEOPS.md
+12. docs/REPOSITORY-CONVENTIONS.md
+13. docs/PROJECT-METADATA.md
+14. docs/MASTER-PLAN.md
+15. docs/REPAIR-EMPIRE-V1-LEDGER.md
+16. the detail plan for the ledger's next open phase
 
 ## Execution rules
 - Do not reconceive the product.
@@ -35,7 +36,7 @@ When a dedicated Repair Empire repository exists, migrate this planning tree int
 - Stop only for a real blocker that cannot be resolved from repository context or available tools.
 
 ## First action
-Start at P00-T01 unless the standalone repository migration has already been completed and documented in the ledger.
+Read the ledger and start at the first open task. P00-T01 has already been completed and verified.
 
 ## Completion reporting
 Report:
