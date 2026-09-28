@@ -73,14 +73,14 @@ Still required:
 Resolved/verified:
 - iPhone XR landscape emulator view is visually usable
 - iPhone XR portrait runtime is enabled and visually usable; menu remains within the display and tabs scroll horizontally
+- compact iPhone 7 (667x375) landscape and portrait runtime are visually usable; Premium Workshop marker overflow was found and fixed
 - StarterGui defaults to Sensor orientation and active PlayerGui receives the same runtime preference
+- iPad 6th Generation landscape and portrait runtime views are visually usable
 - desktop mouse runtime navigation is verified for opening the menu and switching to the Shop
 - live Shop rendering displays configured Roblox prices
 - explicit UI palette has automated 4.5:1 minimum contrast checks in CI
 
 Still required:
-- a smaller compact-phone preset
-- tablet
 - full desktop keyboard-only traversal
 - controller
 - remaining safe-area/input-overlap validation
