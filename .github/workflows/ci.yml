@@ -37,3 +37,6 @@ jobs:
 
       - name: Generate prelaunch economy report
         run: lune run scripts/economy-report
+
+      - name: Report release readiness
+        run: lune run scripts/release-readiness
