@@ -28,10 +28,12 @@ Still required:
 Resolved:
 - StreamingEnabled verified in Studio
 - server-only world baseline recorded: 572 BaseParts, 614 descendants, 22.14 ms average Heartbeat in Studio
-- baseline hook is Studio-only and documented in `docs/PERFORMANCE-BASELINE.md`
+- two simultaneous Studio clients now produce 120-frame avg/p95 frame-time, approximate FPS and memory baselines
+- latest two-client sample: Player1 75.82 ms avg / 117.03 ms p95 / 13.2 FPS / 2428.5 MB; Player2 27.75 ms avg / 58.57 ms p95 / 36.0 FPS / 2568.1 MB
+- baseline hooks are Studio-only and documented in `docs/PERFORMANCE-BASELINE.md`
 
 Still required:
-- real client FPS/frame time and memory
+- production-device FPS/frame time and memory
 - streaming behavior under player travel
 - server/network behavior with multiple players
 
