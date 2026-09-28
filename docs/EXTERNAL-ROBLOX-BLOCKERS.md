@@ -79,8 +79,6 @@ Resolved/verified:
 - live Shop rendering displays configured Roblox prices
 - explicit UI palette has automated 4.5:1 minimum contrast checks in CI
 
-Still required:
-- controller runtime verification
 
 ## P14 - Runtime exploit validation
 Resolved/verified:
