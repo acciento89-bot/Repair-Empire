@@ -650,8 +650,20 @@ function MenuController.Start()
 			if panel.Visible then
 				MenuController.Close()
 			else
-				MenuController.Open(input.KeyCode == Enum.KeyCode.ButtonStart)
+				MenuController.Open(true)
 			end
+		elseif panel.Visible
+			and (
+				input.KeyCode == Enum.KeyCode.Left
+				or input.KeyCode == Enum.KeyCode.Right
+				or input.KeyCode == Enum.KeyCode.DPadLeft
+				or input.KeyCode == Enum.KeyCode.DPadRight
+			)
+		then
+			local delta = if input.KeyCode == Enum.KeyCode.Left or input.KeyCode == Enum.KeyCode.DPadLeft then -1 else 1
+			local nextTab = MenuNavigation.Move(MenuController._currentTab, delta)
+			MenuController.Render(nextTab)
+			GuiService.SelectedObject = MenuController._tabButtons[nextTab]
 		elseif (input.KeyCode == Enum.KeyCode.Escape or input.KeyCode == Enum.KeyCode.ButtonB) and panel.Visible then
 			MenuController.Close()
 		end
