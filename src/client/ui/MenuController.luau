@@ -179,16 +179,9 @@ local function renderSkills(content: Frame)
 		local rank = state.Skills[branchId] or 0
 		local speedBonus = rank * 2
 		local cashBonus = rank
-		local xpBonus = rank
 		local button = UiFactory.Button(
 			scroll,
-			("%s • Rank %d/%d • %d%% faster • +%d%% Cash/XP"):format(
-				branch.DisplayName,
-				rank,
-				SkillTreeConfig.MaxRankPerBranch,
-				speedBonus,
-				cashBonus
-			),
+			("%s • Rank %d/%d • %d%% faster • +%d%% Cash/XP"):format(branch.DisplayName, rank, SkillTreeConfig.MaxRankPerBranch, speedBonus, cashBonus),
 			order
 		)
 		button.Active = rank < SkillTreeConfig.MaxRankPerBranch and (state.SkillPoints or 0) > 0
