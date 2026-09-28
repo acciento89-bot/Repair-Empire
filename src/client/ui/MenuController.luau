@@ -75,6 +75,17 @@ local function pretty(id: string): string
 	return table.concat(words, " ")
 end
 
+local function formatDuration(totalSeconds: number): string
+	local seconds = math.max(0, math.floor(totalSeconds))
+	local minutes = math.floor(seconds / 60)
+	local hours = math.floor(minutes / 60)
+	minutes %= 60
+	if hours > 0 then
+		return ("%dh %02dm"):format(hours, minutes)
+	end
+	return ("%dm"):format(minutes)
+end
+
 local function renderJobs(content: Frame)
 	local scroll = UiFactory.Scroll(content)
 	local result = remote("RequestJobOffers"):InvokeServer()
@@ -397,23 +408,101 @@ end
 
 local function renderDaily(content: Frame)
 	local scroll = UiFactory.Scroll(content)
-	local claim = UiFactory.Button(scroll, "Claim daily login reward", 0)
+	local order = 0
+
+	UiFactory.SectionTitle(scroll, "Daily login", order)
+	order += 1
+
+	local status = remote("RequestRetentionStatus"):InvokeServer()
+	if type(status) ~= "table" or not status.ok then
+		UiFactory.Label(scroll, "Retention status unavailable.", 42).LayoutOrder = order
+		return
+	end
+
+	local login = status.login
+	local loginText
+	if login.ClaimedToday then
+		loginText = ("CLAIMED TODAY • Streak %d"):format(login.Streak)
+	else
+		loginText = ("CLAIM $%d • Day %d streak"):format(login.Reward, login.PreviewStreak)
+	end
+	local claim = UiFactory.Button(scroll, loginText, order)
+	claim.Active = not login.ClaimedToday
+	order += 1
 	claim.Activated:Connect(function()
+		if not claim.Active then
+			return
+		end
 		local result = remote("ClaimDailyReward"):InvokeServer()
 		if type(result) == "table" and result.ok then
-			claim.Text = ("Claimed $%d • streak %d"):format(result.reward, result.streak)
+			MenuController.Render("Daily")
 		else
-			claim.Text = "Already claimed or unavailable"
+			claim.Text = "Daily reward unavailable"
 		end
 	end)
 
-	local result = remote("RequestDailyJobs"):InvokeServer()
-	if type(result) == "table" and result.ok then
-		UiFactory.Label(scroll, "Featured: " .. pretty(result.featuredCategory), 38)
-		for index, job in result.jobs do
-			local marker = if job.Completed then "Completed" else "Open"
-			UiFactory.Label(scroll, ("%s • %s"):format(pretty(job.Id), marker), 38).LayoutOrder = index + 2
+	UiFactory.SectionTitle(scroll, "Daily jobs", order)
+	order += 1
+	local daily = remote("RequestDailyJobs"):InvokeServer()
+	if type(daily) == "table" and daily.ok then
+		local featured = UiFactory.Label(scroll, "Featured trade: " .. pretty(daily.featuredCategory), 34)
+		featured.LayoutOrder = order
+		featured.TextColor3 = color(UiPalette.Gold)
+		order += 1
+
+		for _, job in daily.jobs do
+			local marker = if job.Completed then "COMPLETE" else "OPEN"
+			local label = UiFactory.Label(
+				scroll,
+				("%s • %s • +$%d • +%d CP"):format(pretty(job.Id), marker, job.RewardCash or 0, job.RewardCompanyPoints or 0),
+				42
+			)
+			label.LayoutOrder = order
+			label.TextColor3 = color(if job.Completed then UiPalette.Success else UiPalette.Text)
+			order += 1
 		end
+	end
+
+	UiFactory.SectionTitle(scroll, "Online rewards", order)
+	order += 1
+
+	local played = UiFactory.Label(scroll, "Session + lifetime playtime: " .. formatDuration(status.playTimeSeconds or 0), 34)
+	played.LayoutOrder = order
+	played.TextColor3 = color(UiPalette.TextMuted)
+	order += 1
+
+	for _, reward in status.playtimeRewards or {} do
+		local text
+		if reward.Claimed then
+			text = ("%s • $%d • CLAIMED"):format(formatDuration(reward.Seconds), reward.Cash)
+		elseif reward.Ready then
+			text = ("%s • $%d • CLAIM"):format(formatDuration(reward.Seconds), reward.Cash)
+		else
+			text = ("%s • $%d • ready in %s"):format(formatDuration(reward.Seconds), reward.Cash, formatDuration(reward.RemainingSeconds))
+		end
+
+		local button = UiFactory.Button(scroll, text, order)
+		button.Active = reward.Ready == true
+		if reward.Claimed then
+			button.BackgroundColor3 = color(UiPalette.SurfaceRaised)
+			button.TextColor3 = color(UiPalette.Success)
+		elseif not reward.Ready then
+			button.BackgroundColor3 = color(UiPalette.Surface)
+			button.TextColor3 = color(UiPalette.TextMuted)
+		end
+		order += 1
+
+		button.Activated:Connect(function()
+			if not button.Active then
+				return
+			end
+			local result = remote("ClaimPlaytimeReward"):InvokeServer(reward.Index)
+			if type(result) == "table" and result.ok then
+				MenuController.Render("Daily")
+			else
+				button.Text = "Reward unavailable"
+			end
+		end)
 	end
 end
 
