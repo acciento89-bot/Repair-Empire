@@ -108,7 +108,7 @@ Verification baseline:
 - [~] P13-T02 Tablet/desktop layouts — responsive implementation exists; visual/runtime QA remains
 - [~] P13-T03 Controller navigation — focusable UI/ButtonStart/ButtonX paths implemented; controller runtime QA remains
 - [~] P13-T04 Accessibility pass — text/context and non-color-only critical states implemented; contrast/device audit remains
-- [~] P13-T05 Feedback/audio/effects polish — HUD/reward/error feedback exists and the self-contained world/workshop art pass is Studio-verified; final sound/VFX asset pass remains
+- [~] P13-T05 Feedback/audio/effects polish — HUD/reward/error feedback exists and the self-contained world/workshop art pass is Studio-verified; final sound/VFX asset pass remains\n- [~] P13-T06 Progression and management screens — complete approved navigation hierarchy is implemented and pure-test guarded; full touch/mouse/controller runtime traversal remains
 
 ## P14 Security Hardening
 - [x] P14-T01 Remote inventory/audit
