@@ -4,6 +4,7 @@
     "$className": "DataModel",
     "ReplicatedStorage": {
       "RepairEmpire": {
+        "$className": "Folder",
         "Shared": {
           "$path": "src/shared"
         }
