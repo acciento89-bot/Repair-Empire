@@ -79,7 +79,7 @@ Verification baseline:
 - [x] P09-T02 Contribution tracking
 - [x] P09-T03 Reward split/validation
 - [x] P09-T04 Four launch large contracts
-- [~] P09-T05 Multi-client abuse/reconnect tests — real Studio server boot with 2 simultaneous clients verified; deterministic owner-transfer, capacity and zero-contribution reward invariants are pure-test guarded; disconnect/reconnect, simultaneous-stage and latency abuse scenarios remain
+- [~] P09-T05 Multi-client abuse/reconnect tests — real Studio server boot with 2 simultaneous clients verified; hard disconnect of one test client leaves server and second client stable; deterministic owner-transfer, capacity and zero-contribution reward invariants are pure-test guarded; contract-active reconnect, simultaneous-stage and latency abuse scenarios remain
 
 ## P10 Monetization
 - [x] P10-T01 Monetization config and catalog IDs — 5 Game Passes and 6 Developer Products created with live Roblox IDs and configured prices
