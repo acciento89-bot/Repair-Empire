@@ -2,6 +2,7 @@
 
 local MarketplaceService = game:GetService("MarketplaceService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Players = game:GetService("Players")
 
 local MonetizationConfig = require(ReplicatedStorage.RepairEmpire.Shared.config.MonetizationConfig)
 
@@ -12,10 +13,32 @@ local EntitlementService = {
 }
 
 function EntitlementService:Init() end
-function EntitlementService:Start() end
+
+function EntitlementService:RefreshAttributes(player: Player)
+	player:SetAttribute("HasDoubleCash", self:HasPass(player, "double_cash"))
+	player:SetAttribute("HasVIP", self:HasPass(player, "vip"))
+	player:SetAttribute("HasExtraEmployeeSlot", self:HasPass(player, "extra_employee_slot"))
+	player:SetAttribute("HasExtraVehicleSlot", self:HasPass(player, "extra_vehicle_slot"))
+	player:SetAttribute("HasPremiumWorkshop", self:HasPass(player, "premium_workshop"))
+end
+
+function EntitlementService:Start()
+	Players.PlayerAdded:Connect(function(player)
+		task.spawn(function()
+			self:RefreshAttributes(player)
+		end)
+	end)
+
+	for _, player in Players:GetPlayers() do
+		task.spawn(function()
+			self:RefreshAttributes(player)
+		end)
+	end
+end
 
 function EntitlementService:Invalidate(player: Player)
 	self._cache[player.UserId] = nil
+	self:RefreshAttributes(player)
 end
 
 function EntitlementService:HasPass(player: Player, passKey: string): boolean
