@@ -7,7 +7,7 @@ local PrestigeConfig = require(ReplicatedStorage.RepairEmpire.Shared.prestige.Pr
 
 local PrestigeService = {
 	Name = "PrestigeService",
-	Dependencies = { "PlayerDataService", "RetentionService" },
+	Dependencies = { "PlayerDataService", "RetentionService", "SecurityService", "AnalyticsService" },
 	_confirmations = {},
 }
 
@@ -111,6 +111,8 @@ function PrestigeService:Confirm(player: Player, token: any)
 
 	local retentionService = require(script.Parent.RetentionService)
 	retentionService:RefreshAchievements(player)
+	local analytics = require(script.Parent.AnalyticsService)
+	analytics:LogCustom(player, "prestige_completed", profile.PrestigeLevel)
 
 	return {
 		ok = true,
@@ -120,6 +122,10 @@ function PrestigeService:Confirm(player: Player, token: any)
 end
 
 function PrestigeService:Handle(player: Player, payload: any)
+	local security = require(script.Parent.SecurityService)
+	if not security:Allow(player, "RequestPrestige") then
+		return { ok = false, error = "rate_limited" }
+	end
 	if type(payload) ~= "table" or type(payload.action) ~= "string" then
 		return { ok = false, error = "invalid_payload" }
 	end
