@@ -6,7 +6,7 @@ Implementation is active. Core systems are implemented and the repository is CI-
 
 Verification baseline:
 - GitHub Actions run #385: success
-- Head verified through formatting, Selene lint, Rojo build and 33 pure-Luau tests; release-readiness reports Sandbox-ready: yes; phone HUD and contrast guardrails are included
+- Head verified through formatting, Selene lint, Rojo build and 34 pure-Luau tests; release-readiness reports Sandbox-ready: yes; phone HUD and contrast guardrails are included
 - External/runtime-only blockers are documented in `docs/EXTERNAL-ROBLOX-BLOCKERS.md`
 
 ## P00 Product Definition
@@ -36,7 +36,7 @@ Verification baseline:
 - [x] P03-T05 Implement completion/reward transaction
 - [x] P03-T06 Implement reconnect/duplicate-completion protection — active jobs intentionally cancel on reconnect; stale/replayed instance IDs cannot grant again
 - [x] P03-T07 Add first 5 vertical-slice jobs — launch catalog currently contains 30 jobs
-- [~] P03-T08 Job engine verification pass — static/pure tests pass and single-client Studio boot verified in the dev place; multi-client, reconnect and network-timing cases remain
+- [x] P03-T08 Job engine verification pass — server rules for stale/replay/completion-race/wrong-order/spatial/timing requests are adversarial pure-tested and used by runtime JobService; single-client plus two-client Studio boot/disconnect smoke tests are verified
 
 ## P04 Economy & Progression
 - [x] P04-T01 Central EconomyService
