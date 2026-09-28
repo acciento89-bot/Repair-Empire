@@ -34,3 +34,6 @@ jobs:
 
       - name: Run pure Luau tests
         run: lune run scripts/run-tests
+
+      - name: Generate prelaunch economy report
+        run: lune run scripts/economy-report
