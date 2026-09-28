@@ -58,6 +58,8 @@ function PurchaseService:PromptGamePass(player: Player, passKey: any)
 	end
 
 	MarketplaceService:PromptGamePassPurchase(player, config.Id)
+	local analytics = require(script.Parent.AnalyticsService)
+	analytics:LogCustom(player, "gamepass_prompted", 1)
 	return { ok = true }
 end
 
@@ -78,6 +80,8 @@ function PurchaseService:PromptProduct(player: Player, productKey: any)
 	end
 
 	MarketplaceService:PromptProductPurchase(player, config.Id)
+	local analytics = require(script.Parent.AnalyticsService)
+	analytics:LogCustom(player, "product_prompted", 1)
 	return { ok = true }
 end
 
