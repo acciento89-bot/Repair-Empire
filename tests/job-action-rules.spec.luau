@@ -26,7 +26,18 @@ return function()
 	end
 
 	assert(decide().ok, "valid action must pass")
-	assert(decide({ active = nil }).error == "stale_job", "missing active job must reject")
+	local missingActive = rules.Validate({
+		active = nil,
+		instanceId = "job-a",
+		wasCompleted = false,
+		definition = definition,
+		stage = stage,
+		action = "tighten",
+		isNear = true,
+		elapsed = 2,
+		effectiveSeconds = 2,
+	})
+	assert(missingActive.error == "stale_job", "missing active job must reject")
 	assert(decide({ instanceId = "job-b" }).error == "stale_job", "foreign/stale instance must reject")
 	assert(decide({ wasCompleted = true }).error == "already_completed", "replayed completion must reject")
 
