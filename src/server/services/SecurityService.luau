@@ -3,7 +3,9 @@
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
-local RemoteDefinitions = require(ReplicatedStorage.RepairEmpire.Shared.remotes.RemoteDefinitions)
+local Shared = ReplicatedStorage.RepairEmpire.Shared
+local RemoteDefinitions = require(Shared.remotes.RemoteDefinitions)
+local SecurityRules = require(Shared.security.SecurityRules)
 local RateLimiter = require(script.Parent.Parent.security.RateLimiter)
 
 local SecurityService = {
@@ -51,15 +53,15 @@ function SecurityService:Allow(player: Player, remoteName: string): boolean
 end
 
 function SecurityService:ValidateId(player: Player, value: any, code: string): string?
-	if type(value) ~= "string" or #value == 0 or #value > 100 or string.match(value, "^[a-z0-9_]+$") == nil then
+	local validated = SecurityRules.ValidateId(value)
+	if validated == nil then
 		self:RecordAnomaly(player, code, tostring(value))
-		return nil
 	end
-	return value
+	return validated
 end
 
 function SecurityService:ValidatePayloadTable(player: Player, value: any, code: string)
-	if type(value) ~= "table" then
+	if not SecurityRules.IsPayloadTable(value) then
 		self:RecordAnomaly(player, code, typeof(value))
 		return nil
 	end
