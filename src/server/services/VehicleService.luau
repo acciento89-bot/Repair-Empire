@@ -116,12 +116,8 @@ local function buildProceduralVehicle(player: Player, definition, slotIndex: num
 	stripe.CanCollide = false
 
 	for _, side in { -1, 1 } do
-		local headlight = createVehiclePart(
-			"Headlight",
-			Vector3.new(1.0, 0.55, 0.18),
-			CFrame.new(origin + Vector3.new(side * width * 0.28, 0.5, -length / 2 - 0.1)),
-			model
-		)
+		local headlight =
+			createVehiclePart("Headlight", Vector3.new(1.0, 0.55, 0.18), CFrame.new(origin + Vector3.new(side * width * 0.28, 0.5, -length / 2 - 0.1)), model)
 		headlight.Material = Enum.Material.Neon
 		headlight.Color = Color3.fromRGB(255, 240, 188)
 		headlight.CanCollide = false
