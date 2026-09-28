@@ -8,6 +8,7 @@ local RunService = game:GetService("RunService")
 local Stats = game:GetService("Stats")
 
 local WorldConfig = require(ReplicatedStorage.RepairEmpire.Shared.world.WorldConfig)
+local SpatialRules = require(ReplicatedStorage.RepairEmpire.Shared.security.SpatialRules)
 
 local CATEGORIES = { "plumbing", "heating", "climate", "energy" }
 
