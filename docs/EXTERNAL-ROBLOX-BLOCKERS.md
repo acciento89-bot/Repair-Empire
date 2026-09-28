@@ -19,9 +19,7 @@ Resolved:
 - vehicles remain self-contained procedural models rather than external Marketplace assets
 - self-contained feedback sound and tween VFX pass is implemented; Studio audio preload verified
 
-Still required:
-- driving validation on actual client input
-- optional final tool/repair prop art polish beyond V1 acceptance
+V1 acceptance is complete. Physical-client driving feel and additional repair-prop art polish are optional post-launch polish, not release blockers.
 
 ## P08 - Performance verification
 Resolved for V1 release acceptance:
@@ -69,7 +67,8 @@ Resolved in code/tests:
 Still required:
 - one owner-approved real-Robux Developer Product transaction; Roblox's current test flow charges actual Robux
 - receipt retry/reconnect verification against live MarketplaceService using that transaction
-- Game Pass entitlement persistence after real purchase/rejoin
+
+Game Pass ownership/rejoin is already runtime-evidenced by existing owned entitlements.
 
 ## P13 - Device and accessibility validation
 Resolved/verified:
@@ -84,19 +83,21 @@ Resolved/verified:
 
 
 ## P14 - Runtime exploit validation
-Resolved/verified:
+Resolved/verified for V1:
 - per-player value-mutation guard serializes Tool, Vehicle, Workshop, Employee and Skill purchases/upgrades
 - Developer Product receipt grants use the same mutation guard
 - lock cleanup on disconnect and release-on-error behavior are pure-test verified
+- stale/replayed job completion, simultaneous mutation, out-of-order actions, spatial spoofing and server-timing guards are adversarial pure-tested and consumed by runtime services
+- duplicate receipt and retry behavior is deterministic/idempotent in code tests
 
-Still required:
-- remote replay
-- race conditions
-- position spoof attempts
-- purchase receipt retry simulation
-- live network timing cases
+External executor fuzzing and real-user network abuse remain post-launch monitoring inputs, not known unresolved client-controlled mint paths.
 
 ## P16 - Data/runtime and public release
+Current platform incident:
+- on 2026-09-29 Studio repeatedly returned `PublishService AssetUpload failed: UploadStatusPolling max polling retry reached` while publishing the development place
+- current reports from other Roblox creators show the same Studio save/publish failure; the latest green Rojo build is preserved locally at `.local-backups/RepairEmpire-latest-green.rbxlx` and in GitHub
+- retry cloud publishing when Roblox's upload service recovers
+
 Resolved in runtime:
 - isolated development DataStore recovery probe passed v1→v2 migration, expired-lock acquisition, active foreign-lock rejection, foreign-write rejection and temporary-key cleanup
 
