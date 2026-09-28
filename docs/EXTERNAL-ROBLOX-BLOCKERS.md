@@ -1,22 +1,19 @@
 # External Roblox Blockers
 
-Everything in this document requires authenticated Roblox/Studio/runtime access or real production assets. These values must not be fabricated.
+Everything in this document still requires Roblox runtime/dashboard evidence, real product IDs or final release assets. Platform ownership and place IDs are no longer blockers.
 
-## P00-T02 - Platform ownership and IDs
-Required:
-- Roblox owner/group
-- production Universe ID
-- production Start Place ID
-- development/test Place ID(s)
-
-Already decided in source:
-- display name: Repair Empire
-- one production experience
-- isolated development/test environment
-- all platform IDs centralized in configuration
+## Resolved platform setup
+- experience: **Repair Empire**
+- Universe ID: `10768475286`
+- production start place: `79925227687072`
+- development/test place: `138882349802835`
+- both places are private
+- Studio API Services access is enabled for testing
+- development and production DataStores are isolated in code; Studio always resolves to the development store
+- the dev place has completed a server/client boot smoke test without the previous API-services block
 
 ## P06/P08/P13 - Final visual/runtime assets
-Source code already provides functional placeholders and systems. Final release quality still requires:
+Source code provides functional self-contained systems. Final release quality still requires:
 - polished vehicle models and driving validation
 - polished city/workshop art
 - final tool/repair props
@@ -24,51 +21,50 @@ Source code already provides functional placeholders and systems. Final release 
 - device-specific visual QA in Roblox clients
 
 ## P08 - Performance verification
-Requires Roblox Studio/client profiling:
-- StreamingEnabled behavior
+Still required:
+- StreamingEnabled behavior under travel
 - client/server frame and memory measurements
 - network behavior with multiple players
 
 ## P09 - Multi-client validation
-Requires Roblox Studio multi-client/runtime tests:
+Still required:
 - join/leave races
 - co-op disconnect/reconnect
 - simultaneous stage requests
 - latency behavior
 
 ## P10 - Monetization IDs and sandbox
-Requires Creator Dashboard:
-- five Game Pass IDs if all hypotheses are retained
+Still requires Creator Dashboard:
+- five Game Pass IDs
 - six Developer Product IDs
 - final prices
 - sandbox purchase verification
-- receipt retry/reconnect verification against Roblox MarketplaceService
-
-No product/pass ID is invented in source.
+- receipt retry/reconnect verification against MarketplaceService
 
 ## P13 - Device and accessibility validation
-Requires real/emulated Roblox clients:
+Still required:
 - small phone
 - tablet
 - desktop mouse/keyboard
 - controller
-- safe area/input overlap validation
+- safe-area/input-overlap validation
 
 ## P14 - Runtime exploit validation
-Requires Studio/runtime:
+Still required:
 - remote replay
 - race conditions
 - position spoof attempts
 - purchase receipt retry simulation
 - live network timing cases
 
-## P16 - Public release
-Requires authenticated Roblox dashboard actions:
+## P16 - Data/runtime and public release
+Still required:
+- migration/recovery runtime cases beyond the successful boot smoke test
+- full QA matrix
 - content/age questionnaire
 - icon and thumbnails
 - final experience metadata review
-- publish/release controls
-- controlled public exposure
+- controlled public exposure only after release gates pass
 
 ## P17 - Evidence-dependent tasks
 Cannot exist before real users/data:
@@ -77,4 +73,4 @@ Cannot exist before real users/data:
 - post-launch backlog prioritization from actual behavior
 
 ## Rule
-A blocked task stays blocked/partial in the ledger until its external acceptance criteria are genuinely verified.
+A blocked or partial task stays blocked/partial until its acceptance criteria are genuinely verified.
