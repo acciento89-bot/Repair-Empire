@@ -25,6 +25,7 @@ local CoopService = {
 		"EntitlementService",
 		"PrestigeService",
 		"RetentionService",
+		"SkillTreeService",
 	},
 	_contracts = {},
 	_playerContract = {},
@@ -69,9 +70,11 @@ function CoopService:_Allow(player: Player, name: string): boolean
 	return security:Allow(player, name)
 end
 
-function CoopService:_StageForPlayer(player: Player, stage)
+function CoopService:_StageForPlayer(player: Player, definition, stage)
 	local toolService = require(script.Parent.ToolService)
-	return ToolRules.ToClientStage(stage, toolService:GetEquippedSpeedMultiplier(player))
+	local skillTree = require(script.Parent.SkillTreeService)
+	local speedMultiplier = toolService:GetEquippedSpeedMultiplier(player) * skillTree:GetSpeedMultiplier(player, definition.Category)
+	return ToolRules.ToClientStage(stage, speedMultiplier)
 end
 
 function CoopService:_FireStarted(player: Player, contract, definition)
@@ -81,7 +84,7 @@ function CoopService:_FireStarted(player: Player, contract, definition)
 		kind = "coop_started",
 		contractId = contract.Id,
 		job = safeJob(definition),
-		stage = self:_StageForPlayer(player, definition.Stages[contract.StageIndex]),
+		stage = self:_StageForPlayer(player, definition, definition.Stages[contract.StageIndex]),
 		targetPosition = if anchor then anchor.Position else nil,
 		participants = participantCount(contract),
 	})
@@ -94,7 +97,7 @@ function CoopService:_BroadcastStage(contract, definition)
 			stateEvent():FireClient(player, {
 				kind = "coop_stage",
 				contractId = contract.Id,
-				stage = self:_StageForPlayer(player, definition.Stages[contract.StageIndex]),
+				stage = self:_StageForPlayer(player, definition, definition.Stages[contract.StageIndex]),
 				participants = participantCount(contract),
 			})
 		end
@@ -209,7 +212,7 @@ function CoopService:Create(player: Player, jobId: any)
 		ok = true,
 		contractId = contractId,
 		job = safeJob(definition),
-		stage = self:_StageForPlayer(player, definition.Stages[1]),
+		stage = self:_StageForPlayer(player, definition, definition.Stages[1]),
 		targetPosition = anchor.Position,
 	}
 end
@@ -255,7 +258,7 @@ function CoopService:Join(player: Player, contractId: any)
 		ok = true,
 		contractId = contractId,
 		job = safeJob(definition),
-		stage = self:_StageForPlayer(player, definition.Stages[contract.StageIndex]),
+		stage = self:_StageForPlayer(player, definition, definition.Stages[contract.StageIndex]),
 		targetPosition = if anchor then anchor.Position else nil,
 	}
 end
@@ -386,7 +389,9 @@ function CoopService:PerformAction(player: Player, payload: any)
 	if toolService:GetEquippedTier(player) < definition.RequiredToolTier then
 		return { ok = false, error = "tool_tier_locked" }
 	end
-	local effectiveSeconds = ToolRules.GetEffectiveStageSeconds(stage.MinimumSeconds, toolService:GetEquippedSpeedMultiplier(player))
+	local skillTree = require(script.Parent.SkillTreeService)
+	local speedMultiplier = toolService:GetEquippedSpeedMultiplier(player) * skillTree:GetSpeedMultiplier(player, definition.Category)
+	local effectiveSeconds = ToolRules.GetEffectiveStageSeconds(stage.MinimumSeconds, speedMultiplier)
 	if os.clock() - contract.StageStartedAt + 0.15 < effectiveSeconds then
 		return { ok = false, error = "too_fast" }
 	end
@@ -404,7 +409,7 @@ function CoopService:PerformAction(player: Player, payload: any)
 	return {
 		ok = true,
 		completed = false,
-		stage = self:_StageForPlayer(player, definition.Stages[contract.StageIndex]),
+		stage = self:_StageForPlayer(player, definition, definition.Stages[contract.StageIndex]),
 	}
 end
 
