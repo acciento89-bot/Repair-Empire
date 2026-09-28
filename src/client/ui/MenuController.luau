@@ -610,7 +610,7 @@ local function renderDaily(content: Frame)
 	UiFactory.SectionTitle(scroll, "Online rewards", order)
 	order += 1
 
-	local played = UiFactory.Label(scroll, "Session + lifetime playtime: " .. formatDuration(status.playTimeSeconds or 0), 34)
+	local played = UiFactory.Label(scroll, "Today online: " .. formatDuration(status.playTimeSeconds or 0), 34)
 	played.LayoutOrder = order
 	played.TextColor3 = color(UiPalette.TextMuted)
 	order += 1
