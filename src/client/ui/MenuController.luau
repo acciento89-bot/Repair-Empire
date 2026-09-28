@@ -417,7 +417,7 @@ local function renderShop(content: Frame)
 	local order = 1
 	for key, config in MonetizationConfig.GamePasses do
 		local configured = config.Id ~= nil
-		local price = robuxPrice(config.Id, Enum.InfoType.GamePass, config.PriceHypothesis)
+		local price = robuxPrice(config.Id, Enum.InfoType.GamePass, config.PriceRobux)
 		local text = ("%s • %s • %s"):format(pretty(key), price, if configured then "Buy" else "Awaiting Roblox ID")
 		local button = UiFactory.Button(scroll, text, order)
 		button.Active = configured
@@ -433,7 +433,7 @@ local function renderShop(content: Frame)
 	order += 1
 	for key, config in MonetizationConfig.DeveloperProducts do
 		local configured = config.Id ~= nil
-		local price = robuxPrice(config.Id, Enum.InfoType.Product, config.PriceHypothesis)
+		local price = robuxPrice(config.Id, Enum.InfoType.Product, config.PriceRobux)
 		local text = ("%s • %s • %s"):format(pretty(key), price, if configured then "Buy" else "Awaiting Roblox ID")
 		local button = UiFactory.Button(scroll, text, order)
 		button.Active = configured
