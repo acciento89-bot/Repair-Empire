@@ -7,6 +7,7 @@ local Shared = ReplicatedStorage.RepairEmpire.Shared
 local EmployeeDefinitions = require(Shared.company.EmployeeDefinitions)
 local CompanyConfig = require(Shared.config.CompanyConfig)
 local PassRules = require(Shared.monetization.PassRules)
+local MutationGuard = require(script.Parent.Parent.security.MutationGuard)
 
 local CompanyService = {
 	Name = "CompanyService",
@@ -49,26 +50,33 @@ function CompanyService:UpgradeWorkshop(player: Player)
 	if not security:Allow(player, "PurchaseUpgrade") then
 		return { ok = false, error = "rate_limited" }
 	end
-	local dataService = require(script.Parent.PlayerDataService)
-	local economy = require(script.Parent.EconomyService)
-	local profile = dataService:RequireProfile(player)
 
-	if profile.WorkshopTier >= CompanyConfig.MaxWorkshopTier then
-		return { ok = false, error = "max_tier" }
-	end
+	local entered, result = MutationGuard.TryRun(player.UserId, "profile_value_mutation", function()
+		local dataService = require(script.Parent.PlayerDataService)
+		local economy = require(script.Parent.EconomyService)
+		local profile = dataService:RequireProfile(player)
 
-	local nextTier = profile.WorkshopTier + 1
-	local cost = CompanyConfig.WorkshopUpgradeCosts[nextTier]
-	if cost == nil then
-		return { ok = false, error = "invalid_tier" }
-	end
-	if not economy:Spend(player, "cash", cost, ("workshop_tier_%d"):format(nextTier)) then
-		return { ok = false, error = "insufficient_funds" }
-	end
+		if profile.WorkshopTier >= CompanyConfig.MaxWorkshopTier then
+			return { ok = false, error = "max_tier" }
+		end
 
-	profile.WorkshopTier = nextTier
-	dataService:Publish(player)
-	return { ok = true, workshopTier = nextTier }
+		local nextTier = profile.WorkshopTier + 1
+		local cost = CompanyConfig.WorkshopUpgradeCosts[nextTier]
+		if cost == nil then
+			return { ok = false, error = "invalid_tier" }
+		end
+		if not economy:Spend(player, "cash", cost, ("workshop_tier_%d"):format(nextTier)) then
+			return { ok = false, error = "insufficient_funds" }
+		end
+
+		profile.WorkshopTier = nextTier
+		dataService:Publish(player)
+		return { ok = true, workshopTier = nextTier }
+	end)
+	if not entered then
+		return { ok = false, error = "mutation_in_progress" }
+	end
+	return result
 end
 
 function CompanyService:HireEmployee(player: Player, employeeId: any)
@@ -85,28 +93,34 @@ function CompanyService:HireEmployee(player: Player, employeeId: any)
 		return { ok = false, error = "invalid_employee" }
 	end
 
-	local dataService = require(script.Parent.PlayerDataService)
-	local economy = require(script.Parent.EconomyService)
-	local profile = dataService:RequireProfile(player)
+	local entered, result = MutationGuard.TryRun(player.UserId, "profile_value_mutation", function()
+		local dataService = require(script.Parent.PlayerDataService)
+		local economy = require(script.Parent.EconomyService)
+		local profile = dataService:RequireProfile(player)
 
-	if profile.WorkshopTier < definition.MinimumWorkshopTier then
-		return { ok = false, error = "workshop_locked" }
-	end
-	if profile.CompanyLevel < definition.MinimumCompanyLevel then
-		return { ok = false, error = "company_level_locked" }
-	end
-	if employeeCount(profile) >= self:GetEmployeeSlots(player, profile) then
-		return { ok = false, error = "employee_slots_full" }
-	end
-	if not economy:Spend(player, "cash", definition.Cost, "employee:" .. employeeId) then
-		return { ok = false, error = "insufficient_funds" }
-	end
+		if profile.WorkshopTier < definition.MinimumWorkshopTier then
+			return { ok = false, error = "workshop_locked" }
+		end
+		if profile.CompanyLevel < definition.MinimumCompanyLevel then
+			return { ok = false, error = "company_level_locked" }
+		end
+		if employeeCount(profile) >= self:GetEmployeeSlots(player, profile) then
+			return { ok = false, error = "employee_slots_full" }
+		end
+		if not economy:Spend(player, "cash", definition.Cost, "employee:" .. employeeId) then
+			return { ok = false, error = "insufficient_funds" }
+		end
 
-	profile.Employees[employeeId] = (profile.Employees[employeeId] or 0) + 1
-	dataService:Publish(player)
-	local analytics = require(script.Parent.AnalyticsService)
-	analytics:LogOnce(player, "first_employee_hired", 1)
-	return { ok = true, slotsUsed = employeeCount(profile), slotsTotal = self:GetEmployeeSlots(player, profile) }
+		profile.Employees[employeeId] = (profile.Employees[employeeId] or 0) + 1
+		dataService:Publish(player)
+		local analytics = require(script.Parent.AnalyticsService)
+		analytics:LogOnce(player, "first_employee_hired", 1)
+		return { ok = true, slotsUsed = employeeCount(profile), slotsTotal = self:GetEmployeeSlots(player, profile) }
+	end)
+	if not entered then
+		return { ok = false, error = "mutation_in_progress" }
+	end
+	return result
 end
 
 function CompanyService:ApplyPassiveIncome(player: Player)
