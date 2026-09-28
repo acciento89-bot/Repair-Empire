@@ -9,6 +9,7 @@ local JobDefinitions = require(Shared.jobs.JobDefinitions)
 local JobRules = require(Shared.jobs.JobRules)
 local CoopContracts = require(Shared.coop.CoopContracts)
 local CoopRules = require(Shared.coop.CoopRules)
+local CoopActionRules = require(Shared.coop.CoopActionRules)
 local ToolRules = require(Shared.tools.ToolRules)
 
 local MAX_PARTY_SIZE = 6
@@ -198,7 +199,9 @@ function CoopService:Create(player: Player, jobId: any)
 		Contribution = {
 			[player.UserId] = 0,
 		},
+		DepartedContribution = {},
 		Completing = false,
+		Acting = false,
 	}
 	self._contracts[contractId] = contract
 	self._playerContract[player.UserId] = contractId
@@ -243,7 +246,7 @@ function CoopService:Join(player: Player, contractId: any)
 	end
 
 	contract.Participants[player.UserId] = true
-	contract.Contribution[player.UserId] = 0
+	contract.Contribution[player.UserId] = CoopActionRules.RestoreContribution(contract, player.UserId)
 	self._playerContract[player.UserId] = contractId
 
 	self:_FireStarted(player, contract, definition)
@@ -267,6 +270,9 @@ function CoopService:_RemovePlayer(player: Player)
 		return false
 	end
 
+	local contribution = contract.Contribution[player.UserId] or 0
+	contract.DepartedContribution = contract.DepartedContribution or {}
+	contract.DepartedContribution[player.UserId] = contribution
 	contract.Participants[player.UserId] = nil
 	contract.Contribution[player.UserId] = nil
 	self._playerContract[player.UserId] = nil
@@ -361,35 +367,37 @@ function CoopService:PerformAction(player: Player, payload: any)
 
 	local contractId = self._playerContract[player.UserId]
 	local contract = contractId and self._contracts[contractId]
-	if contract == nil or contract.Completing then
-		return { ok = false, error = "contract_unavailable" }
-	end
-
-	local definition = JobDefinitions.ById[contract.DefinitionId]
+	local definition = contract and JobDefinitions.ById[contract.DefinitionId]
 	local stage = definition and definition.Stages[contract.StageIndex]
-	if definition == nil or stage == nil then
-		return { ok = false, error = "invalid_server_state" }
-	end
-	if payload.action ~= stage.Action then
-		return { ok = false, error = "wrong_action" }
-	end
 
 	local worldService = require(script.Parent.WorldService)
-	if not worldService:IsPlayerNearAnchor(player, contract.AnchorId) then
-		return { ok = false, error = "too_far_from_job" }
-	end
+	local isNear = contract ~= nil and worldService:IsPlayerNearAnchor(player, contract.AnchorId)
 
 	local toolService = require(script.Parent.ToolService)
-	if toolService:GetEquippedTier(player) < definition.RequiredToolTier then
-		return { ok = false, error = "tool_tier_locked" }
-	end
+	local toolTier = toolService:GetEquippedTier(player)
 	local skillTree = require(script.Parent.SkillTreeService)
-	local speedMultiplier = toolService:GetEquippedSpeedMultiplier(player) * skillTree:GetSpeedMultiplier(player, definition.Category)
-	local effectiveSeconds = ToolRules.GetEffectiveStageSeconds(stage.MinimumSeconds, speedMultiplier)
-	if os.clock() - contract.StageStartedAt + 0.15 < effectiveSeconds then
-		return { ok = false, error = "too_fast" }
+	local speedMultiplier = if definition
+		then toolService:GetEquippedSpeedMultiplier(player) * skillTree:GetSpeedMultiplier(player, definition.Category)
+		else 1
+	local effectiveSeconds = if stage then ToolRules.GetEffectiveStageSeconds(stage.MinimumSeconds, speedMultiplier) else math.huge
+	local elapsed = if contract then os.clock() - contract.StageStartedAt else 0
+
+	local decision = CoopActionRules.Validate({
+		contract = contract,
+		userId = player.UserId,
+		definition = definition,
+		stage = stage,
+		action = payload.action,
+		isNear = isNear,
+		toolTier = toolTier,
+		elapsed = elapsed,
+		effectiveSeconds = effectiveSeconds,
+	})
+	if not decision.ok then
+		return { ok = false, error = decision.error }
 	end
 
+	contract.Acting = true
 	contract.Contribution[player.UserId] = (contract.Contribution[player.UserId] or 0) + 1
 	contract.StageIndex += 1
 	contract.StageStartedAt = os.clock()
@@ -399,6 +407,7 @@ function CoopService:PerformAction(player: Player, payload: any)
 		return { ok = true, completed = true }
 	end
 
+	contract.Acting = false
 	self:_BroadcastStage(contract, definition)
 	return {
 		ok = true,
