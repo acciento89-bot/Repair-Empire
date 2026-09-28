@@ -2,6 +2,8 @@
 
 local RunService = game:GetService("RunService")
 local Stats = game:GetService("Stats")
+local UserInputService = game:GetService("UserInputService")
+local Workspace = game:GetService("Workspace")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
 local PerformanceRules = require(ReplicatedStorage.RepairEmpire.Shared.performance.PerformanceRules)
@@ -31,13 +33,32 @@ function PerformanceProbe.Start()
 			memoryMb = result
 		end
 
+		local viewport = if Workspace.CurrentCamera then Workspace.CurrentCamera.ViewportSize else Vector2.new(0, 0)
+		local pingMs = -1
+		local pingOk, pingValue = pcall(function()
+			local network = Stats:FindFirstChild("Network")
+			local serverStats = network and network:FindFirstChild("ServerStatsItem")
+			local ping = serverStats and serverStats:FindFirstChild("Data Ping")
+			if ping and ping:IsA("StatsItem") then
+				return ping:GetValue()
+			end
+			return nil
+		end)
+		if pingOk and type(pingValue) == "number" then
+			pingMs = pingValue
+		end
+
 		print(
-			("[Repair Empire] StudioClientBaseline samples=%d avgFrameMs=%.2f p95FrameMs=%.2f approxFps=%.1f memoryMb=%.1f"):format(
+			("[Repair Empire] StudioClientBaseline viewport=%dx%d touch=%s samples=%d avgFrameMs=%.2f p95FrameMs=%.2f approxFps=%.1f memoryMb=%.1f pingMs=%.1f"):format(
+				viewport.X,
+				viewport.Y,
+				tostring(UserInputService.TouchEnabled),
 				summary.SampleCount,
 				summary.AverageFrameMs,
 				summary.P95FrameMs,
 				summary.ApproxFps,
-				memoryMb
+				memoryMb,
+				pingMs
 			)
 		)
 	end)
