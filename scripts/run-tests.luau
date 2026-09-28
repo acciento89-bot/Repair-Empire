@@ -21,6 +21,7 @@ local tests = {
 	require("../tests/session-rules.spec"),
 	require("../tests/ui-layout-rules.spec"),
 	require("../tests/release-readiness.spec"),
+	require("../tests/pass-rules.spec"),
 }
 
 local passed = 0
