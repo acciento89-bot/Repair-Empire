@@ -32,6 +32,7 @@ local JobService = {
 	_offers = {},
 	_active = {},
 	_completed = {},
+	_cooldowns = {},
 }
 
 local function getRemoteFunction(name: string): RemoteFunction
@@ -54,9 +55,12 @@ local function safeDefinition(definition)
 		Category = definition.Category,
 		District = definition.District,
 		MinimumLevel = definition.MinimumLevel,
+		MinimumCompanyLevel = definition.MinimumCompanyLevel,
 		BaseReward = definition.BaseReward,
 		XP = definition.XP,
 		RequiredToolTier = definition.RequiredToolTier,
+		ExpectedDurationSeconds = definition.ExpectedDurationSeconds,
+		CooldownSeconds = definition.CooldownSeconds,
 		StageCount = #definition.Stages,
 		Coop = definition.Coop,
 	}
@@ -80,6 +84,27 @@ function JobService:_CleanupCompletions(userId: number)
 	end
 end
 
+function JobService:_IsCoolingDown(userId: number, jobId: string): boolean
+	local userCooldowns = self._cooldowns[userId]
+	if userCooldowns == nil then
+		return false
+	end
+	local expiresAt = userCooldowns[jobId]
+	if expiresAt == nil then
+		return false
+	end
+	if expiresAt <= os.clock() then
+		userCooldowns[jobId] = nil
+		return false
+	end
+	return true
+end
+
+function JobService:_StartCooldown(userId: number, definition)
+	self._cooldowns[userId] = self._cooldowns[userId] or {}
+	self._cooldowns[userId][definition.Id] = os.clock() + definition.CooldownSeconds
+end
+
 function JobService:GetOffers(player: Player)
 	if not self:_Allow(player, "RequestJobOffers") then
 		return { ok = false, error = "rate_limited" }
@@ -91,7 +116,11 @@ function JobService:GetOffers(player: Player)
 	local toolService = require(script.Parent.ToolService)
 	local equippedToolTier = toolService:GetEquippedTier(player)
 	for _, definition in JobDefinitions.List do
-		if JobRules.IsEligible(definition, profile) and definition.RequiredToolTier <= equippedToolTier and not definition.Coop then
+		if JobRules.IsEligible(definition, profile)
+			and definition.RequiredToolTier <= equippedToolTier
+			and not definition.Coop
+			and not self:_IsCoolingDown(player.UserId, definition.Id)
+		then
 			if profile.Tutorial.Step ~= "second_job" or definition.Id == "running_toilet" then
 				table.insert(eligible, definition)
 			end
@@ -99,15 +128,13 @@ function JobService:GetOffers(player: Player)
 	end
 
 	local random = Random.new()
-	for index = #eligible, 2, -1 do
-		local swap = random:NextInteger(1, index)
-		eligible[index], eligible[swap] = eligible[swap], eligible[index]
-	end
+	local selected = JobRules.WeightedSampleWithoutReplacement(eligible, OFFER_COUNT, function()
+		return random:NextNumber()
+	end)
 
 	local offers = {}
 	local response = {}
-	for index = 1, math.min(OFFER_COUNT, #eligible) do
-		local definition = eligible[index]
+	for _, definition in selected do
 		local offerId = HttpService:GenerateGUID(false)
 		offers[offerId] = {
 			DefinitionId = definition.Id,
@@ -148,6 +175,9 @@ function JobService:Accept(player: Player, offerId: any)
 	local profile = dataService:RequireProfile(player)
 	if not JobRules.IsEligible(definition, profile) then
 		return { ok = false, error = "no_longer_eligible" }
+	end
+	if self:_IsCoolingDown(player.UserId, definition.Id) then
+		return { ok = false, error = "job_cooldown" }
 	end
 
 	local toolService = require(script.Parent.ToolService)
@@ -301,6 +331,7 @@ function JobService:PerformAction(player: Player, payload: any)
 		self._completed[player.UserId] = {}
 	end
 	self._completed[player.UserId][active.InstanceId] = os.clock()
+	self:_StartCooldown(player.UserId, definition)
 	self._active[player.UserId] = nil
 	dataService:Publish(player)
 
@@ -386,6 +417,7 @@ function JobService:Init()
 		self._offers[player.UserId] = nil
 		self._active[player.UserId] = nil
 		self._completed[player.UserId] = nil
+		self._cooldowns[player.UserId] = nil
 	end)
 end
 
