@@ -93,10 +93,12 @@ Resolved/verified for V1:
 External executor fuzzing and real-user network abuse remain post-launch monitoring inputs, not known unresolved client-controlled mint paths.
 
 ## P16 - Data/runtime and public release
-Current platform incident:
-- on 2026-09-29 Studio repeatedly returned `PublishService AssetUpload failed: UploadStatusPolling max polling retry reached` while publishing the development place; a final retry after P18 completion failed again at 00:01 UTC
-- current reports from other Roblox creators show the same Studio save/publish failure; the latest green Rojo build is preserved locally at `.local-backups/RepairEmpire-latest-green.rbxlx` and in GitHub
-- retry cloud publishing when Roblox's upload service recovers
+Publishing recovery:
+- the earlier 2026-09-29 Studio upload incident is resolved for Repair Empire
+- after reconnecting the current Rojo project, Studio published the final P19 development-place build successfully
+- Studio logged `PublishSuccessful`, `Place published` and `Published new changes in "Reparatur-Imperium-Entwickler" to Roblox`
+- the successful cloud revision is development-place version **v70**
+- the green Rojo build remains preserved locally at `.local-backups/RepairEmpire-latest-green.rbxlx`
 
 Resolved in runtime:
 - isolated development DataStore recovery probe passed v1→v2 migration, expired-lock acquisition, active foreign-lock rejection, foreign-write rejection and temporary-key cleanup
@@ -111,7 +113,7 @@ Resolved in Creator Hub:
 - content questionnaire is complete and content maturity is now assigned as `Minimal`
 
 Still required:
-- controlled public exposure only after the paid Developer Product release gate clears and the current Roblox Studio publishing incident recovers
+- controlled public exposure only after the paid Developer Product receipt/rejoin release gate clears
 
 ## P12/P15 - Prelaunch pacing
 Resolved:
