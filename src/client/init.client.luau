@@ -2,6 +2,7 @@
 
 local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local StarterGui = game:GetService("StarterGui")
 
 local HudController = require(script.ui.HudController)
 local NavigationController = require(script.ui.NavigationController)
@@ -14,6 +15,23 @@ local PerformanceProbe = require(script.PerformanceProbe)
 
 local player = Players.LocalPlayer
 assert(player ~= nil, "LocalPlayer unavailable")
+
+local function disableLegacyBackpack()
+	for _ = 1, 10 do
+		local ok = pcall(function()
+			StarterGui:SetCoreGuiEnabled(Enum.CoreGuiType.Backpack, false)
+		end)
+		if ok then
+			return
+		end
+		task.wait(0.25)
+	end
+end
+
+task.spawn(disableLegacyBackpack)
+player.CharacterAdded:Connect(function()
+	task.defer(disableLegacyBackpack)
+end)
 
 local function pretty(id: string): string
 	local words = string.split(id, "_")
