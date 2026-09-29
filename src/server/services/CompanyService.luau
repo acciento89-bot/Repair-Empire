@@ -20,6 +20,12 @@ local function remote(name: string): RemoteFunction
 	return instance
 end
 
+local function stateEvent(): RemoteEvent
+	local instance = ReplicatedStorage:WaitForChild("RepairEmpireRemotes"):WaitForChild("StateUpdated")
+	assert(instance:IsA("RemoteEvent"), "StateUpdated must be a RemoteEvent")
+	return instance
+end
+
 local function employeeCount(profile): number
 	local count = 0
 	for _, ownedCount in profile.Employees do
@@ -76,6 +82,12 @@ function CompanyService:UpgradeWorkshop(player: Player)
 	if not entered then
 		return { ok = false, error = "mutation_in_progress" }
 	end
+	if result and result.ok then
+		stateEvent():FireClient(player, {
+			kind = "company_changed",
+			workshopTier = result.workshopTier,
+		})
+	end
 	return result
 end
 
@@ -119,6 +131,13 @@ function CompanyService:HireEmployee(player: Player, employeeId: any)
 	end)
 	if not entered then
 		return { ok = false, error = "mutation_in_progress" }
+	end
+	if result and result.ok then
+		stateEvent():FireClient(player, {
+			kind = "company_changed",
+			slotsUsed = result.slotsUsed,
+			slotsTotal = result.slotsTotal,
+		})
 	end
 	return result
 end
