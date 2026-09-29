@@ -180,9 +180,9 @@ function EnvironmentArt.DecorateDistrict(parent: Instance, districtId: string, c
 	if districtId == "residential" then
 		for index = -2, 2 do
 			local x = center.X + index * config.Spacing
-			addMailBox(parent, Vector3.new(x + 7, 0, center.Z - roadEdge))
+			addMailBox(parent, Vector3.new(x + 17, 0, center.Z - roadEdge))
 			if index % 2 == 0 then
-				addHydrant(parent, Vector3.new(x - 7, 0, center.Z + roadEdge))
+				addHydrant(parent, Vector3.new(x - 17, 0, center.Z + roadEdge))
 			end
 		end
 		addBench(parent, Vector3.new(center.X + config.Spacing * 0.5, 0, center.Z + roadEdge + 4))
