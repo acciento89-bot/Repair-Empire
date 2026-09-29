@@ -50,11 +50,19 @@ local function buildCar(index: number, lane: number, direction: number)
 	local chassis = part(model, "Chassis", Vector3.new(5.6, 0.8, 10.2), cf * CFrame.new(0, 1.0, 0), Color3.fromRGB(45, 48, 51), Enum.Material.Metal)
 	part(model, "Body", Vector3.new(5.2, 2.0, 8.8), cf * CFrame.new(0, 2.1, 0), color, Enum.Material.SmoothPlastic)
 	local cabin = part(model, "Cabin", Vector3.new(4.6, 2.1, 4.2), cf * CFrame.new(0, 3.4, -0.4), color, Enum.Material.SmoothPlastic)
-	local front = part(model, "Windscreen", Vector3.new(4.0, 1.25, 0.14), cabin.CFrame * CFrame.new(0, 0.25, -2.14), Color3.fromRGB(82, 142, 166), Enum.Material.Glass)
+	local front =
+		part(model, "Windscreen", Vector3.new(4.0, 1.25, 0.14), cabin.CFrame * CFrame.new(0, 0.25, -2.14), Color3.fromRGB(82, 142, 166), Enum.Material.Glass)
 	front.Transparency = 0.18
 
 	for _, side in { -1, 1 } do
-		local window = part(model, "SideWindow", Vector3.new(0.12, 1.2, 2.5), cabin.CFrame * CFrame.new(side * 2.36, 0.2, 0), Color3.fromRGB(77, 132, 155), Enum.Material.Glass)
+		local window = part(
+			model,
+			"SideWindow",
+			Vector3.new(0.12, 1.2, 2.5),
+			cabin.CFrame * CFrame.new(side * 2.36, 0.2, 0),
+			Color3.fromRGB(77, 132, 155),
+			Enum.Material.Glass
+		)
 		window.Transparency = 0.2
 		for _, z in { -3.2, 3.2 } do
 			local wheel = part(model, "Wheel", Vector3.new(0.7, 1.55, 1.55), cf * CFrame.new(side * 2.65, 0.8, z), Color3.fromRGB(24, 26, 28))
@@ -64,9 +72,11 @@ local function buildCar(index: number, lane: number, direction: number)
 	end
 
 	for _, side in { -1, 1 } do
-		local headlight = part(model, "Headlight", Vector3.new(1.0, 0.42, 0.12), cf * CFrame.new(side * 1.65, 1.7, -4.5), Color3.fromRGB(255, 234, 177), Enum.Material.Neon)
+		local headlight =
+			part(model, "Headlight", Vector3.new(1.0, 0.42, 0.12), cf * CFrame.new(side * 1.65, 1.7, -4.5), Color3.fromRGB(255, 234, 177), Enum.Material.Neon)
 		headlight.Transparency = 0.05
-		local tail = part(model, "TailLight", Vector3.new(0.85, 0.42, 0.12), cf * CFrame.new(side * 1.65, 1.7, 4.5), Color3.fromRGB(205, 59, 52), Enum.Material.Neon)
+		local tail =
+			part(model, "TailLight", Vector3.new(0.85, 0.42, 0.12), cf * CFrame.new(side * 1.65, 1.7, 4.5), Color3.fromRGB(205, 59, 52), Enum.Material.Neon)
 		tail.Transparency = 0.08
 	end
 
