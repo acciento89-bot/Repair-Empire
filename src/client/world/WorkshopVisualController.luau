@@ -32,7 +32,14 @@ local function addRack(model: Model, cf: CFrame, accent: Color3)
 		part(model, "ShelfPost", Vector3.new(0.35, 4.2, 0.35), cf * CFrame.new(x, 1.7, 0), Color3.fromRGB(65, 69, 74), Enum.Material.Metal)
 	end
 	for i = -2, 2 do
-		part(model, "PartsBin", Vector3.new(1.0, 0.85, 1.45), cf * CFrame.new(i * 1.25, 2.0, -0.2), if i % 2 == 0 then accent else Color3.fromRGB(48, 61, 72), Enum.Material.SmoothPlastic)
+		part(
+			model,
+			"PartsBin",
+			Vector3.new(1.0, 0.85, 1.45),
+			cf * CFrame.new(i * 1.25, 2.0, -0.2),
+			if i % 2 == 0 then accent else Color3.fromRGB(48, 61, 72),
+			Enum.Material.SmoothPlastic
+		)
 	end
 end
 
@@ -42,7 +49,8 @@ local function addCompressor(model: Model, cf: CFrame)
 	tank.Orientation = Vector3.new(0, 0, 90)
 	part(model, "CompressorMotor", Vector3.new(1.8, 1.4, 1.6), cf * CFrame.new(0, 1.55, 0), Color3.fromRGB(65, 70, 76), Enum.Material.Metal)
 	for _, x in { -1.5, 1.5 } do
-		local wheel = part(model, "CompressorWheel", Vector3.new(0.45, 0.9, 0.9), cf * CFrame.new(x, -1.0, 0), Color3.fromRGB(28, 30, 32), Enum.Material.SmoothPlastic)
+		local wheel =
+			part(model, "CompressorWheel", Vector3.new(0.45, 0.9, 0.9), cf * CFrame.new(x, -1.0, 0), Color3.fromRGB(28, 30, 32), Enum.Material.SmoothPlastic)
 		wheel.Shape = Enum.PartType.Cylinder
 		wheel.Orientation = Vector3.new(0, 90, 0)
 	end
@@ -121,7 +129,8 @@ local function rebuild()
 
 	if tier >= 5 then
 		local mast = part(model, "CompanyMast", Vector3.new(0.8, 10, 0.8), base * CFrame.new(20, 0, -11), Color3.fromRGB(70, 75, 80), Enum.Material.Metal)
-		local sign = part(model, "CompanyLightbox", Vector3.new(9, 3.2, 0.55), mast.CFrame * CFrame.new(0, 4.2, 0), Color3.fromRGB(20, 34, 46), Enum.Material.Metal)
+		local sign =
+			part(model, "CompanyLightbox", Vector3.new(9, 3.2, 0.55), mast.CFrame * CFrame.new(0, 4.2, 0), Color3.fromRGB(20, 34, 46), Enum.Material.Metal)
 		local gui = Instance.new("SurfaceGui")
 		gui.Face = Enum.NormalId.Front
 		gui.Parent = sign
