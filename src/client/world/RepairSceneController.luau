@@ -112,6 +112,78 @@ local function surfaceLabel(parent: BasePart, text: string, textColor: Color3)
 	t.Parent = gui
 end
 
+local function addServiceClutter(model: Model, origin: CFrame, tradeColor: Color3)
+	local caseBottom = part(
+		model,
+		"OpenToolCase",
+		Vector3.new(3.6, 0.55, 2.3),
+		origin * CFrame.new(-4.2, 0.55, -1.25) * CFrame.Angles(0, math.rad(18), 0),
+		Color3.fromRGB(37, 44, 50),
+		Enum.Material.SmoothPlastic
+	)
+	local caseLid = part(
+		model,
+		"ToolCaseLid",
+		Vector3.new(3.6, 0.3, 2.1),
+		caseBottom.CFrame * CFrame.new(0, 1.35, 0.95) * CFrame.Angles(math.rad(-62), 0, 0),
+		Color3.fromRGB(48, 57, 64),
+		Enum.Material.SmoothPlastic
+	)
+	caseLid.CanCollide = false
+
+	for index = -2, 2 do
+		local tool = part(
+			model,
+			"CaseTool",
+			Vector3.new(0.28, 1.45 + (math.abs(index) % 2) * 0.35, 0.28),
+			caseBottom.CFrame * CFrame.new(index * 0.55, 0.58, 0),
+			if index == 0 then tradeColor else Color3.fromRGB(181, 187, 191),
+			Enum.Material.Metal
+		)
+		tool.Orientation = Vector3.new(0, 0, index * 7)
+	end
+
+	local tray = part(
+		model,
+		"PartsTray",
+		Vector3.new(2.8, 0.3, 1.8),
+		origin * CFrame.new(4.0, 0.38, -1.7) * CFrame.Angles(0, math.rad(-12), 0),
+		Color3.fromRGB(74, 79, 83),
+		Enum.Material.Metal
+	)
+	for index = -1, 1 do
+		local fitting = cylinder(
+			model,
+			"ReplacementPart",
+			Vector3.new(0.45, 0.65, 0.65),
+			tray.CFrame * CFrame.new(index * 0.78, 0.38, 0) * CFrame.Angles(0, math.rad(90), 0),
+			if index == 0 then tradeColor else Color3.fromRGB(170, 175, 178),
+			Enum.Material.Metal
+		)
+		fitting:SetAttribute("ReplacementPart", true)
+	end
+
+	for _, side in { -1, 1 } do
+		local cone = part(
+			model,
+			"ServiceCone",
+			Vector3.new(0.75, 1.8, 0.75),
+			origin * CFrame.new(side * 5.0, 0.9, 2.0),
+			Color3.fromRGB(242, 126, 44),
+			Enum.Material.SmoothPlastic
+		)
+		cone.Shape = Enum.PartType.Cylinder
+		part(
+			model,
+			"ConeBase",
+			Vector3.new(1.35, 0.16, 1.35),
+			origin * CFrame.new(side * 5.0, 0.08, 2.0),
+			Color3.fromRGB(42, 45, 48),
+			Enum.Material.Rubber
+		)
+	end
+end
+
 local function baseRig(model: Model, origin: CFrame, title: string, tradeColor: Color3)
 	local mat = part(model, "ServiceMat", Vector3.new(11, 0.12, 6), origin * CFrame.new(0, 0.06, 0), Color3.fromRGB(48, 52, 56), Enum.Material.Rubber)
 	local border = part(model, "SafetyStripe", Vector3.new(11, 0.08, 0.35), origin * CFrame.new(0, 0.13, 2.72), tradeColor, Enum.Material.Neon)
@@ -124,6 +196,7 @@ local function baseRig(model: Model, origin: CFrame, title: string, tradeColor: 
 	local lamp = part(model, "StatusLight", Vector3.new(0.7, 0.7, 0.7), origin * CFrame.new(4.6, 0.65, 2.2), Color3.fromRGB(225, 74, 74), Enum.Material.Neon)
 	lamp.Shape = Enum.PartType.Ball
 	lamp:SetAttribute("RepairStatusLight", true)
+	addServiceClutter(model, origin, tradeColor)
 	return mat
 end
 
