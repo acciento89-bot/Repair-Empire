@@ -19,6 +19,7 @@ local DistrictDensityArt = require(script.Parent.Parent.world.DistrictDensityArt
 local BackdropArt = require(script.Parent.Parent.world.BackdropArt)
 local WorkshopYardArt = require(script.Parent.Parent.world.WorkshopYardArt)
 local UrbanUtilityArt = require(script.Parent.Parent.world.UrbanUtilityArt)
+local LightingArt = require(script.Parent.Parent.world.LightingArt)
 
 local CATEGORIES = { "plumbing", "heating", "climate", "energy" }
 local CATEGORY_COLORS = {
@@ -709,68 +710,7 @@ function WorldService:Init()
 	self._anchorsById = {}
 	self._anchorsByDistrictCategory = {}
 
-	Lighting.ClockTime = 14.25
-	Lighting.Brightness = 2.05
-	Lighting.ExposureCompensation = -0.05
-	Lighting.GlobalShadows = true
-	Lighting.ShadowSoftness = 0.34
-	Lighting.EnvironmentDiffuseScale = 0.48
-	Lighting.EnvironmentSpecularScale = 0.42
-	Lighting.Ambient = Color3.fromRGB(83, 91, 100)
-	Lighting.OutdoorAmbient = Color3.fromRGB(132, 138, 147)
-	Lighting.ColorShift_Top = Color3.fromRGB(255, 246, 232)
-	Lighting.ColorShift_Bottom = Color3.fromRGB(220, 229, 236)
-
-	local colorCorrection = Lighting:FindFirstChildOfClass("ColorCorrectionEffect")
-	if colorCorrection == nil then
-		colorCorrection = Instance.new("ColorCorrectionEffect")
-		colorCorrection.Parent = Lighting
-	end
-	colorCorrection.Brightness = 0.01
-	colorCorrection.Contrast = 0.1
-	colorCorrection.Saturation = 0.07
-	colorCorrection.TintColor = Color3.fromRGB(255, 248, 238)
-
-	local bloom = Lighting:FindFirstChildOfClass("BloomEffect")
-	if bloom == nil then
-		bloom = Instance.new("BloomEffect")
-		bloom.Parent = Lighting
-	end
-	bloom.Intensity = 0.12
-	bloom.Size = 18
-	bloom.Threshold = 1.8
-
-	local atmosphere = Lighting:FindFirstChildOfClass("Atmosphere")
-	if atmosphere == nil then
-		atmosphere = Instance.new("Atmosphere")
-		atmosphere.Parent = Lighting
-	end
-	atmosphere.Density = 0.2
-	atmosphere.Offset = 0.04
-	atmosphere.Glare = 0.06
-	atmosphere.Haze = 1.05
-	atmosphere.Color = Color3.fromRGB(210, 224, 235)
-	atmosphere.Decay = Color3.fromRGB(116, 133, 145)
-
-	local sunRays = Lighting:FindFirstChildOfClass("SunRaysEffect")
-	if sunRays == nil then
-		sunRays = Instance.new("SunRaysEffect")
-		sunRays.Parent = Lighting
-	end
-	sunRays.Intensity = 0.035
-	sunRays.Spread = 0.72
-
-	local terrain = Workspace:FindFirstChildOfClass("Terrain")
-	if terrain then
-		local clouds = terrain:FindFirstChildOfClass("Clouds")
-		if clouds == nil then
-			clouds = Instance.new("Clouds")
-			clouds.Parent = terrain
-		end
-		clouds.Cover = 0.18
-		clouds.Density = 0.32
-		clouds.Color = Color3.fromRGB(235, 240, 244)
-	end
+	LightingArt.Apply()
 
 	local world = Instance.new("Folder")
 	world.Name = "RepairEmpireWorld"
