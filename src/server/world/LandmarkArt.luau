@@ -87,36 +87,59 @@ local function downtown(parent: Instance, center: Vector3, config)
 end
 
 local function industrial(parent: Instance, center: Vector3, config)
-	local x = center.X + config.GroundSize[1] * 0.3
-	local z = center.Z + config.GroundSize[2] * 0.3
+	local x = center.X + config.GroundSize[1] * 0.16
+	local z = center.Z + config.GroundSize[2] * 0.26
 
-	for _, side in { -1, 1 } do
-		local tank = part(parent, "TankFarmTank", Vector3.new(9, 13, 13), CFrame.new(x + side * 9, 6.5, z), Color3.fromRGB(134, 139, 142), Enum.Material.Metal)
+	local plantPad = part(parent, "ProcessPlantPad", Vector3.new(96, 0.45, 68), CFrame.new(x, 0.23, z), Color3.fromRGB(102, 104, 106), Enum.Material.Concrete)
+	plantPad.CanCollide = false
+
+	for tankIndex = -1, 1 do
+		local tankX = x + tankIndex * 22
+		local tank = part(parent, "TankFarmTank", Vector3.new(11, 16, 16), CFrame.new(tankX, 8.0, z + 12), Color3.fromRGB(142, 148, 151), Enum.Material.Metal)
 		tank.Shape = Enum.PartType.Cylinder
 		tank.Orientation = Vector3.new(0, 0, 90)
-		part(parent, "TankBand", Vector3.new(9.1, 13.2, 0.8), CFrame.new(x + side * 9, 6.5, z), Color3.fromRGB(77, 82, 86), Enum.Material.Metal).Shape =
-			Enum.PartType.Cylinder
+		for bandIndex = -1, 1 do
+			local band = part(parent, "TankBand", Vector3.new(11.15, 16.25, 0.65), CFrame.new(tankX + bandIndex * 2.8, 8.0, z + 12), Color3.fromRGB(77, 82, 86), Enum.Material.Metal)
+			band.Shape = Enum.PartType.Cylinder
+			band.Orientation = Vector3.new(0, 0, 90)
+		end
+		local ladder = part(parent, "TankLadder", Vector3.new(0.5, 12, 0.55), CFrame.new(tankX, 7.5, z + 20.2), Color3.fromRGB(71, 74, 77), Enum.Material.Metal)
+		ladder.CanCollide = false
 	end
 
 	for _, side in { -1, 1 } do
-		part(parent, "PipeRackPost", Vector3.new(0.8, 9, 0.8), CFrame.new(x + side * 13, 4.5, z - 14), Color3.fromRGB(70, 74, 78), Enum.Material.Metal)
+		part(parent, "PipeRackPost", Vector3.new(1.0, 11, 1.0), CFrame.new(x + side * 38, 5.5, z - 17), Color3.fromRGB(70, 74, 78), Enum.Material.Metal)
 	end
-	part(parent, "PipeRackBeam", Vector3.new(27, 0.8, 0.8), CFrame.new(x, 8.5, z - 14), Color3.fromRGB(70, 74, 78), Enum.Material.Metal)
-	for lane = -1, 1 do
+	for post = -3, 3 do
+		part(parent, "PipeRackMidPost", Vector3.new(0.65, 9.5, 0.65), CFrame.new(x + post * 12, 4.75, z - 17), Color3.fromRGB(78, 82, 86), Enum.Material.Metal)
+	end
+	part(parent, "PipeRackBeam", Vector3.new(80, 0.9, 0.9), CFrame.new(x, 9.4, z - 17), Color3.fromRGB(70, 74, 78), Enum.Material.Metal)
+	for lane = -2, 2 do
 		local pipe = part(
 			parent,
 			"OverheadPipe",
-			Vector3.new(26, 0.75, 0.75),
-			CFrame.new(x, 7.3 + lane * 1.0, z - 14),
-			if lane == 0 then Color3.fromRGB(230, 112, 55) else Color3.fromRGB(68, 145, 214),
+			Vector3.new(78, 0.8, 0.8),
+			CFrame.new(x, 7.2 + lane * 0.8, z - 17),
+			if lane % 2 == 0 then Color3.fromRGB(230, 112, 55) else Color3.fromRGB(68, 145, 214),
 			Enum.Material.Metal
 		)
 		pipe.Shape = Enum.PartType.Cylinder
 		pipe.Orientation = Vector3.new(0, 0, 90)
 	end
 
-	local sign = part(parent, "IndustrialLandmarkSign", Vector3.new(16, 3.0, 0.3), CFrame.new(x, 11, z - 14), Color3.fromRGB(28, 35, 41), Enum.Material.Metal)
-	textSign(sign, "INDUSTRIAL", Color3.fromRGB(245, 151, 49))
+	for towerIndex = -1, 1, 2 do
+		local tower = part(parent, "ProcessTower", Vector3.new(7, 28, 7), CFrame.new(x + towerIndex * 31, 14, z - 3), Color3.fromRGB(119, 124, 128), Enum.Material.Metal)
+		tower.Shape = Enum.PartType.Cylinder
+		for ring = 1, 4 do
+			local platform = part(parent, "TowerPlatform", Vector3.new(9.5, 0.45, 9.5), CFrame.new(x + towerIndex * 31, ring * 5.5, z - 3), Color3.fromRGB(70, 74, 78), Enum.Material.Metal)
+			platform.Shape = Enum.PartType.Cylinder
+		end
+		local beacon = part(parent, "TowerBeacon", Vector3.new(0.9, 0.9, 0.9), tower.CFrame * CFrame.new(0, 14.7, 0), Color3.fromRGB(225, 70, 61), Enum.Material.Neon)
+		beacon.Shape = Enum.PartType.Ball
+	end
+
+	local sign = part(parent, "IndustrialLandmarkSign", Vector3.new(22, 3.4, 0.35), CFrame.new(x, 12.5, z - 21), Color3.fromRGB(28, 35, 41), Enum.Material.Metal)
+	textSign(sign, "INDUSTRIAL SERVICES", Color3.fromRGB(245, 151, 49))
 end
 
 function LandmarkArt.Add(parent: Instance, districtId: string, center: Vector3, config)
