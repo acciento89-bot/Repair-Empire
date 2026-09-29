@@ -25,6 +25,11 @@
         "RepairEmpireClient": {
           "$path": "src/client"
         }
+      },
+      "$properties": {
+        "CameraMode": "Classic",
+        "CameraMinZoomDistance": 7,
+        "CameraMaxZoomDistance": 24
       }
     },
     "StarterGui": {
