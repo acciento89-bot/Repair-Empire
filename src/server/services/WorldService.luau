@@ -18,6 +18,7 @@ local LandmarkArt = require(script.Parent.Parent.world.LandmarkArt)
 local DistrictDensityArt = require(script.Parent.Parent.world.DistrictDensityArt)
 local BackdropArt = require(script.Parent.Parent.world.BackdropArt)
 local WorkshopYardArt = require(script.Parent.Parent.world.WorkshopYardArt)
+local UrbanUtilityArt = require(script.Parent.Parent.world.UrbanUtilityArt)
 
 local CATEGORIES = { "plumbing", "heating", "climate", "energy" }
 local CATEGORY_COLORS = {
@@ -559,6 +560,7 @@ function WorldService:_BuildDistrict(world: Folder, districtId: string, config)
 	EnvironmentArt.DecorateDistrict(folder, districtId, center, config, WorldConfig.RoadWidth)
 	LandmarkArt.Add(folder, districtId, center, config)
 	DistrictDensityArt.Add(folder, districtId, center, config, WorldConfig.RoadWidth)
+	UrbanUtilityArt.Add(folder, districtId, center, config, WorldConfig.RoadWidth)
 
 	if districtId == "residential" then
 		addResidentialWorkshop(folder, config)
