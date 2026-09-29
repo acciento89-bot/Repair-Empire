@@ -386,6 +386,21 @@ local function previewPart(parent: Instance, name: string, size: Vector3, positi
 	part.CanCollide = false
 	part.Material = Enum.Material.SmoothPlastic
 	part.Color = partColor
+	part.TopSurface = Enum.SurfaceType.Smooth
+	part.BottomSurface = Enum.SurfaceType.Smooth
+	part.Parent = parent
+	return part
+end
+
+local function previewWedge(parent: Instance, name: string, size: Vector3, cframe: CFrame, partColor: Color3): WedgePart
+	local part = Instance.new("WedgePart")
+	part.Name = name
+	part.Size = size
+	part.CFrame = cframe
+	part.Anchored = true
+	part.CanCollide = false
+	part.Material = Enum.Material.SmoothPlastic
+	part.Color = partColor
 	part.Parent = parent
 	return part
 end
@@ -414,40 +429,153 @@ local function createVehiclePreview(parent: Instance, definition, selected: bool
 	local length = definition.BodySize[3]
 	local bodyColor = VEHICLE_COLORS[definition.Style] or Color3.fromRGB(120, 135, 150)
 
-	local chassis = previewPart(model, "Chassis", Vector3.new(width, 0.8, length), Vector3.new(0, 0, 0), Color3.fromRGB(58, 62, 68))
+	local chassis = previewPart(model, "Chassis", Vector3.new(width, 0.8, length), Vector3.new(0, 0.72, 0), Color3.fromRGB(52, 56, 60))
+	chassis.Material = Enum.Material.Metal
 	local cabinLength = math.max(4.2, length * 0.38)
-	local cabinZ = -length / 2 + cabinLength / 2 + 0.4
-	previewPart(model, "Cabin", Vector3.new(width * 0.92, height, cabinLength), Vector3.new(0, height / 2 + 0.4, cabinZ), bodyColor)
+	local cabinZ = -length / 2 + cabinLength / 2 + 0.7
+	local cabin = previewPart(model, "Cabin", Vector3.new(width * 0.92, height * 0.82, cabinLength * 0.82), Vector3.new(0, height * 0.41 + 1.0, cabinZ + 0.35), bodyColor)
+	cabin.Material = Enum.Material.Metal
+
+	local hoodLength = math.max(1.8, cabinLength * 0.34)
+	previewWedge(
+		model,
+		"Hood",
+		Vector3.new(width * 0.9, height * 0.42, hoodLength),
+		CFrame.new(0, 1.0 + height * 0.21, -length / 2 + hoodLength / 2 - 0.05) * CFrame.Angles(0, math.pi, 0),
+		bodyColor
+	)
 
 	local cargoLength = math.max(3.2, length - cabinLength - 1.0)
-	local cargoHeight = if definition.Style == "pickup" then height * 0.45 else if definition.Style == "truck" then height * 1.15 else height * 0.9
+	local cargoHeight = if definition.Style == "pickup" then height * 0.4 else if definition.Style == "truck" then height * 1.05 else height * 0.82
 	local cargoZ = length / 2 - cargoLength / 2 - 0.3
-	previewPart(model, "Cargo", Vector3.new(width * 0.94, cargoHeight, cargoLength), Vector3.new(0, cargoHeight / 2 + 0.4, cargoZ), bodyColor)
+	local cargo = previewPart(model, "Cargo", Vector3.new(width * 0.94, cargoHeight, cargoLength), Vector3.new(0, cargoHeight / 2 + 1.0, cargoZ), bodyColor)
+	cargo.Material = if definition.Style == "truck" then Enum.Material.Metal else Enum.Material.SmoothPlastic
 
 	local windscreen = previewPart(
 		model,
 		"Windscreen",
 		Vector3.new(width * 0.72, height * 0.45, 0.18),
-		Vector3.new(0, height * 0.68, cabinZ - cabinLength / 2 - 0.1),
+		Vector3.new(0, height * 0.62 + 1.0, cabinZ - cabinLength * 0.38 - 0.08),
 		Color3.fromRGB(91, 158, 188)
 	)
 	windscreen.Material = Enum.Material.Glass
 	windscreen.Transparency = 0.15
 
+	for _, side in { -1, 1 } do
+		local sideWindow = previewPart(
+			model,
+			"SideWindow",
+			Vector3.new(0.16, height * 0.34, cabinLength * 0.38),
+			Vector3.new(side * width * 0.47, height * 0.62 + 1.0, cabinZ + 0.2),
+			Color3.fromRGB(75, 135, 160)
+		)
+		sideWindow.Material = Enum.Material.Glass
+		sideWindow.Transparency = 0.14
+
+		local mirror = previewPart(
+			model,
+			"Mirror",
+			Vector3.new(0.38, 0.7, 0.72),
+			Vector3.new(side * width * 0.57, height * 0.58 + 1.0, cabinZ - cabinLength * 0.28),
+			Color3.fromRGB(38, 42, 46)
+		)
+		mirror.Material = Enum.Material.Metal
+	end
+
+	local frontBumper = previewPart(
+		model,
+		"FrontBumper",
+		Vector3.new(width * 0.9, 0.42, 0.42),
+		Vector3.new(0, 0.72, -length / 2 - 0.14),
+		Color3.fromRGB(45, 49, 53)
+	)
+	frontBumper.Material = Enum.Material.Metal
+
+	for _, side in { -1, 1 } do
+		local headlight = previewPart(
+			model,
+			"Headlight",
+			Vector3.new(width * 0.2, 0.42, 0.14),
+			Vector3.new(side * width * 0.28, 1.15, -length / 2 - 0.22),
+			Color3.fromRGB(255, 235, 176)
+		)
+		headlight.Material = Enum.Material.Neon
+	end
+
+	local brandStripe = previewPart(
+		model,
+		"BrandStripe",
+		Vector3.new(width * 0.96, 0.34, cargoLength * 0.78),
+		Vector3.new(0, math.max(1.3, cargoHeight * 0.55 + 1.0), cargoZ),
+		Color3.fromRGB(245, 151, 49)
+	)
+	brandStripe.Material = Enum.Material.SmoothPlastic
+
+	if definition.Style == "service_van"
+		or definition.Style == "long_van"
+		or definition.Style == "premium_van"
+		or definition.Style == "elite"
+	then
+		for _, side in { -1, 1 } do
+			local rail = previewPart(
+				model,
+				"RoofRail",
+				Vector3.new(0.18, 0.22, cargoLength * 0.82),
+				Vector3.new(side * width * 0.32, cargoHeight + 1.15, cargoZ),
+				Color3.fromRGB(70, 75, 80)
+			)
+			rail.Material = Enum.Material.Metal
+		end
+	end
+
+	if definition.Style == "pickup" then
+		for _, side in { -1, 1 } do
+			local bedRail = previewPart(
+				model,
+				"PickupRail",
+				Vector3.new(0.18, 0.72, cargoLength * 0.82),
+				Vector3.new(side * width * 0.45, cargoHeight + 1.25, cargoZ),
+				Color3.fromRGB(72, 65, 58)
+			)
+			bedRail.Material = Enum.Material.Metal
+		end
+	elseif definition.Style == "truck" then
+		for _, side in { -1, 1 } do
+			local toolbox = previewPart(
+				model,
+				"Toolbox",
+				Vector3.new(0.9, 1.1, cargoLength * 0.48),
+				Vector3.new(side * width * 0.53, 1.4, cargoZ),
+				Color3.fromRGB(92, 96, 100)
+			)
+			toolbox.Material = Enum.Material.Metal
+		end
+	end
+
 	for axle = 1, definition.Axles do
 		local alpha = if definition.Axles == 1 then 0.5 else (axle - 1) / (definition.Axles - 1)
 		local z = -length * 0.36 + alpha * length * 0.72
 		for _, side in { -1, 1 } do
-			local wheel = previewPart(model, "Wheel", Vector3.new(1.0, 1.8, 1.8), Vector3.new(side * width * 0.52, -0.55, z), Color3.fromRGB(25, 27, 30))
+			local wheel = previewPart(model, "Wheel", Vector3.new(0.9, 1.9, 1.9), Vector3.new(side * width * 0.52, 0.45, z), Color3.fromRGB(25, 27, 30))
 			wheel.Shape = Enum.PartType.Cylinder
 			wheel.Orientation = Vector3.new(0, 0, 90)
+			local rim = previewPart(
+				model,
+				"Rim",
+				Vector3.new(0.94, 1.0, 1.0),
+				Vector3.new(side * width * 0.525, 0.45, z),
+				Color3.fromRGB(145, 150, 155)
+			)
+			rim.Shape = Enum.PartType.Cylinder
+			rim.Orientation = Vector3.new(0, 0, 90)
+			rim.Material = Enum.Material.Metal
 		end
 	end
 
 	model.PrimaryPart = chassis
 	local camera = Instance.new("Camera")
-	camera.CFrame = CFrame.new(Vector3.new(width * 1.6, height * 1.6 + 2, length * 1.25), Vector3.new(0, height * 0.45, 0))
-	camera.FieldOfView = 35
+	camera.CFrame = CFrame.new(Vector3.new(width * 1.55, height * 1.35 + 3.2, length * 1.18), Vector3.new(0, height * 0.45 + 1.0, 0))
+	camera.FieldOfView = 32
 	camera.Parent = viewport
 	viewport.CurrentCamera = camera
 
