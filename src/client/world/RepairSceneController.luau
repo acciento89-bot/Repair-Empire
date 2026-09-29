@@ -264,9 +264,9 @@ function RepairSceneController.Begin(job, stage, targetPosition: Vector3)
 	RepairSceneController._model = model
 	RepairSceneController._category = category
 	RepairSceneController._stageIndex = 1
-	setState(model, "active")
+	model:SetAttribute("CurrentAction", if stage and stage.Action then stage.Action else "inspect")
+	setState(model, "faulty")
 	startAnimation(model)
-	RepairSceneController.Update(stage)
 end
 
 function RepairSceneController.Update(stage)
