@@ -16,11 +16,7 @@ local function raycastSurface(position: Vector3, excluded: { Instance }): Raycas
 	params.FilterType = Enum.RaycastFilterType.Exclude
 	params.FilterDescendantsInstances = excluded
 	params.IgnoreWater = false
-	return Workspace:Raycast(
-		Vector3.new(position.X, 40, position.Z),
-		Vector3.new(0, -80, 0),
-		params
-	)
+	return Workspace:Raycast(Vector3.new(position.X, 40, position.Z), Vector3.new(0, -80, 0), params)
 end
 
 local function collectSamples(world: Instance)
@@ -88,10 +84,7 @@ function WorldVerticalLayerProbe.Run(): boolean
 	assert(world ~= nil, "RepairEmpireWorld missing")
 
 	local broadPlatforms = findSuspiciousBroadPlatforms(world)
-	assert(
-		#broadPlatforms == 0,
-		"suspicious elevated broad collision surfaces: " .. table.concat(broadPlatforms, ",")
-	)
+	assert(#broadPlatforms == 0, "suspicious elevated broad collision surfaces: " .. table.concat(broadPlatforms, ","))
 
 	local failures = {}
 	local samples = collectSamples(world)
@@ -108,17 +101,9 @@ function WorldVerticalLayerProbe.Run(): boolean
 		end
 	end
 
-	assert(
-		#failures == 0,
-		"unexpected elevated playable surfaces: " .. table.concat(failures, ",")
-	)
+	assert(#failures == 0, "unexpected elevated playable surfaces: " .. table.concat(failures, ","))
 
-	print(
-		("[Repair Empire] WorldVerticalLayerProbe passed samples=%d elevatedBroadSurfaces=0 maxGroundY=%.1f"):format(
-			#samples,
-			MAX_PLAYABLE_GROUND_Y
-		)
-	)
+	print(("[Repair Empire] WorldVerticalLayerProbe passed samples=%d elevatedBroadSurfaces=0 maxGroundY=%.1f"):format(#samples, MAX_PLAYABLE_GROUND_Y))
 	return true
 end
 
