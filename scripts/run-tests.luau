@@ -8,6 +8,7 @@ local tests = {
 	require("../tests/content-catalog.spec"),
 	require("../tests/company.spec"),
 	require("../tests/world-config.spec"),
+	require("../tests/world-layout.spec"),
 	require("../tests/coop.spec"),
 	require("../tests/coop-rules.spec"),
 	require("../tests/coop-action-rules.spec"),
