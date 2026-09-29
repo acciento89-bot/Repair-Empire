@@ -84,6 +84,29 @@ local function baseRig(model: Model, origin: CFrame, title: string, tradeColor: 
 	local lamp = part(model, "StatusLight", Vector3.new(0.7, 0.7, 0.7), origin * CFrame.new(4.6, 0.65, 2.2), Color3.fromRGB(225, 74, 74), Enum.Material.Neon)
 	lamp.Shape = Enum.PartType.Ball
 	lamp:SetAttribute("RepairStatusLight", true)
+
+	local actionAnchor = part(model, "ActionLabelAnchor", Vector3.new(0.18, 0.18, 0.18), origin * CFrame.new(0, 4.9, -2.0), tradeColor)
+	actionAnchor.Transparency = 1
+	local actionGui = Instance.new("BillboardGui")
+	actionGui.Name = "ActionGui"
+	actionGui.Adornee = actionAnchor
+	actionGui.Size = UDim2.fromOffset(210, 42)
+	actionGui.AlwaysOnTop = true
+	actionGui.Parent = actionAnchor
+	local actionText = Instance.new("TextLabel")
+	actionText.Name = "ActionText"
+	actionText.Size = UDim2.fromScale(1, 1)
+	actionText.BackgroundColor3 = Color3.fromRGB(15, 24, 31)
+	actionText.BackgroundTransparency = 0.12
+	actionText.BorderSizePixel = 0
+	actionText.Font = Enum.Font.GothamMedium
+	actionText.TextScaled = true
+	actionText.TextColor3 = Color3.fromRGB(241, 244, 246)
+	actionText.Text = "INSPECT"
+	actionText.Parent = actionGui
+	local actionCorner = Instance.new("UICorner")
+	actionCorner.CornerRadius = UDim.new(0, 9)
+	actionCorner.Parent = actionText
 	return mat
 end
 
@@ -115,6 +138,20 @@ local function buildPlumbing(model: Model, origin: CFrame)
 	local leak = part(model, "FaultEffect", Vector3.new(0.5, 0.5, 0.5), origin * CFrame.new(0, 0.7, -0.25), trade, Enum.Material.Neon)
 	leak.Shape = Enum.PartType.Ball
 	leak:SetAttribute("FaultEffect", true)
+	local water = Instance.new("ParticleEmitter")
+	water.Name = "WaterLeak"
+	water.Rate = 9
+	water.Lifetime = NumberRange.new(0.35, 0.65)
+	water.Speed = NumberRange.new(2.5, 4)
+	water.Acceleration = Vector3.new(0, -8, 0)
+	water.SpreadAngle = Vector2.new(18, 18)
+	water.Color = ColorSequence.new(Color3.fromRGB(95, 181, 245))
+	water.Size = NumberSequence.new(0.16)
+	water.Transparency = NumberSequence.new({
+		NumberSequenceKeypoint.new(0, 0.12),
+		NumberSequenceKeypoint.new(1, 0.8),
+	})
+	water.Parent = leak
 end
 
 local function buildHeating(model: Model, origin: CFrame)
@@ -130,6 +167,28 @@ local function buildHeating(model: Model, origin: CFrame)
 	local warning =
 		part(model, "FaultEffect", Vector3.new(1.1, 1.1, 0.35), origin * CFrame.new(3.0, 4.25, 0.2), Color3.fromRGB(235, 84, 70), Enum.Material.Neon)
 	warning:SetAttribute("FaultEffect", true)
+	local heatLight = Instance.new("PointLight")
+	heatLight.Name = "HeatGlow"
+	heatLight.Color = Color3.fromRGB(255, 139, 74)
+	heatLight.Range = 8
+	heatLight.Brightness = 1.1
+	heatLight.Parent = warning
+	local steam = Instance.new("ParticleEmitter")
+	steam.Name = "Steam"
+	steam.Rate = 5
+	steam.Lifetime = NumberRange.new(0.8, 1.4)
+	steam.Speed = NumberRange.new(0.7, 1.4)
+	steam.Acceleration = Vector3.new(0, 1.7, 0)
+	steam.Color = ColorSequence.new(Color3.fromRGB(225, 228, 230))
+	steam.Size = NumberSequence.new({
+		NumberSequenceKeypoint.new(0, 0.25),
+		NumberSequenceKeypoint.new(1, 0.75),
+	})
+	steam.Transparency = NumberSequence.new({
+		NumberSequenceKeypoint.new(0, 0.45),
+		NumberSequenceKeypoint.new(1, 1),
+	})
+	steam.Parent = warning
 end
 
 local function buildClimate(model: Model, origin: CFrame)
@@ -170,6 +229,18 @@ local function buildClimate(model: Model, origin: CFrame)
 		part(model, "FaultEffect", Vector3.new(1.2, 0.5, 0.35), origin * CFrame.new(2.6, 4.15, -0.62), Color3.fromRGB(235, 84, 70), Enum.Material.Neon)
 	fault:SetAttribute("FaultEffect", true)
 	hub:SetAttribute("SpinTarget", true)
+	for index = -1, 1 do
+		local airflow = part(
+			model,
+			"Airflow",
+			Vector3.new(0.22, 0.22, 4.5),
+			origin * CFrame.new(index * 1.1, 2.55, -3.15),
+			trade,
+			Enum.Material.Neon
+		)
+		airflow.Transparency = 0.68
+		airflow:SetAttribute("AirflowEffect", true)
+	end
 end
 
 local function buildEnergy(model: Model, origin: CFrame)
@@ -202,6 +273,24 @@ local function buildEnergy(model: Model, origin: CFrame)
 	end
 	local fault = part(model, "FaultEffect", Vector3.new(0.7, 0.7, 0.3), origin * CFrame.new(2.2, 3.7, -0.98), Color3.fromRGB(235, 84, 70), Enum.Material.Neon)
 	fault:SetAttribute("FaultEffect", true)
+	local sparks = Instance.new("Sparkles")
+	sparks.Name = "EnergySparks"
+	sparks.SparkleColor = trade
+	sparks.Parent = fault
+	local glow = Instance.new("PointLight")
+	glow.Name = "ControllerGlow"
+	glow.Color = trade
+	glow.Range = 7
+	glow.Brightness = 1.2
+	glow.Parent = fault
+end
+
+local function prettyAction(id: string): string
+	local words = string.split(id, "_")
+	for index, word in words do
+		words[index] = string.upper(word)
+	end
+	return table.concat(words, " ")
 end
 
 local BUILDERS = {
@@ -292,7 +381,12 @@ function RepairSceneController.Update(stage)
 		return
 	end
 	RepairSceneController._stageIndex += 1
-	model:SetAttribute("CurrentAction", if stage and stage.Action then stage.Action else "repair")
+	local action = if stage and stage.Action then stage.Action else "repair"
+	model:SetAttribute("CurrentAction", action)
+	local actionText = model:FindFirstChild("ActionText", true)
+	if actionText and actionText:IsA("TextLabel") then
+		actionText.Text = prettyAction(action)
+	end
 	setState(model, "active")
 	local light = model:FindFirstChild("StatusLight", true)
 	if light and light:IsA("BasePart") then
@@ -314,7 +408,17 @@ function RepairSceneController.Complete()
 		return
 	end
 	model:SetAttribute("CurrentAction", "completed")
+	local actionText = model:FindFirstChild("ActionText", true)
+	if actionText and actionText:IsA("TextLabel") then
+		actionText.Text = "JOB COMPLETE"
+		actionText.TextColor3 = Color3.fromRGB(120, 226, 151)
+	end
 	setState(model, "completed")
+	for _, item in model:GetDescendants() do
+		if item:IsA("ParticleEmitter") or item:IsA("Sparkles") then
+			item.Enabled = false
+		end
+	end
 	task.delay(2.5, function()
 		if RepairSceneController._model == model then
 			RepairSceneController.Clear()
