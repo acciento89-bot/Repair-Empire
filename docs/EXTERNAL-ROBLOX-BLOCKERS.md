@@ -94,7 +94,7 @@ External executor fuzzing and real-user network abuse remain post-launch monitor
 
 ## P16 - Data/runtime and public release
 Current platform incident:
-- on 2026-09-29 Studio repeatedly returned `PublishService AssetUpload failed: UploadStatusPolling max polling retry reached` while publishing the development place
+- on 2026-09-29 Studio repeatedly returned `PublishService AssetUpload failed: UploadStatusPolling max polling retry reached` while publishing the development place; a final retry after P18 completion failed again at 00:01 UTC
 - current reports from other Roblox creators show the same Studio save/publish failure; the latest green Rojo build is preserved locally at `.local-backups/RepairEmpire-latest-green.rbxlx` and in GitHub
 - retry cloud publishing when Roblox's upload service recovers
 
