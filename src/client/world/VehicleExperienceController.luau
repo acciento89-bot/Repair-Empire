@@ -136,13 +136,13 @@ function VehicleExperienceController.Start()
 			end
 
 			if VehicleExperienceController._speedLabel then
-				VehicleExperienceController._speedLabel.Text =
-					("%d • %s"):format(displayedSpeed, string.upper(tostring(model:GetAttribute("VehicleId") or "SERVICE VEHICLE")))
+				VehicleExperienceController._speedLabel.Text = ("%d • %s"):format(
+					displayedSpeed,
+					string.upper(tostring(model:GetAttribute("VehicleId") or "SERVICE VEHICLE"))
+				)
 			end
 			if VehicleExperienceController._statusLabel then
-				VehicleExperienceController._statusLabel.Text = if moving
-					then "REPAIR EMPIRE FLEET • EN ROUTE"
-					else "REPAIR EMPIRE FLEET • READY"
+				VehicleExperienceController._statusLabel.Text = if moving then "REPAIR EMPIRE FLEET • EN ROUTE" else "REPAIR EMPIRE FLEET • READY"
 			end
 
 			targetFov = if moving then 74 + math.min(4, throttle * 4) else 72
