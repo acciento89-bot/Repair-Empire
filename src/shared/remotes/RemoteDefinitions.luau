@@ -23,6 +23,7 @@ local definitions = {
 	{ Name = "SelectVehicle", Kind = "Function", RateLimitPerSecond = 3 },
 	{ Name = "SpawnVehicle", Kind = "Function", RateLimitPerSecond = 2 },
 	{ Name = "DespawnVehicle", Kind = "Function", RateLimitPerSecond = 2 },
+	{ Name = "UpdateVehicleInput", Kind = "Event", RateLimitPerSecond = 20 },
 	{ Name = "HireEmployee", Kind = "Function", RateLimitPerSecond = 2 },
 
 	{ Name = "ClaimDailyReward", Kind = "Function", RateLimitPerSecond = 1 },
