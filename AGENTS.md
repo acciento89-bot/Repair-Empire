@@ -20,6 +20,9 @@ Before changing implementation code, read:
 - Commit completed work to GitHub.
 - Update the ledger only after acceptance criteria are verified.
 - Continue to the next task unless a real blocker remains.
+- Maintain exactly one canonical local Roblox place artifact: `build.rbxlx`. Do not persist `QA`, `mainQA`, release-copy or backup `.rbxl/.rbxlx` files.
+- Temporary runtime screenshots or probes belong only under `/private/tmp` and must be deleted after verification.
+- Publish development and production places only from the canonical current source/build. Never publish from an older local QA place copy.
 
 ## Completion report
 Always report:
