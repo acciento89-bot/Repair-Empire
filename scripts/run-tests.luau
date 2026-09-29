@@ -8,6 +8,7 @@ local tests = {
 	require("../tests/content-catalog.spec"),
 	require("../tests/vehicle-input-rules.spec"),
 	require("../tests/production-art-coverage.spec"),
+	require("../tests/audio-catalog.spec"),
 	require("../tests/company.spec"),
 	require("../tests/world-config.spec"),
 	require("../tests/world-layout.spec"),
