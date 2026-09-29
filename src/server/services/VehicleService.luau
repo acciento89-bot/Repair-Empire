@@ -417,7 +417,39 @@ local function buildProceduralVehicle(player: Player, definition, slotIndex: num
 			rim.Material = Enum.Material.Metal
 			rim.Color = Color3.fromRGB(145, 150, 155)
 			rim.CanCollide = false
+
+			local archTrim = createVehiclePart(
+				("WheelArchTrim_%d_%d"):format(axleIndex, side),
+				Vector3.new(0.22, 0.38, 2.8),
+				CFrame.new(origin + Vector3.new(side * width * 0.515, 0.38, z)),
+				model
+			)
+			archTrim.Material = Enum.Material.SmoothPlastic
+			archTrim.Color = bodyColor
+			archTrim.CanCollide = false
 		end
+	end
+
+	for _, side in { -1, 1 } do
+		local skirt = createVehiclePart(
+			"SideSkirt",
+			Vector3.new(0.28, 0.5, length * 0.52),
+			CFrame.new(origin + Vector3.new(side * width * 0.505, -0.15, length * 0.05)),
+			model
+		)
+		skirt.Material = Enum.Material.Metal
+		skirt.Color = Color3.fromRGB(55, 59, 63)
+		skirt.CanCollide = false
+
+		local step = createVehiclePart(
+			"CabStep",
+			Vector3.new(0.65, 0.22, cabinLength * 0.58),
+			CFrame.new(origin + Vector3.new(side * width * 0.56, -0.4, cabinCenterZ)),
+			model
+		)
+		step.Material = Enum.Material.Metal
+		step.Color = Color3.fromRGB(74, 78, 81)
+		step.CanCollide = false
 	end
 
 	model.PrimaryPart = chassis
@@ -534,7 +566,20 @@ function VehicleService:Spawn(player: Player)
 	local root = character and character:FindFirstChild("HumanoidRootPart")
 	if root and root:IsA("BasePart") and model.PrimaryPart then
 		local lateralOffset = if slotIndex == 1 then 8 else -8
-		model:PivotTo(root.CFrame * CFrame.new(lateralOffset, 1.5, -12))
+		local target = root.CFrame * CFrame.new(lateralOffset, 0, -12)
+		local params = RaycastParams.new()
+		params.FilterType = Enum.RaycastFilterType.Exclude
+		params.FilterDescendantsInstances = { character, model }
+
+		local result = Workspace:Raycast(
+			target.Position + Vector3.new(0, 24, 0),
+			Vector3.new(0, -80, 0),
+			params
+		)
+		local groundY = if result then result.Position.Y else root.Position.Y - 3
+		local chassisY = groundY + 1.8
+		local rotation = root.CFrame.Rotation
+		model:PivotTo(CFrame.new(target.Position.X, chassisY, target.Position.Z) * rotation)
 	end
 
 	table.insert(entries, {
