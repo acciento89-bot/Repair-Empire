@@ -6,6 +6,7 @@ local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local RunService = game:GetService("RunService")
 
 local ToolDefinitions = require(ReplicatedStorage.RepairEmpire.Shared.tools.ToolDefinitions)
+local RepairAudioRules = require(ReplicatedStorage.RepairEmpire.Shared.audio.RepairAudioRules)
 
 local RepairAudioController = {}
 
@@ -103,7 +104,7 @@ function RepairAudioController.Start()
 
 	local currentCategory = "plumbing"
 
-	local function configureToolCue()
+	local function configureToolCue(action: string)
 		local toolId = Players.LocalPlayer:GetAttribute("EquippedTool")
 		local definition = if type(toolId) == "string" then ToolDefinitions.ById[toolId] else nil
 		local config = if definition then TOOL_AUDIO[definition.Family] else nil
@@ -112,9 +113,10 @@ function RepairAudioController.Start()
 			PlaybackSpeed = 1.55,
 			Volume = 0.16,
 		}
-		stageSound.SoundId = config.SoundId
-		stageSound.PlaybackSpeed = config.PlaybackSpeed
-		stageSound.Volume = config.Volume
+		local actionProfile = RepairAudioRules.ForAction(action)
+		stageSound.SoundId = actionProfile.SoundId or config.SoundId
+		stageSound.PlaybackSpeed = config.PlaybackSpeed + actionProfile.PlaybackOffset
+		stageSound.Volume = config.Volume * actionProfile.VolumeMultiplier
 	end
 
 	local function playTrade(category: string, stageBoost: number?)
@@ -141,7 +143,9 @@ function RepairAudioController.Start()
 			end
 			playTrade(currentCategory, -0.08)
 		elseif payload.kind == "job_stage" or payload.kind == "coop_stage" then
-			configureToolCue()
+			local stage = payload.stage
+			local action = if type(stage) == "table" and type(stage.Action) == "string" then stage.Action else "repair"
+			configureToolCue(action)
 			stageSound.TimePosition = 0
 			stageSound.PlaybackSpeed += math.min(0.12, math.random() * 0.08)
 			stageSound:Play()
