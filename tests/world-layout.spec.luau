@@ -14,8 +14,8 @@ return function()
 
 			for categoryIndex = 1, 4 do
 				local anchorX, anchorZ = layout.GetJobAnchorPosition(config, x, z, categoryIndex)
-				local outsideFront = math.abs(anchorZ - z) > config.BuildingSize[2] / 2
-				assert(outsideFront, districtId .. " job anchor must be outside the solid building shell")
+				local facadeClearance = math.abs(anchorZ - z) - config.BuildingSize[2] / 2
+				assert(facadeClearance >= 6, districtId .. " job anchor needs repair-scene facade clearance")
 				assert(math.abs(anchorX - x) < config.BuildingSize[1] / 2, districtId .. " job anchor must remain in front of the facade")
 				assert(math.abs(anchorX - config.Center[1]) <= config.GroundSize[1] / 2, districtId .. " job anchor escaped district X bounds")
 				assert(math.abs(anchorZ - config.Center[3]) <= config.GroundSize[2] / 2, districtId .. " job anchor escaped district Z bounds")
