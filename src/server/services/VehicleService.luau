@@ -163,6 +163,86 @@ local function buildProceduralVehicle(player: Player, definition, slotIndex: num
 	rearBumper.Color = Color3.fromRGB(52, 56, 60)
 	rearBumper.CanCollide = false
 
+	local grille = createVehiclePart(
+		"FrontGrille",
+		Vector3.new(width * 0.48, 0.9, 0.18),
+		CFrame.new(origin + Vector3.new(0, 0.55, -length / 2 - 0.3)),
+		model
+	)
+	grille.Material = Enum.Material.Metal
+	grille.Color = Color3.fromRGB(36, 40, 44)
+	grille.CanCollide = false
+
+	for slot = -2, 2 do
+		local slat = createVehiclePart(
+			"GrilleSlat",
+			Vector3.new(0.12, 0.72, 0.22),
+			grille.CFrame * CFrame.new(slot * width * 0.07, 0, -0.06),
+			model
+		)
+		slat.Material = Enum.Material.Metal
+		slat.Color = Color3.fromRGB(108, 114, 118)
+		slat.CanCollide = false
+	end
+
+	local plate = createVehiclePart(
+		"RearPlate",
+		Vector3.new(2.6, 0.8, 0.14),
+		CFrame.new(origin + Vector3.new(0, 0.72, length / 2 + 0.31)),
+		model
+	)
+	plate.Material = Enum.Material.SmoothPlastic
+	plate.Color = Color3.fromRGB(238, 238, 231)
+	plate.CanCollide = false
+
+	local plateGui = Instance.new("SurfaceGui")
+	plateGui.Face = Enum.NormalId.Back
+	plateGui.SizingMode = Enum.SurfaceGuiSizingMode.PixelsPerStud
+	plateGui.PixelsPerStud = 40
+	plateGui.Parent = plate
+	local plateText = Instance.new("TextLabel")
+	plateText.Size = UDim2.fromScale(1, 1)
+	plateText.BackgroundTransparency = 1
+	plateText.Font = Enum.Font.GothamBold
+	plateText.TextScaled = true
+	plateText.TextColor3 = Color3.fromRGB(30, 32, 34)
+	plateText.Text = "RE • " .. string.upper(definition.Id:sub(1, 3))
+	plateText.Parent = plateGui
+
+	for _, side in { -1, 1 } do
+		local handle = createVehiclePart(
+			"DoorHandle",
+			Vector3.new(0.12, 0.22, 1.0),
+			CFrame.new(origin + Vector3.new(side * width * 0.475, height * 0.55, cabinCenterZ - cabinLength * 0.05)),
+			model
+		)
+		handle.Material = Enum.Material.Metal
+		handle.Color = Color3.fromRGB(56, 60, 64)
+		handle.CanCollide = false
+	end
+
+	local dashboard = createVehiclePart(
+		"Dashboard",
+		Vector3.new(width * 0.72, 0.55, 1.1),
+		CFrame.new(origin + Vector3.new(0, 1.45, cabinCenterZ - cabinLength * 0.3)),
+		model
+	)
+	dashboard.Material = Enum.Material.SmoothPlastic
+	dashboard.Color = Color3.fromRGB(36, 40, 44)
+	dashboard.CanCollide = false
+
+	local wheel = createVehiclePart(
+		"SteeringWheel",
+		Vector3.new(0.28, 1.35, 1.35),
+		CFrame.new(origin + Vector3.new(-width * 0.2, 1.85, cabinCenterZ - cabinLength * 0.22)),
+		model
+	)
+	wheel.Shape = Enum.PartType.Cylinder
+	wheel.Orientation = Vector3.new(0, 90, 0)
+	wheel.Material = Enum.Material.SmoothPlastic
+	wheel.Color = Color3.fromRGB(28, 30, 32)
+	wheel.CanCollide = false
+
 	local stripe = createVehiclePart(
 		"CompanyStripe",
 		Vector3.new(width * 0.96, 0.35, cargoLength * 0.8),
