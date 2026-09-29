@@ -81,7 +81,14 @@ local function buildPlumbing(model: Model, origin: CFrame)
 	faucet.Material = Enum.Material.Metal
 	addPipe(model, "ColdPipe", 3.1, origin * CFrame.new(-1.1, 1.35, -0.65), trade)
 	addPipe(model, "HotPipe", 3.1, origin * CFrame.new(1.1, 1.35, -0.65), Color3.fromRGB(205, 78, 64))
-	cylinder(model, "Trap", Vector3.new(1.6, 0.75, 0.75), origin * CFrame.new(0, 1.5, -0.25) * CFrame.Angles(0, 0, math.rad(90)), Color3.fromRGB(145, 150, 154), Enum.Material.Metal)
+	cylinder(
+		model,
+		"Trap",
+		Vector3.new(1.6, 0.75, 0.75),
+		origin * CFrame.new(0, 1.5, -0.25) * CFrame.Angles(0, 0, math.rad(90)),
+		Color3.fromRGB(145, 150, 154),
+		Enum.Material.Metal
+	)
 	for side = -1, 1, 2 do
 		cylinder(model, "Valve", Vector3.new(0.35, 1.2, 1.2), origin * CFrame.new(side * 1.1, 1.55, -0.7), Color3.fromRGB(190, 190, 190), Enum.Material.Metal)
 	end
@@ -100,7 +107,8 @@ local function buildHeating(model: Model, origin: CFrame)
 	addPipe(model, "FlowPipe", 2.4, origin * CFrame.new(-3.3, 1.25, -0.15), Color3.fromRGB(205, 78, 64))
 	addPipe(model, "ReturnPipe", 2.4, origin * CFrame.new(3.3, 1.25, -0.15), Color3.fromRGB(78, 121, 190))
 	cylinder(model, "ThermostatValve", Vector3.new(0.9, 1.25, 1.25), origin * CFrame.new(-3.3, 2.3, -0.1), Color3.fromRGB(185, 190, 192), Enum.Material.Metal)
-	local warning = part(model, "FaultEffect", Vector3.new(1.1, 1.1, 0.35), origin * CFrame.new(3.0, 4.25, 0.2), Color3.fromRGB(235, 84, 70), Enum.Material.Neon)
+	local warning =
+		part(model, "FaultEffect", Vector3.new(1.1, 1.1, 0.35), origin * CFrame.new(3.0, 4.25, 0.2), Color3.fromRGB(235, 84, 70), Enum.Material.Neon)
 	warning:SetAttribute("FaultEffect", true)
 end
 
@@ -108,16 +116,38 @@ local function buildClimate(model: Model, origin: CFrame)
 	local trade = TRADE_COLORS.climate
 	baseRig(model, origin, "CLIMATE SERVICE", trade)
 	part(model, "OutdoorUnit", Vector3.new(7.3, 4.6, 2.3), origin * CFrame.new(0, 2.45, 0.6), Color3.fromRGB(218, 224, 226), Enum.Material.Metal)
-	local grille = cylinder(model, "FanGrille", Vector3.new(0.4, 3.2, 3.2), origin * CFrame.new(0, 2.55, -0.65) * CFrame.Angles(0, math.rad(90), 0), Color3.fromRGB(72, 78, 82), Enum.Material.Metal)
+	local grille = cylinder(
+		model,
+		"FanGrille",
+		Vector3.new(0.4, 3.2, 3.2),
+		origin * CFrame.new(0, 2.55, -0.65) * CFrame.Angles(0, math.rad(90), 0),
+		Color3.fromRGB(72, 78, 82),
+		Enum.Material.Metal
+	)
 	grille.Transparency = 0.12
-	local hub = cylinder(model, "FanHub", Vector3.new(0.55, 0.65, 0.65), origin * CFrame.new(0, 2.55, -0.9) * CFrame.Angles(0, math.rad(90), 0), trade, Enum.Material.Metal)
+	local hub = cylinder(
+		model,
+		"FanHub",
+		Vector3.new(0.55, 0.65, 0.65),
+		origin * CFrame.new(0, 2.55, -0.9) * CFrame.Angles(0, math.rad(90), 0),
+		trade,
+		Enum.Material.Metal
+	)
 	for i = 0, 5 do
 		local angle = math.rad(i * 60)
-		part(model, "FanBlade", Vector3.new(0.42, 1.9, 0.22), origin * CFrame.new(math.cos(angle) * 0.8, 2.55 + math.sin(angle) * 0.8, -1.02) * CFrame.Angles(0, 0, -angle), Color3.fromRGB(95, 102, 106), Enum.Material.Metal)
+		part(
+			model,
+			"FanBlade",
+			Vector3.new(0.42, 1.9, 0.22),
+			origin * CFrame.new(math.cos(angle) * 0.8, 2.55 + math.sin(angle) * 0.8, -1.02) * CFrame.Angles(0, 0, -angle),
+			Color3.fromRGB(95, 102, 106),
+			Enum.Material.Metal
+		)
 	end
 	addPipe(model, "RefrigerantLine", 3.1, origin * CFrame.new(-2.2, 1.2, -0.7), Color3.fromRGB(181, 136, 70))
 	addPipe(model, "CondensateLine", 3.1, origin * CFrame.new(2.2, 1.2, -0.7), trade)
-	local fault = part(model, "FaultEffect", Vector3.new(1.2, 0.5, 0.35), origin * CFrame.new(2.6, 4.15, -0.62), Color3.fromRGB(235, 84, 70), Enum.Material.Neon)
+	local fault =
+		part(model, "FaultEffect", Vector3.new(1.2, 0.5, 0.35), origin * CFrame.new(2.6, 4.15, -0.62), Color3.fromRGB(235, 84, 70), Enum.Material.Neon)
 	fault:SetAttribute("FaultEffect", true)
 	hub:SetAttribute("SpinTarget", true)
 end
@@ -128,12 +158,26 @@ local function buildEnergy(model: Model, origin: CFrame)
 	part(model, "HeatPumpBody", Vector3.new(7.5, 5.2, 2.5), origin * CFrame.new(0, 2.75, 0.55), Color3.fromRGB(208, 215, 216), Enum.Material.Metal)
 	local panel = part(model, "Controller", Vector3.new(2.2, 1.6, 0.22), origin * CFrame.new(2.2, 3.7, -0.82), Color3.fromRGB(35, 45, 51), Enum.Material.Glass)
 	label(panel, "SYSTEM", trade)
-	local grille = cylinder(model, "Fan", Vector3.new(0.35, 2.9, 2.9), origin * CFrame.new(-1.5, 2.8, -0.85) * CFrame.Angles(0, math.rad(90), 0), Color3.fromRGB(75, 82, 85), Enum.Material.Metal)
+	local grille = cylinder(
+		model,
+		"Fan",
+		Vector3.new(0.35, 2.9, 2.9),
+		origin * CFrame.new(-1.5, 2.8, -0.85) * CFrame.Angles(0, math.rad(90), 0),
+		Color3.fromRGB(75, 82, 85),
+		Enum.Material.Metal
+	)
 	grille.Transparency = 0.1
 	addPipe(model, "PrimaryFlow", 3.0, origin * CFrame.new(-2.4, 1.2, -0.65), Color3.fromRGB(205, 78, 64))
 	addPipe(model, "PrimaryReturn", 3.0, origin * CFrame.new(2.4, 1.2, -0.65), Color3.fromRGB(78, 121, 190))
 	for i = -1, 1 do
-		local cable = part(model, "Cable", Vector3.new(0.18, 2.4, 0.18), origin * CFrame.new(3.2 + i * 0.35, 1.4, -0.72), Color3.fromRGB(38, 40, 43), Enum.Material.Rubber)
+		local cable = part(
+			model,
+			"Cable",
+			Vector3.new(0.18, 2.4, 0.18),
+			origin * CFrame.new(3.2 + i * 0.35, 1.4, -0.72),
+			Color3.fromRGB(38, 40, 43),
+			Enum.Material.Rubber
+		)
 		cable:SetAttribute("Cable", true)
 	end
 	local fault = part(model, "FaultEffect", Vector3.new(0.7, 0.7, 0.3), origin * CFrame.new(2.2, 3.7, -0.98), Color3.fromRGB(235, 84, 70), Enum.Material.Neon)
@@ -156,7 +200,9 @@ local function setState(model: Model, state: string)
 				item.Transparency = if state == "completed" then 1 else if state == "active" then 0.08 else 0.2
 				item.Color = if state == "completed" then Color3.fromRGB(76, 188, 112) else Color3.fromRGB(235, 84, 70)
 			elseif item:GetAttribute("RepairStatusLight") == true then
-				item.Color = if state == "completed" then Color3.fromRGB(76, 188, 112) else if state == "active" then tradeColor else Color3.fromRGB(235, 84, 70)
+				item.Color = if state == "completed"
+					then Color3.fromRGB(76, 188, 112)
+					else if state == "active" then tradeColor else Color3.fromRGB(235, 84, 70)
 			end
 		end
 	end
