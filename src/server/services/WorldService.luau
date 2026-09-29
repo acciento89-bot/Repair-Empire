@@ -12,6 +12,7 @@ local Stats = game:GetService("Stats")
 local WorldConfig = require(ReplicatedStorage.RepairEmpire.Shared.world.WorldConfig)
 local WorldLayoutRules = require(ReplicatedStorage.RepairEmpire.Shared.world.WorldLayoutRules)
 local SpatialRules = require(ReplicatedStorage.RepairEmpire.Shared.security.SpatialRules)
+local EnvironmentArt = require(script.Parent.Parent.world.EnvironmentArt)
 
 local CATEGORIES = { "plumbing", "heating", "climate", "energy" }
 local CATEGORY_COLORS = {
