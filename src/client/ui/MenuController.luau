@@ -42,7 +42,7 @@ end
 
 local function clear(parent: Instance)
 	for _, child in parent:GetChildren() do
-		if not child:IsA("UIListLayout") and not child:IsA("UIPadding") then
+		if not child:IsA("UIComponent") then
 			child:Destroy()
 		end
 	end
@@ -1073,9 +1073,10 @@ function MenuController.Start()
 	local tabLayout = Instance.new("UIListLayout")
 	tabLayout.FillDirection = Enum.FillDirection.Horizontal
 	tabLayout.Padding = UDim.new(0, 6)
+	tabLayout.SortOrder = Enum.SortOrder.LayoutOrder
 	tabLayout.Parent = tabs
 
-	for _, tab in MenuNavigation.Tabs do
+	for index, tab in MenuNavigation.Tabs do
 		local button = Instance.new("TextButton")
 		button.Name = tab.Id .. "Tab"
 		button.Size = UDim2.fromOffset(116, 48)
@@ -1085,6 +1086,7 @@ function MenuController.Start()
 		button.Font = Enum.Font.GothamMedium
 		button.TextSize = 14
 		button.Text = tab.Label
+		button.LayoutOrder = index
 		button.Selectable = true
 		button.Parent = tabs
 		UiFactory.Round(button, 10)
