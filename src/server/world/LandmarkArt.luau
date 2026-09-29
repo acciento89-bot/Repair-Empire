@@ -70,11 +70,19 @@ local function downtown(parent: Instance, center: Vector3, config)
 	part(parent, "ClockTower", Vector3.new(6.5, 18, 6.5), CFrame.new(x, 9, z), Color3.fromRGB(80, 86, 92), Enum.Material.Concrete)
 	local crown = part(parent, "ClockCrown", Vector3.new(8.3, 3.0, 8.3), CFrame.new(x, 19.5, z), Color3.fromRGB(43, 50, 57), Enum.Material.Metal)
 	for _, face in { -1, 1 } do
-		local clock = part(parent, "ClockFace", Vector3.new(4.4, 4.4, 0.18), CFrame.new(x, 16.2, z + face * 3.35), Color3.fromRGB(235, 231, 211), Enum.Material.SmoothPlastic)
+		local clock = part(
+			parent,
+			"ClockFace",
+			Vector3.new(4.4, 4.4, 0.18),
+			CFrame.new(x, 16.2, z + face * 3.35),
+			Color3.fromRGB(235, 231, 211),
+			Enum.Material.SmoothPlastic
+		)
 		clock.Shape = Enum.PartType.Cylinder
 		clock.Orientation = Vector3.new(90, 0, 0)
 	end
-	local light = part(parent, "ClockBeacon", Vector3.new(1.2, 1.2, 1.2), crown.CFrame * CFrame.new(0, 2.2, 0), Color3.fromRGB(245, 151, 49), Enum.Material.Neon)
+	local light =
+		part(parent, "ClockBeacon", Vector3.new(1.2, 1.2, 1.2), crown.CFrame * CFrame.new(0, 2.2, 0), Color3.fromRGB(245, 151, 49), Enum.Material.Neon)
 	light.Shape = Enum.PartType.Ball
 end
 
@@ -95,7 +103,14 @@ local function industrial(parent: Instance, center: Vector3, config)
 	end
 	part(parent, "PipeRackBeam", Vector3.new(27, 0.8, 0.8), CFrame.new(x, 8.5, z - 14), Color3.fromRGB(70, 74, 78), Enum.Material.Metal)
 	for lane = -1, 1 do
-		local pipe = part(parent, "OverheadPipe", Vector3.new(26, 0.75, 0.75), CFrame.new(x, 7.3 + lane * 1.0, z - 14), if lane == 0 then Color3.fromRGB(230, 112, 55) else Color3.fromRGB(68, 145, 214), Enum.Material.Metal)
+		local pipe = part(
+			parent,
+			"OverheadPipe",
+			Vector3.new(26, 0.75, 0.75),
+			CFrame.new(x, 7.3 + lane * 1.0, z - 14),
+			if lane == 0 then Color3.fromRGB(230, 112, 55) else Color3.fromRGB(68, 145, 214),
+			Enum.Material.Metal
+		)
 		pipe.Shape = Enum.PartType.Cylinder
 		pipe.Orientation = Vector3.new(0, 0, 90)
 	end
