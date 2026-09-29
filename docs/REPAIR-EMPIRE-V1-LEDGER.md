@@ -132,7 +132,7 @@ Verification baseline:
 - [x] P16-T02 Data migration/recovery test — isolated development DataStore live-probe verified v1→v2 migration with value preservation, expired-lock acquisition, active foreign-lock acquisition rejection, foreign-lock write rejection and cleanup=true
 - [!] P16-T03 Purchase release checklist — IDs/prices/free path plus live Game Pass ownership/prompt behavior are verified; final successful Developer Product receipt/rejoin checklist is blocked by the same owner-approved real Robux transaction required by P10-T06
 - [x] P16-T04 Store metadata/assets checklist — final name/description reviewed in Creator Hub; custom Repair Empire icon and three custom thumbnails are uploaded and processed; 17-section content questionnaire is complete
-- [!] P16-T05 Controlled public launch — build, metadata/assets, QA, rollback readiness and P18 Final Polish are complete; content maturity is assigned as `Minimal`. Public exposure remains blocked only by the owner-approved real Developer Product receipt/rejoin evidence and the current Roblox Studio publishing incident
+- [!] P16-T05 Controlled public launch — build, metadata/assets, QA and rollback readiness are prepared, but P19 Production Art & World Quality is now a mandatory corrective gate after runtime map/art defects were found. Public exposure also remains blocked by the owner-approved real Developer Product receipt/rejoin evidence and the Roblox publishing incident.
 - [x] P16-T06 Launch monitoring/rollback readiness — analytics, rollback and incident runbooks prepared
 
 ## P17 Post-launch
@@ -150,3 +150,16 @@ Verification baseline:
 - [x] P18-T04 Vehicles and garage presentation — eight distinct vehicle styles, procedural 3D garage previews, explicit selected/owned/locked presentation, style-specific runtime visuals and server-authoritative spawn/despawn; P06 travel integration remains verified
 - [x] P18-T05 World, workshop, audio and effects pass — district identity retained; workshop branding/service-bay/tool dressing, restrained lighting polish and expanded reward feedback/audio are implemented without external asset dependency
 - [x] P18-T06 Full player-journey acceptance — P02-P16 runtime/device/input matrix plus P18 polish additions cover onboarding through Prestige preview; final acceptance and external-only blockers recorded in docs/P18-FINAL-ACCEPTANCE.md
+
+
+## P19 Production Art & World Quality — mandatory pre-public-launch gate
+- [x] P19-T01 Art direction and asset language — Repair Empire production-art rules, trade colors, materials, scale, collision and screenshot-quality criteria are locked in docs/ART-DIRECTION.md
+- [~] P19-T02 Environment production kit — legacy terrain/template cleanup, connected service-city rebuild, reserved workshop parcel, roads/sidewalks/cross streets and accessible service routes are implemented; final landmark/detail pass remains
+- [ ] P19-T03 Repair scene library — visible trade-specific repair installations and faulty/active/completed state changes
+- [ ] P19-T04 Tool production art — readable tool visuals and category/tier feedback
+- [~] P19-T05 Vehicle production art — eight distinct procedural vehicle silhouettes and garage previews exist; higher-detail exterior/interior pass remains
+- [~] P19-T06 Workshop production art — branded yard/workshop exists; upgrade-visible production-art states remain
+- [~] P19-T07 VFX and audio production pass — baseline reward/UI audio exists; trade-specific repair VFX/audio remain
+- [~] P19-T08 Lighting and material pass — baseline lighting/material language exists; final district/material polish remains
+- [ ] P19-T09 Full visual/runtime QA — walk/jump/drive and representative trade jobs across supported layouts
+- [ ] P19-T10 Screenshot quality gate — final normal-player-view evidence for spawn/workshop/districts/jobs/vehicles
