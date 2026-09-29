@@ -86,7 +86,14 @@ local function buildMeter(model: Model, origin: CFrame, accent: Color3): BasePar
 	screen.Color = accent
 	screen.Transparency = 0.15
 	for _, x in { -0.45, 0.45 } do
-		local jack = part(model, "ProbeJack", Vector3.new(0.28, 0.35, 0.35), origin * CFrame.new(x, -0.95, -0.42), if x < 0 then Color3.fromRGB(210, 67, 60) else Color3.fromRGB(35, 36, 38), Enum.Material.Metal)
+		local jack = part(
+			model,
+			"ProbeJack",
+			Vector3.new(0.28, 0.35, 0.35),
+			origin * CFrame.new(x, -0.95, -0.42),
+			if x < 0 then Color3.fromRGB(210, 67, 60) else Color3.fromRGB(35, 36, 38),
+			Enum.Material.Metal
+		)
 		jack.Shape = Enum.PartType.Cylinder
 		jack.Orientation = Vector3.new(0, 90, 0)
 		weld(body, jack)
@@ -177,14 +184,20 @@ end
 
 local function bindPlayer(player: Player)
 	local connections = {}
-	table.insert(connections, player:GetAttributeChangedSignal("EquippedTool"):Connect(function()
-		rebuild(player)
-	end))
-	table.insert(connections, player.CharacterAdded:Connect(function()
-		task.defer(function()
+	table.insert(
+		connections,
+		player:GetAttributeChangedSignal("EquippedTool"):Connect(function()
 			rebuild(player)
 		end)
-	end))
+	)
+	table.insert(
+		connections,
+		player.CharacterAdded:Connect(function()
+			task.defer(function()
+				rebuild(player)
+			end)
+		end)
+	)
 	ToolVisualService._connections[player] = connections
 	task.defer(function()
 		rebuild(player)
