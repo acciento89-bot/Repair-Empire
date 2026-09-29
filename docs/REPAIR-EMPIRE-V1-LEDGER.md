@@ -133,7 +133,7 @@ Verification baseline:
 - [x] P16-T02 Data migration/recovery test — isolated development DataStore live-probe verified v1→v2 migration with value preservation, expired-lock acquisition, active foreign-lock acquisition rejection, foreign-lock write rejection and cleanup=true
 - [!] P16-T03 Purchase release checklist — IDs/prices/free path plus live Game Pass ownership/prompt behavior are verified; final successful Developer Product receipt/rejoin checklist is blocked by the same owner-approved real Robux transaction required by P10-T06
 - [x] P16-T04 Store metadata/assets checklist — final name/description reviewed in Creator Hub; custom Repair Empire icon and three custom thumbnails are uploaded and processed; 17-section content questionnaire is complete
-- [!] P16-T05 Controlled public launch — build, metadata/assets, QA, rollback readiness and the corrective P19 Production Art & World Quality gate are complete. Public exposure remains blocked by the owner-approved real Developer Product receipt/rejoin evidence and the Roblox publishing incident.
+- [!] P16-T05 Controlled public launch — build, metadata/assets, QA, rollback readiness and P19 Production Art & World Quality are complete; the final private dev build published successfully to Roblox as v70 on 2026-09-29. Public exposure is now blocked only by the owner-approved real Developer Product receipt/rejoin evidence.
 - [x] P16-T06 Launch monitoring/rollback readiness — analytics, rollback and incident runbooks prepared
 
 ## P17 Post-launch
