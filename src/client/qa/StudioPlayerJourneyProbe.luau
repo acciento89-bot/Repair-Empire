@@ -1,3 +1,5 @@
+[Reading 324 lines from start (total: 324 lines, 0 remaining)]
+
 --!strict
 
 local Players = game:GetService("Players")
@@ -322,3 +324,5 @@ function StudioPlayerJourneyProbe.Start()
 end
 
 return StudioPlayerJourneyProbe
+
+[executed on device: MacBookPro.fritz.box (eb87a35b-7c3f-490b-a79a-9556613a3bcc)]
