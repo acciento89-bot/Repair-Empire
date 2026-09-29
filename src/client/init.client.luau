@@ -17,6 +17,7 @@ local WorkshopVisualController = require(script.world.WorkshopVisualController)
 local ToolAnimationController = require(script.world.ToolAnimationController)
 local EmployeeVisualController = require(script.world.EmployeeVisualController)
 local TrafficController = require(script.world.TrafficController)
+local VehicleExperienceController = require(script.world.VehicleExperienceController)
 local RepairAudioController = require(script.audio.RepairAudioController)
 
 local player = Players.LocalPlayer
@@ -60,6 +61,7 @@ WorkshopVisualController.Start()
 ToolAnimationController.Start()
 EmployeeVisualController.Start()
 TrafficController.Start()
+VehicleExperienceController.Start()
 
 local remotes = ReplicatedStorage:WaitForChild("RepairEmpireRemotes")
 local stateUpdated = remotes:WaitForChild("StateUpdated")
