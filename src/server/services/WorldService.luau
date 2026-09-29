@@ -709,20 +709,26 @@ function WorldService:Init()
 	self._anchorsById = {}
 	self._anchorsByDistrictCategory = {}
 
-	Lighting.ClockTime = 14
-	Lighting.Brightness = 2
-	Lighting.EnvironmentDiffuseScale = 0.45
-	Lighting.EnvironmentSpecularScale = 0.35
-	Lighting.OutdoorAmbient = Color3.fromRGB(145, 145, 155)
+	Lighting.ClockTime = 14.25
+	Lighting.Brightness = 2.05
+	Lighting.ExposureCompensation = -0.05
+	Lighting.GlobalShadows = true
+	Lighting.ShadowSoftness = 0.34
+	Lighting.EnvironmentDiffuseScale = 0.48
+	Lighting.EnvironmentSpecularScale = 0.42
+	Lighting.Ambient = Color3.fromRGB(83, 91, 100)
+	Lighting.OutdoorAmbient = Color3.fromRGB(132, 138, 147)
+	Lighting.ColorShift_Top = Color3.fromRGB(255, 246, 232)
+	Lighting.ColorShift_Bottom = Color3.fromRGB(220, 229, 236)
 
 	local colorCorrection = Lighting:FindFirstChildOfClass("ColorCorrectionEffect")
 	if colorCorrection == nil then
 		colorCorrection = Instance.new("ColorCorrectionEffect")
 		colorCorrection.Parent = Lighting
 	end
-	colorCorrection.Brightness = 0.02
-	colorCorrection.Contrast = 0.08
-	colorCorrection.Saturation = 0.05
+	colorCorrection.Brightness = 0.01
+	colorCorrection.Contrast = 0.1
+	colorCorrection.Saturation = 0.07
 	colorCorrection.TintColor = Color3.fromRGB(255, 248, 238)
 
 	local bloom = Lighting:FindFirstChildOfClass("BloomEffect")
@@ -739,11 +745,12 @@ function WorldService:Init()
 		atmosphere = Instance.new("Atmosphere")
 		atmosphere.Parent = Lighting
 	end
-	atmosphere.Density = 0.24
-	atmosphere.Offset = 0.05
-	atmosphere.Glare = 0.08
-	atmosphere.Haze = 1.4
-	atmosphere.Color = Color3.fromRGB(205, 222, 235)
+	atmosphere.Density = 0.2
+	atmosphere.Offset = 0.04
+	atmosphere.Glare = 0.06
+	atmosphere.Haze = 1.05
+	atmosphere.Color = Color3.fromRGB(210, 224, 235)
+	atmosphere.Decay = Color3.fromRGB(116, 133, 145)
 
 	local sunRays = Lighting:FindFirstChildOfClass("SunRaysEffect")
 	if sunRays == nil then
