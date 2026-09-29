@@ -12,8 +12,14 @@ function WorldLayoutRules.GetBuildingPosition(config, index: number): (number, n
 	return x, z
 end
 
-function WorldLayoutRules.IsReservedBuildingSlot(districtId: string, index: number, reservedIndex: number): boolean
-	return districtId == "residential" and index == reservedIndex
+function WorldLayoutRules.IsReservedBuildingSlot(districtId: string, index: number, reservedIndex: number, reservedSlots: number): boolean
+	return districtId == "residential" and index >= reservedIndex and index < reservedIndex + reservedSlots
+end
+
+function WorldLayoutRules.GetWorkshopCenter(config, reservedIndex: number, reservedSlots: number): (number, number)
+	local firstX, firstZ = WorldLayoutRules.GetBuildingPosition(config, reservedIndex)
+	local lastX, lastZ = WorldLayoutRules.GetBuildingPosition(config, reservedIndex + reservedSlots - 1)
+	return (firstX + lastX) / 2, (firstZ + lastZ) / 2
 end
 
 function WorldLayoutRules.GetJobAnchorPosition(config, buildingX: number, buildingZ: number, categoryIndex: number): (number, number)
