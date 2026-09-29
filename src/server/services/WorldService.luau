@@ -130,11 +130,7 @@ local function addResidentialWorkshop(parent: Instance, config)
 	model:SetAttribute("IsWorkshop", true)
 	model.Parent = parent
 
-	local x, z = WorldLayoutRules.GetWorkshopCenter(
-		config,
-		WorldConfig.WorkshopReservedBuildingIndex,
-		WorldConfig.WorkshopReservedBuildingSlots
-	)
+	local x, z = WorldLayoutRules.GetWorkshopCenter(config, WorldConfig.WorkshopReservedBuildingIndex, WorldConfig.WorkshopReservedBuildingSlots)
 
 	local pad = createPart("WorkshopPad", Vector3.new(92, 0.5, 58), CFrame.new(x, 0.25, z + 4), model)
 	pad.Material = Enum.Material.Concrete
@@ -287,12 +283,7 @@ local function addServiceWalkway(parent: Instance, config, buildingX: number, bu
 		BuildingSize = config.BuildingSize,
 		RoadWidth = WorldConfig.RoadWidth,
 	}, buildingZ)
-	local walkway = createPart(
-		"ServiceWalkway",
-		Vector3.new(6, 0.22, walkwayLength),
-		CFrame.new(buildingX, 0.11, walkwayZ),
-		parent
-	)
+	local walkway = createPart("ServiceWalkway", Vector3.new(6, 0.22, walkwayLength), CFrame.new(buildingX, 0.11, walkwayZ), parent)
 	walkway.Material = Enum.Material.Concrete
 	walkway.Color = Color3.fromRGB(186, 188, 190)
 end
@@ -369,14 +360,7 @@ function WorldService:_BuildDistrict(world: Folder, districtId: string, config)
 	end
 
 	for index = 1, config.BuildingCount do
-		if
-			WorldLayoutRules.IsReservedBuildingSlot(
-				districtId,
-				index,
-				WorldConfig.WorkshopReservedBuildingIndex,
-				WorldConfig.WorkshopReservedBuildingSlots
-			)
-		then
+		if WorldLayoutRules.IsReservedBuildingSlot(districtId, index, WorldConfig.WorkshopReservedBuildingIndex, WorldConfig.WorkshopReservedBuildingSlots) then
 			continue
 		end
 
