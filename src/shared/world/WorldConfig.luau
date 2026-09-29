@@ -4,6 +4,17 @@ local WorldConfig = {
 	AnchorInteractionDistance = 28,
 	RoadWidth = 20,
 	ConnectorRoadWidth = 24,
+	WorkshopReservedBuildingIndex = 6,
+	LegacyWorkspaceRoots = table.freeze({
+		"Billboards",
+		"Cabins",
+		"ConstructionZone",
+		"Foliage",
+		"Props",
+		"Tools",
+		"Baseplate",
+		"SpawnLocation",
+	}),
 	Districts = {
 		residential = {
 			DisplayName = "Residential",
