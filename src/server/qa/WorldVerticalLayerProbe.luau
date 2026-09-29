@@ -16,6 +16,7 @@ local function raycastSurface(position: Vector3, excluded: { Instance }): Raycas
 	params.FilterType = Enum.RaycastFilterType.Exclude
 	params.FilterDescendantsInstances = excluded
 	params.IgnoreWater = false
+	params.RespectCanCollide = true
 	return Workspace:Raycast(Vector3.new(position.X, 40, position.Z), Vector3.new(0, -80, 0), params)
 end
 
