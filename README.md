@@ -28,6 +28,7 @@ Implemented core systems include:
 The authoritative status is always:
 - [V1 Ledger](docs/REPAIR-EMPIRE-V1-LEDGER.md)
 - [External Roblox Blockers](docs/EXTERNAL-ROBLOX-BLOCKERS.md)
+- [V1 Release Candidate](docs/RELEASE-CANDIDATE-2026-09-29.md)
 
 ## Core loop
 Accept job -> travel -> diagnose -> perform interaction sequence -> earn Cash/XP -> upgrade tools/company -> unlock harder districts/jobs -> repeat.
