@@ -62,9 +62,7 @@ local function worker(parent: Instance, definition, index: number, baseCf: CFram
 
 	local trade = tradeFromId(definition.Id)
 	local accent = TRADE_COLORS[trade]
-	local skin = if index % 3 == 0
-		then Color3.fromRGB(116, 83, 64)
-		else if index % 2 == 0 then Color3.fromRGB(197, 151, 112) else Color3.fromRGB(225, 184, 145)
+	local skin = if index % 3 == 0 then Color3.fromRGB(116, 83, 64) else if index % 2 == 0 then Color3.fromRGB(197, 151, 112) else Color3.fromRGB(225, 184, 145)
 	local uniform = Color3.fromRGB(31, 48, 61)
 
 	local torso = part(model, "Torso", Vector3.new(2.4, 3.0, 1.3), baseCf * CFrame.new(0, 4.5, 0), uniform)
@@ -82,13 +80,7 @@ local function worker(parent: Instance, definition, index: number, baseCf: CFram
 	part(model, "HatBrim", Vector3.new(2.2, 0.18, 2.0), baseCf * CFrame.new(0, 7.75, -0.25), accent)
 
 	for _, side in { -1, 1 } do
-		local arm = part(
-			model,
-			if side < 0 then "LeftArm" else "RightArm",
-			Vector3.new(0.75, 3.0, 0.75),
-			baseCf * CFrame.new(side * 1.65, 4.45, 0),
-			uniform
-		)
+		local arm = part(model, if side < 0 then "LeftArm" else "RightArm", Vector3.new(0.75, 3.0, 0.75), baseCf * CFrame.new(side * 1.65, 4.45, 0), uniform)
 		arm:SetAttribute("EmployeeArm", side)
 
 		part(
@@ -100,14 +92,8 @@ local function worker(parent: Instance, definition, index: number, baseCf: CFram
 			Enum.Material.Fabric
 		)
 
-		local boot = part(
-			model,
-			"Boot",
-			Vector3.new(1.0, 0.6, 1.6),
-			baseCf * CFrame.new(side * 0.62, 0.15, -0.25),
-			Color3.fromRGB(35, 31, 29),
-			Enum.Material.Leather
-		)
+		local boot =
+			part(model, "Boot", Vector3.new(1.0, 0.6, 1.6), baseCf * CFrame.new(side * 0.62, 0.15, -0.25), Color3.fromRGB(35, 31, 29), Enum.Material.Leather)
 		boot:SetAttribute("EmployeeBoot", true)
 	end
 
