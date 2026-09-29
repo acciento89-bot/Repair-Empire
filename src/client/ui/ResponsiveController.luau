@@ -41,7 +41,9 @@ local function apply()
 		local openButton = menuGui:FindFirstChild("OpenMenu")
 		if openButton and openButton:IsA("TextButton") then
 			openButton.AnchorPoint = Vector2.new(1, 0)
-			openButton.Position = UDim2.new(1, -16, 0, 16)
+			-- Keep the tablet clear of Roblox CoreGui/player-list controls.
+			-- The top-right corner is occupied in live play, so place it below that zone.
+			openButton.Position = UDim2.new(1, -16, 0, if touch then 132 else 120)
 			textConstraint(openButton, 13, 18)
 		end
 		if panel and panel:IsA("Frame") then
