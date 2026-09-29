@@ -1,6 +1,6 @@
 # External Roblox Blockers
 
-Everything in this document still requires Roblox runtime/dashboard evidence, real product IDs or final release assets. Platform ownership and place IDs are no longer blockers.
+This document distinguishes resolved external verification from the few gates that still require real Marketplace or live-user evidence. Platform ownership, place IDs, release assets, device/runtime QA and cloud publishing are no longer blockers.
 
 ## Resolved platform setup
 - experience: **Repair Empire**
@@ -99,6 +99,7 @@ Publishing recovery:
 - Studio logged `PublishSuccessful`, `Place published` and `Published new changes in "Reparatur-Imperium-Entwickler" to Roblox`
 - the successful cloud revision is development-place version **v70**
 - the green Rojo build remains preserved locally at `.local-backups/RepairEmpire-latest-green.rbxlx`
+- current green build SHA-256: `daa175f1d919c25531ab0b4cbf3b70a9d694807fbd713cc7bda71be253d92798`
 
 Resolved in runtime:
 - isolated development DataStore recovery probe passed v1→v2 migration, expired-lock acquisition, active foreign-lock rejection, foreign-write rejection and temporary-key cleanup
