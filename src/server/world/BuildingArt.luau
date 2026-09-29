@@ -50,14 +50,8 @@ local function residential(building: Model, x: number, z: number, width: number,
 	)
 	foundation.CanCollide = false
 
-	local doorFrame = part(
-		building,
-		"DoorFrame",
-		Vector3.new(5.4, 6.8, 0.25),
-		CFrame.new(x, 3.4, facadeZ + frontSign * 0.1),
-		Color3.fromRGB(72, 78, 82),
-		Enum.Material.Wood
-	)
+	local doorFrame =
+		part(building, "DoorFrame", Vector3.new(5.4, 6.8, 0.25), CFrame.new(x, 3.4, facadeZ + frontSign * 0.1), Color3.fromRGB(72, 78, 82), Enum.Material.Wood)
 	doorFrame.CanCollide = false
 
 	local number = part(
@@ -136,14 +130,8 @@ local function downtown(building: Model, x: number, z: number, width: number, de
 		Color3.fromRGB(115, 120, 124),
 		Enum.Material.Metal
 	)
-	local grille = part(
-		building,
-		"RoofHVACGrille",
-		Vector3.new(3.6, 0.18, 2.8),
-		hvac.CFrame * CFrame.new(0, 1.22, 0),
-		Color3.fromRGB(65, 70, 74),
-		Enum.Material.Metal
-	)
+	local grille =
+		part(building, "RoofHVACGrille", Vector3.new(3.6, 0.18, 2.8), hvac.CFrame * CFrame.new(0, 1.22, 0), Color3.fromRGB(65, 70, 74), Enum.Material.Metal)
 	grille.CanCollide = false
 end
 
