@@ -338,6 +338,20 @@ local function addResidentialWorkshop(parent: Instance, config)
 		tool.CanCollide = false
 	end
 
+	for slotIndex, slotX in { -5, 5 } do
+		local vehicleSpawn = createPart(
+			("VehicleSpawn_%d"):format(slotIndex),
+			Vector3.new(7.5, 0.18, 15),
+			CFrame.new(x + slotX, 0.59, z - 11),
+			model
+		)
+		vehicleSpawn.Transparency = 1
+		vehicleSpawn.CanCollide = false
+		vehicleSpawn.CanTouch = false
+		vehicleSpawn.CanQuery = false
+		vehicleSpawn:SetAttribute("VehicleSpawnSlot", slotIndex)
+	end
+
 	local spawn = Instance.new("SpawnLocation")
 	spawn.Name = "MainSpawn"
 	spawn.Size = Vector3.new(10, 1, 10)
