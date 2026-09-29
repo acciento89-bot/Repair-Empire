@@ -17,6 +17,7 @@ local CoopContracts = require(Shared.coop.CoopContracts)
 local SkillTreeConfig = require(Shared.progression.SkillTreeConfig)
 local RetentionConfig = require(Shared.retention.RetentionConfig)
 local UiFactory = require(script.Parent.UiFactory)
+local ToolPreviewFactory = require(script.Parent.ToolPreviewFactory)
 local MenuNavigation = require(Shared.ui.MenuNavigation)
 local UiPalette = require(Shared.ui.UiPalette)
 
@@ -312,10 +313,44 @@ local function renderTools(content: Frame)
 	for order, definition in ToolDefinitions.List do
 		local owned = state.OwnedTools[definition.Id] == true
 		local equipped = state.EquippedTool == definition.Id
-		local status = if equipped then "Equipped" elseif owned then "Equip" else ("Buy $%d"):format(definition.Cost)
-		local button =
-			UiFactory.Button(scroll, ("%s • T%d • Lv%d • %s"):format(pretty(definition.Id), definition.Tier, definition.MinimumLevel, status), order)
-		button.Activated:Connect(function()
+
+		local card = Instance.new("Frame")
+		card.Name = definition.Id .. "Card"
+		card.Size = UDim2.new(1, 0, 0, 96)
+		card.BackgroundColor3 = color(if equipped then UiPalette.AccentSoft else UiPalette.SurfaceRaised)
+		card.BorderSizePixel = 0
+		card.LayoutOrder = order
+		card.Parent = scroll
+		UiFactory.Round(card, 14)
+		UiFactory.Stroke(card, if equipped then UiPalette.Accent else UiPalette.Stroke, if equipped then 1.5 else 1, 0.22)
+
+		ToolPreviewFactory.Create(card, definition, equipped)
+
+		local action = Instance.new("TextButton")
+		action.Name = definition.Id .. "Action"
+		action.Position = UDim2.fromOffset(138, 9)
+		action.Size = UDim2.new(1, -148, 1, -18)
+		action.BackgroundTransparency = 1
+		action.TextXAlignment = Enum.TextXAlignment.Left
+		action.TextYAlignment = Enum.TextYAlignment.Center
+		action.TextWrapped = true
+		action.Font = Enum.Font.GothamMedium
+		action.TextSize = 14
+		action.TextColor3 = color(UiPalette.Text)
+		action.Selectable = true
+		action:SetAttribute("ResponsiveSkipSize", true)
+		local status = if equipped then "EQUIPPED" elseif owned then "EQUIP" else ("BUY $%d"):format(definition.Cost)
+		local speedGain = math.max(0, math.floor((1 - definition.SpeedMultiplier) * 100 + 0.5))
+		action.Text = ("%s\n%s • Tier %d • Lv%d • %d%% faster • %s"):format(
+			pretty(definition.Id),
+			pretty(definition.Family),
+			definition.Tier,
+			definition.MinimumLevel,
+			speedGain,
+			status
+		)
+		action.Parent = card
+		action.Activated:Connect(function()
 			local result
 			if owned then
 				result = remote("EquipTool"):InvokeServer(definition.Id)
@@ -325,7 +360,7 @@ local function renderTools(content: Frame)
 			if type(result) == "table" and result.ok then
 				MenuController.Render("Tools")
 			else
-				button.Text = "Unavailable: " .. tostring(result and result.error or "unknown")
+				action.Text = "Unavailable: " .. tostring(result and result.error or "unknown")
 			end
 		end)
 	end
