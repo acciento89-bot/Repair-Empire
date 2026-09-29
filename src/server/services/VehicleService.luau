@@ -231,17 +231,17 @@ local function buildProceduralVehicle(player: Player, definition, slotIndex: num
 	dashboard.Color = Color3.fromRGB(36, 40, 44)
 	dashboard.CanCollide = false
 
-	local wheel = createVehiclePart(
+	local steeringWheel = createVehiclePart(
 		"SteeringWheel",
 		Vector3.new(0.28, 1.35, 1.35),
 		CFrame.new(origin + Vector3.new(-width * 0.2, 1.85, cabinCenterZ - cabinLength * 0.22)),
 		model
 	)
-	wheel.Shape = Enum.PartType.Cylinder
-	wheel.Orientation = Vector3.new(0, 90, 0)
-	wheel.Material = Enum.Material.SmoothPlastic
-	wheel.Color = Color3.fromRGB(28, 30, 32)
-	wheel.CanCollide = false
+	steeringWheel.Shape = Enum.PartType.Cylinder
+	steeringWheel.Orientation = Vector3.new(0, 90, 0)
+	steeringWheel.Material = Enum.Material.SmoothPlastic
+	steeringWheel.Color = Color3.fromRGB(28, 30, 32)
+	steeringWheel.CanCollide = false
 
 	local stripe = createVehiclePart(
 		"CompanyStripe",
