@@ -13,6 +13,7 @@ local WorldConfig = require(ReplicatedStorage.RepairEmpire.Shared.world.WorldCon
 local WorldLayoutRules = require(ReplicatedStorage.RepairEmpire.Shared.world.WorldLayoutRules)
 local SpatialRules = require(ReplicatedStorage.RepairEmpire.Shared.security.SpatialRules)
 local EnvironmentArt = require(script.Parent.Parent.world.EnvironmentArt)
+local BuildingArt = require(script.Parent.Parent.world.BuildingArt)
 
 local CATEGORIES = { "plumbing", "heating", "climate", "energy" }
 local CATEGORY_COLORS = {
@@ -401,7 +402,7 @@ local function addServiceWalkway(parent: Instance, config, buildingX: number, bu
 		BuildingSize = config.BuildingSize,
 		RoadWidth = WorldConfig.RoadWidth,
 	}, buildingZ)
-	local walkway = createPart("ServiceWalkway", Vector3.new(6, 0.22, walkwayLength), CFrame.new(buildingX, 0.11, walkwayZ), parent)
+	local walkway = createPart("ServiceWalkway", Vector3.new(10, 0.22, walkwayLength), CFrame.new(buildingX, 0.11, walkwayZ), parent)
 	walkway.Material = Enum.Material.Concrete
 	walkway.Color = Color3.fromRGB(186, 188, 190)
 end
@@ -516,6 +517,7 @@ function WorldService:_BuildDistrict(world: Folder, districtId: string, config)
 
 		local frontSign = if z > center.Z then -1 else 1
 		addBuildingDetails(building, districtId, x, z, config.BuildingSize[1], config.BuildingSize[2], height, index, frontSign)
+		BuildingArt.Decorate(building, districtId, x, z, config.BuildingSize[1], config.BuildingSize[2], height, index, frontSign)
 		addServiceWalkway(building, config, x, z)
 
 		if districtId == "downtown" and index % 2 == 0 then
