@@ -33,6 +33,7 @@ local tests = {
 	require("../tests/ui-layout-rules.spec"),
 	require("../tests/ui-visual-style.spec"),
 	require("../tests/feedback-rules.spec"),
+	require("../tests/repair-audio-rules.spec"),
 	require("../tests/ui-contrast.spec"),
 	require("../tests/menu-navigation.spec"),
 	require("../tests/release-readiness.spec"),
