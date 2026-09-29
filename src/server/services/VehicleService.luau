@@ -564,18 +564,37 @@ function VehicleService:Spawn(player: Player)
 	local model, seat, exhaustEmitter = buildProceduralVehicle(player, definition, slotIndex)
 	local character = player.Character
 	local root = character and character:FindFirstChild("HumanoidRootPart")
-	if root and root:IsA("BasePart") and model.PrimaryPart then
-		local lateralOffset = if slotIndex == 1 then 8 else -8
-		local target = root.CFrame * CFrame.new(lateralOffset, 0, -12)
+
+	if model.PrimaryPart then
+		local world = Workspace:FindFirstChild("RepairEmpireWorld")
+		local bay = world and world:FindFirstChild(("VehicleSpawn_%d"):format(slotIndex), true)
+		local targetCFrame
+		if bay and bay:IsA("BasePart") then
+			targetCFrame = bay.CFrame
+		elseif root and root:IsA("BasePart") then
+			local lateralOffset = if slotIndex == 1 then 8 else -8
+			targetCFrame = root.CFrame * CFrame.new(lateralOffset, 0, -12)
+		else
+			targetCFrame = CFrame.new(0, 0, 0)
+		end
+
+		local excluded = { model }
+		if character then
+			table.insert(excluded, character)
+		end
 		local params = RaycastParams.new()
 		params.FilterType = Enum.RaycastFilterType.Exclude
-		params.FilterDescendantsInstances = { character, model }
+		params.FilterDescendantsInstances = excluded
 
-		local result = Workspace:Raycast(target.Position + Vector3.new(0, 24, 0), Vector3.new(0, -80, 0), params)
-		local groundY = if result then result.Position.Y else root.Position.Y - 3
+		local result = Workspace:Raycast(
+			targetCFrame.Position + Vector3.new(0, 24, 0),
+			Vector3.new(0, -80, 0),
+			params
+		)
+		local fallbackY = if bay and bay:IsA("BasePart") then bay.Position.Y - 0.5 else if root and root:IsA("BasePart") then root.Position.Y - 3 else 0
+		local groundY = if result then result.Position.Y else fallbackY
 		local chassisY = groundY + 1.8
-		local rotation = root.CFrame.Rotation
-		model:PivotTo(CFrame.new(target.Position.X, chassisY, target.Position.Z) * rotation)
+		model:PivotTo(CFrame.new(targetCFrame.Position.X, chassisY, targetCFrame.Position.Z) * targetCFrame.Rotation)
 	end
 
 	table.insert(entries, {
