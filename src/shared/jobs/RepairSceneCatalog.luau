@@ -45,12 +45,7 @@ function RepairSceneCatalog.Get(jobId: string, category: string?)
 	end
 	return {
 		Category = category or "plumbing",
-		Variant = if category == "heating"
-			then "radiator"
-			elseif category == "climate"
-			then "outdoor"
-			elseif category == "energy" then "heat_pump"
-			else "sink",
+		Variant = if category == "heating" then "radiator" elseif category == "climate" then "outdoor" elseif category == "energy" then "heat_pump" else "sink",
 	}
 end
 
