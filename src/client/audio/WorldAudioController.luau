@@ -7,14 +7,24 @@ local RunService = game:GetService("RunService")
 local WorldAudioController = {
 	_connection = nil,
 	_vehicleSound = nil :: Sound?,
+	_roadSound = nil :: Sound?,
 }
 
-local HUM_SOUND = "rbxasset://sounds/bass.wav"
+local ENGINE_SOUND = "rbxasset://sounds/volume_slider.ogg"
+local ROAD_SOUND = "rbxasset://sounds/action_falling.ogg"
+local WORKSHOP_SOUND = "rbxasset://sounds/volume_slider.ogg"
 
-local function configure3dSound(parent: Instance, name: string, volume: number, playbackSpeed: number, maxDistance: number): Sound
+local function configure3dSound(
+	parent: Instance,
+	name: string,
+	soundId: string,
+	volume: number,
+	playbackSpeed: number,
+	maxDistance: number
+): Sound
 	local sound = Instance.new("Sound")
 	sound.Name = name
-	sound.SoundId = HUM_SOUND
+	sound.SoundId = soundId
 	sound.Looped = true
 	sound.Volume = volume
 	sound.PlaybackSpeed = playbackSpeed
@@ -52,17 +62,20 @@ local function attachWorkshopAmbience(): Sound?
 		return existing
 	end
 
-	local sound = configure3dSound(building, "WorkshopAmbientHum", 0.035, 0.58, 62)
+	local sound = configure3dSound(building, "WorkshopAmbientHum", WORKSHOP_SOUND, 0.025, 0.42, 62)
 	sound:Play()
 	return sound
 end
 
 local function stopVehicleSound()
-	if WorldAudioController._vehicleSound then
-		WorldAudioController._vehicleSound:Stop()
-		WorldAudioController._vehicleSound:Destroy()
-		WorldAudioController._vehicleSound = nil
+	for _, sound in { WorldAudioController._vehicleSound, WorldAudioController._roadSound } do
+		if sound then
+			sound:Stop()
+			sound:Destroy()
+		end
 	end
+	WorldAudioController._vehicleSound = nil
+	WorldAudioController._roadSound = nil
 end
 
 local function bindVehicleSound(seatPart: BasePart?)
@@ -76,9 +89,19 @@ local function bindVehicleSound(seatPart: BasePart?)
 		return
 	end
 
-	local sound = configure3dSound(model.PrimaryPart, "LocalVehicleEngineHum", 0.045, 0.58, 48)
-	sound:Play()
-	WorldAudioController._vehicleSound = sound
+	local engine = configure3dSound(model.PrimaryPart, "LocalVehicleEngineHum", ENGINE_SOUND, 0.035, 0.48, 48)
+	local road = configure3dSound(model.PrimaryPart, "LocalVehicleRoadNoise", ROAD_SOUND, 0.0, 0.62, 44)
+	engine:Play()
+	road:Play()
+	WorldAudioController._vehicleSound = engine
+	WorldAudioController._roadSound = road
+
+	if RunService:IsStudio() then
+		task.spawn(function()
+			local ok = pcall(ContentProvider.PreloadAsync, ContentProvider, { engine, road })
+			print("[Repair Empire] VehicleAudio preload=" .. tostring(ok))
+		end)
+	end
 end
 
 function WorldAudioController.Start()
@@ -123,19 +146,23 @@ function WorldAudioController.Start()
 	player.CharacterAdded:Connect(bindCharacter)
 
 	WorldAudioController._connection = RunService.RenderStepped:Connect(function()
-		local sound = WorldAudioController._vehicleSound
-		if not sound or not sound.Parent then
+		local engine = WorldAudioController._vehicleSound
+		local road = WorldAudioController._roadSound
+		if not engine or not engine.Parent then
 			return
 		end
 
-		local parent = sound.Parent
-		local model = parent:FindFirstAncestorOfClass("Model")
+		local model = engine.Parent:FindFirstAncestorOfClass("Model")
 		local moving = model ~= nil and model:GetAttribute("Driving") == true
-		local seat = model and model:FindFirstChild("DriverSeat", true)
-		local throttle = if seat and seat:IsA("VehicleSeat") then math.abs(seat.ThrottleFloat) else 0
+		local throttle = if model then math.abs(model:GetAttribute("DriveThrottle") or 0) else 0
 
-		sound.Volume = if moving then 0.06 + throttle * 0.09 else 0.035
-		sound.PlaybackSpeed = if moving then 0.62 + throttle * 0.34 else 0.54
+		engine.Volume = if moving then 0.045 + throttle * 0.085 else 0.022
+		engine.PlaybackSpeed = if moving then 0.48 + throttle * 0.42 else 0.42
+
+		if road and road.Parent then
+			road.Volume = if moving then 0.015 + throttle * 0.045 else 0
+			road.PlaybackSpeed = 0.58 + throttle * 0.22
+		end
 	end)
 end
 
