@@ -96,7 +96,7 @@ function WorldVerticalLayerProbe.Run(): boolean
 	local failures = {}
 	local samples = collectSamples(world)
 	for _, sample in samples do
-		local excluded = { world:FindFirstChild("Vehicles") }
+		local excluded = {}
 		for _, instance in sample.Exclude do
 			table.insert(excluded, instance)
 		end
