@@ -3,6 +3,9 @@
 local ContentProvider = game:GetService("ContentProvider")
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+local AudioCatalog = require(ReplicatedStorage.RepairEmpire.Shared.audio.AudioCatalog)
 
 local WorldAudioController = {
 	_connection = nil,
@@ -10,9 +13,9 @@ local WorldAudioController = {
 	_roadSound = nil :: Sound?,
 }
 
-local ENGINE_SOUND = "rbxasset://sounds/volume_slider.ogg"
-local ROAD_SOUND = "rbxasset://sounds/action_falling.ogg"
-local WORKSHOP_SOUND = "rbxasset://sounds/volume_slider.ogg"
+local ENGINE_SOUND = AudioCatalog.Vehicle.Engine
+local ROAD_SOUND = AudioCatalog.Vehicle.Road
+local WORKSHOP_SOUND = AudioCatalog.Vehicle.Workshop
 
 local function configure3dSound(parent: Instance, name: string, soundId: string, volume: number, playbackSpeed: number, maxDistance: number): Sound
 	local sound = Instance.new("Sound")
