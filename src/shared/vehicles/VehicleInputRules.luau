@@ -8,12 +8,7 @@ export type Input = {
 }
 
 local function validAxis(value: any): boolean
-	return type(value) == "number"
-		and value == value
-		and value ~= math.huge
-		and value ~= -math.huge
-		and value >= -1
-		and value <= 1
+	return type(value) == "number" and value == value and value ~= math.huge and value ~= -math.huge and value >= -1 and value <= 1
 end
 
 function VehicleInputRules.Normalize(payload: any): Input?
