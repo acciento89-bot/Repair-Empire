@@ -88,8 +88,7 @@ local function buildProceduralVehicle(player: Player, definition, slotIndex: num
 	local hood = createVehicleWedge(
 		"Hood",
 		Vector3.new(width * 0.9, height * 0.42, hoodLength),
-		CFrame.new(origin + Vector3.new(0, height * 0.2 + 0.35, -length / 2 + hoodLength / 2 - 0.1))
-			* CFrame.Angles(0, math.pi, 0),
+		CFrame.new(origin + Vector3.new(0, height * 0.2 + 0.35, -length / 2 + hoodLength / 2 - 0.1)) * CFrame.Angles(0, math.pi, 0),
 		model
 	)
 	hood.Material = Enum.Material.SmoothPlastic
