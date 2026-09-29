@@ -105,6 +105,49 @@ local function buildProceduralVehicle(player: Player, definition, slotIndex: num
 	windscreen.Transparency = 0.18
 	windscreen.CanCollide = false
 
+	for _, side in { -1, 1 } do
+		local sideWindow = createVehiclePart(
+			"SideWindow",
+			Vector3.new(0.18, height * 0.38, cabinLength * 0.52),
+			CFrame.new(origin + Vector3.new(side * width * 0.47, height * 0.7, cabinCenterZ - cabinLength * 0.08)),
+			model
+		)
+		sideWindow.Material = Enum.Material.Glass
+		sideWindow.Color = Color3.fromRGB(79, 137, 164)
+		sideWindow.Transparency = 0.2
+		sideWindow.CanCollide = false
+
+		local mirror = createVehiclePart(
+			"Mirror",
+			Vector3.new(0.45, 0.72, 0.9),
+			CFrame.new(origin + Vector3.new(side * width * 0.58, height * 0.66, cabinCenterZ - cabinLength * 0.42)),
+			model
+		)
+		mirror.Material = Enum.Material.Metal
+		mirror.Color = Color3.fromRGB(38, 42, 46)
+		mirror.CanCollide = false
+	end
+
+	local frontBumper = createVehiclePart(
+		"FrontBumper",
+		Vector3.new(width * 0.92, 0.5, 0.55),
+		CFrame.new(origin + Vector3.new(0, -0.15, -length / 2 - 0.2)),
+		model
+	)
+	frontBumper.Material = Enum.Material.Metal
+	frontBumper.Color = Color3.fromRGB(52, 56, 60)
+	frontBumper.CanCollide = false
+
+	local rearBumper = createVehiclePart(
+		"RearBumper",
+		Vector3.new(width * 0.92, 0.5, 0.55),
+		CFrame.new(origin + Vector3.new(0, -0.15, length / 2 + 0.2)),
+		model
+	)
+	rearBumper.Material = Enum.Material.Metal
+	rearBumper.Color = Color3.fromRGB(52, 56, 60)
+	rearBumper.CanCollide = false
+
 	local stripe = createVehiclePart(
 		"CompanyStripe",
 		Vector3.new(width * 0.96, 0.35, cargoLength * 0.8),
@@ -115,12 +158,96 @@ local function buildProceduralVehicle(player: Player, definition, slotIndex: num
 	stripe.Color = Color3.fromRGB(245, 151, 49)
 	stripe.CanCollide = false
 
+	local brandPanel = createVehiclePart(
+		"BrandPanel",
+		Vector3.new(width * 0.82, math.max(1.1, cargoHeight * 0.38), 0.18),
+		CFrame.new(origin + Vector3.new(0, math.max(1.2, cargoHeight * 0.62), cargoCenterZ + cargoLength / 2 + 0.08)),
+		model
+	)
+	brandPanel.Material = Enum.Material.SmoothPlastic
+	brandPanel.Color = Color3.fromRGB(20, 34, 46)
+	brandPanel.CanCollide = false
+	local brandGui = Instance.new("SurfaceGui")
+	brandGui.Face = Enum.NormalId.Back
+	brandGui.SizingMode = Enum.SurfaceGuiSizingMode.PixelsPerStud
+	brandGui.PixelsPerStud = 28
+	brandGui.Parent = brandPanel
+	local brandText = Instance.new("TextLabel")
+	brandText.Size = UDim2.fromScale(1, 1)
+	brandText.BackgroundTransparency = 1
+	brandText.Font = Enum.Font.GothamBold
+	brandText.TextScaled = true
+	brandText.TextColor3 = Color3.fromRGB(245, 151, 49)
+	brandText.Text = "REPAIR EMPIRE"
+	brandText.Parent = brandGui
+
 	for _, side in { -1, 1 } do
 		local headlight =
 			createVehiclePart("Headlight", Vector3.new(1.0, 0.55, 0.18), CFrame.new(origin + Vector3.new(side * width * 0.28, 0.5, -length / 2 - 0.1)), model)
 		headlight.Material = Enum.Material.Neon
 		headlight.Color = Color3.fromRGB(255, 240, 188)
 		headlight.CanCollide = false
+	end
+
+	for _, side in { -1, 1 } do
+		local tailLight =
+			createVehiclePart("TailLight", Vector3.new(0.8, 0.65, 0.18), CFrame.new(origin + Vector3.new(side * width * 0.3, 0.55, length / 2 + 0.1)), model)
+		tailLight.Material = Enum.Material.Neon
+		tailLight.Color = Color3.fromRGB(205, 56, 49)
+		tailLight.CanCollide = false
+	end
+
+	if definition.Style == "service_van" or definition.Style == "long_van" or definition.Style == "premium_van" or definition.Style == "elite" then
+		for _, x in { -width * 0.3, width * 0.3 } do
+			local rail = createVehiclePart(
+				"RoofRail",
+				Vector3.new(0.22, 0.28, cargoLength * 0.85),
+				CFrame.new(origin + Vector3.new(x, cargoHeight + 1.0, cargoCenterZ)),
+				model
+			)
+			rail.Material = Enum.Material.Metal
+			rail.Color = Color3.fromRGB(74, 78, 82)
+			rail.CanCollide = false
+		end
+		for rung = -2, 2 do
+			local rack = createVehiclePart(
+				"RoofRack",
+				Vector3.new(width * 0.7, 0.2, 0.2),
+				CFrame.new(origin + Vector3.new(0, cargoHeight + 1.08, cargoCenterZ + rung * cargoLength * 0.18)),
+				model
+			)
+			rack.Material = Enum.Material.Metal
+			rack.Color = Color3.fromRGB(84, 88, 92)
+			rack.CanCollide = false
+		end
+	end
+
+	if definition.Style == "pickup" then
+		for _, side in { -1, 1 } do
+			local bedRail = createVehiclePart(
+				"PickupBedRail",
+				Vector3.new(0.25, 1.0, cargoLength * 0.9),
+				CFrame.new(origin + Vector3.new(side * width * 0.45, cargoHeight + 0.9, cargoCenterZ)),
+				model
+			)
+			bedRail.Material = Enum.Material.Metal
+			bedRail.Color = Color3.fromRGB(78, 70, 60)
+			bedRail.CanCollide = false
+		end
+	end
+
+	if definition.Style == "truck" then
+		for _, side in { -1, 1 } do
+			local box = createVehiclePart(
+				"SideToolbox",
+				Vector3.new(1.1, 1.4, cargoLength * 0.52),
+				CFrame.new(origin + Vector3.new(side * width * 0.54, 1.0, cargoCenterZ)),
+				model
+			)
+			box.Material = Enum.Material.Metal
+			box.Color = Color3.fromRGB(92, 96, 100)
+			box.CanCollide = false
+		end
 	end
 
 	local seat = Instance.new("VehicleSeat")
