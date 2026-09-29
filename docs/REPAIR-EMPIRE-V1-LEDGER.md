@@ -6,7 +6,7 @@ Implementation is active. Core systems are implemented and the repository is CI-
 
 Verification baseline:
 - Current main head: GitHub Actions verification green
-- Head verified through formatting, Selene lint, Rojo build and 40 pure-Luau tests; release-readiness reports Sandbox-ready: yes; P18 visual, retention, job-experience and vehicle-presentation guardrails are included
+- Head verified through formatting, Selene lint, Rojo build and 42 pure-Luau tests; release-readiness reports Sandbox-ready: yes; P19 production-art coverage guardrails are included
 - External/runtime-only blockers are documented in `docs/EXTERNAL-ROBLOX-BLOCKERS.md`
 
 ## P00 Product Definition
@@ -154,12 +154,12 @@ Verification baseline:
 
 ## P19 Production Art & World Quality — mandatory pre-public-launch gate
 - [x] P19-T01 Art direction and asset language — Repair Empire production-art rules, trade colors, materials, scale, collision and screenshot-quality criteria are locked in docs/ART-DIRECTION.md
-- [~] P19-T02 Environment production kit — legacy terrain/template cleanup, connected service-city rebuild, reserved workshop parcel, roads/sidewalks/cross streets and accessible service routes are implemented; final landmark/detail pass remains
-- [ ] P19-T03 Repair scene library — visible trade-specific repair installations and faulty/active/completed state changes
-- [ ] P19-T04 Tool production art — readable tool visuals and category/tier feedback
-- [~] P19-T05 Vehicle production art — eight distinct procedural vehicle silhouettes and garage previews exist; higher-detail exterior/interior pass remains
-- [~] P19-T06 Workshop production art — branded yard/workshop exists; upgrade-visible production-art states remain
-- [~] P19-T07 VFX and audio production pass — baseline reward/UI audio exists; trade-specific repair VFX/audio remain
+- [~] P19-T02 Environment production kit — legacy terrain/template cleanup, connected service-city rebuild, reserved workshop parcel, roads/sidewalks/cross streets, widened service routes, street props and district-specific facade details are implemented; final landmark/runtime visual pass remains
+- [~] P19-T03 Repair scene library — plumbing/heating/climate/energy installations with faulty/active/completed states and animated status/fault feedback are implemented; plumbing scene is Studio-visual-verified, remaining trades and real assigned job-site placement still require runtime QA
+- [~] P19-T04 Tool production art — 3D locker previews and replicated equipped-character visuals cover all launch tool families with tier accents; static coverage/build are green, final in-client visual QA remains
+- [~] P19-T05 Vehicle production art — eight distinct silhouettes and garage previews now include side glass, mirrors, bumpers, branding, tail lights, roof racks/rails and style-specific pickup/truck equipment; representative runtime drive/visual QA remains
+- [~] P19-T06 Workshop production art — branded yard/workshop plus visible tier 2-5 racks, tool storage, compressor/canopy, office/solar and HQ mast states are implemented; tier-by-tier runtime screenshots remain
+- [~] P19-T07 VFX and audio production pass — baseline reward/UI audio plus animated repair status/fault feedback and climate fan motion are implemented; distinct trade/tool/vehicle audio remains
 - [~] P19-T08 Lighting and material pass — baseline lighting/material language exists; final district/material polish remains
 - [ ] P19-T09 Full visual/runtime QA — walk/jump/drive and representative trade jobs across supported layouts
 - [ ] P19-T10 Screenshot quality gate — final normal-player-view evidence for spawn/workshop/districts/jobs/vehicles
