@@ -21,6 +21,7 @@ local VehicleExperienceController = require(script.world.VehicleExperienceContro
 local CharacterCameraController = require(script.world.CharacterCameraController)
 local RepairAudioController = require(script.audio.RepairAudioController)
 local WorldAudioController = require(script.audio.WorldAudioController)
+local StudioPlayerJourneyProbe = require(script.qa.StudioPlayerJourneyProbe)
 
 local player = Players.LocalPlayer
 assert(player ~= nil, "LocalPlayer unavailable")
@@ -116,5 +117,7 @@ stateUpdated.OnClientEvent:Connect(function(payload)
 		RepairSceneController.Clear()
 	end
 end)
+
+StudioPlayerJourneyProbe.Start()
 
 print(("[Repair Empire] Client initialized for %s"):format(player.Name))
