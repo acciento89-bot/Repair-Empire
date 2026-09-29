@@ -631,7 +631,8 @@ function RepairSceneController.Begin(job, stage, targetPosition: Vector3)
 	model:SetAttribute("JobId", job and job.Id or "unknown")
 	model:SetAttribute("Category", category)
 	model.Parent = workspace
-	local origin = CFrame.new(targetPosition.X, 0, targetPosition.Z)
+	local roadFacingRotation = if targetPosition.Z < 0 then CFrame.Angles(0, math.pi, 0) else CFrame.new()
+	local origin = CFrame.new(targetPosition.X, 0, targetPosition.Z) * roadFacingRotation
 	builder(model, origin)
 	RepairSceneController._model = model
 	RepairSceneController._category = category
