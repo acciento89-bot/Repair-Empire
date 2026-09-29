@@ -5,6 +5,7 @@ local WorldConfig = {
 	RoadWidth = 20,
 	ConnectorRoadWidth = 24,
 	WorkshopReservedBuildingIndex = 6,
+	WorkshopReservedBuildingSlots = 2,
 	LegacyWorkspaceRoots = table.freeze({
 		"Billboards",
 		"Cabins",
