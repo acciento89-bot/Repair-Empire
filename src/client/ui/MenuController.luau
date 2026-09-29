@@ -433,7 +433,8 @@ local function createVehiclePreview(parent: Instance, definition, selected: bool
 	chassis.Material = Enum.Material.Metal
 	local cabinLength = math.max(4.2, length * 0.38)
 	local cabinZ = -length / 2 + cabinLength / 2 + 0.7
-	local cabin = previewPart(model, "Cabin", Vector3.new(width * 0.92, height * 0.82, cabinLength * 0.82), Vector3.new(0, height * 0.41 + 1.0, cabinZ + 0.35), bodyColor)
+	local cabin =
+		previewPart(model, "Cabin", Vector3.new(width * 0.92, height * 0.82, cabinLength * 0.82), Vector3.new(0, height * 0.41 + 1.0, cabinZ + 0.35), bodyColor)
 	cabin.Material = Enum.Material.Metal
 
 	local hoodLength = math.max(1.8, cabinLength * 0.34)
@@ -482,13 +483,8 @@ local function createVehiclePreview(parent: Instance, definition, selected: bool
 		mirror.Material = Enum.Material.Metal
 	end
 
-	local frontBumper = previewPart(
-		model,
-		"FrontBumper",
-		Vector3.new(width * 0.9, 0.42, 0.42),
-		Vector3.new(0, 0.72, -length / 2 - 0.14),
-		Color3.fromRGB(45, 49, 53)
-	)
+	local frontBumper =
+		previewPart(model, "FrontBumper", Vector3.new(width * 0.9, 0.42, 0.42), Vector3.new(0, 0.72, -length / 2 - 0.14), Color3.fromRGB(45, 49, 53))
 	frontBumper.Material = Enum.Material.Metal
 
 	for _, side in { -1, 1 } do
@@ -511,11 +507,7 @@ local function createVehiclePreview(parent: Instance, definition, selected: bool
 	)
 	brandStripe.Material = Enum.Material.SmoothPlastic
 
-	if definition.Style == "service_van"
-		or definition.Style == "long_van"
-		or definition.Style == "premium_van"
-		or definition.Style == "elite"
-	then
+	if definition.Style == "service_van" or definition.Style == "long_van" or definition.Style == "premium_van" or definition.Style == "elite" then
 		for _, side in { -1, 1 } do
 			local rail = previewPart(
 				model,
@@ -559,13 +551,7 @@ local function createVehiclePreview(parent: Instance, definition, selected: bool
 			local wheel = previewPart(model, "Wheel", Vector3.new(0.9, 1.9, 1.9), Vector3.new(side * width * 0.52, 0.45, z), Color3.fromRGB(25, 27, 30))
 			wheel.Shape = Enum.PartType.Cylinder
 			wheel.Orientation = Vector3.new(0, 0, 90)
-			local rim = previewPart(
-				model,
-				"Rim",
-				Vector3.new(0.94, 1.0, 1.0),
-				Vector3.new(side * width * 0.525, 0.45, z),
-				Color3.fromRGB(145, 150, 155)
-			)
+			local rim = previewPart(model, "Rim", Vector3.new(0.94, 1.0, 1.0), Vector3.new(side * width * 0.525, 0.45, z), Color3.fromRGB(145, 150, 155))
 			rim.Shape = Enum.PartType.Cylinder
 			rim.Orientation = Vector3.new(0, 0, 90)
 			rim.Material = Enum.Material.Metal
