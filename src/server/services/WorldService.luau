@@ -98,12 +98,7 @@ local function addDistrictSign(parent: Instance, center: Vector3, displayName: s
 	sign.CanQuery = false
 
 	for _, side in { -1, 1 } do
-		local post = createPart(
-			"DistrictSignPost",
-			Vector3.new(0.45, 5.6, 0.45),
-			CFrame.new(signPosition + Vector3.new(side * 5.4, -4.1, 0)),
-			parent
-		)
+		local post = createPart("DistrictSignPost", Vector3.new(0.45, 5.6, 0.45), CFrame.new(signPosition + Vector3.new(side * 5.4, -4.1, 0)), parent)
 		post.Material = Enum.Material.Metal
 		post.Color = Color3.fromRGB(74, 78, 82)
 		post.CanCollide = false
