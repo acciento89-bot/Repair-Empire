@@ -92,8 +92,11 @@ function WorldAudioController.Start()
 
 		local workshopSound = attachWorkshopAmbience()
 		if RunService:IsStudio() and workshopSound then
-			local ok = pcall(ContentProvider.PreloadAsync, ContentProvider, { workshopSound })
-			print("[Repair Empire] WorldAudio workshopReady=" .. tostring(ok))
+			print("[Repair Empire] WorldAudio workshopActive=true")
+			task.spawn(function()
+				local ok = pcall(ContentProvider.PreloadAsync, ContentProvider, { workshopSound })
+				print("[Repair Empire] WorldAudio preload=" .. tostring(ok))
+			end)
 		end
 	end)
 
