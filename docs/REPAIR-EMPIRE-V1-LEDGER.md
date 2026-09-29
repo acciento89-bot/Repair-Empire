@@ -7,7 +7,7 @@ Implementation is active. Core systems are implemented and the repository is CI-
 Verification baseline:
 - Current main head: GitHub Actions verification green
 - P19 runtime production-art baseline: 2,128 world parts / 2,222 descendants; Studio client 56.9 approximate FPS at 1081x693; reachability 112 anchors ground/clearance OK and 12/12 representative routes
-- Head verified through formatting, Selene lint, Rojo build and 43 pure-Luau tests; release-readiness reports Sandbox-ready: yes; P19 production-art coverage and vehicle-input guardrails are included
+- Head verified through formatting, Selene lint, Rojo build and 45 pure-Luau tests; release-readiness reports Sandbox-ready: yes; P19 production-art, vehicle-input and production-audio guardrails are included
 - External/runtime-only blockers are documented in `docs/EXTERNAL-ROBLOX-BLOCKERS.md`
 
 ## P00 Product Definition
