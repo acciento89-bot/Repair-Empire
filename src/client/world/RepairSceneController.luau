@@ -2,6 +2,9 @@
 
 local TweenService = game:GetService("TweenService")
 local RunService = game:GetService("RunService")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+local RepairSceneCatalog = require(ReplicatedStorage.RepairEmpire.Shared.jobs.RepairSceneCatalog)
 
 local RepairSceneController = {
 	_model = nil :: Model?,
@@ -291,6 +294,251 @@ local function buildEnergy(model: Model, origin: CFrame)
 	glow.Parent = fault
 end
 
+local function buildToilet(model: Model, origin: CFrame)
+	local trade = TRADE_COLORS.plumbing
+	baseRig(model, origin, "SANITARY SERVICE", trade)
+	part(model, "Cistern", Vector3.new(3.5, 3.1, 1.9), origin * CFrame.new(0, 3.0, 1.25), Color3.fromRGB(236, 239, 239), Enum.Material.Marble)
+	local bowl = part(model, "Bowl", Vector3.new(3.8, 2.2, 3.4), origin * CFrame.new(0, 1.15, -0.2), Color3.fromRGB(240, 242, 242), Enum.Material.Marble)
+	bowl.Shape = Enum.PartType.Ball
+	local seat = cylinder(
+		model,
+		"Seat",
+		Vector3.new(0.35, 3.15, 3.15),
+		origin * CFrame.new(0, 2.1, -0.35) * CFrame.Angles(0, math.rad(90), 0),
+		Color3.fromRGB(214, 217, 217),
+		Enum.Material.SmoothPlastic
+	)
+	seat.Transparency = 0.08
+	addPipe(model, "SupplyPipe", 2.2, origin * CFrame.new(-1.9, 1.0, 0.9), Color3.fromRGB(165, 170, 175))
+	local valve =
+		cylinder(model, "ShutoffValve", Vector3.new(0.45, 1.1, 1.1), origin * CFrame.new(-1.9, 1.65, 0.9), Color3.fromRGB(180, 184, 188), Enum.Material.Metal)
+	valve:SetAttribute("RepairDetail", true)
+	local fault = part(model, "FaultEffect", Vector3.new(0.55, 0.55, 0.55), origin * CFrame.new(-1.1, 0.45, -0.5), trade, Enum.Material.Neon)
+	fault.Shape = Enum.PartType.Ball
+	fault:SetAttribute("FaultEffect", true)
+end
+
+local function buildPipeService(model: Model, origin: CFrame)
+	local trade = TRADE_COLORS.plumbing
+	baseRig(model, origin, "PIPEWORK SERVICE", trade)
+	for _, y in { 1.6, 3.2 } do
+		local pipe = cylinder(
+			model,
+			"PipeRun",
+			Vector3.new(8.2, 0.8, 0.8),
+			origin * CFrame.new(0, y, 0) * CFrame.Angles(0, 0, math.rad(90)),
+			Color3.fromRGB(155, 162, 166),
+			Enum.Material.Metal
+		)
+		pipe:SetAttribute("RepairDetail", true)
+	end
+	for _, x in { -2.4, 2.4 } do
+		cylinder(model, "Coupling", Vector3.new(0.9, 1.15, 1.15), origin * CFrame.new(x, 2.4, 0), Color3.fromRGB(103, 108, 112), Enum.Material.Metal)
+	end
+	local valve =
+		cylinder(model, "IsolationValve", Vector3.new(0.55, 1.6, 1.6), origin * CFrame.new(0, 3.2, 0), Color3.fromRGB(207, 80, 64), Enum.Material.Metal)
+	valve.Orientation = Vector3.new(0, 90, 0)
+	local fault = part(model, "FaultEffect", Vector3.new(0.7, 0.7, 0.7), origin * CFrame.new(0.5, 1.6, -0.55), trade, Enum.Material.Neon)
+	fault.Shape = Enum.PartType.Ball
+	fault:SetAttribute("FaultEffect", true)
+end
+
+local function buildShowerMixer(model: Model, origin: CFrame)
+	local trade = TRADE_COLORS.plumbing
+	baseRig(model, origin, "SHOWER SERVICE", trade)
+	part(model, "TileWall", Vector3.new(8.4, 5.6, 0.6), origin * CFrame.new(0, 2.8, 1.5), Color3.fromRGB(198, 205, 207), Enum.Material.Marble)
+	addPipe(model, "ColdFeed", 3.6, origin * CFrame.new(-1.3, 2.0, 1.0), Color3.fromRGB(68, 145, 214))
+	addPipe(model, "HotFeed", 3.6, origin * CFrame.new(1.3, 2.0, 1.0), Color3.fromRGB(205, 78, 64))
+	local mixer = part(model, "MixerBody", Vector3.new(3.6, 1.1, 0.9), origin * CFrame.new(0, 2.7, 0.8), Color3.fromRGB(165, 171, 175), Enum.Material.Metal)
+	for _, x in { -1.1, 1.1 } do
+		local knob = cylinder(
+			model,
+			"MixerKnob",
+			Vector3.new(0.55, 0.95, 0.95),
+			mixer.CFrame * CFrame.new(x, 0, -0.65),
+			Color3.fromRGB(187, 191, 194),
+			Enum.Material.Metal
+		)
+		knob.Orientation = Vector3.new(0, 90, 0)
+	end
+	addPipe(model, "Riser", 3.2, origin * CFrame.new(0, 4.4, 0.9), Color3.fromRGB(170, 175, 179))
+	local head = cylinder(
+		model,
+		"ShowerHead",
+		Vector3.new(0.5, 2.2, 2.2),
+		origin * CFrame.new(0, 5.6, 0.0) * CFrame.Angles(0, math.rad(90), 0),
+		Color3.fromRGB(170, 175, 179),
+		Enum.Material.Metal
+	)
+	head:SetAttribute("RepairDetail", true)
+	local fault = part(model, "FaultEffect", Vector3.new(0.6, 0.6, 0.4), origin * CFrame.new(0, 2.7, 0.25), Color3.fromRGB(235, 84, 70), Enum.Material.Neon)
+	fault:SetAttribute("FaultEffect", true)
+end
+
+local function buildBoiler(model: Model, origin: CFrame)
+	local trade = TRADE_COLORS.heating
+	baseRig(model, origin, "BOILER SERVICE", trade)
+	local body = part(model, "BoilerBody", Vector3.new(6.2, 6.2, 2.6), origin * CFrame.new(0, 3.15, 0.6), Color3.fromRGB(224, 226, 225), Enum.Material.Metal)
+	local display =
+		part(model, "BoilerDisplay", Vector3.new(2.3, 1.15, 0.18), body.CFrame * CFrame.new(0, 0.8, -1.38), Color3.fromRGB(33, 46, 51), Enum.Material.Glass)
+	surfaceLabel(display, "72 C", trade)
+	for _, x in { -2.1, -0.7, 0.7, 2.1 } do
+		addPipe(model, "BoilerPipe", 2.2, origin * CFrame.new(x, 1.0, -0.7), if x < 0 then Color3.fromRGB(205, 78, 64) else Color3.fromRGB(78, 121, 190))
+	end
+	local gauge = cylinder(
+		model,
+		"PressureGauge",
+		Vector3.new(0.35, 1.2, 1.2),
+		origin * CFrame.new(2.0, 4.7, -0.8) * CFrame.Angles(0, math.rad(90), 0),
+		Color3.fromRGB(238, 238, 232),
+		Enum.Material.Metal
+	)
+	gauge:SetAttribute("RepairDetail", true)
+	local fault =
+		part(model, "FaultEffect", Vector3.new(0.7, 0.7, 0.25), origin * CFrame.new(-2.1, 4.7, -0.85), Color3.fromRGB(235, 84, 70), Enum.Material.Neon)
+	fault:SetAttribute("FaultEffect", true)
+end
+
+local function buildPump(model: Model, origin: CFrame)
+	local trade = TRADE_COLORS.heating
+	baseRig(model, origin, "PUMP SERVICE", trade)
+	addPipe(model, "FlowHeader", 7.8, origin * CFrame.new(0, 2.4, 0.4), Color3.fromRGB(205, 78, 64))
+	local housing = cylinder(
+		model,
+		"PumpHousing",
+		Vector3.new(2.5, 3.2, 3.2),
+		origin * CFrame.new(0, 2.4, 0.1) * CFrame.Angles(0, math.rad(90), 0),
+		Color3.fromRGB(74, 84, 90),
+		Enum.Material.Metal
+	)
+	housing:SetAttribute("SpinTarget", true)
+	part(model, "PumpMotor", Vector3.new(3.0, 2.2, 2.2), origin * CFrame.new(0, 2.4, 2.2), Color3.fromRGB(60, 66, 72), Enum.Material.Metal)
+	for _, x in { -2.5, 2.5 } do
+		cylinder(model, "Flange", Vector3.new(0.5, 1.5, 1.5), origin * CFrame.new(x, 2.4, 0.4), Color3.fromRGB(105, 110, 114), Enum.Material.Metal)
+	end
+	local fault = part(model, "FaultEffect", Vector3.new(0.65, 0.65, 0.35), origin * CFrame.new(0, 3.8, -1.4), Color3.fromRGB(235, 84, 70), Enum.Material.Neon)
+	fault:SetAttribute("FaultEffect", true)
+end
+
+local function buildIndoorClimate(model: Model, origin: CFrame)
+	local trade = TRADE_COLORS.climate
+	baseRig(model, origin, "INDOOR UNIT SERVICE", trade)
+	local body =
+		part(model, "IndoorUnit", Vector3.new(8.6, 3.2, 1.8), origin * CFrame.new(0, 3.5, 0.7), Color3.fromRGB(224, 230, 232), Enum.Material.SmoothPlastic)
+	for index = -4, 4 do
+		local vent = part(
+			model,
+			"VentLouver",
+			Vector3.new(0.55, 0.18, 1.0),
+			body.CFrame * CFrame.new(index * 0.85, -1.05, -0.55),
+			Color3.fromRGB(86, 94, 99),
+			Enum.Material.Metal
+		)
+		vent.Orientation = Vector3.new(-18, 0, 0)
+	end
+	local filter =
+		part(model, "Filter", Vector3.new(5.8, 1.7, 0.18), body.CFrame * CFrame.new(0, 0.2, -1.0), Color3.fromRGB(98, 155, 166), Enum.Material.Fabric)
+	filter.Transparency = 0.18
+	local fault =
+		part(model, "FaultEffect", Vector3.new(0.75, 0.45, 0.25), body.CFrame * CFrame.new(3.1, 0.75, -1.02), Color3.fromRGB(235, 84, 70), Enum.Material.Neon)
+	fault:SetAttribute("FaultEffect", true)
+end
+
+local function buildCommercialClimate(model: Model, origin: CFrame)
+	local trade = TRADE_COLORS.climate
+	baseRig(model, origin, "COMMERCIAL COOLING", trade)
+	local body =
+		part(model, "CommercialUnit", Vector3.new(9.2, 5.0, 3.2), origin * CFrame.new(0, 2.55, 0.6), Color3.fromRGB(188, 197, 201), Enum.Material.Metal)
+	for _, x in { -2.4, 2.4 } do
+		local fan = cylinder(
+			model,
+			"CommercialFan",
+			Vector3.new(0.42, 2.8, 2.8),
+			body.CFrame * CFrame.new(x, 0.3, -1.72) * CFrame.Angles(0, math.rad(90), 0),
+			Color3.fromRGB(67, 75, 79),
+			Enum.Material.Metal
+		)
+		fan:SetAttribute("SpinTarget", true)
+	end
+	for _, x in { -3.5, 0, 3.5 } do
+		part(model, "CoilSection", Vector3.new(2.4, 2.8, 0.2), body.CFrame * CFrame.new(x, -1.0, -1.75), trade, Enum.Material.Metal).Transparency = 0.35
+	end
+	local fault =
+		part(model, "FaultEffect", Vector3.new(0.75, 0.75, 0.3), body.CFrame * CFrame.new(0, 1.8, -1.8), Color3.fromRGB(235, 84, 70), Enum.Material.Neon)
+	fault:SetAttribute("FaultEffect", true)
+end
+
+local function buildEnergyController(model: Model, origin: CFrame)
+	local trade = TRADE_COLORS.energy
+	baseRig(model, origin, "CONTROL SYSTEM", trade)
+	local cabinet = part(model, "ControlCabinet", Vector3.new(6.5, 5.7, 2.2), origin * CFrame.new(0, 2.9, 0.7), Color3.fromRGB(75, 82, 87), Enum.Material.Metal)
+	local display =
+		part(model, "ControlDisplay", Vector3.new(3.5, 1.7, 0.18), cabinet.CFrame * CFrame.new(0, 0.9, -1.2), Color3.fromRGB(24, 43, 43), Enum.Material.Glass)
+	surfaceLabel(display, "FAULT 07", Color3.fromRGB(235, 84, 70))
+	for row = -1, 1 do
+		for col = -2, 2 do
+			local led = part(
+				model,
+				"StatusLED",
+				Vector3.new(0.28, 0.28, 0.12),
+				cabinet.CFrame * CFrame.new(col * 0.55, -1.2 + row * 0.5, -1.18),
+				if col == 0 and row == 0 then Color3.fromRGB(235, 84, 70) else trade,
+				Enum.Material.Neon
+			)
+			led.Shape = Enum.PartType.Ball
+		end
+	end
+	local fault =
+		part(model, "FaultEffect", Vector3.new(0.7, 0.7, 0.25), cabinet.CFrame * CFrame.new(2.4, 1.8, -1.2), Color3.fromRGB(235, 84, 70), Enum.Material.Neon)
+	fault:SetAttribute("FaultEffect", true)
+end
+
+local function buildSolar(model: Model, origin: CFrame)
+	local trade = TRADE_COLORS.energy
+	baseRig(model, origin, "SOLAR THERMAL", trade)
+	for _, x in { -2.4, 2.4 } do
+		local panel = part(
+			model,
+			"SolarCollector",
+			Vector3.new(4.2, 0.35, 5.2),
+			origin * CFrame.new(x, 2.8, 0.3) * CFrame.Angles(math.rad(-28), 0, 0),
+			Color3.fromRGB(40, 78, 93),
+			Enum.Material.Glass
+		)
+		panel.Transparency = 0.06
+		for stripe = -1, 1 do
+			part(
+				model,
+				"CollectorPipe",
+				Vector3.new(0.12, 0.4, 4.3),
+				panel.CFrame * CFrame.new(stripe * 0.9, -0.25, 0),
+				Color3.fromRGB(181, 102, 66),
+				Enum.Material.Metal
+			)
+		end
+	end
+	local station = part(model, "PumpStation", Vector3.new(2.8, 3.4, 1.8), origin * CFrame.new(0, 1.7, -2.0), Color3.fromRGB(72, 78, 84), Enum.Material.Metal)
+	surfaceLabel(station, "SOLAR", trade)
+	local fault =
+		part(model, "FaultEffect", Vector3.new(0.6, 0.6, 0.25), station.CFrame * CFrame.new(0.8, 0.8, -1.0), Color3.fromRGB(235, 84, 70), Enum.Material.Neon)
+	fault:SetAttribute("FaultEffect", true)
+end
+
+local function buildHybrid(model: Model, origin: CFrame)
+	local trade = TRADE_COLORS.energy
+	baseRig(model, origin, "HYBRID SYSTEM", trade)
+	local boiler =
+		part(model, "HybridBoiler", Vector3.new(4.0, 5.4, 2.3), origin * CFrame.new(-2.4, 2.75, 0.7), Color3.fromRGB(220, 223, 222), Enum.Material.Metal)
+	local heatPump =
+		part(model, "HybridHeatPump", Vector3.new(4.6, 4.3, 2.5), origin * CFrame.new(2.4, 2.2, 0.6), Color3.fromRGB(194, 204, 206), Enum.Material.Metal)
+	surfaceLabel(boiler, "BOILER", TRADE_COLORS.heating)
+	surfaceLabel(heatPump, "HP", trade)
+	addPipe(model, "HybridFlow", 4.0, origin * CFrame.new(0, 1.1, -0.7), Color3.fromRGB(205, 78, 64))
+	addPipe(model, "HybridReturn", 4.0, origin * CFrame.new(0, 0.6, -0.7), Color3.fromRGB(78, 121, 190))
+	local fault = part(model, "FaultEffect", Vector3.new(0.75, 0.75, 0.3), origin * CFrame.new(0, 3.8, -0.9), Color3.fromRGB(235, 84, 70), Enum.Material.Neon)
+	fault:SetAttribute("FaultEffect", true)
+end
+
 local function prettyAction(id: string): string
 	local words = string.split(id, "_")
 	for index, word in words do
@@ -300,10 +548,20 @@ local function prettyAction(id: string): string
 end
 
 local BUILDERS = {
-	plumbing = buildPlumbing,
-	heating = buildHeating,
-	climate = buildClimate,
-	energy = buildEnergy,
+	sink = buildPlumbing,
+	toilet = buildToilet,
+	pipe = buildPipeService,
+	shower = buildShowerMixer,
+	radiator = buildHeating,
+	boiler = buildBoiler,
+	pump = buildPump,
+	indoor = buildIndoorClimate,
+	outdoor = buildClimate,
+	commercial = buildCommercialClimate,
+	heat_pump = buildEnergy,
+	controller = buildEnergyController,
+	solar = buildSolar,
+	hybrid = buildHybrid,
 }
 
 local function setState(model: Model, state: string)
@@ -365,7 +623,9 @@ end
 function RepairSceneController.Begin(job, stage, targetPosition: Vector3)
 	RepairSceneController.Clear()
 	local category = job and job.Category or "plumbing"
-	local builder = BUILDERS[category] or buildPlumbing
+	local jobId = if job and type(job.Id) == "string" then job.Id else "unknown"
+	local scene = RepairSceneCatalog.Get(jobId, category)
+	local builder = BUILDERS[scene.Variant] or buildPlumbing
 	local model = Instance.new("Model")
 	model.Name = "RepairEmpireLocalJobScene"
 	model:SetAttribute("JobId", job and job.Id or "unknown")
