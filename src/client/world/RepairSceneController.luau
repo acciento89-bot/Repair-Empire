@@ -42,19 +42,35 @@ local function cylinder(parent: Instance, name: string, size: Vector3, cf: CFram
 end
 
 local function label(parent: BasePart, text: string, tradeColor: Color3)
-	local gui = Instance.new("SurfaceGui")
-	gui.Face = Enum.NormalId.Front
-	gui.SizingMode = Enum.SurfaceGuiSizingMode.PixelsPerStud
-	gui.PixelsPerStud = 42
+	parent.Transparency = 1
+	local gui = Instance.new("BillboardGui")
+	gui.Name = "ServiceLabel"
+	gui.Adornee = parent
+	gui.Size = UDim2.fromOffset(230, 58)
+	gui.StudsOffset = Vector3.new(0, 0.4, 0)
+	gui.AlwaysOnTop = true
 	gui.Parent = parent
+
 	local t = Instance.new("TextLabel")
 	t.Size = UDim2.fromScale(1, 1)
-	t.BackgroundTransparency = 1
+	t.BackgroundColor3 = Color3.fromRGB(24, 34, 43)
+	t.BackgroundTransparency = 0.06
+	t.BorderSizePixel = 0
 	t.Font = Enum.Font.GothamBold
 	t.TextScaled = true
 	t.TextColor3 = tradeColor
 	t.Text = text
 	t.Parent = gui
+
+	local corner = Instance.new("UICorner")
+	corner.CornerRadius = UDim.new(0, 12)
+	corner.Parent = t
+
+	local stroke = Instance.new("UIStroke")
+	stroke.Color = tradeColor
+	stroke.Thickness = 1.4
+	stroke.Transparency = 0.1
+	stroke.Parent = t
 end
 
 local function baseRig(model: Model, origin: CFrame, title: string, tradeColor: Color3)
@@ -62,10 +78,11 @@ local function baseRig(model: Model, origin: CFrame, title: string, tradeColor: 
 	local border = part(model, "SafetyStripe", Vector3.new(11, 0.08, 0.35), origin * CFrame.new(0, 0.13, 2.72), tradeColor, Enum.Material.Neon)
 	border.Transparency = 0.08
 
-	local board = part(model, "ServiceBoard", Vector3.new(10, 6.5, 0.45), origin * CFrame.new(0, 3.25, 2.6), Color3.fromRGB(32, 39, 45), Enum.Material.Metal)
-	label(board, title, tradeColor)
+	local labelAnchor = part(model, "ServiceLabelAnchor", Vector3.new(0.2, 0.2, 0.2), origin * CFrame.new(0, 6.2, 0), tradeColor, Enum.Material.SmoothPlastic)
+	label(labelAnchor, title, tradeColor)
 
-	local lamp = part(model, "StatusLight", Vector3.new(1.0, 0.45, 0.3), origin * CFrame.new(4.2, 5.6, 2.3), Color3.fromRGB(225, 74, 74), Enum.Material.Neon)
+	local lamp = part(model, "StatusLight", Vector3.new(0.7, 0.7, 0.7), origin * CFrame.new(4.6, 0.65, 2.2), Color3.fromRGB(225, 74, 74), Enum.Material.Neon)
+	lamp.Shape = Enum.PartType.Ball
 	lamp:SetAttribute("RepairStatusLight", true)
 	return mat
 end
