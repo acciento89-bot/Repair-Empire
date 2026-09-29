@@ -33,20 +33,10 @@ local CATEGORY_AUDIO = {
 	},
 }
 
-local TOOL_AUDIO = {
-	wrench = { SoundId = "rbxasset://sounds/action_footsteps_plastic.mp3", PlaybackSpeed = 1.35, Volume = 0.16 },
-	screwdriver = { SoundId = "rbxasset://sounds/volume_slider.ogg", PlaybackSpeed = 1.55, Volume = 0.12 },
-	pliers = { SoundId = "rbxasset://sounds/action_get_up.mp3", PlaybackSpeed = 1.75, Volume = 0.1 },
-	drain = { SoundId = "rbxasset://sounds/action_swim.mp3", PlaybackSpeed = 1.3, Volume = 0.12 },
-	diagnostic_meter = { SoundId = "rbxasset://sounds/volume_slider.ogg", PlaybackSpeed = 1.8, Volume = 0.1 },
-	heating_service = { SoundId = "rbxasset://sounds/action_footsteps_plastic.mp3", PlaybackSpeed = 1.1, Volume = 0.16 },
-	pressure_service = { SoundId = "rbxasset://sounds/impact_water.mp3", PlaybackSpeed = 1.2, Volume = 0.12 },
-	climate_service = { SoundId = "rbxasset://sounds/action_falling.ogg", PlaybackSpeed = 1.45, Volume = 0.09 },
-	energy_diagnostic = { SoundId = "rbxasset://sounds/volume_slider.ogg", PlaybackSpeed = 1.9, Volume = 0.11 },
-}
+local TOOL_AUDIO = AudioCatalog.ToolFamily
 
-local STAGE_SOUND = "rbxasset://sounds/action_footsteps_plastic.mp3"
-local COMPLETE_SOUND = "rbxasset://sounds/electronicpingshort.wav"
+local STAGE_SOUND = AudioCatalog.BuiltIn.PlasticTool
+local COMPLETE_SOUND = AudioCatalog.BuiltIn.ElectronicPing
 
 local function createSound(parent: Instance, name: string, id: string): Sound
 	local sound = Instance.new("Sound")
@@ -79,17 +69,17 @@ function RepairAudioController.Start()
 			local preload = { tradeSound, stageSound, completeSound }
 			local seen = {}
 			for _, config in CATEGORY_AUDIO do
-				if seen[config.SoundId] ~= true then
-					seen[config.SoundId] = true
-					local probe = createSound(folder, "PreloadTrade", config.SoundId)
+				if seen[config.Sound] ~= true then
+					seen[config.Sound] = true
+					local probe = createSound(folder, "PreloadTrade", config.Sound)
 					probe.Volume = 0
 					table.insert(preload, probe)
 				end
 			end
 			for _, config in TOOL_AUDIO do
-				if seen[config.SoundId] ~= true then
-					seen[config.SoundId] = true
-					local probe = createSound(folder, "PreloadTool", config.SoundId)
+				if seen[config.Sound] ~= true then
+					seen[config.Sound] = true
+					local probe = createSound(folder, "PreloadTool", config.Sound)
 					probe.Volume = 0
 					table.insert(preload, probe)
 				end
@@ -114,14 +104,14 @@ function RepairAudioController.Start()
 			Volume = 0.16,
 		}
 		local actionProfile = RepairAudioRules.ForAction(action)
-		stageSound.SoundId = actionProfile.SoundId or config.SoundId
+		stageSound.SoundId = actionProfile.SoundId or config.Sound
 		stageSound.PlaybackSpeed = config.PlaybackSpeed + actionProfile.PlaybackOffset
 		stageSound.Volume = config.Volume * actionProfile.VolumeMultiplier
 	end
 
 	local function playTrade(category: string, stageBoost: number?)
 		local config = CATEGORY_AUDIO[category] or CATEGORY_AUDIO.plumbing
-		tradeSound.SoundId = config.SoundId
+		tradeSound.SoundId = config.Sound
 		tradeSound.Volume = config.Volume
 		tradeSound.PlaybackSpeed = config.PlaybackSpeed + (stageBoost or 0)
 		tradeSound.TimePosition = 0
