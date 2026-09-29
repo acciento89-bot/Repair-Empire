@@ -67,7 +67,7 @@ local function downtown(parent: Instance, center: Vector3, config)
 		part(parent, "PlazaBench", Vector3.new(7.5, 0.45, 1.6), CFrame.new(x + side * 9, 1.4, z + 5), Color3.fromRGB(114, 83, 58), Enum.Material.Wood)
 	end
 
-	local tower = part(parent, "ClockTower", Vector3.new(6.5, 18, 6.5), CFrame.new(x, 9, z), Color3.fromRGB(80, 86, 92), Enum.Material.Concrete)
+	part(parent, "ClockTower", Vector3.new(6.5, 18, 6.5), CFrame.new(x, 9, z), Color3.fromRGB(80, 86, 92), Enum.Material.Concrete)
 	local crown = part(parent, "ClockCrown", Vector3.new(8.3, 3.0, 8.3), CFrame.new(x, 19.5, z), Color3.fromRGB(43, 50, 57), Enum.Material.Metal)
 	for _, face in { -1, 1 } do
 		local clock = part(parent, "ClockFace", Vector3.new(4.4, 4.4, 0.18), CFrame.new(x, 16.2, z + face * 3.35), Color3.fromRGB(235, 231, 211), Enum.Material.SmoothPlastic)
