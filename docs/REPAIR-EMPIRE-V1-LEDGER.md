@@ -6,7 +6,7 @@ Implementation is active. Core systems are implemented and the repository is CI-
 
 Verification baseline:
 - Current main head: GitHub Actions verification green
-- P19 runtime production-art baseline: 2,128 world parts / 2,222 descendants; Studio client 56.9 approximate FPS at 1081x693; reachability 112 anchors ground/clearance OK and 12/12 representative routes
+- Current production-place runtime baseline after canonical-build publish: 2,593 world parts / 2,730 descendants; Studio client ~54.9 FPS at 1919x1079; reachability 112 anchors ground/clearance OK and 12/12 representative routes
 - Head verified through formatting, Selene lint, Rojo build and 45 pure-Luau tests; release-readiness reports Sandbox-ready: yes; P19 production-art, vehicle-input and production-audio guardrails are included
 - External/runtime-only blockers are documented in `docs/EXTERNAL-ROBLOX-BLOCKERS.md`
 
@@ -133,7 +133,7 @@ Verification baseline:
 - [x] P16-T02 Data migration/recovery test — isolated development DataStore live-probe verified v1→v2 migration with value preservation, expired-lock acquisition, active foreign-lock acquisition rejection, foreign-lock write rejection and cleanup=true
 - [!] P16-T03 Purchase release checklist — IDs/prices/free path plus live Game Pass ownership/prompt behavior are verified; final successful Developer Product receipt/rejoin checklist is blocked by the same owner-approved real Robux transaction required by P10-T06
 - [x] P16-T04 Store metadata/assets checklist — final name/description reviewed in Creator Hub; custom Repair Empire icon and three custom thumbnails are uploaded and processed; 17-section content questionnaire is complete
-- [!] P16-T05 Controlled public launch — build, metadata/assets, QA, rollback readiness and P19 Production Art & World Quality are complete; the final private dev build published successfully to Roblox as v70 on 2026-09-29. Public exposure is now blocked only by the owner-approved real Developer Product receipt/rejoin evidence.
+- [!] P16-T05 Controlled public launch — build, metadata/assets, QA, rollback readiness and P19 Production Art & World Quality are complete. The canonical `build.rbxlx` was explicitly published to the production start place `79925227687072` on 2026-09-29 and production runtime verification confirmed the current P19 world. Both places remain private. Public exposure is blocked only by the owner-approved real Developer Product receipt/rejoin evidence.
 - [x] P16-T06 Launch monitoring/rollback readiness — analytics, rollback and incident runbooks prepared
 
 ## P17 Post-launch
