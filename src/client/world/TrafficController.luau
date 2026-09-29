@@ -48,7 +48,7 @@ local function buildCar(index: number, lane: number, direction: number)
 	local cf = CFrame.new(0, 0, 0)
 
 	local chassis = part(model, "Chassis", Vector3.new(5.6, 0.8, 10.2), cf * CFrame.new(0, 1.0, 0), Color3.fromRGB(45, 48, 51), Enum.Material.Metal)
-	local body = part(model, "Body", Vector3.new(5.2, 2.0, 8.8), cf * CFrame.new(0, 2.1, 0), color, Enum.Material.SmoothPlastic)
+	part(model, "Body", Vector3.new(5.2, 2.0, 8.8), cf * CFrame.new(0, 2.1, 0), color, Enum.Material.SmoothPlastic)
 	local cabin = part(model, "Cabin", Vector3.new(4.6, 2.1, 4.2), cf * CFrame.new(0, 3.4, -0.4), color, Enum.Material.SmoothPlastic)
 	local front = part(model, "Windscreen", Vector3.new(4.0, 1.25, 0.14), cabin.CFrame * CFrame.new(0, 0.25, -2.14), Color3.fromRGB(82, 142, 166), Enum.Material.Glass)
 	front.Transparency = 0.18
