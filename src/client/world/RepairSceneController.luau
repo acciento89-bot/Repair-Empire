@@ -582,6 +582,62 @@ local function setState(model: Model, state: string)
 	end
 end
 
+local function emitTradeVfx(model: Model, category: string)
+	local fault = model:FindFirstChild("FaultEffect", true)
+	if not fault or not fault:IsA("BasePart") then
+		return
+	end
+
+	if category == "plumbing" then
+		local water = fault:FindFirstChild("WaterLeak")
+		if water and water:IsA("ParticleEmitter") then
+			water:Emit(18)
+		end
+	elseif category == "heating" then
+		local steam = fault:FindFirstChild("Steam")
+		if steam and steam:IsA("ParticleEmitter") then
+			steam:Emit(12)
+		end
+		local glow = fault:FindFirstChild("HeatGlow")
+		if glow and glow:IsA("PointLight") then
+			glow.Brightness = 2.2
+			task.delay(0.18, function()
+				if glow.Parent then
+					glow.Brightness = 1.1
+				end
+			end)
+		end
+	elseif category == "climate" then
+		for _, item in model:GetDescendants() do
+			if item:IsA("BasePart") and item:GetAttribute("AirflowEffect") == true then
+				item.Transparency = 0.3
+				TweenService:Create(item, TweenInfo.new(0.45, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {
+					Transparency = 0.78,
+				}):Play()
+			end
+		end
+	elseif category == "energy" then
+		local sparks = fault:FindFirstChild("EnergySparks")
+		if sparks and sparks:IsA("Sparkles") then
+			sparks.Enabled = true
+			task.delay(0.28, function()
+				if sparks.Parent then
+					sparks.Enabled = false
+				end
+			end)
+		end
+		local glow = fault:FindFirstChild("ControllerGlow")
+		if glow and glow:IsA("PointLight") then
+			glow.Brightness = 2.6
+			task.delay(0.2, function()
+				if glow.Parent then
+					glow.Brightness = 1.2
+				end
+			end)
+		end
+	end
+end
+
 local function startAnimation(model: Model)
 	if RepairSceneController._animationConnection then
 		RepairSceneController._animationConnection:Disconnect()
@@ -656,6 +712,7 @@ function RepairSceneController.Update(stage)
 		actionText.Text = prettyAction(action)
 	end
 	setState(model, "active")
+	emitTradeVfx(model, RepairSceneController._category or "plumbing")
 	local light = model:FindFirstChild("StatusLight", true)
 	if light and light:IsA("BasePart") then
 		light.Transparency = 0
