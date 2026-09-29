@@ -14,14 +14,7 @@ local ENGINE_SOUND = "rbxasset://sounds/volume_slider.ogg"
 local ROAD_SOUND = "rbxasset://sounds/action_falling.ogg"
 local WORKSHOP_SOUND = "rbxasset://sounds/volume_slider.ogg"
 
-local function configure3dSound(
-	parent: Instance,
-	name: string,
-	soundId: string,
-	volume: number,
-	playbackSpeed: number,
-	maxDistance: number
-): Sound
+local function configure3dSound(parent: Instance, name: string, soundId: string, volume: number, playbackSpeed: number, maxDistance: number): Sound
 	local sound = Instance.new("Sound")
 	sound.Name = name
 	sound.SoundId = soundId
