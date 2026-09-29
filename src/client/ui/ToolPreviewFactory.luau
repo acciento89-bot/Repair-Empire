@@ -88,7 +88,13 @@ local function meter(model: Model, accent: Color3)
 	text.Text = "READY"
 	text.Parent = gui
 	for x = -1, 1 do
-		cylinder(model, "ProbeJack", Vector3.new(0.3, 0.52, 0.52), Vector3.new(x * 0.72, -1.75, -0.58), if x < 0 then Color3.fromRGB(220, 70, 65) else Color3.fromRGB(50, 50, 52))
+		cylinder(
+			model,
+			"ProbeJack",
+			Vector3.new(0.3, 0.52, 0.52),
+			Vector3.new(x * 0.72, -1.75, -0.58),
+			if x < 0 then Color3.fromRGB(220, 70, 65) else Color3.fromRGB(50, 50, 52)
+		)
 	end
 	body:SetAttribute("ToolBody", true)
 end
