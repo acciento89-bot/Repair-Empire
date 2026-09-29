@@ -124,9 +124,11 @@ end
 
 local function serviceCharger(parent: Instance, cf: CFrame)
 	local body = part(parent, "ServiceCharger", Vector3.new(2.2, 4.6, 1.4), cf * CFrame.new(0, 2.3, 0), Color3.fromRGB(37, 48, 57), Enum.Material.Metal)
-	local screen = part(parent, "ChargerScreen", Vector3.new(1.35, 1.1, 0.12), body.CFrame * CFrame.new(0, 0.7, -0.76), Color3.fromRGB(67, 154, 166), Enum.Material.Glass)
+	local screen =
+		part(parent, "ChargerScreen", Vector3.new(1.35, 1.1, 0.12), body.CFrame * CFrame.new(0, 0.7, -0.76), Color3.fromRGB(67, 154, 166), Enum.Material.Glass)
 	screen.Transparency = 0.12
-	local light = part(parent, "ChargerStatus", Vector3.new(1.4, 0.28, 0.12), body.CFrame * CFrame.new(0, -0.45, -0.76), Color3.fromRGB(103, 177, 92), Enum.Material.Neon)
+	local light =
+		part(parent, "ChargerStatus", Vector3.new(1.4, 0.28, 0.12), body.CFrame * CFrame.new(0, -0.45, -0.76), Color3.fromRGB(103, 177, 92), Enum.Material.Neon)
 	light.Transparency = 0.05
 	part(parent, "ChargerCable", Vector3.new(0.22, 2.9, 0.22), body.CFrame * CFrame.new(1.35, -0.2, 0), Color3.fromRGB(30, 32, 34), Enum.Material.Rubber)
 end
@@ -205,14 +207,7 @@ function WorkshopYardArt.Decorate(parent: Instance, x: number, z: number)
 	fence(model, Vector3.new(x + 31, 0, z - 23), 24, true)
 
 	for _, side in { -1, 1 } do
-		part(
-			model,
-			"GatePost",
-			Vector3.new(0.8, 4.5, 0.8),
-			CFrame.new(x + side * 17, 2.25, z - 23),
-			Color3.fromRGB(245, 151, 49),
-			Enum.Material.Metal
-		)
+		part(model, "GatePost", Vector3.new(0.8, 4.5, 0.8), CFrame.new(x + side * 17, 2.25, z - 23), Color3.fromRGB(245, 151, 49), Enum.Material.Metal)
 	end
 
 	serviceCharger(model, CFrame.new(x + 38, 0, z - 12))
