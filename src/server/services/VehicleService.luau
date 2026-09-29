@@ -664,6 +664,8 @@ function VehicleService:_Step(dt: number)
 			local occupant = seat.Occupant
 			if occupant == nil then
 				model:SetAttribute("Driving", false)
+				model:SetAttribute("DriveThrottle", 0)
+				model:SetAttribute("DriveSteer", 0)
 				if entry.ExhaustEmitter then
 					entry.ExhaustEmitter.Rate = 0
 				end
@@ -674,6 +676,8 @@ function VehicleService:_Step(dt: number)
 			if driver == nil or driver.UserId ~= ownerUserId then
 				occupant.Sit = false
 				model:SetAttribute("Driving", false)
+				model:SetAttribute("DriveThrottle", 0)
+				model:SetAttribute("DriveSteer", 0)
 				if entry.ExhaustEmitter then
 					entry.ExhaustEmitter.Rate = 0
 				end
@@ -689,6 +693,8 @@ function VehicleService:_Step(dt: number)
 			end
 			local moving = math.abs(throttle) >= 0.01 or math.abs(steer) >= 0.01
 			model:SetAttribute("Driving", moving)
+			model:SetAttribute("DriveThrottle", throttle)
+			model:SetAttribute("DriveSteer", steer)
 			if entry.ExhaustEmitter then
 				entry.ExhaustEmitter.Rate = if moving then 7 + math.abs(throttle) * 7 else 2
 			end
