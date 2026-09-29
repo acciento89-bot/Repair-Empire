@@ -73,6 +73,44 @@ local function addOffice(model: Model, cf: CFrame, accent: Color3)
 	sign.Transparency = 0.05
 end
 
+local function addWorkbench(model: Model, cf: CFrame, accent: Color3)
+	part(model, "WorkbenchTop", Vector3.new(10, 0.5, 3.2), cf * CFrame.new(0, 3.0, 0), Color3.fromRGB(112, 82, 58), Enum.Material.WoodPlanks)
+	for _, x in { -4.2, 4.2 } do
+		part(model, "WorkbenchLeg", Vector3.new(0.5, 3.0, 0.5), cf * CFrame.new(x, 1.5, 0), Color3.fromRGB(65, 69, 73), Enum.Material.Metal)
+	end
+	local pegboard = part(model, "WorkbenchPegboard", Vector3.new(10, 4.2, 0.3), cf * CFrame.new(0, 5.2, 1.6), Color3.fromRGB(43, 53, 61), Enum.Material.Metal)
+	for i = -3, 3 do
+		local tool = part(
+			model,
+			"WallTool",
+			Vector3.new(0.28, 2.1 + (math.abs(i) % 2) * 0.7, 0.28),
+			pegboard.CFrame * CFrame.new(i * 1.2, -0.2 + (i % 2) * 0.35, -0.3),
+			if i % 2 == 0 then accent else Color3.fromRGB(188, 194, 198),
+			Enum.Material.Metal
+		)
+		tool.Orientation = Vector3.new(0, 0, i * 3)
+	end
+end
+
+local function addVehicleLift(model: Model, cf: CFrame, accent: Color3)
+	for _, side in { -1, 1 } do
+		local post = part(model, "LiftPost", Vector3.new(1.0, 8.5, 1.0), cf * CFrame.new(side * 4.2, 4.25, 0), Color3.fromRGB(55, 61, 66), Enum.Material.Metal)
+		part(model, "LiftAccent", Vector3.new(1.08, 1.2, 1.08), post.CFrame * CFrame.new(0, 2.6, 0), accent, Enum.Material.Metal)
+		part(model, "LiftArm", Vector3.new(3.7, 0.35, 0.7), cf * CFrame.new(side * 2.3, 1.2, 0), Color3.fromRGB(76, 82, 86), Enum.Material.Metal)
+	end
+	part(model, "LiftCrossbar", Vector3.new(9.5, 0.55, 0.75), cf * CFrame.new(0, 8.2, 0), Color3.fromRGB(55, 61, 66), Enum.Material.Metal)
+end
+
+local function addBayLight(model: Model, cf: CFrame)
+	local fixture = part(model, "BayLight", Vector3.new(5.5, 0.22, 0.7), cf, Color3.fromRGB(255, 235, 191), Enum.Material.Neon)
+	local light = Instance.new("PointLight")
+	light.Color = Color3.fromRGB(255, 230, 182)
+	light.Brightness = 1.6
+	light.Range = 20
+	light.Shadows = false
+	light.Parent = fixture
+end
+
 local function rebuild()
 	if WorkshopVisualController._model then
 		WorkshopVisualController._model:Destroy()
@@ -106,6 +144,7 @@ local function rebuild()
 	if tier >= 2 then
 		addRack(model, base * CFrame.new(17, -4.1, -2), accent)
 		addToolCabinet(model, base * CFrame.new(13, -3.0, 6), accent)
+		addWorkbench(model, base * CFrame.new(-5, -6.0, 7), accent)
 		for _, side in { -1, 1 } do
 			part(model, "BayLamp", Vector3.new(2.4, 0.35, 0.7), base * CFrame.new(side * 7.5, 4.6, -14.6), Color3.fromRGB(255, 231, 174), Enum.Material.Neon)
 		end
@@ -114,6 +153,8 @@ local function rebuild()
 	if tier >= 3 then
 		addCompressor(model, base * CFrame.new(18, -4.3, 7))
 		addRack(model, base * CFrame.new(17, -4.1, 2), Color3.fromRGB(68, 145, 214))
+		addVehicleLift(model, base * CFrame.new(-10, -6.5, -3), accent)
+		addBayLight(model, base * CFrame.new(-10, 4.9, -3))
 		part(model, "ServiceCanopy", Vector3.new(18, 0.5, 9), base * CFrame.new(15, 4.5, -8), Color3.fromRGB(43, 51, 58), Enum.Material.Metal)
 		for _, side in { -1, 1 } do
 			part(model, "CanopyPost", Vector3.new(0.65, 8.5, 0.65), base * CFrame.new(15 + side * 7.8, 0.1, -8), accent, Enum.Material.Metal)
@@ -122,6 +163,7 @@ local function rebuild()
 
 	if tier >= 4 then
 		addOffice(model, base * CFrame.new(15, -1.7, 15), accent)
+		addBayLight(model, base * CFrame.new(7, 4.9, -3))
 		for i = -2, 2 do
 			part(model, "RoofSolar", Vector3.new(5.5, 0.25, 3.0), base * CFrame.new(i * 5.0, 7.5, 2), Color3.fromRGB(39, 74, 95), Enum.Material.Glass)
 		end
