@@ -173,14 +173,7 @@ local function addServiceClutter(model: Model, origin: CFrame, tradeColor: Color
 			Enum.Material.SmoothPlastic
 		)
 		cone.Shape = Enum.PartType.Cylinder
-		part(
-			model,
-			"ConeBase",
-			Vector3.new(1.35, 0.16, 1.35),
-			origin * CFrame.new(side * 5.0, 0.08, 2.0),
-			Color3.fromRGB(42, 45, 48),
-			Enum.Material.Rubber
-		)
+		part(model, "ConeBase", Vector3.new(1.35, 0.16, 1.35), origin * CFrame.new(side * 5.0, 0.08, 2.0), Color3.fromRGB(42, 45, 48), Enum.Material.Rubber)
 	end
 end
 
