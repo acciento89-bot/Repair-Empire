@@ -16,6 +16,7 @@ local EnvironmentArt = require(script.Parent.Parent.world.EnvironmentArt)
 local BuildingArt = require(script.Parent.Parent.world.BuildingArt)
 local LandmarkArt = require(script.Parent.Parent.world.LandmarkArt)
 local DistrictDensityArt = require(script.Parent.Parent.world.DistrictDensityArt)
+local BackdropArt = require(script.Parent.Parent.world.BackdropArt)
 
 local CATEGORIES = { "plumbing", "heating", "climate", "energy" }
 local CATEGORY_COLORS = {
@@ -762,6 +763,7 @@ function WorldService:Init()
 		addConnectorRoad(world, vectorFromArray(fromConfig.Center), vectorFromArray(toConfig.Center))
 	end
 
+	BackdropArt.Add(world, WorldConfig)
 	logStudioWorldBaseline(world)
 end
 
