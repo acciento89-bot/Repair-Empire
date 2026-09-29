@@ -4,7 +4,14 @@ return function()
 
 	for districtId, config in world.Districts do
 		for index = 1, config.BuildingCount do
-			if layout.IsReservedBuildingSlot(districtId, index, world.WorkshopReservedBuildingIndex) then
+			if
+				layout.IsReservedBuildingSlot(
+					districtId,
+					index,
+					world.WorkshopReservedBuildingIndex,
+					world.WorkshopReservedBuildingSlots
+				)
+			then
 				continue
 			end
 
