@@ -14,6 +14,7 @@ local PassCosmeticsController = require(script.ui.PassCosmeticsController)
 local PerformanceProbe = require(script.PerformanceProbe)
 local RepairSceneController = require(script.world.RepairSceneController)
 local WorkshopVisualController = require(script.world.WorkshopVisualController)
+local ToolAnimationController = require(script.world.ToolAnimationController)
 local RepairAudioController = require(script.audio.RepairAudioController)
 
 local player = Players.LocalPlayer
@@ -54,6 +55,7 @@ RepairAudioController.Start()
 PassCosmeticsController.Start()
 PerformanceProbe.Start()
 WorkshopVisualController.Start()
+ToolAnimationController.Start()
 
 local remotes = ReplicatedStorage:WaitForChild("RepairEmpireRemotes")
 local stateUpdated = remotes:WaitForChild("StateUpdated")
