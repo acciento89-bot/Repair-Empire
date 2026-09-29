@@ -16,7 +16,7 @@ Date: 2026-09-29
 - configuration blockers: none
 - build size: `474070` bytes
 - build SHA-256: `daa175f1d919c25531ab0b4cbf3b70a9d694807fbd713cc7bda71be253d92798`
-- local backup: `.local-backups/RepairEmpire-latest-green.rbxlx`
+- canonical local artifact: `build.rbxlx` (no persistent QA/mainQA/backup place copies)
 
 ## Runtime acceptance
 - P19 Production Art & World Quality: complete
@@ -32,8 +32,17 @@ The development place `138882349802835` was successfully published twice on 2026
 - 16:15:49 UTC: `PublishSuccessful`
 - 16:18:55 UTC: `PublishSuccessful`
 
-Both sessions logged:
-`Published new changes in "Reparatur-Imperium-Entwickler" to Roblox.`
+The production start place `79925227687072` was then explicitly overwritten from the canonical `build.rbxlx`:
+- 19:49:57 UTC: `PublishSuccessful`
+
+Production was reopened directly from Roblox and runtime-verified immediately afterward. The current production session reported:
+- Repair audio preload: `ready=true assets=10`
+- DataRecoveryProbe: pass
+- WorldReachabilityProbe: `112` anchors and `12/12` representative routes pass
+- Studio world baseline: `2593` parts / `2730` descendants
+- Studio client baseline: approximately `54.9 FPS` at `1919x1079`
+
+Both Roblox places remain private. Publishing content did not make the experience public.
 
 ## Remaining pre-public gate
 Exactly one external pre-public acceptance item remains:
