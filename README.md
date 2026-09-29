@@ -83,7 +83,7 @@ lune run scripts/run-tests
 ```
 
 ## Roblox platform status
-Repair Empire is configured in Roblox and remains private while QA is incomplete.
+Repair Empire is configured in Roblox and remains private while the final paid-receipt release gate is incomplete.
 
 Configured:
 - Universe ID: `10768475286`
@@ -92,8 +92,9 @@ Configured:
 - five Game Passes
 - six Developer Products
 - isolated development/production DataStores
+- final P19 development-place build published successfully to Roblox as v70
 
-Remaining Roblox-side gates are runtime/device/security/Marketplace sandbox verification plus final store assets and release declarations.
+Runtime/device/security/art QA and release assets are complete. The remaining pre-public gate is one owner-approved real-Robux Developer Product receipt/rejoin verification; P17 telemetry/balance work begins only after real users exist.
 
 Use:
 - [Roblox Dashboard Setup](docs/ROBLOX-DASHBOARD-SETUP.md)
