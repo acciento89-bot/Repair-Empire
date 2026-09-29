@@ -224,20 +224,10 @@ local function addResidentialWorkshop(parent: Instance, config)
 	roof.Color = Color3.fromRGB(61, 64, 70)
 
 	for unitIndex = -1, 1 do
-		local roofUnit = createPart(
-			"WorkshopRoofUnit",
-			Vector3.new(5.2, 2.2, 4.2),
-			CFrame.new(x - 12 + unitIndex * 11, 15.3, z + 19),
-			model
-		)
+		local roofUnit = createPart("WorkshopRoofUnit", Vector3.new(5.2, 2.2, 4.2), CFrame.new(x - 12 + unitIndex * 11, 15.3, z + 19), model)
 		roofUnit.Material = Enum.Material.Metal
 		roofUnit.Color = Color3.fromRGB(102, 108, 112)
-		local fan = createPart(
-			"WorkshopRoofFan",
-			Vector3.new(3.0, 0.22, 3.0),
-			roofUnit.CFrame * CFrame.new(0, 1.2, 0),
-			model
-		)
+		local fan = createPart("WorkshopRoofFan", Vector3.new(3.0, 0.22, 3.0), roofUnit.CFrame * CFrame.new(0, 1.2, 0), model)
 		fan.Material = Enum.Material.Metal
 		fan.Color = Color3.fromRGB(52, 58, 62)
 		fan.CanCollide = false
@@ -248,43 +238,23 @@ local function addResidentialWorkshop(parent: Instance, config)
 	door.Color = Color3.fromRGB(95, 98, 105)
 
 	for rib = -3, 3 do
-		local line = createPart(
-			"GarageDoorRib",
-			Vector3.new(13.2, 0.12, 0.16),
-			door.CFrame * CFrame.new(0, rib * 1.0, -0.36),
-			model
-		)
+		local line = createPart("GarageDoorRib", Vector3.new(13.2, 0.12, 0.16), door.CFrame * CFrame.new(0, rib * 1.0, -0.36), model)
 		line.Material = Enum.Material.Metal
 		line.Color = Color3.fromRGB(140, 145, 150)
 		line.CanCollide = false
 	end
 	for pane = -2, 2 do
-		local glass = createPart(
-			"GarageDoorWindow",
-			Vector3.new(2.0, 1.1, 0.12),
-			door.CFrame * CFrame.new(pane * 2.35, 2.2, -0.38),
-			model
-		)
+		local glass = createPart("GarageDoorWindow", Vector3.new(2.0, 1.1, 0.12), door.CFrame * CFrame.new(pane * 2.35, 2.2, -0.38), model)
 		glass.Material = Enum.Material.Glass
 		glass.Color = Color3.fromRGB(88, 148, 178)
 		glass.Transparency = 0.22
 		glass.CanCollide = false
 	end
 
-	local sideDoor = createPart(
-		"PersonnelDoor",
-		Vector3.new(0.55, 6.6, 4.0),
-		CFrame.new(x + 10.25, 3.3, z + 21),
-		model
-	)
+	local sideDoor = createPart("PersonnelDoor", Vector3.new(0.55, 6.6, 4.0), CFrame.new(x + 10.25, 3.3, z + 21), model)
 	sideDoor.Material = Enum.Material.Metal
 	sideDoor.Color = Color3.fromRGB(48, 59, 68)
-	local sideDoorWindow = createPart(
-		"PersonnelDoorWindow",
-		Vector3.new(0.12, 2.0, 2.0),
-		sideDoor.CFrame * CFrame.new(0.34, 1.4, 0),
-		model
-	)
+	local sideDoorWindow = createPart("PersonnelDoorWindow", Vector3.new(0.12, 2.0, 2.0), sideDoor.CFrame * CFrame.new(0.34, 1.4, 0), model)
 	sideDoorWindow.Material = Enum.Material.Glass
 	sideDoorWindow.Color = Color3.fromRGB(100, 168, 197)
 	sideDoorWindow.Transparency = 0.2
@@ -329,18 +299,13 @@ local function addResidentialWorkshop(parent: Instance, config)
 	serviceCabinet.Material = Enum.Material.Metal
 	serviceCabinet.Color = Color3.fromRGB(51, 61, 68)
 	for row = -1, 1 do
-		local drawer = createPart(
-			"OutdoorCabinetDrawer",
-			Vector3.new(4.3, 1.0, 0.15),
-			serviceCabinet.CFrame * CFrame.new(0, row * 1.35, -1.28),
-			model
-		)
+		local drawer = createPart("OutdoorCabinetDrawer", Vector3.new(4.3, 1.0, 0.15), serviceCabinet.CFrame * CFrame.new(0, row * 1.35, -1.28), model)
 		drawer.Material = Enum.Material.Metal
 		drawer.Color = if row == 0 then Color3.fromRGB(245, 151, 49) else Color3.fromRGB(83, 90, 95)
 		drawer.CanCollide = false
 	end
 
-		local toolRack = createPart("ToolRack", Vector3.new(10, 5, 1), CFrame.new(x + 31, 2.5, z + 12), model)
+	local toolRack = createPart("ToolRack", Vector3.new(10, 5, 1), CFrame.new(x + 31, 2.5, z + 12), model)
 	toolRack.Material = Enum.Material.Metal
 	toolRack.Color = Color3.fromRGB(42, 52, 60)
 	for toolIndex = -2, 2 do
