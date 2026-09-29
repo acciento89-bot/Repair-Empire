@@ -7,6 +7,7 @@ local Workspace = game:GetService("Workspace")
 
 local Shared = ReplicatedStorage.RepairEmpire.Shared
 local VehicleDefinitions = require(Shared.vehicles.VehicleDefinitions)
+local VehicleInputRules = require(Shared.vehicles.VehicleInputRules)
 local PassRules = require(Shared.monetization.PassRules)
 local MutationGuard = require(script.Parent.Parent.security.MutationGuard)
 
@@ -19,6 +20,12 @@ local VehicleService = {
 local function remote(name: string): RemoteFunction
 	local instance = ReplicatedStorage:WaitForChild("RepairEmpireRemotes"):WaitForChild(name)
 	assert(instance:IsA("RemoteFunction"), name .. " must be a RemoteFunction")
+	return instance
+end
+
+local function remoteEvent(name: string): RemoteEvent
+	local instance = ReplicatedStorage:WaitForChild("RepairEmpireRemotes"):WaitForChild(name)
+	assert(instance:IsA("RemoteEvent"), name .. " must be a RemoteEvent")
 	return instance
 end
 
@@ -602,9 +609,49 @@ function VehicleService:Spawn(player: Player)
 		Seat = seat,
 		Definition = definition,
 		ExhaustEmitter = exhaustEmitter,
+		Input = {
+			Throttle = 0,
+			Steer = 0,
+			UpdatedAt = 0,
+		},
 	})
 	self._spawned[player.UserId] = entries
 	return { ok = true, activeVehicles = #entries, maxVehicles = maxVehicles }
+end
+
+function VehicleService:UpdateInput(player: Player, payload: any)
+	local security = require(script.Parent.SecurityService)
+	if not security:Allow(player, "UpdateVehicleInput") then
+		return
+	end
+
+	local normalized = VehicleInputRules.Normalize(payload)
+	if normalized == nil then
+		security:RecordAnomaly(player, "invalid_vehicle_input", typeof(payload))
+		return
+	end
+
+	local entries = self._spawned[player.UserId]
+	if not entries then
+		return
+	end
+
+	for index = #entries, 1, -1 do
+		local entry = entries[index]
+		local seat = entry.Seat
+		if seat and seat.Parent then
+			local occupant = seat.Occupant
+			local driver = occupant and Players:GetPlayerFromCharacter(occupant.Parent)
+			if driver == player then
+				entry.Input = {
+					Throttle = normalized.Throttle,
+					Steer = normalized.Steer,
+					UpdatedAt = os.clock(),
+				}
+				return
+			end
+		end
+	end
 end
 
 function VehicleService:_Step(dt: number)
@@ -639,6 +686,11 @@ function VehicleService:_Step(dt: number)
 
 			local throttle = seat.ThrottleFloat
 			local steer = seat.SteerFloat
+			local input = entry.Input
+			if input and os.clock() - input.UpdatedAt <= 0.45 then
+				throttle = input.Throttle
+				steer = input.Steer
+			end
 			local moving = math.abs(throttle) >= 0.01 or math.abs(steer) >= 0.01
 			model:SetAttribute("Driving", moving)
 			if entry.ExhaustEmitter then
@@ -686,6 +738,9 @@ function VehicleService:Init()
 	remote("DespawnVehicle").OnServerInvoke = function(player)
 		return self:Despawn(player)
 	end
+	remoteEvent("UpdateVehicleInput").OnServerEvent:Connect(function(player, payload)
+		self:UpdateInput(player, payload)
+	end)
 
 	Players.PlayerRemoving:Connect(function(player)
 		self:_DestroySpawned(player.UserId)
