@@ -263,6 +263,16 @@ local function buildProceduralVehicle(player: Player, definition, slotIndex: num
 		headlight.Material = Enum.Material.Neon
 		headlight.Color = Color3.fromRGB(255, 240, 188)
 		headlight.CanCollide = false
+
+		local beam = Instance.new("SpotLight")
+		beam.Name = "HeadlightBeam"
+		beam.Face = Enum.NormalId.Front
+		beam.Angle = 54
+		beam.Brightness = 1.4
+		beam.Range = 28
+		beam.Color = Color3.fromRGB(255, 236, 194)
+		beam.Shadows = false
+		beam.Parent = headlight
 	end
 
 	for _, side in { -1, 1 } do
@@ -271,6 +281,14 @@ local function buildProceduralVehicle(player: Player, definition, slotIndex: num
 		tailLight.Material = Enum.Material.Neon
 		tailLight.Color = Color3.fromRGB(205, 56, 49)
 		tailLight.CanCollide = false
+
+		local rearGlow = Instance.new("PointLight")
+		rearGlow.Name = "TailGlow"
+		rearGlow.Brightness = 0.35
+		rearGlow.Range = 7
+		rearGlow.Color = Color3.fromRGB(220, 62, 52)
+		rearGlow.Shadows = false
+		rearGlow.Parent = tailLight
 	end
 
 	if definition.Style == "service_van" or definition.Style == "long_van" or definition.Style == "premium_van" or definition.Style == "elite" then
@@ -326,7 +344,37 @@ local function buildProceduralVehicle(player: Player, definition, slotIndex: num
 		end
 	end
 
-	local seat = Instance.new("VehicleSeat")
+	local exhaust = createVehiclePart(
+		"ExhaustPipe",
+		Vector3.new(0.45, 0.45, 2.2),
+		CFrame.new(origin + Vector3.new(width * 0.34, -0.35, length / 2 + 0.8)),
+		model
+	)
+	exhaust.Shape = Enum.PartType.Cylinder
+	exhaust.Orientation = Vector3.new(90, 0, 0)
+	exhaust.Material = Enum.Material.Metal
+	exhaust.Color = Color3.fromRGB(64, 68, 71)
+	exhaust.CanCollide = false
+
+	local exhaustEmitter = Instance.new("ParticleEmitter")
+	exhaustEmitter.Name = "Exhaust"
+	exhaustEmitter.Rate = 0
+	exhaustEmitter.Lifetime = NumberRange.new(0.45, 0.8)
+	exhaustEmitter.Speed = NumberRange.new(0.6, 1.2)
+	exhaustEmitter.Acceleration = Vector3.new(0, 0.6, 0)
+	exhaustEmitter.SpreadAngle = Vector2.new(18, 18)
+	exhaustEmitter.Color = ColorSequence.new(Color3.fromRGB(165, 170, 174))
+	exhaustEmitter.Size = NumberSequence.new({
+		NumberSequenceKeypoint.new(0, 0.2),
+		NumberSequenceKeypoint.new(1, 0.6),
+	})
+	exhaustEmitter.Transparency = NumberSequence.new({
+		NumberSequenceKeypoint.new(0, 0.55),
+		NumberSequenceKeypoint.new(1, 1),
+	})
+	exhaustEmitter.Parent = exhaust
+
+		local seat = Instance.new("VehicleSeat")
 	seat.Name = "DriverSeat"
 	seat.Size = Vector3.new(2, 1, 2)
 	seat.Anchored = true
@@ -378,7 +426,7 @@ local function buildProceduralVehicle(player: Player, definition, slotIndex: num
 
 	model.PrimaryPart = chassis
 	model.Parent = Workspace
-	return model, seat
+	return model, seat, exhaustEmitter
 end
 
 function VehicleService:Purchase(player: Player, vehicleId: any)
@@ -485,7 +533,7 @@ function VehicleService:Spawn(player: Player)
 	end
 
 	local slotIndex = #entries + 1
-	local model, seat = buildProceduralVehicle(player, definition, slotIndex)
+	local model, seat, exhaustEmitter = buildProceduralVehicle(player, definition, slotIndex)
 	local character = player.Character
 	local root = character and character:FindFirstChild("HumanoidRootPart")
 	if root and root:IsA("BasePart") and model.PrimaryPart then
@@ -497,6 +545,7 @@ function VehicleService:Spawn(player: Player)
 		Model = model,
 		Seat = seat,
 		Definition = definition,
+		ExhaustEmitter = exhaustEmitter,
 	})
 	self._spawned[player.UserId] = entries
 	return { ok = true, activeVehicles = #entries, maxVehicles = maxVehicles }
@@ -515,18 +564,31 @@ function VehicleService:_Step(dt: number)
 
 			local occupant = seat.Occupant
 			if occupant == nil then
+				model:SetAttribute("Driving", false)
+				if entry.ExhaustEmitter then
+					entry.ExhaustEmitter.Rate = 0
+				end
 				continue
 			end
 
 			local driver = Players:GetPlayerFromCharacter(occupant.Parent)
 			if driver == nil or driver.UserId ~= ownerUserId then
 				occupant.Sit = false
+				model:SetAttribute("Driving", false)
+				if entry.ExhaustEmitter then
+					entry.ExhaustEmitter.Rate = 0
+				end
 				continue
 			end
 
 			local throttle = seat.ThrottleFloat
 			local steer = seat.SteerFloat
-			if math.abs(throttle) < 0.01 and math.abs(steer) < 0.01 then
+			local moving = math.abs(throttle) >= 0.01 or math.abs(steer) >= 0.01
+			model:SetAttribute("Driving", moving)
+			if entry.ExhaustEmitter then
+				entry.ExhaustEmitter.Rate = if moving then 7 + math.abs(throttle) * 7 else 2
+			end
+			if not moving then
 				continue
 			end
 
