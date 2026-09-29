@@ -480,6 +480,7 @@ function WorldService:_BuildDistrict(world: Folder, districtId: string, config)
 	addDistrictSign(folder, center + Vector3.new(-groundX / 2 + 18, 0, 0), config.DisplayName)
 	addStreetFurniture(folder, center, config.Spacing)
 	addDistrictEdgeDressing(folder, districtId, center, config)
+	EnvironmentArt.DecorateDistrict(folder, districtId, center, config)
 
 	if districtId == "residential" then
 		addResidentialWorkshop(folder, config)
