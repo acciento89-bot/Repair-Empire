@@ -78,7 +78,7 @@ end
 local function findForeignBroadPlatforms(world: Instance)
 	local result = {}
 	for _, item in Workspace:GetDescendants() do
-		if item:IsA("BasePart") and not item:IsDescendantOf(world) and item.CanCollide then
+		if item:IsA("BasePart") and item ~= Workspace.Terrain and not item:IsDescendantOf(world) and item.CanCollide then
 			local ownerModel = item:FindFirstAncestorOfClass("Model")
 			local isCharacter = ownerModel ~= nil and ownerModel:FindFirstChildOfClass("Humanoid") ~= nil
 			local isVehicle = ownerModel ~= nil and ownerModel:GetAttribute("OwnerUserId") ~= nil
