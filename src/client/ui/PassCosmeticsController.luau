@@ -116,7 +116,7 @@ local function applyPremiumWorkshop(player: Player)
 		awning.Color = if premium then Color3.fromRGB(245, 151, 49) else Color3.fromRGB(217, 126, 48)
 	end
 
-		local marker = workshop:FindFirstChild("PremiumMarker")
+	local marker = workshop:FindFirstChild("PremiumMarker")
 	if premium and marker == nil and building and building:IsA("BasePart") then
 		local billboard = Instance.new("BillboardGui")
 		billboard.Name = "PremiumMarker"
