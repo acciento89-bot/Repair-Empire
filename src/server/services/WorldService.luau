@@ -109,7 +109,7 @@ end
 
 local function addStreetFurniture(parent: Instance, center: Vector3, spacing: number)
 	for index = -2, 2 do
-		local x = center.X + index * spacing
+		local x = center.X + (index + 0.5) * spacing
 		for _, zOffset in { -14, 14 } do
 			local pole = createPart("StreetLightPole", Vector3.new(0.6, 9, 0.6), CFrame.new(x, 4.5, center.Z + zOffset), parent)
 			pole.Material = Enum.Material.Metal
@@ -406,6 +406,25 @@ local function addServiceWalkway(parent: Instance, config, buildingX: number, bu
 	local walkway = createPart("ServiceWalkway", Vector3.new(10, 0.22, walkwayLength), CFrame.new(buildingX, 0.11, walkwayZ), parent)
 	walkway.Material = Enum.Material.Concrete
 	walkway.Color = Color3.fromRGB(186, 188, 190)
+	walkway.CanCollide = false
+
+	local _, anchorZ = WorldLayoutRules.GetJobAnchorPosition(config, buildingX, buildingZ, 2)
+	local apron = createPart("ServiceApron", Vector3.new(27, 0.2, 8.5), CFrame.new(buildingX, 0.12, anchorZ), parent)
+	apron.Material = Enum.Material.Concrete
+	apron.Color = Color3.fromRGB(174, 177, 178)
+	apron.CanCollide = false
+
+	for _, edgeX in { -13, 13 } do
+		local stripe = createPart(
+			"ServiceApronEdge",
+			Vector3.new(0.25, 0.08, 8.5),
+			CFrame.new(buildingX + edgeX, 0.24, anchorZ),
+			parent
+		)
+		stripe.Material = Enum.Material.SmoothPlastic
+		stripe.Color = Color3.fromRGB(245, 151, 49)
+		stripe.CanCollide = false
+	end
 end
 
 local function addServicePoint(parent: Instance, categoryId: string, x: number, z: number)
