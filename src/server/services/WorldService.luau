@@ -14,6 +14,12 @@ local WorldLayoutRules = require(ReplicatedStorage.RepairEmpire.Shared.world.Wor
 local SpatialRules = require(ReplicatedStorage.RepairEmpire.Shared.security.SpatialRules)
 
 local CATEGORIES = { "plumbing", "heating", "climate", "energy" }
+local CATEGORY_COLORS = {
+	plumbing = Color3.fromRGB(68, 145, 214),
+	heating = Color3.fromRGB(230, 112, 55),
+	climate = Color3.fromRGB(76, 188, 202),
+	energy = Color3.fromRGB(103, 177, 92),
+}
 
 local WorldService = {
 	Name = "WorldService",
@@ -54,6 +60,25 @@ local function clearLegacyPlaceContent()
 	StarterPack:ClearAllChildren()
 	for _, child in StarterGui:GetChildren() do
 		child:Destroy()
+	end
+end
+
+local function addWorldFoundation(world: Folder)
+	local firstConfig = WorldConfig.Districts[WorldConfig.DistrictOrder[1]]
+	local lastConfig = WorldConfig.Districts[WorldConfig.DistrictOrder[#WorldConfig.DistrictOrder]]
+	local minX = firstConfig.Center[1] - firstConfig.GroundSize[1] / 2 - 90
+	local maxX = lastConfig.Center[1] + lastConfig.GroundSize[1] / 2 + 90
+	local width = maxX - minX
+	local centerX = (minX + maxX) / 2
+
+	local ground = createPart("WorldGround", Vector3.new(width, 2, 420), CFrame.new(centerX, -1, 0), world)
+	ground.Material = Enum.Material.Grass
+	ground.Color = Color3.fromRGB(88, 126, 76)
+
+	for _, side in { -1, 1 } do
+		local verge = createPart("OuterVerge", Vector3.new(width, 0.35, 26), CFrame.new(centerX, 0.05, side * 178), world)
+		verge.Material = Enum.Material.Ground
+		verge.Color = Color3.fromRGB(92, 81, 66)
 	end
 end
 
@@ -112,6 +137,28 @@ local function addRoadDetails(parent: Instance, center: Vector3, groundX: number
 	end
 end
 
+local function addCrossStreetGrid(parent: Instance, center: Vector3, config)
+	for _, direction in { -1, 1 } do
+		local x = center.X + direction * config.Spacing * 1.5
+		local road = createPart("CrossStreet", Vector3.new(14, 0.38, config.GroundSize[2]), CFrame.new(x, 0.19, center.Z), parent)
+		road.Material = Enum.Material.Asphalt
+		road.Color = Color3.fromRGB(58, 60, 63)
+
+		for _, side in { -1, 1 } do
+			local sidewalk = createPart("CrossSidewalk", Vector3.new(4, 0.48, config.GroundSize[2]), CFrame.new(x + side * 9, 0.24, center.Z), parent)
+			sidewalk.Material = Enum.Material.Concrete
+			sidewalk.Color = Color3.fromRGB(176, 178, 180)
+		end
+
+		for stripe = -3, 3 do
+			local crossing = createPart("CrosswalkStripe", Vector3.new(1.1, 0.08, 7), CFrame.new(x + stripe * 1.7, 0.43, center.Z), parent)
+			crossing.Material = Enum.Material.SmoothPlastic
+			crossing.Color = Color3.fromRGB(232, 232, 226)
+			crossing.CanCollide = false
+		end
+	end
+end
+
 local function addTree(parent: Instance, position: Vector3, scale: number)
 	local trunk = createPart("TreeTrunk", Vector3.new(1.2 * scale, 5 * scale, 1.2 * scale), CFrame.new(position + Vector3.new(0, 2.5 * scale, 0)), parent)
 	trunk.Material = Enum.Material.Wood
@@ -122,6 +169,27 @@ local function addTree(parent: Instance, position: Vector3, scale: number)
 	crown.Material = Enum.Material.Grass
 	crown.Color = Color3.fromRGB(75, 132, 70)
 	crown.CanCollide = false
+end
+
+local function addDistrictEdgeDressing(parent: Instance, districtId: string, center: Vector3, config)
+	if districtId ~= "industrial" then
+		for index = -2, 2 do
+			local x = center.X + index * (config.GroundSize[1] / 6)
+			for _, side in { -1, 1 } do
+				addTree(parent, Vector3.new(x, 0, center.Z + side * (config.GroundSize[2] / 2 - 10)), if districtId == "residential" then 0.85 else 0.65)
+			end
+		end
+		return
+	end
+
+	for index = -4, 4 do
+		local x = center.X + index * (config.GroundSize[1] / 10)
+		for _, side in { -1, 1 } do
+			local post = createPart("PerimeterPost", Vector3.new(0.6, 5, 0.6), CFrame.new(x, 2.5, center.Z + side * (config.GroundSize[2] / 2 - 7)), parent)
+			post.Material = Enum.Material.Metal
+			post.Color = Color3.fromRGB(77, 80, 84)
+		end
+	end
 end
 
 local function addResidentialWorkshop(parent: Instance, config)
@@ -239,6 +307,9 @@ local function addBuildingDetails(
 	entrance.CanCollide = false
 
 	if districtId == "residential" then
+		roof.Transparency = 1
+		roof.CanCollide = false
+
 		for _, side in { -1, 1 } do
 			local window = createPart(
 				"FrontWindow",
@@ -250,7 +321,28 @@ local function addBuildingDetails(
 			window.Color = Color3.fromRGB(120, 180, 205)
 			window.Transparency = 0.25
 			window.CanCollide = false
+
+			local roofSlope = createPart(
+				"HouseRoofSlope",
+				Vector3.new(width * 0.56, 1.0, depth + 2.4),
+				CFrame.new(x + side * width * 0.23, height + 2.5, z) * CFrame.Angles(0, 0, side * math.rad(20)),
+				building
+			)
+			roofSlope.Material = Enum.Material.Slate
+			roofSlope.Color = if index % 2 == 0 then Color3.fromRGB(73, 78, 84) else Color3.fromRGB(92, 72, 64)
 		end
+
+		local porch = createPart("FrontPorch", Vector3.new(width * 0.58, 0.45, 5), CFrame.new(x, 0.23, z + frontSign * (depth / 2 + 2.5)), building)
+		porch.Material = Enum.Material.WoodPlanks
+		porch.Color = Color3.fromRGB(123, 94, 68)
+
+		local porchRoof = createPart("PorchAwning", Vector3.new(width * 0.5, 0.35, 4.5), CFrame.new(x, 5.5, z + frontSign * (depth / 2 + 2.2)), building)
+		porchRoof.Material = Enum.Material.Metal
+		porchRoof.Color = Color3.fromRGB(74, 82, 88)
+
+		local chimney = createPart("Chimney", Vector3.new(2.4, 5, 2.4), CFrame.new(x - width * 0.28, height + 2.4, z + depth * 0.15), building)
+		chimney.Material = Enum.Material.Brick
+		chimney.Color = Color3.fromRGB(117, 77, 60)
 	elseif districtId == "downtown" then
 		local floors = math.max(2, math.floor(height / 8))
 		for floorIndex = 1, floors do
@@ -263,16 +355,41 @@ local function addBuildingDetails(
 				band.CanCollide = false
 			end
 		end
+
+		local storefront = createPart("Storefront", Vector3.new(width * 0.82, 5.5, 0.4), CFrame.new(x, 3, z + frontSign * (depth / 2 + 0.24)), building)
+		storefront.Material = Enum.Material.Glass
+		storefront.Color = Color3.fromRGB(74, 135, 165)
+		storefront.Transparency = 0.18
+		storefront.CanCollide = false
+
+		local canopy = createPart("StorefrontCanopy", Vector3.new(width * 0.88, 0.4, 4.2), CFrame.new(x, 6.1, z + frontSign * (depth / 2 + 2.0)), building)
+		canopy.Material = Enum.Material.Metal
+		canopy.Color = if index % 2 == 0 then Color3.fromRGB(41, 91, 118) else Color3.fromRGB(178, 103, 54)
 	elseif districtId == "industrial" then
 		local vent = createPart("RoofVent", Vector3.new(5, 4, 5), CFrame.new(x + width * 0.22, height + 2.4, z), building)
 		vent.Material = Enum.Material.Metal
 		vent.Color = Color3.fromRGB(90, 92, 96)
+
+		local loadingPad = createPart("LoadingPad", Vector3.new(width * 0.72, 0.45, 7), CFrame.new(x, 0.23, z + frontSign * (depth / 2 + 3.5)), building)
+		loadingPad.Material = Enum.Material.Concrete
+		loadingPad.Color = Color3.fromRGB(129, 129, 126)
+
+		local loadingDoor = createPart("LoadingDoor", Vector3.new(width * 0.42, 7.5, 0.45), CFrame.new(x, 3.75, z + frontSign * (depth / 2 + 0.25)), building)
+		loadingDoor.Material = Enum.Material.Metal
+		loadingDoor.Color = Color3.fromRGB(66, 70, 74)
 
 		if index % 2 == 0 then
 			local pipe = createPart("ServicePipe", Vector3.new(1.2, 10, 1.2), CFrame.new(x - width / 2 - 1, 5, z + depth * 0.2), building)
 			pipe.Shape = Enum.PartType.Cylinder
 			pipe.Material = Enum.Material.Metal
 			pipe.Color = Color3.fromRGB(156, 116, 72)
+		end
+
+		for crateIndex = -1, 1 do
+			local crate =
+				createPart("ServiceCrate", Vector3.new(3.2, 2.6, 3.2), CFrame.new(x + crateIndex * 4.2, 1.3, z - frontSign * (depth / 2 + 3.5)), building)
+			crate.Material = Enum.Material.WoodPlanks
+			crate.Color = Color3.fromRGB(128, 91, 55)
 		end
 	end
 end
@@ -286,6 +403,15 @@ local function addServiceWalkway(parent: Instance, config, buildingX: number, bu
 	local walkway = createPart("ServiceWalkway", Vector3.new(6, 0.22, walkwayLength), CFrame.new(buildingX, 0.11, walkwayZ), parent)
 	walkway.Material = Enum.Material.Concrete
 	walkway.Color = Color3.fromRGB(186, 188, 190)
+end
+
+local function addServicePoint(parent: Instance, categoryId: string, x: number, z: number)
+	local pad = createPart("ServicePoint_" .. categoryId, Vector3.new(3.2, 0.12, 3.2), CFrame.new(x, 0.08, z), parent)
+	pad.Material = Enum.Material.Neon
+	pad.Color = CATEGORY_COLORS[categoryId] or Color3.fromRGB(245, 151, 49)
+	pad.Transparency = 0.38
+	pad.CanCollide = false
+	pad.CanQuery = false
 end
 
 local function addConnectorRoad(parent: Instance, fromCenter: Vector3, toCenter: Vector3)
@@ -349,8 +475,10 @@ function WorldService:_BuildDistrict(world: Folder, districtId: string, config)
 	mainRoad.Color = Color3.fromRGB(54, 56, 59)
 
 	addRoadDetails(folder, center, groundX)
+	addCrossStreetGrid(folder, center, config)
 	addDistrictSign(folder, center + Vector3.new(-groundX / 2 + 18, 0, 0), config.DisplayName)
 	addStreetFurniture(folder, center, config.Spacing)
+	addDistrictEdgeDressing(folder, districtId, center, config)
 
 	if districtId == "residential" then
 		addResidentialWorkshop(folder, config)
@@ -404,6 +532,7 @@ function WorldService:_BuildDistrict(world: Folder, districtId: string, config)
 
 		for categoryIndex, categoryId in CATEGORIES do
 			local anchorX, anchorZ = WorldLayoutRules.GetJobAnchorPosition(config, x, z, categoryIndex)
+			addServicePoint(building, categoryId, anchorX, anchorZ)
 			local anchor = createPart("JobAnchor", Vector3.new(3, 3, 3), CFrame.new(anchorX, 1.5, anchorZ), building)
 			local anchorId = ("%s_%02d_%s"):format(districtId, index, categoryId)
 			self:_RegisterAnchor(anchor, districtId, categoryId, anchorId)
@@ -536,6 +665,7 @@ function WorldService:Init()
 	local world = Instance.new("Folder")
 	world.Name = "RepairEmpireWorld"
 	world.Parent = Workspace
+	addWorldFoundation(world)
 
 	for districtId, config in WorldConfig.Districts do
 		self:_BuildDistrict(world, districtId, config)
