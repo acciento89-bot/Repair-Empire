@@ -174,8 +174,9 @@ local function addMailBox(parent: Instance, position: Vector3)
 	flag:SetAttribute("EnvironmentDetail", true)
 end
 
-function EnvironmentArt.DecorateDistrict(parent: Instance, districtId: string, center: Vector3, config)
-	local roadEdge = config.RoadWidth / 2 + 7
+function EnvironmentArt.DecorateDistrict(parent: Instance, districtId: string, center: Vector3, config, roadWidth: number)
+	assert(type(roadWidth) == "number" and roadWidth > 0, "roadWidth must be positive")
+	local roadEdge = roadWidth / 2 + 7
 	if districtId == "residential" then
 		for index = -2, 2 do
 			local x = center.X + index * config.Spacing
