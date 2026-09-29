@@ -17,6 +17,7 @@ local BuildingArt = require(script.Parent.Parent.world.BuildingArt)
 local LandmarkArt = require(script.Parent.Parent.world.LandmarkArt)
 local DistrictDensityArt = require(script.Parent.Parent.world.DistrictDensityArt)
 local BackdropArt = require(script.Parent.Parent.world.BackdropArt)
+local WorkshopYardArt = require(script.Parent.Parent.world.WorkshopYardArt)
 
 local CATEGORIES = { "plumbing", "heating", "climate", "energy" }
 local CATEGORY_COLORS = {
@@ -348,6 +349,8 @@ local function addResidentialWorkshop(parent: Instance, config)
 	for index, offset in { Vector3.new(-26, 0, -12), Vector3.new(-28, 0, 14), Vector3.new(26, 0, 15) } do
 		addTree(model, Vector3.new(x, 0, z) + offset, 0.9 + index * 0.08)
 	end
+
+	WorkshopYardArt.Decorate(model, x, z)
 end
 
 local function addBuildingDetails(
