@@ -43,22 +43,52 @@ local function manhole(parent: Instance, position: Vector3)
 end
 
 local function drain(parent: Instance, position: Vector3)
-	local base = part(parent, "StormDrain", Vector3.new(3.4, 0.1, 1.6), CFrame.new(position + Vector3.new(0, 0.45, 0)), Color3.fromRGB(54, 57, 59), Enum.Material.Metal)
+	local base =
+		part(parent, "StormDrain", Vector3.new(3.4, 0.1, 1.6), CFrame.new(position + Vector3.new(0, 0.45, 0)), Color3.fromRGB(54, 57, 59), Enum.Material.Metal)
 	for slot = -3, 3 do
-		part(parent, "DrainSlot", Vector3.new(0.18, 0.06, 1.25), base.CFrame * CFrame.new(slot * 0.42, 0.07, 0), Color3.fromRGB(27, 29, 31), Enum.Material.Metal)
+		part(
+			parent,
+			"DrainSlot",
+			Vector3.new(0.18, 0.06, 1.25),
+			base.CFrame * CFrame.new(slot * 0.42, 0.07, 0),
+			Color3.fromRGB(27, 29, 31),
+			Enum.Material.Metal
+		)
 	end
 end
 
 local function utilityCabinet(parent: Instance, position: Vector3, accent: Color3)
-	local cabinet = part(parent, "UtilityCabinet", Vector3.new(2.5, 4.2, 1.5), CFrame.new(position + Vector3.new(0, 2.1, 0)), Color3.fromRGB(74, 80, 84), Enum.Material.Metal)
-	local door = part(parent, "UtilityCabinetDoor", Vector3.new(2.15, 3.45, 0.12), cabinet.CFrame * CFrame.new(0, 0, -0.82), Color3.fromRGB(89, 95, 99), Enum.Material.Metal)
+	local cabinet = part(
+		parent,
+		"UtilityCabinet",
+		Vector3.new(2.5, 4.2, 1.5),
+		CFrame.new(position + Vector3.new(0, 2.1, 0)),
+		Color3.fromRGB(74, 80, 84),
+		Enum.Material.Metal
+	)
+	local door = part(
+		parent,
+		"UtilityCabinetDoor",
+		Vector3.new(2.15, 3.45, 0.12),
+		cabinet.CFrame * CFrame.new(0, 0, -0.82),
+		Color3.fromRGB(89, 95, 99),
+		Enum.Material.Metal
+	)
 	local indicator = part(parent, "UtilityIndicator", Vector3.new(0.28, 0.28, 0.08), door.CFrame * CFrame.new(0.7, 1.1, -0.08), accent, Enum.Material.Neon)
 	indicator.Shape = Enum.PartType.Ball
 end
 
 local function roadSign(parent: Instance, position: Vector3, symbol: string, accent: Color3)
-	local post = part(parent, "RoadSignPost", Vector3.new(0.32, 5.4, 0.32), CFrame.new(position + Vector3.new(0, 2.7, 0)), Color3.fromRGB(70, 74, 78), Enum.Material.Metal)
-	local face = part(parent, "RoadSignFace", Vector3.new(3.2, 3.2, 0.18), post.CFrame * CFrame.new(0, 2.1, 0), Color3.fromRGB(237, 239, 238), Enum.Material.Metal)
+	local post = part(
+		parent,
+		"RoadSignPost",
+		Vector3.new(0.32, 5.4, 0.32),
+		CFrame.new(position + Vector3.new(0, 2.7, 0)),
+		Color3.fromRGB(70, 74, 78),
+		Enum.Material.Metal
+	)
+	local face =
+		part(parent, "RoadSignFace", Vector3.new(3.2, 3.2, 0.18), post.CFrame * CFrame.new(0, 2.1, 0), Color3.fromRGB(237, 239, 238), Enum.Material.Metal)
 	local gui = Instance.new("SurfaceGui")
 	gui.Face = Enum.NormalId.Front
 	gui.SizingMode = Enum.SurfaceGuiSizingMode.PixelsPerStud
