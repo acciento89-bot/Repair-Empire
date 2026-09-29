@@ -593,11 +593,7 @@ function VehicleService:Spawn(player: Player)
 		params.FilterType = Enum.RaycastFilterType.Exclude
 		params.FilterDescendantsInstances = excluded
 
-		local result = Workspace:Raycast(
-			targetCFrame.Position + Vector3.new(0, 24, 0),
-			Vector3.new(0, -80, 0),
-			params
-		)
+		local result = Workspace:Raycast(targetCFrame.Position + Vector3.new(0, 24, 0), Vector3.new(0, -80, 0), params)
 		local fallbackY = if bay and bay:IsA("BasePart") then bay.Position.Y - 0.5 else if root and root:IsA("BasePart") then root.Position.Y - 3 else 0
 		local groundY = if result then result.Position.Y else fallbackY
 		local chassisY = groundY + 1.8
