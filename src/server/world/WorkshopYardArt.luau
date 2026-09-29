@@ -102,6 +102,79 @@ local function outdoorUnit(parent: Instance, cf: CFrame)
 	fan.Orientation = Vector3.new(0, 90, 0)
 end
 
+local function fence(parent: Instance, center: Vector3, length: number, alongX: boolean)
+	local postCount = math.max(2, math.floor(length / 7))
+	for index = 0, postCount do
+		local alpha = index / postCount
+		local offset = (alpha - 0.5) * length
+		local pos = center + if alongX then Vector3.new(offset, 0, 0) else Vector3.new(0, 0, offset)
+		part(parent, "YardFencePost", Vector3.new(0.35, 3.2, 0.35), CFrame.new(pos + Vector3.new(0, 1.6, 0)), Color3.fromRGB(66, 71, 75), Enum.Material.Metal)
+	end
+	for y = 0.9, 2.5, 1.6 do
+		part(
+			parent,
+			"YardFenceRail",
+			if alongX then Vector3.new(length, 0.18, 0.18) else Vector3.new(0.18, 0.18, length),
+			CFrame.new(center + Vector3.new(0, y, 0)),
+			Color3.fromRGB(82, 87, 90),
+			Enum.Material.Metal
+		)
+	end
+end
+
+local function serviceCharger(parent: Instance, cf: CFrame)
+	local body = part(parent, "ServiceCharger", Vector3.new(2.2, 4.6, 1.4), cf * CFrame.new(0, 2.3, 0), Color3.fromRGB(37, 48, 57), Enum.Material.Metal)
+	local screen = part(parent, "ChargerScreen", Vector3.new(1.35, 1.1, 0.12), body.CFrame * CFrame.new(0, 0.7, -0.76), Color3.fromRGB(67, 154, 166), Enum.Material.Glass)
+	screen.Transparency = 0.12
+	local light = part(parent, "ChargerStatus", Vector3.new(1.4, 0.28, 0.12), body.CFrame * CFrame.new(0, -0.45, -0.76), Color3.fromRGB(103, 177, 92), Enum.Material.Neon)
+	light.Transparency = 0.05
+	part(parent, "ChargerCable", Vector3.new(0.22, 2.9, 0.22), body.CFrame * CFrame.new(1.35, -0.2, 0), Color3.fromRGB(30, 32, 34), Enum.Material.Rubber)
+end
+
+local function drumStack(parent: Instance, cf: CFrame)
+	local colors = {
+		Color3.fromRGB(56, 92, 120),
+		Color3.fromRGB(205, 111, 58),
+		Color3.fromRGB(78, 112, 72),
+	}
+	for index = 1, 6 do
+		local row = math.floor((index - 1) / 3)
+		local col = (index - 1) % 3
+		local drum = part(
+			parent,
+			"ServiceDrum",
+			Vector3.new(2.2, 2.8, 2.2),
+			cf * CFrame.new((col - 1) * 2.5, 1.4 + row * 2.9, 0),
+			colors[((index - 1) % #colors) + 1],
+			Enum.Material.Metal
+		)
+		drum.Shape = Enum.PartType.Cylinder
+	end
+end
+
+local function wasteZone(parent: Instance, cf: CFrame)
+	local bin = part(parent, "WasteContainer", Vector3.new(6.5, 3.6, 3.8), cf * CFrame.new(0, 1.8, 0), Color3.fromRGB(59, 91, 70), Enum.Material.Metal)
+	for _, side in { -1, 1 } do
+		part(parent, "WasteLid", Vector3.new(3.1, 0.28, 3.9), bin.CFrame * CFrame.new(side * 1.6, 1.95, 0), Color3.fromRGB(42, 58, 48), Enum.Material.Metal)
+	end
+end
+
+local function flagMast(parent: Instance, cf: CFrame)
+	part(parent, "CompanyFlagMast", Vector3.new(0.42, 12, 0.42), cf * CFrame.new(0, 6, 0), Color3.fromRGB(177, 181, 184), Enum.Material.Metal)
+	local flag = part(parent, "CompanyFlag", Vector3.new(4.5, 2.3, 0.12), cf * CFrame.new(2.1, 10.1, 0), Color3.fromRGB(20, 34, 46), Enum.Material.Fabric)
+	local gui = Instance.new("SurfaceGui")
+	gui.Face = Enum.NormalId.Front
+	gui.Parent = flag
+	local text = Instance.new("TextLabel")
+	text.Size = UDim2.fromScale(1, 1)
+	text.BackgroundTransparency = 1
+	text.Font = Enum.Font.GothamBold
+	text.TextScaled = true
+	text.TextColor3 = Color3.fromRGB(245, 151, 49)
+	text.Text = "RE"
+	text.Parent = gui
+end
+
 function WorkshopYardArt.Decorate(parent: Instance, x: number, z: number)
 	local model = Instance.new("Model")
 	model.Name = "WorkshopYardProductionArt"
@@ -124,6 +197,31 @@ function WorkshopYardArt.Decorate(parent: Instance, x: number, z: number)
 			Enum.Material.SmoothPlastic
 		)
 	end
+
+	fence(model, Vector3.new(x, 0, z + 33), 86, true)
+	fence(model, Vector3.new(x - 45, 0, z + 7), 52, false)
+	fence(model, Vector3.new(x + 45, 0, z + 7), 52, false)
+	fence(model, Vector3.new(x - 31, 0, z - 23), 24, true)
+	fence(model, Vector3.new(x + 31, 0, z - 23), 24, true)
+
+	for _, side in { -1, 1 } do
+		part(
+			model,
+			"GatePost",
+			Vector3.new(0.8, 4.5, 0.8),
+			CFrame.new(x + side * 17, 2.25, z - 23),
+			Color3.fromRGB(245, 151, 49),
+			Enum.Material.Metal
+		)
+	end
+
+	serviceCharger(model, CFrame.new(x + 38, 0, z - 12))
+	drumStack(model, CFrame.new(x + 36, 0, z + 26))
+	wasteZone(model, CFrame.new(x - 36, 0, z + 26))
+	flagMast(model, CFrame.new(x - 38, 0, z - 15))
+
+	local gateLine = part(model, "GateEntryLine", Vector3.new(28, 0.08, 0.7), CFrame.new(x, 0.58, z - 22.5), Color3.fromRGB(245, 151, 49), Enum.Material.Neon)
+	gateLine.Transparency = 0.08
 end
 
 return WorkshopYardArt
