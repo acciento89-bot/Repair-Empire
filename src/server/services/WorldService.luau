@@ -736,6 +736,14 @@ function WorldService:Init()
 
 	BackdropArt.Add(world, WorldConfig)
 	logStudioWorldBaseline(world)
+
+	if RunService:IsStudio() then
+		local WorldVerticalLayerProbe = require(script.Parent.Parent.qa.WorldVerticalLayerProbe)
+		local verticalOk, verticalErr = pcall(WorldVerticalLayerProbe.Run)
+		if not verticalOk then
+			warn("[Repair Empire] WorldVerticalLayerProbe failed: " .. tostring(verticalErr))
+		end
+	end
 end
 
 function WorldService:Start() end
