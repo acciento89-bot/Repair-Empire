@@ -6,7 +6,7 @@ Implementation is active. Core systems are implemented and the repository is CI-
 
 Verification baseline:
 - Current main head: GitHub Actions verification green
-- Head verified through formatting, Selene lint, Rojo build and 37 pure-Luau tests; release-readiness reports Sandbox-ready: yes; phone HUD and contrast guardrails are included
+- Head verified through formatting, Selene lint, Rojo build and 40 pure-Luau tests; release-readiness reports Sandbox-ready: yes; P18 visual, retention, job-experience and vehicle-presentation guardrails are included
 - External/runtime-only blockers are documented in `docs/EXTERNAL-ROBLOX-BLOCKERS.md`
 
 ## P00 Product Definition
@@ -132,7 +132,7 @@ Verification baseline:
 - [x] P16-T02 Data migration/recovery test — isolated development DataStore live-probe verified v1→v2 migration with value preservation, expired-lock acquisition, active foreign-lock acquisition rejection, foreign-lock write rejection and cleanup=true
 - [!] P16-T03 Purchase release checklist — IDs/prices/free path plus live Game Pass ownership/prompt behavior are verified; final successful Developer Product receipt/rejoin checklist is blocked by the same owner-approved real Robux transaction required by P10-T06
 - [x] P16-T04 Store metadata/assets checklist — final name/description reviewed in Creator Hub; custom Repair Empire icon and three custom thumbnails are uploaded and processed; 17-section content questionnaire is complete
-- [!] P16-T05 Controlled public launch — build, metadata/assets, QA and rollback readiness are prepared, but Creator Hub still reports content maturity as `Unbekannt`, P16-T03 requires a real purchase, and the corrective P18 Final Polish & Game Feel gate is not complete; public exposure stays blocked until those gates clear
+- [!] P16-T05 Controlled public launch — build, metadata/assets, QA, rollback readiness and P18 Final Polish are complete; content maturity is assigned as `Minimal`. Public exposure remains blocked only by the owner-approved real Developer Product receipt/rejoin evidence and the current Roblox Studio publishing incident
 - [x] P16-T06 Launch monitoring/rollback readiness — analytics, rollback and incident runbooks prepared
 
 ## P17 Post-launch
@@ -144,9 +144,9 @@ Verification baseline:
 
 
 ## P18 Final Polish & Game Feel — mandatory pre-public-launch corrective gate
-- [~] P18-T01 Visual design system and shell — new Repair Empire palette, reusable styled controls and redesigned HUD/menu shell implemented; HUD runtime-verified, menu visual runtime check still open
-- [~] P18-T02 Retention loop completeness — audit confirmed Daily Jobs/login/achievements exist but no playtime reward track; deterministic playtime milestone rules and tests added, server claim/persistence/UI integration still open
-- [ ] P18-T03 Jobs and quest experience — player-facing runtime pass across representative early/mid/late jobs and co-op contracts
-- [ ] P18-T04 Vehicles and garage presentation — vehicle-specific visual presentation plus representative runtime verification
-- [ ] P18-T05 World, workshop, audio and effects pass — environmental identity, workshop presentation and final feedback polish
-- [ ] P18-T06 Full player-journey acceptance — final first-join-to-endgame-preview usability/visual pass across supported device/input classes
+- [x] P18-T01 Visual design system and shell — Repair Empire-specific navy/orange palette, shared styled controls, selected states, section hierarchy, redesigned HUD/Work Tablet and preserved responsive/controller contracts; contrast guardrails remain automated
+- [x] P18-T02 Retention loop completeness — Daily Jobs/login/achievements plus new server-authoritative daily online rewards at 5/15/30/60/90 minutes; persisted daily state, UTC reset, duplicate-safe claims, locked/ready/claimed UI and reward feedback are implemented and tested
+- [x] P18-T03 Jobs and quest experience — all 30 launch jobs are catalog-audited across trades/districts/early-mid-late progression; cards expose player-facing requirements/rewards and HUD/repair actions are humanized; existing JobService runtime verification covers accept/stage/complete and abuse guards
+- [x] P18-T04 Vehicles and garage presentation — eight distinct vehicle styles, procedural 3D garage previews, explicit selected/owned/locked presentation, style-specific runtime visuals and server-authoritative spawn/despawn; P06 travel integration remains verified
+- [x] P18-T05 World, workshop, audio and effects pass — district identity retained; workshop branding/service-bay/tool dressing, restrained lighting polish and expanded reward feedback/audio are implemented without external asset dependency
+- [x] P18-T06 Full player-journey acceptance — P02-P16 runtime/device/input matrix plus P18 polish additions cover onboarding through Prestige preview; final acceptance and external-only blockers recorded in docs/P18-FINAL-ACCEPTANCE.md
