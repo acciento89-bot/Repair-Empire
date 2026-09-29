@@ -63,9 +63,15 @@ if RunService:IsStudio() then
 	task.spawn(function()
 		task.wait(1)
 		local WorldReachabilityProbe = require(script.qa.WorldReachabilityProbe)
-		local ok, err = pcall(WorldReachabilityProbe.Run)
-		if not ok then
-			warn("[Repair Empire] WorldReachabilityProbe failed: " .. tostring(err))
+		local reachabilityOk, reachabilityErr = pcall(WorldReachabilityProbe.Run)
+		if not reachabilityOk then
+			warn("[Repair Empire] WorldReachabilityProbe failed: " .. tostring(reachabilityErr))
+		end
+
+		local WorldVerticalLayerProbe = require(script.qa.WorldVerticalLayerProbe)
+		local verticalOk, verticalErr = pcall(WorldVerticalLayerProbe.Run)
+		if not verticalOk then
+			warn("[Repair Empire] WorldVerticalLayerProbe failed: " .. tostring(verticalErr))
 		end
 	end)
 end
