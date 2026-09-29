@@ -69,47 +69,26 @@ local function playAction(action: string)
 	local waistOrigin = if waist then waist.Transform else CFrame.new()
 	local shoulderPose, waistPose = poseForAction(action)
 
-	local windup = TweenService:Create(
-		shoulder,
-		TweenInfo.new(0.16, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-		{ Transform = shoulderOrigin * shoulderPose }
-	)
+	local windup =
+		TweenService:Create(shoulder, TweenInfo.new(0.16, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), { Transform = shoulderOrigin * shoulderPose })
 	windup:Play()
 	if waist then
-		TweenService:Create(
-			waist,
-			TweenInfo.new(0.16, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-			{ Transform = waistOrigin * waistPose }
-		):Play()
+		TweenService:Create(waist, TweenInfo.new(0.16, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), { Transform = waistOrigin * waistPose }):Play()
 	end
 	windup.Completed:Wait()
 
 	for pulse = 1, 2 do
 		local direction = if pulse % 2 == 0 then -1 else 1
-		local workPose = shoulderOrigin
-			* shoulderPose
-			* CFrame.Angles(math.rad(10 * direction), 0, math.rad(8 * direction))
-		local work = TweenService:Create(
-			shoulder,
-			TweenInfo.new(0.11, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut),
-			{ Transform = workPose }
-		)
+		local workPose = shoulderOrigin * shoulderPose * CFrame.Angles(math.rad(10 * direction), 0, math.rad(8 * direction))
+		local work = TweenService:Create(shoulder, TweenInfo.new(0.11, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut), { Transform = workPose })
 		work:Play()
 		work.Completed:Wait()
 	end
 
-	local recover = TweenService:Create(
-		shoulder,
-		TweenInfo.new(0.22, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-		{ Transform = shoulderOrigin }
-	)
+	local recover = TweenService:Create(shoulder, TweenInfo.new(0.22, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), { Transform = shoulderOrigin })
 	recover:Play()
 	if waist then
-		TweenService:Create(
-			waist,
-			TweenInfo.new(0.22, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
-			{ Transform = waistOrigin }
-		):Play()
+		TweenService:Create(waist, TweenInfo.new(0.22, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), { Transform = waistOrigin }):Play()
 	end
 	recover.Completed:Wait()
 	ToolAnimationController._busy = false
