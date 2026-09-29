@@ -4,7 +4,6 @@ local ServerScriptService = game:GetService("ServerScriptService")
 local RunService = game:GetService("RunService")
 local StarterGui = game:GetService("StarterGui")
 local StarterPack = game:GetService("StarterPack")
-local StarterPlayer = game:GetService("StarterPlayer")
 local Workspace = game:GetService("Workspace")
 
 local ServiceRegistry = require(script.core.ServiceRegistry)
@@ -31,12 +30,11 @@ local function sanitizeLegacyPlace()
 	StarterPack:ClearAllChildren()
 	StarterGui:ClearAllChildren()
 
-	for _, child in StarterPlayer.StarterPlayerScripts:GetChildren() do
-		if child.Name ~= "RepairEmpireClient" then
-			child:Destroy()
-		end
-	end
-	StarterPlayer.StarterCharacterScripts:ClearAllChildren()
+	-- Do not clear StarterPlayerScripts or StarterCharacterScripts here.
+	-- Roblox injects its default PlayerModule/camera/control stack through these
+	-- containers. Deleting those scripts leaves the character spawned but the
+	-- camera and controls detached. The canonical Rojo build owns our custom
+	-- starter scripts, so runtime sanitization must preserve Roblox defaults.
 end
 
 sanitizeLegacyPlace()
@@ -60,12 +58,23 @@ registry:InitAll()
 registry:StartAll()
 
 if RunService:IsStudio() then
+	if Workspace:GetAttribute("RepairEmpireE2E") == true then
+		local StudioJourneyFixture = require(script.qa.StudioJourneyFixture)
+		StudioJourneyFixture.Start()
+	end
+
 	task.spawn(function()
 		task.wait(1)
 		local WorldReachabilityProbe = require(script.qa.WorldReachabilityProbe)
 		local reachabilityOk, reachabilityErr = pcall(WorldReachabilityProbe.Run)
 		if not reachabilityOk then
 			warn("[Repair Empire] WorldReachabilityProbe failed: " .. tostring(reachabilityErr))
+		end
+
+		local JobCatalogRuntimeProbe = require(script.qa.JobCatalogRuntimeProbe)
+		local catalogOk, catalogErr = pcall(JobCatalogRuntimeProbe.Run)
+		if not catalogOk then
+			warn("[Repair Empire] JobCatalogRuntimeProbe failed: " .. tostring(catalogErr))
 		end
 	end)
 end
