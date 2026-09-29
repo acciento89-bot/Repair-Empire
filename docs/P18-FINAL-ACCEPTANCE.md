@@ -61,10 +61,14 @@ Final local verification after P18:
 - pure Luau suite: 40 tests pass
 - release-readiness: Sandbox-ready: yes
 
-## Remaining external-only gates
-These are not implementation work:
-1. One owner-approved real-Robux Developer Product purchase is required to evidence a successful live receipt/rejoin path.
-2. Roblox Studio publishing is currently failing with `PublishService AssetUpload failed: UploadStatusPolling max polling retry reached`; retry when Roblox upload service recovers.
-3. P17 telemetry review and evidence-based balance patch necessarily require real post-launch users/data.
+## Follow-up status after P19
+The corrective P19 Production Art & World Quality gate is complete; persisted runtime screenshots and acceptance evidence are stored under `docs/evidence/p19/`.
 
-Public exposure remains blocked until the paid receipt gate and Roblox publishing incident clear.
+Roblox Studio cloud publishing also recovered on 2026-09-29. After reconnecting the final Rojo/P19 source, the private development place published successfully as version **v70** and Studio logged `PublishSuccessful` / `Published new changes in "Reparatur-Imperium-Entwickler" to Roblox`.
+
+## Remaining external-only pre-launch gate
+One owner-approved real-Robux Developer Product purchase is still required to evidence the live receipt/rejoin path. This is not repository implementation work and must not be initiated without the owner's explicit approval.
+
+P17 telemetry review and the first evidence-based balance patch are post-launch tasks that necessarily require real users/data.
+
+Public exposure remains blocked only by the paid Developer Product receipt/rejoin gate.
