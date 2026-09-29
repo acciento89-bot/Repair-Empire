@@ -230,14 +230,7 @@ local function buildClimate(model: Model, origin: CFrame)
 	fault:SetAttribute("FaultEffect", true)
 	hub:SetAttribute("SpinTarget", true)
 	for index = -1, 1 do
-		local airflow = part(
-			model,
-			"Airflow",
-			Vector3.new(0.22, 0.22, 4.5),
-			origin * CFrame.new(index * 1.1, 2.55, -3.15),
-			trade,
-			Enum.Material.Neon
-		)
+		local airflow = part(model, "Airflow", Vector3.new(0.22, 0.22, 4.5), origin * CFrame.new(index * 1.1, 2.55, -3.15), trade, Enum.Material.Neon)
 		airflow.Transparency = 0.68
 		airflow:SetAttribute("AirflowEffect", true)
 	end
