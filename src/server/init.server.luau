@@ -67,7 +67,6 @@ if RunService:IsStudio() then
 		if not reachabilityOk then
 			warn("[Repair Empire] WorldReachabilityProbe failed: " .. tostring(reachabilityErr))
 		end
-
 	end)
 end
 
