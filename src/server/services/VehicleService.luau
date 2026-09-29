@@ -46,6 +46,19 @@ local function createVehiclePart(name: string, size: Vector3, cframe: CFrame, pa
 	return part
 end
 
+local function createVehicleWedge(name: string, size: Vector3, cframe: CFrame, parent: Instance): WedgePart
+	local part = Instance.new("WedgePart")
+	part.Name = name
+	part.Size = size
+	part.CFrame = cframe
+	part.Anchored = true
+	part.CanCollide = false
+	part.TopSurface = Enum.SurfaceType.Smooth
+	part.BottomSurface = Enum.SurfaceType.Smooth
+	part.Parent = parent
+	return part
+end
+
 local function buildProceduralVehicle(player: Player, definition, slotIndex: number)
 	local model = Instance.new("Model")
 	model.Name = ("Vehicle_%d_%d"):format(player.UserId, slotIndex)
@@ -70,6 +83,17 @@ local function buildProceduralVehicle(player: Player, definition, slotIndex: num
 		createVehiclePart("Cabin", Vector3.new(width * 0.92, height, cabinLength), CFrame.new(origin + Vector3.new(0, height / 2 + 0.5, cabinCenterZ)), model)
 	cabin.Material = Enum.Material.SmoothPlastic
 	cabin.Color = bodyColor
+
+	local hoodLength = math.max(1.8, cabinLength * 0.34)
+	local hood = createVehicleWedge(
+		"Hood",
+		Vector3.new(width * 0.9, height * 0.42, hoodLength),
+		CFrame.new(origin + Vector3.new(0, height * 0.2 + 0.35, -length / 2 + hoodLength / 2 - 0.1))
+			* CFrame.Angles(0, math.pi, 0),
+		model
+	)
+	hood.Material = Enum.Material.SmoothPlastic
+	hood.Color = bodyColor
 
 	local cargoLength = math.max(3.2, length - cabinLength - 1.0)
 	local cargoHeight = if definition.Style == "pickup" then height * 0.45 else if definition.Style == "truck" then height * 1.15 else height * 0.9
@@ -278,6 +302,17 @@ local function buildProceduralVehicle(player: Player, definition, slotIndex: num
 			wheel.Shape = Enum.PartType.Cylinder
 			wheel.Material = Enum.Material.SmoothPlastic
 			wheel.Color = Color3.fromRGB(28, 30, 33)
+
+			local rim = createVehiclePart(
+				("Rim_%d_%d"):format(axleIndex, side),
+				Vector3.new(1.24, 1.15, 1.15),
+				CFrame.new(origin + Vector3.new(side * width * 0.525, -0.65, z)) * CFrame.Angles(0, 0, math.rad(90)),
+				model
+			)
+			rim.Shape = Enum.PartType.Cylinder
+			rim.Material = Enum.Material.Metal
+			rim.Color = Color3.fromRGB(145, 150, 155)
+			rim.CanCollide = false
 		end
 	end
 
