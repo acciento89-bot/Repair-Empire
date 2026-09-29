@@ -89,25 +89,34 @@ local function applyPremiumWorkshop(player: Player)
 
 	if building and building:IsA("BasePart") then
 		if premium then
-			building.Material = Enum.Material.SmoothPlastic
-			building.Color = Color3.fromRGB(214, 176, 74)
+			building.Material = Enum.Material.Metal
+			building.Color = Color3.fromRGB(35, 46, 57)
 		else
 			building.Material = Enum.Material.Brick
-			building.Color = Color3.fromRGB(163, 162, 165)
+			building.Color = Color3.fromRGB(144, 99, 73)
 		end
 	end
 
 	if garageDoor and garageDoor:IsA("BasePart") then
 		if premium then
 			garageDoor.Material = Enum.Material.Metal
-			garageDoor.Color = Color3.fromRGB(36, 36, 42)
+			garageDoor.Color = Color3.fromRGB(245, 151, 49)
 		else
 			garageDoor.Material = Enum.Material.Metal
-			garageDoor.Color = Color3.fromRGB(163, 162, 165)
+			garageDoor.Color = Color3.fromRGB(95, 98, 105)
 		end
 	end
 
-	local marker = workshop:FindFirstChild("PremiumMarker")
+	local roof = workshop:FindFirstChild("WorkshopRoof")
+	local awning = workshop:FindFirstChild("WorkshopAwning")
+	if roof and roof:IsA("BasePart") then
+		roof.Color = if premium then Color3.fromRGB(23, 29, 35) else Color3.fromRGB(61, 64, 70)
+	end
+	if awning and awning:IsA("BasePart") then
+		awning.Color = if premium then Color3.fromRGB(245, 151, 49) else Color3.fromRGB(217, 126, 48)
+	end
+
+		local marker = workshop:FindFirstChild("PremiumMarker")
 	if premium and marker == nil and building and building:IsA("BasePart") then
 		local billboard = Instance.new("BillboardGui")
 		billboard.Name = "PremiumMarker"
