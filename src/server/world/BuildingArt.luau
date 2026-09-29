@@ -184,6 +184,53 @@ local function industrial(building: Model, x: number, z: number, width: number, 
 		Enum.Material.Metal
 	)
 	cap.Shape = Enum.PartType.Cylinder
+
+	for rib = -3, 3 do
+		local wallRib = part(
+			building,
+			"IndustrialWallRib",
+			Vector3.new(0.28, height * 0.78, 0.22),
+			CFrame.new(x + rib * width * 0.1, height * 0.48, facadeZ + frontSign * 0.22),
+			Color3.fromRGB(83, 88, 93),
+			Enum.Material.Metal
+		)
+		wallRib.CanCollide = false
+	end
+
+	for windowIndex = -1, 1 do
+		local highWindow = part(
+			building,
+			"IndustrialHighWindow",
+			Vector3.new(width * 0.18, 2.0, 0.2),
+			CFrame.new(x + windowIndex * width * 0.25, math.min(height - 3, 9), facadeZ + frontSign * 0.24),
+			Color3.fromRGB(89, 145, 166),
+			Enum.Material.Glass
+		)
+		highWindow.Transparency = 0.24
+		highWindow.CanCollide = false
+	end
+
+	local canopy = part(
+		building,
+		"LoadingCanopy",
+		Vector3.new(width * 0.52, 0.45, 5.0),
+		CFrame.new(x, 8.1, z + frontSign * (depth / 2 + 2.2)),
+		Color3.fromRGB(54, 59, 64),
+		Enum.Material.Metal
+	)
+	canopy.CanCollide = false
+
+	for _, side in { -1, 1 } do
+		local flood = part(
+			building,
+			"IndustrialFloodLight",
+			Vector3.new(1.4, 0.35, 0.8),
+			CFrame.new(x + side * width * 0.32, 9.5, facadeZ + frontSign * 0.45),
+			Color3.fromRGB(255, 234, 182),
+			Enum.Material.Neon
+		)
+		flood.CanCollide = false
+	end
 end
 
 function BuildingArt.Decorate(
