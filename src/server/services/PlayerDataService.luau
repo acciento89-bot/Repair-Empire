@@ -3,6 +3,7 @@
 local Players = game:GetService("Players")
 local HttpService = game:GetService("HttpService")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local RunService = game:GetService("RunService")
 
 local ProfileSchema = require(ReplicatedStorage.RepairEmpire.Shared.data.ProfileSchema)
 local ReceiptRules = require(ReplicatedStorage.RepairEmpire.Shared.data.ReceiptRules)
@@ -112,7 +113,10 @@ function PlayerDataService:_Load(player: Player)
 		local profile = existing or ProfileSchema.NewProfile()
 		local lock = profile.SessionLock
 		if not SessionRules.CanAcquire(lock, now) then
-			return nil
+			if not RunService:IsStudio() then
+				return nil
+			end
+			warn(("[Repair Empire] Studio overriding active profile lock for %s"):format(player.Name))
 		end
 
 		profile = ProfileMigrations.Migrate(profile)
