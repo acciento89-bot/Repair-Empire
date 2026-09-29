@@ -416,12 +416,7 @@ local function addServiceWalkway(parent: Instance, config, buildingX: number, bu
 	apron.CanCollide = false
 
 	for _, edgeX in { -13, 13 } do
-		local stripe = createPart(
-			"ServiceApronEdge",
-			Vector3.new(0.25, 0.08, 8.5),
-			CFrame.new(buildingX + edgeX, 0.24, anchorZ),
-			parent
-		)
+		local stripe = createPart("ServiceApronEdge", Vector3.new(0.25, 0.08, 8.5), CFrame.new(buildingX + edgeX, 0.24, anchorZ), parent)
 		stripe.Material = Enum.Material.SmoothPlastic
 		stripe.Color = Color3.fromRGB(245, 151, 49)
 		stripe.CanCollide = false
