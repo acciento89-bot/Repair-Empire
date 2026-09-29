@@ -128,22 +128,14 @@ local function buildProceduralVehicle(player: Player, definition, slotIndex: num
 		mirror.CanCollide = false
 	end
 
-	local frontBumper = createVehiclePart(
-		"FrontBumper",
-		Vector3.new(width * 0.92, 0.5, 0.55),
-		CFrame.new(origin + Vector3.new(0, -0.15, -length / 2 - 0.2)),
-		model
-	)
+	local frontBumper =
+		createVehiclePart("FrontBumper", Vector3.new(width * 0.92, 0.5, 0.55), CFrame.new(origin + Vector3.new(0, -0.15, -length / 2 - 0.2)), model)
 	frontBumper.Material = Enum.Material.Metal
 	frontBumper.Color = Color3.fromRGB(52, 56, 60)
 	frontBumper.CanCollide = false
 
-	local rearBumper = createVehiclePart(
-		"RearBumper",
-		Vector3.new(width * 0.92, 0.5, 0.55),
-		CFrame.new(origin + Vector3.new(0, -0.15, length / 2 + 0.2)),
-		model
-	)
+	local rearBumper =
+		createVehiclePart("RearBumper", Vector3.new(width * 0.92, 0.5, 0.55), CFrame.new(origin + Vector3.new(0, -0.15, length / 2 + 0.2)), model)
 	rearBumper.Material = Enum.Material.Metal
 	rearBumper.Color = Color3.fromRGB(52, 56, 60)
 	rearBumper.CanCollide = false
