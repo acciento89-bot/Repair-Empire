@@ -49,7 +49,7 @@ local function serviceLabel(parent: BasePart, text: string, tradeColor: Color3)
 	local gui = Instance.new("BillboardGui")
 	gui.Name = "ServiceLabel"
 	gui.Adornee = parent
-	gui.Size = UDim2.fromOffset(250, 82)
+	gui.Size = UDim2.fromOffset(200, 64)
 	gui.StudsOffset = Vector3.new(0, 0.4, 0)
 	gui.AlwaysOnTop = true
 	gui.Parent = parent
@@ -72,8 +72,8 @@ local function serviceLabel(parent: BasePart, text: string, tradeColor: Color3)
 	stroke.Parent = frame
 
 	local title = Instance.new("TextLabel")
-	title.Size = UDim2.new(1, -16, 0, 48)
-	title.Position = UDim2.fromOffset(8, 4)
+	title.Size = UDim2.new(1, -14, 0, 36)
+	title.Position = UDim2.fromOffset(7, 3)
 	title.BackgroundTransparency = 1
 	title.Font = Enum.Font.GothamBold
 	title.TextScaled = true
@@ -83,8 +83,8 @@ local function serviceLabel(parent: BasePart, text: string, tradeColor: Color3)
 
 	local action = Instance.new("TextLabel")
 	action.Name = "ActionText"
-	action.Size = UDim2.new(1, -16, 0, 23)
-	action.Position = UDim2.fromOffset(8, 54)
+	action.Size = UDim2.new(1, -14, 0, 19)
+	action.Position = UDim2.fromOffset(7, 41)
 	action.BackgroundTransparency = 1
 	action.Font = Enum.Font.GothamMedium
 	action.TextScaled = true
@@ -117,7 +117,7 @@ local function baseRig(model: Model, origin: CFrame, title: string, tradeColor: 
 	local border = part(model, "SafetyStripe", Vector3.new(11, 0.08, 0.35), origin * CFrame.new(0, 0.13, 2.72), tradeColor, Enum.Material.Neon)
 	border.Transparency = 0.08
 
-	local labelAnchor = part(model, "ServiceLabelAnchor", Vector3.new(0.2, 0.2, 0.2), origin * CFrame.new(0, 6.4, 0), tradeColor, Enum.Material.SmoothPlastic)
+	local labelAnchor = part(model, "ServiceLabelAnchor", Vector3.new(0.2, 0.2, 0.2), origin * CFrame.new(-3.8, 6.0, 1.8), tradeColor, Enum.Material.SmoothPlastic)
 	serviceLabel(labelAnchor, title, tradeColor)
 
 	local lamp = part(model, "StatusLight", Vector3.new(0.7, 0.7, 0.7), origin * CFrame.new(4.6, 0.65, 2.2), Color3.fromRGB(225, 74, 74), Enum.Material.Neon)
