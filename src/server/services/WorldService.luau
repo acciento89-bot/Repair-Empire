@@ -88,9 +88,26 @@ local function addWorldFoundation(world: Folder)
 end
 
 local function addDistrictSign(parent: Instance, center: Vector3, displayName: string)
-	local sign = createPart("DistrictSign", Vector3.new(18, 6, 1), CFrame.new(center + Vector3.new(0, 5, -8)), parent)
+	local roadsideZ = -(WorldConfig.RoadWidth / 2 + 11)
+	local signPosition = center + Vector3.new(0, 5.4, roadsideZ)
+	local sign = createPart("DistrictSign", Vector3.new(14, 4.2, 0.55), CFrame.new(signPosition), parent)
 	sign.Material = Enum.Material.Metal
-	sign.Color = Color3.fromRGB(45, 48, 54)
+	sign.Color = Color3.fromRGB(31, 43, 52)
+	sign.CanCollide = false
+	sign.CanQuery = false
+
+	for _, side in { -1, 1 } do
+		local post = createPart(
+			"DistrictSignPost",
+			Vector3.new(0.45, 5.6, 0.45),
+			CFrame.new(signPosition + Vector3.new(side * 5.4, -4.1, 0)),
+			parent
+		)
+		post.Material = Enum.Material.Metal
+		post.Color = Color3.fromRGB(74, 78, 82)
+		post.CanCollide = false
+		post.CanQuery = false
+	end
 
 	local surface = Instance.new("SurfaceGui")
 	surface.Name = "Label"
