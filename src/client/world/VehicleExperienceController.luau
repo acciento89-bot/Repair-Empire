@@ -14,6 +14,14 @@ local VehicleExperienceController = {
 	_fov = 70,
 }
 
+local function prettyVehicleId(id: string): string
+	local words = string.split(id, "_")
+	for index, word in words do
+		words[index] = word:sub(1, 1):upper() .. word:sub(2)
+	end
+	return table.concat(words, " ")
+end
+
 local function styleLabel(parent: Instance, name: string, size: UDim2, position: UDim2, textSize: number): TextLabel
 	local label = Instance.new("TextLabel")
 	label.Name = name
