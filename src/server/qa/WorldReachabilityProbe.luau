@@ -23,11 +23,7 @@ local function serviceAreaClear(anchor: BasePart): boolean
 	params.FilterType = Enum.RaycastFilterType.Exclude
 	params.FilterDescendantsInstances = { anchor }
 
-	local parts = Workspace:GetPartBoundsInBox(
-		CFrame.new(anchor.Position + Vector3.new(0, 2.8, 0)),
-		Vector3.new(7.5, 5.0, 7.5),
-		params
-	)
+	local parts = Workspace:GetPartBoundsInBox(CFrame.new(anchor.Position + Vector3.new(0, 2.8, 0)), Vector3.new(7.5, 5.0, 7.5), params)
 
 	for _, candidate in parts do
 		if candidate.CanCollide and candidate.Transparency < 0.95 then
@@ -46,10 +42,7 @@ local function representativeAnchors()
 		for _, categoryId in CATEGORIES do
 			local selected = nil
 			for _, anchor in CollectionService:GetTagged("RepairEmpireJobAnchor") do
-				if anchor:IsA("BasePart")
-					and anchor:GetAttribute("DistrictId") == districtId
-					and anchor:GetAttribute("CategoryId") == categoryId
-				then
+				if anchor:IsA("BasePart") and anchor:GetAttribute("DistrictId") == districtId and anchor:GetAttribute("CategoryId") == categoryId then
 					selected = anchor
 					break
 				end
@@ -109,19 +102,13 @@ function WorldReachabilityProbe.Run(): boolean
 	local start = spawn.Position + Vector3.new(0, 2, 0)
 	for _, anchor in representativeAnchors() do
 		if not pathExists(start, anchor.Position) then
-			table.insert(
-				routeFailures,
-				("%s/%s"):format(tostring(anchor:GetAttribute("DistrictId")), tostring(anchor:GetAttribute("CategoryId")))
-			)
+			table.insert(routeFailures, ("%s/%s"):format(tostring(anchor:GetAttribute("DistrictId")), tostring(anchor:GetAttribute("CategoryId"))))
 		end
 	end
 	assert(#routeFailures == 0, "unreachable representative job routes: " .. table.concat(routeFailures, ","))
 
 	print(
-		("[Repair Empire] WorldReachabilityProbe passed anchors=%d ground=ok clearance=ok representativeRoutes=%d"):format(
-			#anchors,
-			#DISTRICTS * #CATEGORIES
-		)
+		("[Repair Empire] WorldReachabilityProbe passed anchors=%d ground=ok clearance=ok representativeRoutes=%d"):format(#anchors, #DISTRICTS * #CATEGORIES)
 	)
 	return true
 end
