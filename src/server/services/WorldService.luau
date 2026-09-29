@@ -14,6 +14,7 @@ local WorldLayoutRules = require(ReplicatedStorage.RepairEmpire.Shared.world.Wor
 local SpatialRules = require(ReplicatedStorage.RepairEmpire.Shared.security.SpatialRules)
 local EnvironmentArt = require(script.Parent.Parent.world.EnvironmentArt)
 local BuildingArt = require(script.Parent.Parent.world.BuildingArt)
+local LandmarkArt = require(script.Parent.Parent.world.LandmarkArt)
 
 local CATEGORIES = { "plumbing", "heating", "climate", "energy" }
 local CATEGORY_COLORS = {
@@ -482,6 +483,7 @@ function WorldService:_BuildDistrict(world: Folder, districtId: string, config)
 	addStreetFurniture(folder, center, config.Spacing)
 	addDistrictEdgeDressing(folder, districtId, center, config)
 	EnvironmentArt.DecorateDistrict(folder, districtId, center, config)
+	LandmarkArt.Add(folder, districtId, center, config)
 
 	if districtId == "residential" then
 		addResidentialWorkshop(folder, config)
