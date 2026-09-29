@@ -1,87 +1,50 @@
 # Repair Empire - User Action Checklist
 
-This document intentionally contains only work that cannot be completed from the repository alone.
+This file contains only actions that require the owner rather than repository/runtime implementation.
 
-## 1. Roblox ownership and experience IDs — DONE
-Configured:
-- production Universe ID: `10768475286`
-- production Start Place ID: `79925227687072`
-- development/test Place ID: `138882349802835`
-- development place: **Repair Empire Dev**
-- both places private
-- values are present in `src/shared/config/PlatformConfig.luau`
-- Studio/API tests use an isolated development DataStore
+## Completed — no owner action required
 
-## 2. Game Passes — DONE
-Configured:
-- double_cash — `1997847285` — 299 R$
-- vip — `1998201387` — 399 R$
-- extra_employee_slot — `1998489332` — 149 R$
-- extra_vehicle_slot — `1997979360` — 149 R$
-- premium_workshop — `1999077322` — 249 R$
+The following release preparation is already complete:
+- Roblox experience ownership, Universe and production/development place IDs
+- isolated development DataStore configuration
+- five live Game Pass IDs and launch prices
+- six live Developer Product IDs and launch prices
+- solo and multi-client Studio QA
+- profile migration/session/recovery QA
+- job/tool/vehicle/company progression QA
+- reconnect/host-transfer and abuse/race/spatial checks
+- StreamingEnabled/performance baselines
+- compact phone, iPhone XR, iPad, desktop and controller/input QA
+- experience icon, three landscape thumbnails, description review and 17-section content questionnaire
+- P19 Production Art & World Quality gate and persisted visual evidence
+- final private development-place build published successfully to Roblox as **v70**
 
-## 3. Developer Products — DONE
-Configured:
-- small_cash — `3715317811` — 49 R$
-- medium_cash — `3715317874` — 149 R$
-- large_cash — `3715318066` — 399 R$
-- boost_15 — `3715318201` — 39 R$
-- boost_60 — `3715318256` — 99 R$
-- instant_job_finish — `3715318304` — 29 R$
+See `docs/REPAIR-EMPIRE-V1-LEDGER.md`, `docs/EXTERNAL-ROBLOX-BLOCKERS.md` and `docs/evidence/p19/README.md` for evidence.
 
-All 11 IDs are source-configured and the updated build has been published to Repair Empire Dev.
+## Remaining owner action — REAL ROBUX PURCHASE
 
-## 4. Runtime verification in Roblox Studio
-Once the IDs/experience exist, run the prepared QA matrix:
-- fresh profile load/save/rejoin
-- locked-session/recovery behavior
-- solo job lifecycle
-- tool/vehicle/company progression
-- 2-6 player co-op
-- reconnect and host-transfer cases
-- remote abuse/race checks
-- StreamingEnabled/performance profiling
-- small phone/tablet/desktop/controller input QA
+A single successful Developer Product receipt/rejoin path still needs live MarketplaceService evidence.
 
-Use `docs/QA-MATRIX.md` and `docs/SECURITY-TEST-MATRIX.md`.
+This requires an owner-approved transaction because Roblox's current test flow charges real Robux. Do not initiate it automatically.
 
-## 5. Marketplace sandbox
-With the real IDs configured:
-- verify each Game Pass prompt/entitlement
-- buy each Developer Product in sandbox
-- verify duplicate/retried receipts never duplicate grants
-- verify reconnect during receipt processing
-- verify paid entitlements survive Prestige
+Configured products:
+- `instant_job_finish` — Product ID `3715318304` — **29 R$**
+- `boost_15` — Product ID `3715318201` — 39 R$
+- `small_cash` — Product ID `3715317811` — 49 R$
+- `boost_60` — Product ID `3715318256` — 99 R$
+- `medium_cash` — Product ID `3715317874` — 149 R$
+- `large_cash` — Product ID `3715318066` — 399 R$
 
-## 6. Final public-facing assets/settings
-Before release:
-- experience icon
-- at least the planned landscape thumbnails
-- final content/age questionnaire
-- final description review
-- supported-device/input review
+The lowest-cost live proof is `instant_job_finish` at 29 R$, but the owner must explicitly approve whichever real purchase is used.
 
-The text draft and asset brief already exist in `docs/STORE-METADATA-DRAFT.md`.
+After that approved purchase:
+1. verify the receipt grant once;
+2. force/reproduce receipt retry or rejoin processing;
+3. verify no duplicate value/analytics grant;
+4. confirm the paid state survives reconnect and remains consistent with Prestige rules;
+5. mark P10-T06 and P16-T03 complete;
+6. update/copy the final build to the production place and perform controlled public exposure.
 
-## 7. Controlled launch
-Only after the above gates pass:
-- publish/update the production place
-- expose the experience in a controlled launch
-- verify analytics, saves and purchases
-- then expand exposure
+## Post-launch
 
-## What you do NOT need to design
-The repository already contains:
-- game/system architecture
-- 30 launch jobs
-- tool, vehicle, company and Prestige systems
-- procedural V1 world
-- co-op
-- retention
-- monetization code
-- analytics/security
-- responsive UI rules
-- QA/security/release runbooks
-- economy model and CI guardrails
-
-Run `lune run scripts/release-readiness` at any time to print the remaining configuration blockers.
+P17 telemetry review and the first evidence-based balance patch intentionally wait for real-player data. They are not unfinished pre-launch implementation.
