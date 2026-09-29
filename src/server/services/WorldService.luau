@@ -668,6 +668,26 @@ function WorldService:Init()
 	atmosphere.Haze = 1.4
 	atmosphere.Color = Color3.fromRGB(205, 222, 235)
 
+	local sunRays = Lighting:FindFirstChildOfClass("SunRaysEffect")
+	if sunRays == nil then
+		sunRays = Instance.new("SunRaysEffect")
+		sunRays.Parent = Lighting
+	end
+	sunRays.Intensity = 0.035
+	sunRays.Spread = 0.72
+
+	local terrain = Workspace:FindFirstChildOfClass("Terrain")
+	if terrain then
+		local clouds = terrain:FindFirstChildOfClass("Clouds")
+		if clouds == nil then
+			clouds = Instance.new("Clouds")
+			clouds.Parent = terrain
+		end
+		clouds.Cover = 0.18
+		clouds.Density = 0.32
+		clouds.Color = Color3.fromRGB(235, 240, 244)
+	end
+
 	local world = Instance.new("Folder")
 	world.Name = "RepairEmpireWorld"
 	world.Parent = Workspace
