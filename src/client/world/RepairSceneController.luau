@@ -41,36 +41,72 @@ local function cylinder(parent: Instance, name: string, size: Vector3, cf: CFram
 	return p
 end
 
-local function label(parent: BasePart, text: string, tradeColor: Color3)
+local function serviceLabel(parent: BasePart, text: string, tradeColor: Color3)
 	parent.Transparency = 1
 	local gui = Instance.new("BillboardGui")
 	gui.Name = "ServiceLabel"
 	gui.Adornee = parent
-	gui.Size = UDim2.fromOffset(230, 58)
+	gui.Size = UDim2.fromOffset(250, 82)
 	gui.StudsOffset = Vector3.new(0, 0.4, 0)
 	gui.AlwaysOnTop = true
 	gui.Parent = parent
 
-	local t = Instance.new("TextLabel")
-	t.Size = UDim2.fromScale(1, 1)
-	t.BackgroundColor3 = Color3.fromRGB(24, 34, 43)
-	t.BackgroundTransparency = 0.06
-	t.BorderSizePixel = 0
-	t.Font = Enum.Font.GothamBold
-	t.TextScaled = true
-	t.TextColor3 = tradeColor
-	t.Text = text
-	t.Parent = gui
+	local frame = Instance.new("Frame")
+	frame.Size = UDim2.fromScale(1, 1)
+	frame.BackgroundColor3 = Color3.fromRGB(24, 34, 43)
+	frame.BackgroundTransparency = 0.06
+	frame.BorderSizePixel = 0
+	frame.Parent = gui
 
 	local corner = Instance.new("UICorner")
 	corner.CornerRadius = UDim.new(0, 12)
-	corner.Parent = t
+	corner.Parent = frame
 
 	local stroke = Instance.new("UIStroke")
 	stroke.Color = tradeColor
 	stroke.Thickness = 1.4
 	stroke.Transparency = 0.1
-	stroke.Parent = t
+	stroke.Parent = frame
+
+	local title = Instance.new("TextLabel")
+	title.Size = UDim2.new(1, -16, 0, 48)
+	title.Position = UDim2.fromOffset(8, 4)
+	title.BackgroundTransparency = 1
+	title.Font = Enum.Font.GothamBold
+	title.TextScaled = true
+	title.TextColor3 = tradeColor
+	title.Text = text
+	title.Parent = frame
+
+	local action = Instance.new("TextLabel")
+	action.Name = "ActionText"
+	action.Size = UDim2.new(1, -16, 0, 23)
+	action.Position = UDim2.fromOffset(8, 54)
+	action.BackgroundTransparency = 1
+	action.Font = Enum.Font.GothamMedium
+	action.TextScaled = true
+	action.TextColor3 = Color3.fromRGB(241, 244, 246)
+	action.Text = "INSPECT"
+	action.Parent = frame
+end
+
+local function surfaceLabel(parent: BasePart, text: string, textColor: Color3)
+	local gui = Instance.new("SurfaceGui")
+	gui.Name = "EquipmentLabel"
+	gui.Face = Enum.NormalId.Front
+	gui.SizingMode = Enum.SurfaceGuiSizingMode.PixelsPerStud
+	gui.PixelsPerStud = 38
+	gui.Parent = parent
+
+	local t = Instance.new("TextLabel")
+	t.Size = UDim2.fromScale(1, 1)
+	t.BackgroundTransparency = 1
+	t.BorderSizePixel = 0
+	t.Font = Enum.Font.GothamBold
+	t.TextScaled = true
+	t.TextColor3 = textColor
+	t.Text = text
+	t.Parent = gui
 end
 
 local function baseRig(model: Model, origin: CFrame, title: string, tradeColor: Color3)
@@ -78,35 +114,12 @@ local function baseRig(model: Model, origin: CFrame, title: string, tradeColor: 
 	local border = part(model, "SafetyStripe", Vector3.new(11, 0.08, 0.35), origin * CFrame.new(0, 0.13, 2.72), tradeColor, Enum.Material.Neon)
 	border.Transparency = 0.08
 
-	local labelAnchor = part(model, "ServiceLabelAnchor", Vector3.new(0.2, 0.2, 0.2), origin * CFrame.new(0, 6.2, 0), tradeColor, Enum.Material.SmoothPlastic)
-	label(labelAnchor, title, tradeColor)
+	local labelAnchor = part(model, "ServiceLabelAnchor", Vector3.new(0.2, 0.2, 0.2), origin * CFrame.new(0, 6.4, 0), tradeColor, Enum.Material.SmoothPlastic)
+	serviceLabel(labelAnchor, title, tradeColor)
 
 	local lamp = part(model, "StatusLight", Vector3.new(0.7, 0.7, 0.7), origin * CFrame.new(4.6, 0.65, 2.2), Color3.fromRGB(225, 74, 74), Enum.Material.Neon)
 	lamp.Shape = Enum.PartType.Ball
 	lamp:SetAttribute("RepairStatusLight", true)
-
-	local actionAnchor = part(model, "ActionLabelAnchor", Vector3.new(0.18, 0.18, 0.18), origin * CFrame.new(0, 4.9, -2.0), tradeColor)
-	actionAnchor.Transparency = 1
-	local actionGui = Instance.new("BillboardGui")
-	actionGui.Name = "ActionGui"
-	actionGui.Adornee = actionAnchor
-	actionGui.Size = UDim2.fromOffset(210, 42)
-	actionGui.AlwaysOnTop = true
-	actionGui.Parent = actionAnchor
-	local actionText = Instance.new("TextLabel")
-	actionText.Name = "ActionText"
-	actionText.Size = UDim2.fromScale(1, 1)
-	actionText.BackgroundColor3 = Color3.fromRGB(15, 24, 31)
-	actionText.BackgroundTransparency = 0.12
-	actionText.BorderSizePixel = 0
-	actionText.Font = Enum.Font.GothamMedium
-	actionText.TextScaled = true
-	actionText.TextColor3 = Color3.fromRGB(241, 244, 246)
-	actionText.Text = "INSPECT"
-	actionText.Parent = actionGui
-	local actionCorner = Instance.new("UICorner")
-	actionCorner.CornerRadius = UDim.new(0, 9)
-	actionCorner.Parent = actionText
 	return mat
 end
 
@@ -241,7 +254,7 @@ local function buildEnergy(model: Model, origin: CFrame)
 	baseRig(model, origin, "ENERGY SERVICE", trade)
 	part(model, "HeatPumpBody", Vector3.new(7.5, 5.2, 2.5), origin * CFrame.new(0, 2.75, 0.55), Color3.fromRGB(208, 215, 216), Enum.Material.Metal)
 	local panel = part(model, "Controller", Vector3.new(2.2, 1.6, 0.22), origin * CFrame.new(2.2, 3.7, -0.82), Color3.fromRGB(35, 45, 51), Enum.Material.Glass)
-	label(panel, "SYSTEM", trade)
+	surfaceLabel(panel, "SYSTEM", trade)
 	local grille = cylinder(
 		model,
 		"Fan",
