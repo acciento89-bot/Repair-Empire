@@ -17,10 +17,7 @@ return function()
 				local facadeClearance = math.abs(anchorZ - z) - config.BuildingSize[2] / 2
 				assert(facadeClearance >= 10, districtId .. " job anchor needs repair-scene facade clearance")
 				assert(math.abs(anchorX - x) < config.BuildingSize[1] / 2, districtId .. " job anchor must remain in front of the facade")
-				assert(
-					math.abs(anchorX - x) + 5.5 <= 13.5,
-					districtId .. " repair-scene footprint must fit the service apron"
-				)
+				assert(math.abs(anchorX - x) + 5.5 <= 13.5, districtId .. " repair-scene footprint must fit the service apron")
 				assert(math.abs(anchorX - config.Center[1]) <= config.GroundSize[1] / 2, districtId .. " job anchor escaped district X bounds")
 				assert(math.abs(anchorZ - config.Center[3]) <= config.GroundSize[2] / 2, districtId .. " job anchor escaped district Z bounds")
 			end
