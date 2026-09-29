@@ -117,7 +117,8 @@ local function baseRig(model: Model, origin: CFrame, title: string, tradeColor: 
 	local border = part(model, "SafetyStripe", Vector3.new(11, 0.08, 0.35), origin * CFrame.new(0, 0.13, 2.72), tradeColor, Enum.Material.Neon)
 	border.Transparency = 0.08
 
-	local labelAnchor = part(model, "ServiceLabelAnchor", Vector3.new(0.2, 0.2, 0.2), origin * CFrame.new(-3.8, 6.0, 1.8), tradeColor, Enum.Material.SmoothPlastic)
+	local labelAnchor =
+		part(model, "ServiceLabelAnchor", Vector3.new(0.2, 0.2, 0.2), origin * CFrame.new(-3.8, 6.0, 1.8), tradeColor, Enum.Material.SmoothPlastic)
 	serviceLabel(labelAnchor, title, tradeColor)
 
 	local lamp = part(model, "StatusLight", Vector3.new(0.7, 0.7, 0.7), origin * CFrame.new(4.6, 0.65, 2.2), Color3.fromRGB(225, 74, 74), Enum.Material.Neon)
