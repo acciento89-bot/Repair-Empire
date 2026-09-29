@@ -1,6 +1,7 @@
 --!strict
 
 local ServerScriptService = game:GetService("ServerScriptService")
+local RunService = game:GetService("RunService")
 local StarterGui = game:GetService("StarterGui")
 local StarterPack = game:GetService("StarterPack")
 local StarterPlayer = game:GetService("StarterPlayer")
@@ -57,5 +58,16 @@ end
 
 registry:InitAll()
 registry:StartAll()
+
+if RunService:IsStudio() then
+	task.spawn(function()
+		task.wait(1)
+		local WorldReachabilityProbe = require(script.qa.WorldReachabilityProbe)
+		local ok, err = pcall(WorldReachabilityProbe.Run)
+		if not ok then
+			warn("[Repair Empire] WorldReachabilityProbe failed: " .. tostring(err))
+		end
+	end)
+end
 
 print("[Repair Empire] Server initialized")
