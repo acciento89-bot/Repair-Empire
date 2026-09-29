@@ -5,29 +5,31 @@ local Players = game:GetService("Players")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local RunService = game:GetService("RunService")
 
-local ToolDefinitions = require(ReplicatedStorage.RepairEmpire.Shared.tools.ToolDefinitions)
-local RepairAudioRules = require(ReplicatedStorage.RepairEmpire.Shared.audio.RepairAudioRules)
+local Shared = ReplicatedStorage.RepairEmpire.Shared
+local ToolDefinitions = require(Shared.tools.ToolDefinitions)
+local RepairAudioRules = require(Shared.audio.RepairAudioRules)
+local AudioCatalog = require(Shared.audio.AudioCatalog)
 
 local RepairAudioController = {}
 
 local CATEGORY_AUDIO = {
 	plumbing = {
-		SoundId = "rbxasset://sounds/impact_water.mp3",
+		Sound = AudioCatalog.BuiltIn.WaterImpact,
 		Volume = 0.18,
 		PlaybackSpeed = 1.45,
 	},
 	heating = {
-		SoundId = "rbxasset://sounds/volume_slider.ogg",
+		Sound = AudioCatalog.BuiltIn.VolumeSlider,
 		Volume = 0.2,
 		PlaybackSpeed = 0.82,
 	},
 	climate = {
-		SoundId = "rbxasset://sounds/action_swim.mp3",
+		Sound = AudioCatalog.BuiltIn.Swim,
 		Volume = 0.12,
 		PlaybackSpeed = 1.75,
 	},
 	energy = {
-		SoundId = "rbxasset://sounds/electronicpingshort.wav",
+		Sound = AudioCatalog.BuiltIn.ElectronicPing,
 		Volume = 0.2,
 		PlaybackSpeed = 1.3,
 	},
@@ -55,7 +57,7 @@ function RepairAudioController.Start()
 	folder.Name = "RepairEmpireRepairAudio"
 	folder.Parent = playerGui
 
-	local tradeSound = createSound(folder, "TradeCue", CATEGORY_AUDIO.plumbing.SoundId)
+	local tradeSound = createSound(folder, "TradeCue", CATEGORY_AUDIO.plumbing.Sound)
 	local stageSound = createSound(folder, "ToolCue", STAGE_SOUND)
 	local completeSound = createSound(folder, "CompletionCue", COMPLETE_SOUND)
 
@@ -99,7 +101,7 @@ function RepairAudioController.Start()
 		local definition = if type(toolId) == "string" then ToolDefinitions.ById[toolId] else nil
 		local config = if definition then TOOL_AUDIO[definition.Family] else nil
 		config = config or {
-			SoundId = STAGE_SOUND,
+			Sound = STAGE_SOUND,
 			PlaybackSpeed = 1.55,
 			Volume = 0.16,
 		}
