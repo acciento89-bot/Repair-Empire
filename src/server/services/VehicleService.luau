@@ -344,12 +344,8 @@ local function buildProceduralVehicle(player: Player, definition, slotIndex: num
 		end
 	end
 
-	local exhaust = createVehiclePart(
-		"ExhaustPipe",
-		Vector3.new(0.45, 0.45, 2.2),
-		CFrame.new(origin + Vector3.new(width * 0.34, -0.35, length / 2 + 0.8)),
-		model
-	)
+	local exhaust =
+		createVehiclePart("ExhaustPipe", Vector3.new(0.45, 0.45, 2.2), CFrame.new(origin + Vector3.new(width * 0.34, -0.35, length / 2 + 0.8)), model)
 	exhaust.Shape = Enum.PartType.Cylinder
 	exhaust.Orientation = Vector3.new(90, 0, 0)
 	exhaust.Material = Enum.Material.Metal
@@ -374,7 +370,7 @@ local function buildProceduralVehicle(player: Player, definition, slotIndex: num
 	})
 	exhaustEmitter.Parent = exhaust
 
-		local seat = Instance.new("VehicleSeat")
+	local seat = Instance.new("VehicleSeat")
 	seat.Name = "DriverSeat"
 	seat.Size = Vector3.new(2, 1, 2)
 	seat.Anchored = true
