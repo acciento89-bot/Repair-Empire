@@ -634,6 +634,18 @@ function VehicleService:_Step(dt: number)
 			local rotated = current * CFrame.Angles(0, -steer * turnRate * dt, 0)
 			local distance = throttle * entry.Definition.Speed * dt
 			model:PivotTo(rotated * CFrame.new(0, 0, -distance))
+
+			if RunService:IsStudio() and model:GetAttribute("StudioDriveVerified") ~= true then
+				model:SetAttribute("StudioDriveVerified", true)
+				print(
+					("[Repair Empire] VehicleDriveObserved id=%s throttle=%.2f steer=%.2f stepDistance=%.3f"):format(
+						entry.Definition.Id,
+						throttle,
+						steer,
+						math.abs(distance)
+					)
+				)
+			end
 		end
 
 		if #entries == 0 then
