@@ -1,5 +1,6 @@
 return function()
 	local jobs = require("../src/shared/jobs/JobDefinitions")
+	local sceneCatalog = require("../src/shared/jobs/RepairSceneCatalog")
 	local tools = require("../src/shared/tools/ToolDefinitions")
 	local vehicles = require("../src/shared/vehicles/VehicleDefinitions")
 
@@ -9,9 +10,20 @@ return function()
 		climate = true,
 		energy = true,
 	}
+	local sceneVariants = {}
 	for _, job in jobs.List do
 		assert(supportedTrades[job.Category] == true, "missing production-art trade scene for " .. job.Category)
+		local scene = sceneCatalog.Get(job.Id, job.Category)
+		assert(scene.Category == job.Category, job.Id .. " repair scene category mismatch")
+		assert(type(scene.Variant) == "string" and #scene.Variant > 0, job.Id .. " missing repair scene variant")
+		sceneVariants[scene.Variant] = true
 	end
+
+	local variantCount = 0
+	for _ in sceneVariants do
+		variantCount += 1
+	end
+	assert(variantCount >= 14, "launch jobs need at least 14 distinct repair-scene variants")
 
 	local supportedToolFamilies = {
 		wrench = true,
