@@ -163,34 +163,19 @@ local function buildProceduralVehicle(player: Player, definition, slotIndex: num
 	rearBumper.Color = Color3.fromRGB(52, 56, 60)
 	rearBumper.CanCollide = false
 
-	local grille = createVehiclePart(
-		"FrontGrille",
-		Vector3.new(width * 0.48, 0.9, 0.18),
-		CFrame.new(origin + Vector3.new(0, 0.55, -length / 2 - 0.3)),
-		model
-	)
+	local grille = createVehiclePart("FrontGrille", Vector3.new(width * 0.48, 0.9, 0.18), CFrame.new(origin + Vector3.new(0, 0.55, -length / 2 - 0.3)), model)
 	grille.Material = Enum.Material.Metal
 	grille.Color = Color3.fromRGB(36, 40, 44)
 	grille.CanCollide = false
 
 	for slot = -2, 2 do
-		local slat = createVehiclePart(
-			"GrilleSlat",
-			Vector3.new(0.12, 0.72, 0.22),
-			grille.CFrame * CFrame.new(slot * width * 0.07, 0, -0.06),
-			model
-		)
+		local slat = createVehiclePart("GrilleSlat", Vector3.new(0.12, 0.72, 0.22), grille.CFrame * CFrame.new(slot * width * 0.07, 0, -0.06), model)
 		slat.Material = Enum.Material.Metal
 		slat.Color = Color3.fromRGB(108, 114, 118)
 		slat.CanCollide = false
 	end
 
-	local plate = createVehiclePart(
-		"RearPlate",
-		Vector3.new(2.6, 0.8, 0.14),
-		CFrame.new(origin + Vector3.new(0, 0.72, length / 2 + 0.31)),
-		model
-	)
+	local plate = createVehiclePart("RearPlate", Vector3.new(2.6, 0.8, 0.14), CFrame.new(origin + Vector3.new(0, 0.72, length / 2 + 0.31)), model)
 	plate.Material = Enum.Material.SmoothPlastic
 	plate.Color = Color3.fromRGB(238, 238, 231)
 	plate.CanCollide = false
@@ -221,12 +206,8 @@ local function buildProceduralVehicle(player: Player, definition, slotIndex: num
 		handle.CanCollide = false
 	end
 
-	local dashboard = createVehiclePart(
-		"Dashboard",
-		Vector3.new(width * 0.72, 0.55, 1.1),
-		CFrame.new(origin + Vector3.new(0, 1.45, cabinCenterZ - cabinLength * 0.3)),
-		model
-	)
+	local dashboard =
+		createVehiclePart("Dashboard", Vector3.new(width * 0.72, 0.55, 1.1), CFrame.new(origin + Vector3.new(0, 1.45, cabinCenterZ - cabinLength * 0.3)), model)
 	dashboard.Material = Enum.Material.SmoothPlastic
 	dashboard.Color = Color3.fromRGB(36, 40, 44)
 	dashboard.CanCollide = false
