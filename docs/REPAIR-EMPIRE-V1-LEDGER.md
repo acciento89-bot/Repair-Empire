@@ -72,7 +72,7 @@ Verification baseline:
 - [x] P08-T02 Downtown district — connected procedural district with distinct building scale, glass bands, roof crowns, streetscape dressing and job locations
 - [x] P08-T03 Industrial district — connected procedural district with industrial dressing, tanks/vents/pipes and co-op-capable job locations
 - [x] P08-T04 Job anchor/building system
-- [x] P08-T05 Navigation markers
+- [x] P08-T05 Navigation markers — live job targets now render a persistent world beacon plus seven directional ground arrows and distance guidance; the first-job tutorial explicitly explains following the arrows to the JOB SITE
 - [x] P08-T06 Performance/streaming pass — V1 acceptance met: StreamingEnabled is verified; server world baseline covers 572 parts / 614 descendants / 22.14 ms average Heartbeat; two simultaneous Studio clients have reproducible frame/memory baselines; compact-phone/tablet/desktop navigation is runtime-verified. Production-device telemetry remains a post-launch P17 concern rather than a P08 release blocker
 
 ## P09 Multiplayer & Co-op
@@ -110,7 +110,7 @@ Verification baseline:
 - [x] P13-T03 Controller navigation — Studio Generic Gamepad runtime verified: ButtonY opens Repair Empire menu with selected/focused tab, ButtonB closes it; wrapped D-pad traversal is shared with the pure-tested navigation rule; ButtonStart retained only as fallback because Roblox CoreUI intercepts it
 - [x] P13-T04 Accessibility pass — text/context and non-color-only critical states implemented; explicit palette has automated 4.5:1 contrast guardrail; compact phone, XR, iPad and desktop visual audits completed
 - [x] P13-T05 Feedback/audio/effects polish — contextual toast feedback, tween polish and self-contained Roblox audio cues implemented; Studio preload verified with FeedbackAudio ready=true
-- [x] P13-T06 Progression and management screens — complete approved Jobs/Co-op/Tools/Skill Tree/Vehicles/Workshop/Employees/Daily Jobs/Achievements/Prestige/Shop hierarchy is implemented, pure-test guarded and runtime-rendered across verified layouts
+- [x] P13-T06 Progression and management screens — complete approved Jobs/Co-op/Tools/Skill Tree/Vehicles/Workshop/Employees/Daily Jobs/Achievements/Prestige/Shop hierarchy is implemented; the 2026-09-29 same-client runtime journey renders every tab successfully and the Work Tablet is positioned clear of Roblox CoreGui
 
 ## P14 Security Hardening
 - [x] P14-T01 Remote inventory/audit
@@ -129,7 +129,7 @@ Verification baseline:
 - [x] P15-T06 Full launch economy pass — executable Early/Mid/Late/Prestige model is CI-guarded: $504,420 hard sink subtotal, 39.1% max passive/active ratio, monotonic earning bands and 31.6h modeled level-100 pacing; post-launch behavior review is tracked under P17
 
 ## P16 Release
-- [x] P16-T01 Full QA matrix — solo/multi-client, new/returning/migrated profile, compact phone/XR/iPad/desktop, mouse/keyboard/controller input, reconnect/disconnect, timing/race/spatial abuse, DataStore recovery and performance smoke coverage are executed; purchase sandbox is tracked separately under P16-T03
+- [x] P16-T01 Full QA matrix — solo/multi-client, new/returning/migrated profile, compact phone/XR/iPad/desktop, mouse/keyboard/controller input, reconnect/disconnect, timing/race/spatial abuse, DataStore recovery and performance smoke coverage are executed. A fresh-profile Studio E2E now additionally passes UI mount, every Work Tablet tab, first and second tutorial jobs, waypoint/ground-arrow navigation, all repair stages, rewards, tool purchase/equip, vehicle spawn/seat/drive/despawn, workshop upgrade, employee hire, respawn camera follow and authoritative final state; a separate new-session rejoin verified Cash 14490, Lv2/24XP, Basic Screwdriver, Workshop Tier 2, company_intro, 1 employee and 2 completed jobs persisted. Purchase sandbox remains tracked separately under P16-T03
 - [x] P16-T02 Data migration/recovery test — isolated development DataStore live-probe verified v1→v2 migration with value preservation, expired-lock acquisition, active foreign-lock acquisition rejection, foreign-lock write rejection and cleanup=true
 - [!] P16-T03 Purchase release checklist — IDs/prices/free path plus live Game Pass ownership/prompt behavior are verified; final successful Developer Product receipt/rejoin checklist is blocked by the same owner-approved real Robux transaction required by P10-T06
 - [x] P16-T04 Store metadata/assets checklist — final name/description reviewed in Creator Hub; custom Repair Empire icon and three custom thumbnails are uploaded and processed; 17-section content questionnaire is complete
@@ -150,7 +150,7 @@ Verification baseline:
 - [x] P18-T03 Jobs and quest experience — all 30 launch jobs are catalog-audited across trades/districts/early-mid-late progression; cards expose player-facing requirements/rewards and HUD/repair actions are humanized; existing JobService runtime verification covers accept/stage/complete and abuse guards
 - [x] P18-T04 Vehicles and garage presentation — eight distinct vehicle styles, procedural 3D garage previews, explicit selected/owned/locked presentation, style-specific runtime visuals and server-authoritative spawn/despawn; P06 travel integration remains verified
 - [x] P18-T05 World, workshop, audio and effects pass — district identity retained; workshop branding/service-bay/tool dressing, restrained lighting polish and expanded reward feedback/audio are implemented without external asset dependency
-- [x] P18-T06 Full player-journey acceptance — P02-P16 runtime/device/input matrix plus P18 polish additions cover onboarding through Prestige preview; final acceptance and external-only blockers recorded in docs/P18-FINAL-ACCEPTANCE.md
+- [x] P18-T06 Full player-journey acceptance — P02-P16 runtime/device/input matrix plus P18 polish additions cover onboarding through Prestige preview; the 2026-09-29 deterministic Studio journey completes end-to-end with camera follow, navigation arrows/beacon, two full jobs, progression, vehicle, company systems, respawn and rejoin persistence verified. Final acceptance and external-only blockers remain recorded in docs/P18-FINAL-ACCEPTANCE.md
 
 
 ## P19 Production Art & World Quality — mandatory pre-public-launch gate
