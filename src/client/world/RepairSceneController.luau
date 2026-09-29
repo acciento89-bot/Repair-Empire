@@ -1,11 +1,14 @@
 --!strict
 
 local TweenService = game:GetService("TweenService")
+local RunService = game:GetService("RunService")
 
 local RepairSceneController = {
 	_model = nil :: Model?,
 	_category = nil :: string?,
 	_stageIndex = 0,
+	_animationConnection = nil,
+	_elapsed = 0,
 }
 
 local TRADE_COLORS = {
@@ -208,7 +211,37 @@ local function setState(model: Model, state: string)
 	end
 end
 
+local function startAnimation(model: Model)
+	if RepairSceneController._animationConnection then
+		RepairSceneController._animationConnection:Disconnect()
+	end
+	RepairSceneController._elapsed = 0
+	RepairSceneController._animationConnection = RunService.RenderStepped:Connect(function(dt)
+		if RepairSceneController._model ~= model or model.Parent == nil then
+			return
+		end
+		RepairSceneController._elapsed += dt
+		local pulse = (math.sin(RepairSceneController._elapsed * 4) + 1) * 0.5
+
+		for _, item in model:GetDescendants() do
+			if item:IsA("BasePart") then
+				if item:GetAttribute("SpinTarget") == true then
+					item.CFrame *= CFrame.Angles(0, 0, dt * 2.2)
+				elseif item:GetAttribute("FaultEffect") == true and item.Transparency < 1 then
+					item.Transparency = 0.08 + pulse * 0.18
+				elseif item:GetAttribute("RepairStatusLight") == true then
+					item.Material = Enum.Material.Neon
+				end
+			end
+		end
+	end)
+end
+
 function RepairSceneController.Clear()
+	if RepairSceneController._animationConnection then
+		RepairSceneController._animationConnection:Disconnect()
+		RepairSceneController._animationConnection = nil
+	end
 	if RepairSceneController._model then
 		RepairSceneController._model:Destroy()
 	end
@@ -232,6 +265,7 @@ function RepairSceneController.Begin(job, stage, targetPosition: Vector3)
 	RepairSceneController._category = category
 	RepairSceneController._stageIndex = 1
 	setState(model, "active")
+	startAnimation(model)
 	RepairSceneController.Update(stage)
 end
 
