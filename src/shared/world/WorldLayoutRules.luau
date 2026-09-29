@@ -26,7 +26,7 @@ function WorldLayoutRules.GetJobAnchorPosition(config, buildingX: number, buildi
 	local centerZ = config.Center[3]
 	local frontDirection = if buildingZ > centerZ then -1 else 1
 	local xOffset = CATEGORY_X_OFFSETS[categoryIndex] or 0
-	local frontDistance = config.BuildingSize[2] / 2 + 5
+	local frontDistance = config.BuildingSize[2] / 2 + 6.5
 	return buildingX + xOffset, buildingZ + frontDirection * frontDistance
 end
 
