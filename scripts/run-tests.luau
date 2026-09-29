@@ -6,6 +6,7 @@ local tests = {
 	require("../tests/job-action-rules.spec"),
 	require("../tests/progression.spec"),
 	require("../tests/content-catalog.spec"),
+	require("../tests/production-art-coverage.spec"),
 	require("../tests/company.spec"),
 	require("../tests/world-config.spec"),
 	require("../tests/world-layout.spec"),
