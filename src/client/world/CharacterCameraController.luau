@@ -1,3 +1,5 @@
+[Reading 124 lines from start (total: 124 lines, 0 remaining)]
+
 --!strict
 
 local Players = game:GetService("Players")
@@ -122,3 +124,5 @@ function CharacterCameraController.Start()
 end
 
 return CharacterCameraController
+
+[executed on device: MacBookPro.fritz.box (eb87a35b-7c3f-490b-a79a-9556613a3bcc)]
