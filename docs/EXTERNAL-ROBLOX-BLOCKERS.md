@@ -95,10 +95,11 @@ External executor fuzzing and real-user network abuse remain post-launch monitor
 ## P16 - Data/runtime and public release
 Publishing recovery:
 - the earlier 2026-09-29 Studio upload incident is resolved for Repair Empire
-- after reconnecting the current Rojo project, Studio published the final P19 development-place build successfully
-- Studio logged `PublishSuccessful`, `Place published` and `Published new changes in "Reparatur-Imperium-Entwickler" to Roblox`
-- the successful cloud revision is development-place version **v70**
-- the green Rojo build remains preserved locally at `.local-backups/RepairEmpire-latest-green.rbxlx`
+- the development place published the final P19 gameplay source successfully
+- the production start place `79925227687072` was explicitly overwritten from the canonical `build.rbxlx` at 19:49:57 UTC and Studio reported `PublishSuccessful`
+- production was reopened directly from Roblox and runtime-verified: RepairAudio ready=true assets=10, DataRecoveryProbe pass, WorldReachabilityProbe 112 anchors / 12 routes pass, world baseline 2593 parts / 2730 descendants
+- both places remain private
+- exactly one canonical local place artifact is retained: `build.rbxlx`
 - current green build SHA-256: `daa175f1d919c25531ab0b4cbf3b70a9d694807fbd713cc7bda71be253d92798`
 
 Resolved in runtime:
