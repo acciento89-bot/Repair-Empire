@@ -1,7 +1,6 @@
 --!strict
 
 local CollectionService = game:GetService("CollectionService")
-local Lighting = game:GetService("Lighting")
 local Workspace = game:GetService("Workspace")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local RunService = game:GetService("RunService")
@@ -135,6 +134,14 @@ local function addStreetFurniture(parent: Instance, center: Vector3, spacing: nu
 			local lamp = createPart("StreetLight", Vector3.new(2.4, 0.5, 1.2), CFrame.new(x, 9, center.Z + zOffset), parent)
 			lamp.Material = Enum.Material.Neon
 			lamp.Color = Color3.fromRGB(255, 236, 190)
+
+			local light = Instance.new("PointLight")
+			light.Name = "StreetLampLight"
+			light.Color = Color3.fromRGB(255, 227, 176)
+			light.Brightness = 1.15
+			light.Range = 18
+			light.Shadows = false
+			light.Parent = lamp
 		end
 	end
 end
