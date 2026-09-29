@@ -1,7 +1,9 @@
 --!strict
 
 local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local RunService = game:GetService("RunService")
+local UserInputService = game:GetService("UserInputService")
 local Workspace = game:GetService("Workspace")
 
 local VehicleExperienceController = {
@@ -12,6 +14,9 @@ local VehicleExperienceController = {
 	_statusLabel = nil :: TextLabel?,
 	_gui = nil :: ScreenGui?,
 	_fov = 70,
+	_lastInputSentAt = 0,
+	_lastThrottle = 0,
+	_lastSteer = 0,
 }
 
 local function prettyVehicleId(id: string): string
@@ -102,6 +107,8 @@ end
 
 function VehicleExperienceController.Start()
 	local player = Players.LocalPlayer
+	local updateInput = ReplicatedStorage:WaitForChild("RepairEmpireRemotes"):WaitForChild("UpdateVehicleInput")
+	assert(updateInput:IsA("RemoteEvent"), "UpdateVehicleInput must be a RemoteEvent")
 	local gui = Instance.new("ScreenGui")
 	gui.Name = "RepairEmpireVehicleHUD"
 	gui.ResetOnSpawn = false
@@ -134,26 +141,68 @@ function VehicleExperienceController.Start()
 		local targetFov = 70
 
 		if seat and model and seat.Parent and model.Parent then
-			local throttle = math.abs(seat.ThrottleFloat)
-			local steer = math.abs(seat.SteerFloat)
-			local moving = model:GetAttribute("Driving") == true
+			local throttle = seat.ThrottleFloat
+			local steer = seat.SteerFloat
+
+			if UserInputService:GetFocusedTextBox() == nil then
+				local keyboardThrottle = 0
+				if UserInputService:IsKeyDown(Enum.KeyCode.W) or UserInputService:IsKeyDown(Enum.KeyCode.Up) then
+					keyboardThrottle += 1
+				end
+				if UserInputService:IsKeyDown(Enum.KeyCode.S) or UserInputService:IsKeyDown(Enum.KeyCode.Down) then
+					keyboardThrottle -= 1
+				end
+
+				local keyboardSteer = 0
+				if UserInputService:IsKeyDown(Enum.KeyCode.A) or UserInputService:IsKeyDown(Enum.KeyCode.Left) then
+					keyboardSteer -= 1
+				end
+				if UserInputService:IsKeyDown(Enum.KeyCode.D) or UserInputService:IsKeyDown(Enum.KeyCode.Right) then
+					keyboardSteer += 1
+				end
+
+				if keyboardThrottle ~= 0 then
+					throttle = keyboardThrottle
+				end
+				if keyboardSteer ~= 0 then
+					steer = keyboardSteer
+				end
+			end
+
+			throttle = math.clamp(throttle, -1, 1)
+			steer = math.clamp(steer, -1, 1)
+
+			local now = os.clock()
+			local changed = math.abs(throttle - VehicleExperienceController._lastThrottle) > 0.001
+				or math.abs(steer - VehicleExperienceController._lastSteer) > 0.001
+			if changed or now - VehicleExperienceController._lastInputSentAt >= 0.1 then
+				updateInput:FireServer({
+					throttle = throttle,
+					steer = steer,
+				})
+				VehicleExperienceController._lastInputSentAt = now
+				VehicleExperienceController._lastThrottle = throttle
+				VehicleExperienceController._lastSteer = steer
+			end
+
+			local moving = model:GetAttribute("Driving") == true or math.abs(throttle) >= 0.01 or math.abs(steer) >= 0.01
 			local maxSpeed = seat.MaxSpeed
-			local displayedSpeed = math.floor(maxSpeed * throttle + 0.5)
-			if throttle < 0.01 and moving and steer > 0.01 then
+			local displayedSpeed = math.floor(maxSpeed * math.abs(throttle) + 0.5)
+			if math.abs(throttle) < 0.01 and moving and math.abs(steer) > 0.01 then
 				displayedSpeed = math.floor(maxSpeed * 0.08)
 			end
 
 			if VehicleExperienceController._speedLabel then
-				VehicleExperienceController._speedLabel.Text = ("%d • %s"):format(
+				VehicleExperienceController._speedLabel.Text = ("%d KM/H • %s"):format(
 					displayedSpeed,
-					string.upper(tostring(model:GetAttribute("VehicleId") or "SERVICE VEHICLE"))
+					prettyVehicleId(tostring(model:GetAttribute("VehicleId") or "service_vehicle"))
 				)
 			end
 			if VehicleExperienceController._statusLabel then
 				VehicleExperienceController._statusLabel.Text = if moving then "REPAIR EMPIRE FLEET • EN ROUTE" else "REPAIR EMPIRE FLEET • READY"
 			end
 
-			targetFov = if moving then 74 + math.min(4, throttle * 4) else 72
+			targetFov = if moving then 74 + math.min(4, math.abs(throttle) * 4) else 72
 		end
 
 		local alpha = 1 - math.exp(-dt * 5)
