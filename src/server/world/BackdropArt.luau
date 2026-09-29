@@ -90,15 +90,7 @@ local function utilityPylon(parent: Instance, x: number, z: number)
 	end
 	for level = 0, 2 do
 		local y = 18 + level * 5
-		part(
-			parent,
-			"Part",
-			"PylonCrossbar",
-			Vector3.new(17 - level * 2, 0.65, 0.65),
-			CFrame.new(x, y, z),
-			Color3.fromRGB(82, 86, 89),
-			Enum.Material.Metal
-		)
+		part(parent, "Part", "PylonCrossbar", Vector3.new(17 - level * 2, 0.65, 0.65), CFrame.new(x, y, z), Color3.fromRGB(82, 86, 89), Enum.Material.Metal)
 	end
 end
 
