@@ -68,11 +68,6 @@ if RunService:IsStudio() then
 			warn("[Repair Empire] WorldReachabilityProbe failed: " .. tostring(reachabilityErr))
 		end
 
-		local WorldVerticalLayerProbe = require(script.qa.WorldVerticalLayerProbe)
-		local verticalOk, verticalErr = pcall(WorldVerticalLayerProbe.Run)
-		if not verticalOk then
-			warn("[Repair Empire] WorldVerticalLayerProbe failed: " .. tostring(verticalErr))
-		end
 	end)
 end
 
