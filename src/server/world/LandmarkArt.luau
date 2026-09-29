@@ -99,7 +99,14 @@ local function industrial(parent: Instance, center: Vector3, config)
 		tank.Shape = Enum.PartType.Cylinder
 		tank.Orientation = Vector3.new(0, 0, 90)
 		for bandIndex = -1, 1 do
-			local band = part(parent, "TankBand", Vector3.new(11.15, 16.25, 0.65), CFrame.new(tankX + bandIndex * 2.8, 8.0, z + 12), Color3.fromRGB(77, 82, 86), Enum.Material.Metal)
+			local band = part(
+				parent,
+				"TankBand",
+				Vector3.new(11.15, 16.25, 0.65),
+				CFrame.new(tankX + bandIndex * 2.8, 8.0, z + 12),
+				Color3.fromRGB(77, 82, 86),
+				Enum.Material.Metal
+			)
 			band.Shape = Enum.PartType.Cylinder
 			band.Orientation = Vector3.new(0, 0, 90)
 		end
@@ -128,17 +135,27 @@ local function industrial(parent: Instance, center: Vector3, config)
 	end
 
 	for towerIndex = -1, 1, 2 do
-		local tower = part(parent, "ProcessTower", Vector3.new(7, 28, 7), CFrame.new(x + towerIndex * 31, 14, z - 3), Color3.fromRGB(119, 124, 128), Enum.Material.Metal)
+		local tower =
+			part(parent, "ProcessTower", Vector3.new(7, 28, 7), CFrame.new(x + towerIndex * 31, 14, z - 3), Color3.fromRGB(119, 124, 128), Enum.Material.Metal)
 		tower.Shape = Enum.PartType.Cylinder
 		for ring = 1, 4 do
-			local platform = part(parent, "TowerPlatform", Vector3.new(9.5, 0.45, 9.5), CFrame.new(x + towerIndex * 31, ring * 5.5, z - 3), Color3.fromRGB(70, 74, 78), Enum.Material.Metal)
+			local platform = part(
+				parent,
+				"TowerPlatform",
+				Vector3.new(9.5, 0.45, 9.5),
+				CFrame.new(x + towerIndex * 31, ring * 5.5, z - 3),
+				Color3.fromRGB(70, 74, 78),
+				Enum.Material.Metal
+			)
 			platform.Shape = Enum.PartType.Cylinder
 		end
-		local beacon = part(parent, "TowerBeacon", Vector3.new(0.9, 0.9, 0.9), tower.CFrame * CFrame.new(0, 14.7, 0), Color3.fromRGB(225, 70, 61), Enum.Material.Neon)
+		local beacon =
+			part(parent, "TowerBeacon", Vector3.new(0.9, 0.9, 0.9), tower.CFrame * CFrame.new(0, 14.7, 0), Color3.fromRGB(225, 70, 61), Enum.Material.Neon)
 		beacon.Shape = Enum.PartType.Ball
 	end
 
-	local sign = part(parent, "IndustrialLandmarkSign", Vector3.new(22, 3.4, 0.35), CFrame.new(x, 12.5, z - 21), Color3.fromRGB(28, 35, 41), Enum.Material.Metal)
+	local sign =
+		part(parent, "IndustrialLandmarkSign", Vector3.new(22, 3.4, 0.35), CFrame.new(x, 12.5, z - 21), Color3.fromRGB(28, 35, 41), Enum.Material.Metal)
 	textSign(sign, "INDUSTRIAL SERVICES", Color3.fromRGB(245, 151, 49))
 end
 
