@@ -5,9 +5,12 @@ local Lighting = game:GetService("Lighting")
 local Workspace = game:GetService("Workspace")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local RunService = game:GetService("RunService")
+local StarterGui = game:GetService("StarterGui")
+local StarterPack = game:GetService("StarterPack")
 local Stats = game:GetService("Stats")
 
 local WorldConfig = require(ReplicatedStorage.RepairEmpire.Shared.world.WorldConfig)
+local WorldLayoutRules = require(ReplicatedStorage.RepairEmpire.Shared.world.WorldLayoutRules)
 local SpatialRules = require(ReplicatedStorage.RepairEmpire.Shared.security.SpatialRules)
 
 local CATEGORIES = { "plumbing", "heating", "climate", "energy" }
@@ -33,6 +36,25 @@ end
 
 local function vectorFromArray(values): Vector3
 	return Vector3.new(values[1], values[2], values[3])
+end
+
+local function clearLegacyPlaceContent()
+	local terrain = Workspace:FindFirstChildOfClass("Terrain")
+	if terrain then
+		terrain:Clear()
+	end
+
+	for _, name in WorldConfig.LegacyWorkspaceRoots do
+		local legacy = Workspace:FindFirstChild(name)
+		if legacy and not legacy:IsA("Terrain") then
+			legacy:Destroy()
+		end
+	end
+
+	StarterPack:ClearAllChildren()
+	for _, child in StarterGui:GetChildren() do
+		child:Destroy()
+	end
 end
 
 local function addDistrictSign(parent: Instance, center: Vector3, displayName: string)
@@ -102,51 +124,54 @@ local function addTree(parent: Instance, position: Vector3, scale: number)
 	crown.CanCollide = false
 end
 
-local function addResidentialWorkshop(parent: Instance, center: Vector3, groundSize)
+local function addResidentialWorkshop(parent: Instance, config)
 	local model = Instance.new("Model")
 	model.Name = "PlayerWorkshop"
 	model:SetAttribute("IsWorkshop", true)
 	model.Parent = parent
 
-	local x = center.X - groundSize[1] / 2 + 38
-	local z = center.Z + groundSize[2] / 2 - 34
+	local x, z = WorldLayoutRules.GetWorkshopCenter(
+		config,
+		WorldConfig.WorkshopReservedBuildingIndex,
+		WorldConfig.WorkshopReservedBuildingSlots
+	)
 
-	local pad = createPart("WorkshopPad", Vector3.new(58, 0.5, 48), CFrame.new(x, 0.25, z), model)
+	local pad = createPart("WorkshopPad", Vector3.new(92, 0.5, 58), CFrame.new(x, 0.25, z + 4), model)
 	pad.Material = Enum.Material.Concrete
 	pad.Color = Color3.fromRGB(112, 116, 120)
 
-	for stripeIndex = -1, 1 do
-		local stripe = createPart("ServiceBayStripe", Vector3.new(2.2, 0.08, 26), CFrame.new(x + stripeIndex * 9, 0.55, z - 1), model)
+	for stripeIndex = -2, 1 do
+		local stripe = createPart("ServiceBayStripe", Vector3.new(1.4, 0.08, 18), CFrame.new(x + stripeIndex * 10 + 5, 0.55, z - 11), model)
 		stripe.Material = Enum.Material.SmoothPlastic
 		stripe.Color = Color3.fromRGB(245, 151, 49)
 		stripe.CanCollide = false
 	end
 
-	local building = createPart("WorkshopBuilding", Vector3.new(36, 12, 30), CFrame.new(x - 6, 6, z), model)
+	local building = createPart("WorkshopBuilding", Vector3.new(44, 13, 28), CFrame.new(x - 12, 6.5, z + 16), model)
 	building.Material = Enum.Material.Brick
 	building.Color = Color3.fromRGB(144, 99, 73)
 
-	local roof = createPart("WorkshopRoof", Vector3.new(38, 1.2, 32), CFrame.new(x - 6, 12.6, z), model)
+	local roof = createPart("WorkshopRoof", Vector3.new(46, 1.2, 30), CFrame.new(x - 12, 13.6, z + 16), model)
 	roof.Material = Enum.Material.Metal
 	roof.Color = Color3.fromRGB(61, 64, 70)
 
-	local door = createPart("GarageDoor", Vector3.new(12, 7, 0.6), CFrame.new(x - 6, 3.5, z - 15.3), model)
+	local door = createPart("GarageDoor", Vector3.new(14, 8, 0.6), CFrame.new(x - 12, 4, z + 1.7), model)
 	door.Material = Enum.Material.Metal
 	door.Color = Color3.fromRGB(95, 98, 105)
 
 	for windowIndex = -1, 1, 2 do
-		local window = createPart("WorkshopWindow", Vector3.new(5.5, 3.5, 0.4), CFrame.new(x - 6 + windowIndex * 10, 6.2, z - 15.35), model)
+		local window = createPart("WorkshopWindow", Vector3.new(5.5, 3.5, 0.4), CFrame.new(x - 12 + windowIndex * 12, 6.4, z + 1.65), model)
 		window.Material = Enum.Material.Glass
 		window.Color = Color3.fromRGB(110, 178, 210)
 		window.Transparency = 0.2
 		window.CanCollide = false
 	end
 
-	local awning = createPart("WorkshopAwning", Vector3.new(18, 0.5, 4), CFrame.new(x - 6, 9.2, z - 17), model)
+	local awning = createPart("WorkshopAwning", Vector3.new(20, 0.5, 4), CFrame.new(x - 12, 10, z), model)
 	awning.Material = Enum.Material.Metal
 	awning.Color = Color3.fromRGB(245, 151, 49)
 
-	local brandSign = createPart("WorkshopBrandSign", Vector3.new(20, 4.5, 0.5), CFrame.new(x - 6, 10.2, z - 15.7), model)
+	local brandSign = createPart("WorkshopBrandSign", Vector3.new(22, 4.5, 0.5), CFrame.new(x - 12, 11, z + 1.3), model)
 	brandSign.Material = Enum.Material.Metal
 	brandSign.Color = Color3.fromRGB(20, 34, 46)
 	local brandGui = Instance.new("SurfaceGui")
@@ -164,16 +189,16 @@ local function addResidentialWorkshop(parent: Instance, center: Vector3, groundS
 	brandText.Parent = brandGui
 
 	for _, side in { -1, 1 } do
-		local bollard = createPart("SafetyBollard", Vector3.new(0.8, 3.2, 0.8), CFrame.new(x - 6 + side * 8, 1.6, z - 17.2), model)
+		local bollard = createPart("SafetyBollard", Vector3.new(0.8, 3.2, 0.8), CFrame.new(x - 12 + side * 9, 1.6, z - 1.2), model)
 		bollard.Material = Enum.Material.Metal
 		bollard.Color = Color3.fromRGB(245, 151, 49)
 	end
 
-	local toolRack = createPart("ToolRack", Vector3.new(8, 5, 1), CFrame.new(x - 20, 2.5, z + 8), model)
+	local toolRack = createPart("ToolRack", Vector3.new(10, 5, 1), CFrame.new(x + 31, 2.5, z + 12), model)
 	toolRack.Material = Enum.Material.Metal
 	toolRack.Color = Color3.fromRGB(42, 52, 60)
 	for toolIndex = -2, 2 do
-		local tool = createPart("DisplayTool", Vector3.new(0.35, 3.2, 0.35), CFrame.new(x - 20 + toolIndex * 1.2, 2.8, z + 7.4), model)
+		local tool = createPart("DisplayTool", Vector3.new(0.35, 3.2, 0.35), CFrame.new(x + 31 + toolIndex * 1.4, 2.8, z + 11.4), model)
 		tool.Material = Enum.Material.Metal
 		tool.Color = if toolIndex % 2 == 0 then Color3.fromRGB(245, 151, 49) else Color3.fromRGB(186, 196, 205)
 		tool.CanCollide = false
@@ -182,7 +207,7 @@ local function addResidentialWorkshop(parent: Instance, center: Vector3, groundS
 	local spawn = Instance.new("SpawnLocation")
 	spawn.Name = "MainSpawn"
 	spawn.Size = Vector3.new(10, 1, 10)
-	spawn.CFrame = CFrame.new(x + 20, 0.5, z)
+	spawn.CFrame = CFrame.new(x + 14, 0.5, z - 15)
 	spawn.Anchored = true
 	spawn.Neutral = true
 	spawn.AllowTeamChangeOnTouch = false
@@ -256,6 +281,22 @@ local function addBuildingDetails(
 	end
 end
 
+local function addServiceWalkway(parent: Instance, config, buildingX: number, buildingZ: number)
+	local walkwayZ, walkwayLength = WorldLayoutRules.GetServiceWalkway({
+		Center = config.Center,
+		BuildingSize = config.BuildingSize,
+		RoadWidth = WorldConfig.RoadWidth,
+	}, buildingZ)
+	local walkway = createPart(
+		"ServiceWalkway",
+		Vector3.new(6, 0.22, walkwayLength),
+		CFrame.new(buildingX, 0.11, walkwayZ),
+		parent
+	)
+	walkway.Material = Enum.Material.Concrete
+	walkway.Color = Color3.fromRGB(186, 188, 190)
+end
+
 local function addConnectorRoad(parent: Instance, fromCenter: Vector3, toCenter: Vector3)
 	local from = Vector3.new(fromCenter.X, 0.2, fromCenter.Z)
 	local to = Vector3.new(toCenter.X, 0.2, toCenter.Z)
@@ -321,17 +362,25 @@ function WorldService:_BuildDistrict(world: Folder, districtId: string, config)
 	addStreetFurniture(folder, center, config.Spacing)
 
 	if districtId == "residential" then
-		addResidentialWorkshop(folder, center, config.GroundSize)
+		addResidentialWorkshop(folder, config)
 		for _, offset in { Vector3.new(-90, 0, 72), Vector3.new(88, 0, 75), Vector3.new(95, 0, -72), Vector3.new(-92, 0, -70) } do
 			addTree(folder, center + offset, 1)
 		end
 	end
 
 	for index = 1, config.BuildingCount do
-		local col = (index - 1) % 5
-		local row = math.floor((index - 1) / 5)
-		local x = center.X + (col - 2) * config.Spacing
-		local z = center.Z + (row * 2 - 1) * config.Spacing
+		if
+			WorldLayoutRules.IsReservedBuildingSlot(
+				districtId,
+				index,
+				WorldConfig.WorkshopReservedBuildingIndex,
+				WorldConfig.WorkshopReservedBuildingSlots
+			)
+		then
+			continue
+		end
+
+		local x, z = WorldLayoutRules.GetBuildingPosition(config, index)
 		local height = config.HeightBase + ((index * 7) % config.HeightVariance)
 
 		local building = Instance.new("Model")
@@ -353,6 +402,7 @@ function WorldService:_BuildDistrict(world: Folder, districtId: string, config)
 
 		local frontSign = if z > center.Z then -1 else 1
 		addBuildingDetails(building, districtId, x, z, config.BuildingSize[1], config.BuildingSize[2], height, index, frontSign)
+		addServiceWalkway(building, config, x, z)
 
 		if districtId == "downtown" and index % 2 == 0 then
 			local crown =
@@ -369,9 +419,8 @@ function WorldService:_BuildDistrict(world: Folder, districtId: string, config)
 		end
 
 		for categoryIndex, categoryId in CATEGORIES do
-			local offsetAngle = (categoryIndex - 1) * (math.pi / 2)
-			local offset = Vector3.new(math.cos(offsetAngle) * config.AnchorRadius, 2, math.sin(offsetAngle) * config.AnchorRadius)
-			local anchor = createPart("JobAnchor", Vector3.new(4, 4, 4), CFrame.new(Vector3.new(x, 2, z) + offset), building)
+			local anchorX, anchorZ = WorldLayoutRules.GetJobAnchorPosition(config, x, z, categoryIndex)
+			local anchor = createPart("JobAnchor", Vector3.new(3, 3, 3), CFrame.new(anchorX, 1.5, anchorZ), building)
 			local anchorId = ("%s_%02d_%s"):format(districtId, index, categoryId)
 			self:_RegisterAnchor(anchor, districtId, categoryId, anchorId)
 		end
@@ -454,6 +503,8 @@ local function logStudioWorldBaseline(world: Folder)
 end
 
 function WorldService:Init()
+	clearLegacyPlaceContent()
+
 	local existing = Workspace:FindFirstChild("RepairEmpireWorld")
 	if existing then
 		existing:Destroy()
