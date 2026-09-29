@@ -44,7 +44,8 @@ end
 function RepairAudioRules.ForAction(action: string): ActionProfile
 	local normalized = string.lower(action)
 
-	if contains(normalized, "inspect")
+	if
+		contains(normalized, "inspect")
 		or contains(normalized, "test")
 		or contains(normalized, "measure")
 		or contains(normalized, "diagnose")
@@ -53,7 +54,8 @@ function RepairAudioRules.ForAction(action: string): ActionProfile
 		return DIAGNOSTIC
 	end
 
-	if contains(normalized, "flush")
+	if
+		contains(normalized, "flush")
 		or contains(normalized, "clean")
 		or contains(normalized, "clear")
 		or contains(normalized, "drain")
@@ -62,7 +64,8 @@ function RepairAudioRules.ForAction(action: string): ActionProfile
 		return FLUID
 	end
 
-	if contains(normalized, "replace")
+	if
+		contains(normalized, "replace")
 		or contains(normalized, "install")
 		or contains(normalized, "tighten")
 		or contains(normalized, "repair")
