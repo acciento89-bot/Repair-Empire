@@ -1,42 +1,48 @@
 name: CI
-
 on:
   push:
     branches: [main]
   pull_request:
     branches: [main]
   workflow_dispatch:
-
 permissions:
   contents: read
-
 jobs:
   verify:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v6
-
       - name: Setup Rokit
         uses: paradoxum-games/setup-rokit@v3
         with:
           version: 1.2.0
           cache: true
-
+      - name: Export isolated verification workspace
+        run: |
+          mkdir -p /tmp/repair-verification/repo /tmp/repair-verification/bin
+          cp -R src tests scripts docs default.project.json rokit.toml selene.toml .stylua.toml AGENTS.md README.md .gitignore /tmp/repair-verification/repo/
+          for name in lune stylua selene rojo; do
+            tool=$(find "$HOME/.rokit/tool-storage" -type f -name "$name" | head -n 1)
+            test -n "$tool"
+            cp "$tool" "/tmp/repair-verification/bin/$name"
+          done
+          tar -czf /tmp/repair-verification.tar.gz -C /tmp/repair-verification .
+      - name: Verification workspace artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: repair-verification-workspace
+          path: /tmp/repair-verification.tar.gz
+          retention-days: 1
       - name: Check formatting
         run: stylua --check src tests scripts
-
       - name: Lint
         run: selene src tests scripts
-
       - name: Build Rojo project
         run: rojo build default.project.json --output build.rbxlx
-
       - name: Run pure Luau tests
         run: lune run scripts/run-tests
-
       - name: Generate prelaunch economy report
         run: lune run scripts/economy-report
-
       - name: Report release readiness
         run: lune run scripts/release-readiness
