@@ -207,8 +207,32 @@ function WorkshopYardArt.Decorate(parent: Instance, x: number, z: number)
 	fence(model, Vector3.new(x + 31, 0, z - 23), 24, true)
 
 	for _, side in { -1, 1 } do
-		part(model, "GatePost", Vector3.new(0.8, 4.5, 0.8), CFrame.new(x + side * 17, 2.25, z - 23), Color3.fromRGB(245, 151, 49), Enum.Material.Metal)
+		local post =
+			part(model, "GatePost", Vector3.new(0.8, 5.8, 0.8), CFrame.new(x + side * 17, 2.9, z - 23), Color3.fromRGB(245, 151, 49), Enum.Material.Metal)
+		local lamp =
+			part(model, "GateLamp", Vector3.new(1.15, 0.35, 1.15), post.CFrame * CFrame.new(0, 3.05, 0), Color3.fromRGB(255, 229, 177), Enum.Material.Neon)
+		local point = Instance.new("PointLight")
+		point.Color = Color3.fromRGB(255, 219, 158)
+		point.Brightness = 0.8
+		point.Range = 13
+		point.Shadows = false
+		point.Parent = lamp
 	end
+
+	local gateHeader = part(model, "ServiceHqGate", Vector3.new(27, 3.0, 0.55), CFrame.new(x, 6.4, z - 23), Color3.fromRGB(20, 34, 46), Enum.Material.Metal)
+	local gateGui = Instance.new("SurfaceGui")
+	gateGui.Face = Enum.NormalId.Front
+	gateGui.SizingMode = Enum.SurfaceGuiSizingMode.PixelsPerStud
+	gateGui.PixelsPerStud = 40
+	gateGui.Parent = gateHeader
+	local gateText = Instance.new("TextLabel")
+	gateText.Size = UDim2.fromScale(1, 1)
+	gateText.BackgroundTransparency = 1
+	gateText.Font = Enum.Font.GothamBold
+	gateText.TextScaled = true
+	gateText.TextColor3 = Color3.fromRGB(245, 151, 49)
+	gateText.Text = "REPAIR EMPIRE  •  SERVICE HQ"
+	gateText.Parent = gateGui
 
 	serviceCharger(model, CFrame.new(x + 38, 0, z - 12))
 	drumStack(model, CFrame.new(x + 36, 0, z + 26))

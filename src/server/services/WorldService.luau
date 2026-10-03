@@ -350,13 +350,16 @@ local function addResidentialWorkshop(parent: Instance, config)
 	local spawn = Instance.new("SpawnLocation")
 	spawn.Name = "MainSpawn"
 	spawn.Size = Vector3.new(10, 1, 10)
-	spawn.CFrame = CFrame.new(x + 14, 0.5, z - 15)
+	local spawnPosition = Vector3.new(x + 14, 0.5, z - 15)
+	local workshopFocus = Vector3.new(x - 12, 0.5, z + 16)
+	spawn.CFrame = CFrame.lookAt(spawnPosition, workshopFocus)
 	spawn.Anchored = true
 	spawn.Neutral = true
 	spawn.AllowTeamChangeOnTouch = false
-	spawn.Transparency = 0.45
-	spawn.Material = Enum.Material.SmoothPlastic
-	spawn.Color = Color3.fromRGB(75, 160, 210)
+	spawn.Transparency = 1
+	spawn.CanCollide = false
+	spawn.CanTouch = false
+	spawn.CanQuery = false
 	spawn.Parent = model
 
 	for index, offset in { Vector3.new(-26, 0, -12), Vector3.new(-28, 0, 14), Vector3.new(26, 0, 15) } do
