@@ -20,6 +20,16 @@ local HudController = {
 	_tutorialLabel = nil :: TextLabel?,
 }
 
+local MOBILE_TUTORIAL_MESSAGES = {
+	first_job = "Open Jobs and accept your first repair.",
+	first_repair = "Follow the arrows to the job site.",
+	first_reward = "Job complete — cash and XP are added automatically.",
+	first_upgrade = "Open Tools and buy the Basic Screwdriver.",
+	second_job = "Take the next job and follow the route.",
+	second_repair = "Reach the marker and finish each repair step.",
+	company_intro = "Open Company to view workshop progression.",
+}
+
 local function decorateCard(label: TextLabel, accent: boolean?)
 	local corner = Instance.new("UICorner")
 	corner.CornerRadius = UDim.new(0, 12)
@@ -247,8 +257,9 @@ function HudController.Start()
 		local camera = Workspace.CurrentCamera
 		local viewport = if camera then camera.ViewportSize else Vector2.new(1280, 720)
 		local hudMetrics = UiLayoutRules.GetHudMetrics(viewport.X, viewport.Y, UserInputService.TouchEnabled)
-		local narrow = viewport.X < 560
+		local phone = hudMetrics.Class == "small_phone"
 
+		status.Position = UDim2.fromOffset(if phone then 12 else 16, if phone then 10 else 16)
 		status.Size = UDim2.fromOffset(hudMetrics.StatusWidth, hudMetrics.StatusHeight)
 		cashValue.Text = ("$%d"):format(player:GetAttribute("Cash") or 0)
 		levelValue.Text = if xpNeeded == 0 then ("LV %d  ·  MAX"):format(level) else ("LV %d  ·  %s"):format(level, xpText)
@@ -257,26 +268,37 @@ function HudController.Start()
 		context.Text = ("%s  •  %s"):format(tool, nextDistrictText(level))
 		xpFill.Size = UDim2.fromScale(if xpNeeded == 0 then 1 else math.clamp(xp / math.max(1, xpNeeded), 0, 1), 1)
 
-		if narrow then
-			metricsRow.Size = UDim2.new(1, -24, 0, 68)
-			grid.FillDirectionMaxCells = 2
-			grid.CellPadding = UDim2.fromOffset(6, 6)
-			grid.CellSize = UDim2.new(0.5, -3, 0, 31)
-			context.Position = UDim2.fromOffset(16, 80)
+		if phone then
+			metricsRow.Position = UDim2.fromOffset(8, 6)
+			metricsRow.Size = UDim2.new(1, -16, 0, 32)
+			grid.FillDirectionMaxCells = 4
+			grid.CellPadding = UDim2.fromOffset(4, 0)
+			grid.CellSize = UDim2.new(0.25, -3, 1, 0)
+			context.Position = UDim2.fromOffset(12, 40)
+			context.Size = UDim2.new(1, -24, 0, 14)
+			context.TextSize = 9
 			xpTrack.Visible = false
+			for _, value in { cashValue, levelValue, companyValue, skillValue } do
+				value.TextSize = 12
+			end
 		else
+			metricsRow.Position = UDim2.fromOffset(12, 8)
 			metricsRow.Size = UDim2.new(1, -24, 0, 42)
 			grid.FillDirectionMaxCells = 4
 			grid.CellPadding = UDim2.fromOffset(6, 0)
 			grid.CellSize = UDim2.new(0.25, -5, 1, 0)
 			context.Position = UDim2.fromOffset(16, 54)
+			context.Size = UDim2.new(1, -32, 0, 18)
+			context.TextSize = 11
 			xpTrack.Visible = true
 		end
 
 		local tutorialStep = player:GetAttribute("TutorialStep") or "first_job"
 		local completed = player:GetAttribute("TutorialCompleted") == true
 		tutorial.Visible = not completed
-		tutorial.Text = if completed then "" else (TutorialConfig.Messages[tutorialStep] or "")
+		tutorial.Text = if completed
+			then ""
+			else if phone then (MOBILE_TUTORIAL_MESSAGES[tutorialStep] or "") else (TutorialConfig.Messages[tutorialStep] or "")
 	end
 
 	for _, attribute in { "Cash", "Level", "XP", "CompanyLevel", "SkillPoints", "EquippedTool", "TutorialStep", "TutorialCompleted" } do

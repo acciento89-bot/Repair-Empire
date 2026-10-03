@@ -49,9 +49,12 @@ function SecurityService:Allow(player: Player, remoteName: string): boolean
 
 	local allowed = self._limiter:Allow(player, remoteName, definition.RateLimitPerSecond)
 	if not allowed then
-		self:RecordAnomaly(player, "rate_limit", remoteName)
+		-- Rate limiting is already the enforcement mechanism. Do not convert
+		-- bursty mobile/controller input into kick-worthy anomaly counters and
+		-- do not amplify malicious spam into server-log spam.
+		return false
 	end
-	return allowed
+	return true
 end
 
 function SecurityService:ValidateId(player: Player, value: any, code: string): string?

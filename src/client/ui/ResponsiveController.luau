@@ -40,11 +40,12 @@ local function apply()
 		local panel = menuGui:FindFirstChild("Panel")
 		local openButton = menuGui:FindFirstChild("OpenMenu")
 		if openButton and openButton:IsA("TextButton") then
+			local class = UiLayoutRules.Classify(viewport.X, viewport.Y, touch)
 			openButton.AnchorPoint = Vector2.new(1, 0)
-			-- Keep the tablet clear of Roblox CoreGui/player-list controls.
-			-- The top-right corner is occupied in live play, so place it below that zone.
-			openButton.Position = UDim2.new(1, -16, 0, if touch then 132 else 120)
-			textConstraint(openButton, 13, 18)
+			openButton.Position = UDim2.new(1, -14, 0, if class == "small_phone" then 78 else if touch then 132 else 120)
+			openButton.Size = if class == "small_phone" then UDim2.fromOffset(116, 42) else UDim2.fromOffset(132, 48)
+			openButton.Text = if class == "small_phone" then "TABLET" else "▣  WORK TABLET"
+			textConstraint(openButton, 12, 17)
 		end
 		if panel and panel:IsA("Frame") then
 			local metrics = UiLayoutRules.GetMenuMetrics(viewport.X, viewport.Y, touch)
@@ -95,14 +96,24 @@ local function apply()
 		end
 		local tutorial = hud:FindFirstChild("Tutorial")
 		if tutorial and tutorial:IsA("TextLabel") then
-			tutorial.Position = UDim2.fromOffset(16, metrics.TutorialY)
-			tutorial.Size = UDim2.fromOffset(metrics.TutorialWidth, 54)
-			textConstraint(tutorial, 12, 18)
+			tutorial.Position = UDim2.fromOffset(if metrics.Class == "small_phone" then 12 else 16, metrics.TutorialY)
+			tutorial.Size = UDim2.fromOffset(metrics.TutorialWidth, metrics.TutorialHeight)
+			tutorial.TextScaled = metrics.Class ~= "small_phone"
+			tutorial.TextSize = if metrics.Class == "small_phone" then 11 else tutorial.TextSize
+			textConstraint(tutorial, 10, 18)
 		end
 		local objective = hud:FindFirstChild("Objective")
 		if objective and objective:IsA("TextLabel") then
 			objective.Size = UDim2.fromOffset(metrics.ObjectiveWidth, metrics.ObjectiveHeight)
-			textConstraint(objective, 12, 20)
+			if metrics.Class == "small_phone" then
+				objective.Position = UDim2.new(0, 12, 0.5, 18)
+				objective.TextScaled = false
+				objective.TextSize = 13
+			else
+				objective.Position = UDim2.new(0, 16, 0.5, 0)
+				objective.TextScaled = true
+			end
+			textConstraint(objective, 11, 20)
 		end
 	end
 
@@ -112,8 +123,8 @@ local function apply()
 		local repair = interaction:FindFirstChild("RepairAction")
 		if repair and repair:IsA("TextButton") then
 			repair.Position = UDim2.new(1, -metrics.Right, 1, -metrics.Bottom)
-			repair.Size = UDim2.fromOffset(metrics.Width, 64)
-			textConstraint(repair, 14, 20)
+			repair.Size = UDim2.fromOffset(metrics.Width, if UiLayoutRules.Classify(viewport.X, viewport.Y, touch) == "small_phone" then 52 else 64)
+			textConstraint(repair, 13, 20)
 		end
 		local instant = interaction:FindFirstChild("InstantFinish")
 		if instant and instant:IsA("TextButton") then
@@ -127,8 +138,10 @@ local function apply()
 	if navigation and navigation:IsA("ScreenGui") then
 		local distance = navigation:FindFirstChild("Distance")
 		if distance and distance:IsA("TextLabel") then
-			distance.Position = UDim2.new(0.5, 0, 1, if touch then -150 else -28)
-			textConstraint(distance, 13, 18)
+			local class = UiLayoutRules.Classify(viewport.X, viewport.Y, touch)
+			distance.Position = UDim2.new(0.5, 0, 1, if class == "small_phone" then -106 else if touch then -150 else -28)
+			distance.Size = if class == "small_phone" then UDim2.fromOffset(210, 38) else UDim2.fromOffset(260, 48)
+			textConstraint(distance, 11, 18)
 		end
 	end
 end

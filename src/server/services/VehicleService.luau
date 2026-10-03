@@ -102,7 +102,9 @@ local function buildProceduralVehicle(player: Player, definition, slotIndex: num
 	hood.Color = bodyColor
 
 	local cargoLength = math.max(3.2, length - cabinLength - 1.0)
-	local cargoHeight = if definition.Style == "pickup" then height * 0.45 else if definition.Style == "truck" then height * 1.15 else height * 0.9
+	local cargoHeight = if definition.Style == "pickup"
+		then height * 0.45
+		else if definition.Style == "truck" then height * 1.15 else if definition.Style == "compact_van" then height * 0.68 else height * 0.78
 	local cargoCenterZ = length / 2 - cargoLength / 2 - 0.3
 	local cargo = createVehiclePart(
 		"CargoBody",
@@ -112,6 +114,55 @@ local function buildProceduralVehicle(player: Player, definition, slotIndex: num
 	)
 	cargo.Material = if definition.Style == "truck" then Enum.Material.Metal else Enum.Material.SmoothPlastic
 	cargo.Color = bodyColor
+
+	if definition.Style ~= "pickup" and definition.Style ~= "truck" then
+		local roofSkin = createVehiclePart(
+			"RoofSkin",
+			Vector3.new(width * 0.86, 0.28, math.max(cabinLength + cargoLength - 0.9, 5.0)),
+			CFrame.new(origin + Vector3.new(0, math.max(height, cargoHeight) + 0.92, 0.2)),
+			model
+		)
+		roofSkin.Material = Enum.Material.SmoothPlastic
+		roofSkin.Color = bodyColor
+		roofSkin.CanCollide = false
+
+		for _, side in { -1, 1 } do
+			local belt = createVehiclePart(
+				"BodyBelt",
+				Vector3.new(0.12, 0.28, length * 0.72),
+				CFrame.new(origin + Vector3.new(side * width * 0.475, 0.95, length * 0.08)),
+				model
+			)
+			belt.Material = Enum.Material.Metal
+			belt.Color = Color3.fromRGB(42, 48, 54)
+			belt.CanCollide = false
+		end
+
+		local rearDoorLeft = createVehiclePart(
+			"RearDoorLeft",
+			Vector3.new(width * 0.43, math.max(1.5, cargoHeight * 0.78), 0.12),
+			CFrame.new(origin + Vector3.new(-width * 0.225, cargoHeight * 0.52, length / 2 + 0.32)),
+			model
+		)
+		rearDoorLeft.Material = Enum.Material.SmoothPlastic
+		rearDoorLeft.Color = bodyColor
+		rearDoorLeft.CanCollide = false
+
+		local rearDoorRight = rearDoorLeft:Clone()
+		rearDoorRight.Name = "RearDoorRight"
+		rearDoorRight.CFrame = CFrame.new(origin + Vector3.new(width * 0.225, cargoHeight * 0.52, length / 2 + 0.32))
+		rearDoorRight.Parent = model
+
+		local rearSeam = createVehiclePart(
+			"RearDoorSeam",
+			Vector3.new(0.08, math.max(1.4, cargoHeight * 0.72), 0.14),
+			CFrame.new(origin + Vector3.new(0, cargoHeight * 0.52, length / 2 + 0.40)),
+			model
+		)
+		rearSeam.Material = Enum.Material.Metal
+		rearSeam.Color = Color3.fromRGB(52, 58, 64)
+		rearSeam.CanCollide = false
+	end
 
 	if definition.Style == "premium_van" or definition.Style == "elite" then
 		local roof = createVehiclePart(
@@ -650,6 +701,40 @@ function VehicleService:UpdateInput(player: Player, payload: any)
 	end
 end
 
+local function vehicleCanAdvance(entry, model: Model, driver: Player, rotated: CFrame, distance: number): boolean
+	if math.abs(distance) < 0.001 then
+		return true
+	end
+
+	local definition = entry.Definition
+	local width = definition.BodySize[1]
+	local length = definition.BodySize[3]
+	local params = OverlapParams.new()
+	params.FilterType = Enum.RaycastFilterType.Exclude
+	local excluded: { Instance } = { model }
+	if driver.Character then
+		table.insert(excluded, driver.Character)
+	end
+	params.FilterDescendantsInstances = excluded
+	params.RespectCanCollide = true
+	params.MaxParts = 16
+
+	local footprint = Vector3.new(math.max(3.4, width * 0.76), 1.65, math.max(5.2, length * 0.70))
+	local substeps = math.max(1, math.ceil(math.abs(distance) / 0.65))
+	for step = 1, substeps do
+		local alpha = step / substeps
+		local candidate = rotated * CFrame.new(0, 0, -distance * alpha)
+		local probe = candidate * CFrame.new(0, 0.55, 0)
+		for _, hit in Workspace:GetPartBoundsInBox(probe, footprint, params) do
+			if hit.CanCollide and not hit:IsDescendantOf(model) then
+				return false
+			end
+		end
+	end
+
+	return true
+end
+
 function VehicleService:_Step(dt: number)
 	for ownerUserId, entries in self._spawned do
 		for index = #entries, 1, -1 do
@@ -706,7 +791,21 @@ function VehicleService:_Step(dt: number)
 			local turnRate = math.rad(55) * (0.35 + math.abs(throttle) * 0.65)
 			local rotated = current * CFrame.Angles(0, -steer * turnRate * dt, 0)
 			local distance = throttle * entry.Definition.Speed * dt
-			model:PivotTo(rotated * CFrame.new(0, 0, -distance))
+
+			-- Vehicles are server-moved, so normal part collision alone cannot stop
+			-- PivotTo from tunnelling through buildings. Blockcast the chassis
+			-- footprint before translating; still allow steering in place.
+			if vehicleCanAdvance(entry, model, driver, rotated, distance) then
+				model:PivotTo(rotated * CFrame.new(0, 0, -distance))
+			else
+				model:PivotTo(rotated)
+				distance = 0
+				entry.Input = {
+					Throttle = 0,
+					Steer = steer,
+					UpdatedAt = os.clock(),
+				}
+			end
 
 			if RunService:IsStudio() and model:GetAttribute("StudioDriveVerified") ~= true then
 				model:SetAttribute("StudioDriveVerified", true)

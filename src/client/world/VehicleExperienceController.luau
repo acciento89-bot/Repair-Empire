@@ -6,6 +6,11 @@ local RunService = game:GetService("RunService")
 local UserInputService = game:GetService("UserInputService")
 local Workspace = game:GetService("Workspace")
 
+local INPUT_SEND_INTERVAL = 0.1
+local INPUT_MIN_INTERVAL = 0.06
+local INPUT_DEADZONE = 0.08
+local INPUT_STEP = 0.05
+
 local VehicleExperienceController = {
 	_connection = nil,
 	_seat = nil :: VehicleSeat?,
@@ -18,6 +23,14 @@ local VehicleExperienceController = {
 	_lastThrottle = 0,
 	_lastSteer = 0,
 }
+
+local function normalizeAxis(value: number): number
+	local clamped = math.clamp(value, -1, 1)
+	if math.abs(clamped) < INPUT_DEADZONE then
+		return 0
+	end
+	return math.clamp(math.round(clamped / INPUT_STEP) * INPUT_STEP, -1, 1)
+end
 
 local function prettyVehicleId(id: string): string
 	local words = string.split(id, "_")
@@ -169,13 +182,16 @@ function VehicleExperienceController.Start()
 				end
 			end
 
-			throttle = math.clamp(throttle, -1, 1)
-			steer = math.clamp(steer, -1, 1)
+			throttle = normalizeAxis(throttle)
+			steer = normalizeAxis(steer)
 
 			local now = os.clock()
-			local changed = math.abs(throttle - VehicleExperienceController._lastThrottle) > 0.001
-				or math.abs(steer - VehicleExperienceController._lastSteer) > 0.001
-			if changed or now - VehicleExperienceController._lastInputSentAt >= 0.1 then
+			local elapsed = now - VehicleExperienceController._lastInputSentAt
+			local changed = math.abs(throttle - VehicleExperienceController._lastThrottle) >= INPUT_STEP
+				or math.abs(steer - VehicleExperienceController._lastSteer) >= INPUT_STEP
+			local sendDue = elapsed >= INPUT_SEND_INTERVAL
+			local urgentChange = changed and elapsed >= INPUT_MIN_INTERVAL
+			if sendDue or urgentChange then
 				updateInput:FireServer({
 					throttle = throttle,
 					steer = steer,
