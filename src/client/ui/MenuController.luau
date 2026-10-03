@@ -1,5 +1,3 @@
-[Reading 1000 lines from start (total: 1163 lines, 163 remaining)]
-
 --!strict
 
 local Players = game:GetService("Players")
@@ -1000,5 +998,166 @@ function MenuController.Start()
 	UiFactory.Stroke(openButton, UiPalette.Gold, 1.5, 0.08)
 	MenuController._openButton = openButton
 
+	local panel = Instance.new("Frame")
+	panel.Name = "Panel"
+	panel.AnchorPoint = Vector2.new(0.5, 0.5)
+	panel.Position = UDim2.fromScale(0.5, 0.5)
+	panel.Size = UDim2.fromScale(0.92, 0.86)
+	panel.BackgroundTransparency = 0
+	panel.BackgroundColor3 = color(UiPalette.Panel)
+	panel.BorderSizePixel = 0
+	panel.Visible = false
+	panel.Parent = screen
+	MenuController._panel = panel
 
-[executed on device: MacBookPro.fritz.box (eb87a35b-7c3f-490b-a79a-9556613a3bcc)]
+	local size = Instance.new("UISizeConstraint")
+	size.MinSize = Vector2.new(300, 360)
+	size.MaxSize = Vector2.new(980, 760)
+	size.Parent = panel
+
+	UiFactory.Round(panel, 18)
+	UiFactory.Stroke(panel, UiPalette.Stroke, 1.5, 0.1)
+
+	local gradient = Instance.new("UIGradient")
+	gradient.Rotation = 90
+	gradient.Color = ColorSequence.new({
+		ColorSequenceKeypoint.new(0, color(UiPalette.Surface)),
+		ColorSequenceKeypoint.new(1, color(UiPalette.Panel)),
+	})
+	gradient.Parent = panel
+
+	local title = Instance.new("TextLabel")
+	title.Name = "Title"
+	title.Position = UDim2.fromOffset(18, 12)
+	title.Size = UDim2.new(1, -120, 0, 28)
+	title.BackgroundTransparency = 1
+	title.Font = Enum.Font.GothamBold
+	title.TextSize = 22
+	title.TextXAlignment = Enum.TextXAlignment.Left
+	title.TextColor3 = color(UiPalette.Text)
+	title.Text = "REPAIR EMPIRE"
+	title.Parent = panel
+
+	local subtitle = Instance.new("TextLabel")
+	subtitle.Name = "Subtitle"
+	subtitle.Position = UDim2.fromOffset(19, 39)
+	subtitle.Size = UDim2.new(1, -130, 0, 20)
+	subtitle.BackgroundTransparency = 1
+	subtitle.Font = Enum.Font.GothamMedium
+	subtitle.TextSize = 12
+	subtitle.TextXAlignment = Enum.TextXAlignment.Left
+	subtitle.TextColor3 = color(UiPalette.TextMuted)
+	subtitle.Text = "Jobs • Fleet • Workshop • Company"
+	subtitle.Parent = panel
+
+	local accentBar = Instance.new("Frame")
+	accentBar.Name = "AccentBar"
+	accentBar.Position = UDim2.fromOffset(18, 64)
+	accentBar.Size = UDim2.new(1, -36, 0, 3)
+	accentBar.BackgroundColor3 = color(UiPalette.Accent)
+	accentBar.BorderSizePixel = 0
+	accentBar.Parent = panel
+	UiFactory.Round(accentBar, 2)
+
+	local tabs = Instance.new("ScrollingFrame")
+	tabs.Name = "Tabs"
+	tabs.Size = UDim2.new(1, -16, 0, 54)
+	tabs.Position = UDim2.fromOffset(8, 74)
+	tabs.BackgroundTransparency = 1
+	tabs.AutomaticCanvasSize = Enum.AutomaticSize.X
+	tabs.CanvasSize = UDim2.new()
+	tabs.ScrollBarThickness = 4
+	tabs.ScrollingDirection = Enum.ScrollingDirection.X
+	tabs.Parent = panel
+
+	local tabLayout = Instance.new("UIListLayout")
+	tabLayout.FillDirection = Enum.FillDirection.Horizontal
+	tabLayout.Padding = UDim.new(0, 6)
+	tabLayout.SortOrder = Enum.SortOrder.LayoutOrder
+	tabLayout.Parent = tabs
+
+	for index, tab in MenuNavigation.Tabs do
+		local button = Instance.new("TextButton")
+		button.Name = tab.Id .. "Tab"
+		button.Size = UDim2.fromOffset(116, 48)
+		button.BackgroundColor3 = color(UiPalette.SurfaceRaised)
+		button.TextColor3 = color(UiPalette.TextMuted)
+		button.BorderSizePixel = 0
+		button.Font = Enum.Font.GothamMedium
+		button.TextSize = 14
+		button.Text = tab.Label
+		button.LayoutOrder = index
+		button.Selectable = true
+		button.Parent = tabs
+		UiFactory.Round(button, 10)
+		UiFactory.Stroke(button, UiPalette.Stroke, 1, 0.35)
+		MenuController._tabButtons[tab.Id] = button
+		button.Activated:Connect(function()
+			MenuController.Render(tab.Id)
+		end)
+	end
+
+	local close = Instance.new("TextButton")
+	close.Name = "Close"
+	close.AnchorPoint = Vector2.new(1, 0)
+	close.Position = UDim2.new(1, -16, 0, 14)
+	close.Size = UDim2.fromOffset(82, 40)
+	close.BackgroundColor3 = color(UiPalette.SurfaceRaised)
+	close.TextColor3 = color(UiPalette.TextMuted)
+	close.BorderSizePixel = 0
+	close.Font = Enum.Font.GothamBold
+	close.TextSize = 14
+	close.Text = "CLOSE"
+	close.Selectable = true
+	close.Parent = panel
+	UiFactory.Round(close, 10)
+	UiFactory.Stroke(close, UiPalette.Stroke, 1, 0.3)
+
+	local content = Instance.new("Frame")
+	content.Name = "Content"
+	content.Position = UDim2.fromOffset(12, 136)
+	content.Size = UDim2.new(1, -24, 1, -148)
+	content.BackgroundTransparency = 0
+	content.BackgroundColor3 = color(UiPalette.Surface)
+	content.BorderSizePixel = 0
+	content.Parent = panel
+	UiFactory.Round(content, 14)
+	UiFactory.Stroke(content, UiPalette.Stroke, 1, 0.45)
+	MenuController._content = content
+
+	openButton.Activated:Connect(MenuController.Open)
+	close.Activated:Connect(MenuController.Close)
+
+	UserInputService.InputBegan:Connect(function(input, processed)
+		if RunService:IsStudio() and input.UserInputType == Enum.UserInputType.Gamepad1 then
+			print("[Repair Empire] StudioGamepadInput " .. tostring(input.KeyCode))
+		end
+		if processed then
+			return
+		end
+		if input.KeyCode == Enum.KeyCode.M or input.KeyCode == Enum.KeyCode.ButtonY or input.KeyCode == Enum.KeyCode.ButtonStart then
+			if panel.Visible then
+				MenuController.Close()
+			else
+				MenuController.Open(true)
+			end
+		elseif
+			panel.Visible
+			and (
+				input.KeyCode == Enum.KeyCode.Left
+				or input.KeyCode == Enum.KeyCode.Right
+				or input.KeyCode == Enum.KeyCode.DPadLeft
+				or input.KeyCode == Enum.KeyCode.DPadRight
+			)
+		then
+			local delta = if input.KeyCode == Enum.KeyCode.Left or input.KeyCode == Enum.KeyCode.DPadLeft then -1 else 1
+			local nextTab = MenuNavigation.Move(MenuController._currentTab, delta)
+			MenuController.Render(nextTab)
+			GuiService.SelectedObject = MenuController._tabButtons[nextTab]
+		elseif (input.KeyCode == Enum.KeyCode.Escape or input.KeyCode == Enum.KeyCode.ButtonB) and panel.Visible then
+			MenuController.Close()
+		end
+	end)
+end
+
+return MenuController

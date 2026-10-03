@@ -1,5 +1,3 @@
-[Reading 324 lines from start (total: 324 lines, 0 remaining)]
-
 --!strict
 
 local Players = game:GetService("Players")
@@ -77,6 +75,25 @@ local function completeJob(instanceId: string, firstStage, target: Vector3)
 		stage = result.stage
 	end
 	error("Job did not complete within 8 stages")
+end
+
+local function assertAvatarVisible(player: Player)
+	local character = player.Character or player.CharacterAdded:Wait()
+	local visibleParts = 0
+	for _, descendant in character:GetDescendants() do
+		if descendant:IsA("BasePart") then
+			assert(descendant.LocalTransparencyModifier <= 0.01, descendant.Name .. " locally hidden by camera transparency")
+			if descendant.Name ~= "HumanoidRootPart" and descendant.Transparency < 0.95 then
+				visibleParts += 1
+			end
+		end
+	end
+	assert(visibleParts >= 5, "Character has too few visible body parts")
+
+	local root = character:WaitForChild("HumanoidRootPart")
+	local camera = Workspace.CurrentCamera
+	assert(root:IsA("BasePart") and camera ~= nil, "Character/camera missing for visibility test")
+	assert((camera.CFrame.Position - root.Position).Magnitude >= 6, "Camera is too close to show the third-person avatar")
 end
 
 local function testCoreUi(player: Player)
@@ -241,6 +258,7 @@ local function testRespawnAndCamera(player: Player, previousCharacter: Model?)
 	local cameraAfter = camera.CFrame.Position
 	assert((cameraAfter - cameraBefore).Magnitude > 10, "Camera did not follow moved character")
 	assert((cameraAfter - root.Position).Magnitude < 30, "Camera detached too far from character")
+	assertAvatarVisible(player)
 
 	assert(player:GetAttribute("EquippedTool") == "basic_screwdriver", "Equipped tool did not survive respawn")
 	assert(player:GetAttribute("WorkshopTier") == 2, "Workshop tier did not survive respawn")
@@ -251,6 +269,8 @@ local function run()
 	local player = Players.LocalPlayer
 	waitAttribute(player, "StudioE2EReady", true)
 	testCoreUi(player)
+	assertAvatarVisible(player)
+	pass("third-person avatar visible")
 	testMenu(player)
 
 	assert(player:GetAttribute("TutorialStep") == "first_job", "Fresh tutorial did not start at first_job")
@@ -324,5 +344,3 @@ function StudioPlayerJourneyProbe.Start()
 end
 
 return StudioPlayerJourneyProbe
-
-[executed on device: MacBookPro.fritz.box (eb87a35b-7c3f-490b-a79a-9556613a3bcc)]

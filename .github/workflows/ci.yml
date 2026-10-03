@@ -17,6 +17,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
+      - name: Reject tool-output contamination
+        shell: bash
+        run: |
+          if grep -RInE '^\[Reading |^\[executed on device:|^Process started with PID|^Initial output:' src tests scripts; then
+            echo 'Generated tool output was committed as source code.' >&2
+            exit 1
+          fi
+
       - name: Setup Rokit
         uses: paradoxum-games/setup-rokit@v3
         with:

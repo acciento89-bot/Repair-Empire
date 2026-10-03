@@ -1,5 +1,3 @@
-[Reading 124 lines from start (total: 124 lines, 0 remaining)]
-
 --!strict
 
 local Players = game:GetService("Players")
@@ -19,9 +17,44 @@ local player = Players.LocalPlayer
 local character: Model? = nil
 local humanoid: Humanoid? = nil
 local root: BasePart? = nil
+local characterParts: { BasePart } = {}
+local characterDescendantAdded: RBXScriptConnection? = nil
+local characterDescendantRemoving: RBXScriptConnection? = nil
+
+local function trackCharacterPart(instance: Instance)
+	if instance:IsA("BasePart") then
+		instance.LocalTransparencyModifier = 0
+		table.insert(characterParts, instance)
+	end
+end
+
+local function untrackCharacterPart(instance: Instance)
+	if not instance:IsA("BasePart") then
+		return
+	end
+	local index = table.find(characterParts, instance)
+	if index then
+		table.remove(characterParts, index)
+	end
+end
 
 local function bindCharacter(nextCharacter: Model)
+	if characterDescendantAdded then
+		characterDescendantAdded:Disconnect()
+		characterDescendantAdded = nil
+	end
+	if characterDescendantRemoving then
+		characterDescendantRemoving:Disconnect()
+		characterDescendantRemoving = nil
+	end
+
 	character = nextCharacter
+	table.clear(characterParts)
+	for _, descendant in nextCharacter:GetDescendants() do
+		trackCharacterPart(descendant)
+	end
+	characterDescendantAdded = nextCharacter.DescendantAdded:Connect(trackCharacterPart)
+	characterDescendantRemoving = nextCharacter.DescendantRemoving:Connect(untrackCharacterPart)
 
 	local foundHumanoid = nextCharacter:WaitForChild("Humanoid", 10)
 	local foundRoot = nextCharacter:WaitForChild("HumanoidRootPart", 10)
@@ -82,6 +115,15 @@ local function updateCamera(dt: number)
 	camera.CameraType = Enum.CameraType.Scriptable
 	camera.CameraSubject = currentHumanoid
 
+	-- Keep the local avatar visible when Roblox switches input/camera modes.
+	-- Default camera transparency can linger on console/gamepad even after this
+	-- custom third-person camera takes control.
+	for _, bodyPart in characterParts do
+		if bodyPart.Parent and bodyPart.LocalTransparencyModifier ~= 0 then
+			bodyPart.LocalTransparencyModifier = 0
+		end
+	end
+
 	local targetCFrame, targetFocus = desiredCameraCFrame(currentRoot, currentCharacter)
 	local distance = (camera.CFrame.Position - targetCFrame.Position).Magnitude
 
@@ -108,6 +150,15 @@ function CharacterCameraController.Start()
 			character = nil
 			humanoid = nil
 			root = nil
+			table.clear(characterParts)
+			if characterDescendantAdded then
+				characterDescendantAdded:Disconnect()
+				characterDescendantAdded = nil
+			end
+			if characterDescendantRemoving then
+				characterDescendantRemoving:Disconnect()
+				characterDescendantRemoving = nil
+			end
 		end
 	end)
 
@@ -124,5 +175,3 @@ function CharacterCameraController.Start()
 end
 
 return CharacterCameraController
-
-[executed on device: MacBookPro.fritz.box (eb87a35b-7c3f-490b-a79a-9556613a3bcc)]

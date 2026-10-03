@@ -1,5 +1,3 @@
-[Reading 26 lines from start (total: 26 lines, 0 remaining)]
-
 --!strict
 
 local TutorialConfig = {
@@ -26,5 +24,3 @@ local TutorialConfig = {
 }
 
 return table.freeze(TutorialConfig)
-
-[executed on device: MacBookPro.fritz.box (eb87a35b-7c3f-490b-a79a-9556613a3bcc)]
