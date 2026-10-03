@@ -95,6 +95,31 @@ local function residential(building: Model, x: number, z: number, width: number,
 		Enum.Material.Metal
 	)
 	downspout.CanCollide = false
+
+	for _, side in { -1, 1 } do
+		for windowIndex = -1, 1 do
+			local sideWindow = part(
+				building,
+				"HouseSideWindow",
+				Vector3.new(0.2, 3.1, 3.8),
+				CFrame.new(x + side * (width / 2 + 0.16), math.min(height - 3.0, 5.8 + math.abs(windowIndex) * 3.8), z + windowIndex * depth * 0.24),
+				Color3.fromRGB(115, 171, 196),
+				Enum.Material.Glass
+			)
+			sideWindow.Transparency = 0.22
+		end
+	end
+
+	for _, side in { -1, 1 } do
+		part(
+			building,
+			"HouseSideTrim",
+			Vector3.new(0.28, height * 0.82, 0.28),
+			CFrame.new(x + side * (width / 2 + 0.22), height * 0.45, z),
+			Color3.fromRGB(83, 72, 64),
+			Enum.Material.Wood
+		)
+	end
 end
 
 local DOWNTOWN_NAMES = { "MARKET", "CAFE", "OFFICE", "STUDIO", "SERVICE" }
@@ -133,6 +158,47 @@ local function downtown(building: Model, x: number, z: number, width: number, de
 	local grille =
 		part(building, "RoofHVACGrille", Vector3.new(3.6, 0.18, 2.8), hvac.CFrame * CFrame.new(0, 1.22, 0), Color3.fromRGB(65, 70, 74), Enum.Material.Metal)
 	grille.CanCollide = false
+
+	local floorCount = math.max(2, math.min(6, math.floor(height / 8)))
+	for _, side in { -1, 1 } do
+		for floorIndex = 1, floorCount do
+			local sideBand = part(
+				building,
+				"DowntownSideWindowBand",
+				Vector3.new(0.2, 2.45, depth * 0.68),
+				CFrame.new(x + side * (width / 2 + 0.16), math.min(height - 2.4, floorIndex * 7), z),
+				Color3.fromRGB(90, 149, 180),
+				Enum.Material.Glass
+			)
+			sideBand.Transparency = 0.26
+		end
+
+		part(
+			building,
+			"DowntownSidePier",
+			Vector3.new(0.32, height * 0.88, 0.46),
+			CFrame.new(x + side * (width / 2 + 0.2), height * 0.47, z - depth * 0.4),
+			Color3.fromRGB(58, 66, 74),
+			Enum.Material.Metal
+		)
+		part(
+			building,
+			"DowntownSidePier",
+			Vector3.new(0.32, height * 0.88, 0.46),
+			CFrame.new(x + side * (width / 2 + 0.2), height * 0.47, z + depth * 0.4),
+			Color3.fromRGB(58, 66, 74),
+			Enum.Material.Metal
+		)
+	end
+
+	part(
+		building,
+		"DowntownRoofCornice",
+		Vector3.new(width + 1.1, 0.65, depth + 1.1),
+		CFrame.new(x, height + 0.72, z),
+		Color3.fromRGB(54, 62, 69),
+		Enum.Material.Metal
+	)
 end
 
 local function industrial(building: Model, x: number, z: number, width: number, depth: number, height: number, index: number, frontSign: number)
@@ -231,6 +297,61 @@ local function industrial(building: Model, x: number, z: number, width: number, 
 		)
 		flood.CanCollide = false
 	end
+
+	local plinth = part(
+		building,
+		"IndustrialPlinth",
+		Vector3.new(width + 0.8, 1.1, depth + 0.8),
+		CFrame.new(x, 0.55, z),
+		Color3.fromRGB(66, 70, 73),
+		Enum.Material.Concrete
+	)
+	plinth.CanCollide = false
+
+	part(
+		building,
+		"IndustrialRoofParapet",
+		Vector3.new(width + 1.0, 1.0, depth + 1.0),
+		CFrame.new(x, height + 0.8, z),
+		Color3.fromRGB(60, 65, 69),
+		Enum.Material.Metal
+	)
+
+	for _, side in { -1, 1 } do
+		local sideX = x + side * (width / 2 + 0.16)
+		for windowIndex = -1, 1 do
+			local sideWindow = part(
+				building,
+				"IndustrialSideWindow",
+				Vector3.new(0.2, 2.25, depth * 0.18),
+				CFrame.new(sideX, math.min(height - 3, 8.2), z + windowIndex * depth * 0.26),
+				Color3.fromRGB(83, 139, 158),
+				Enum.Material.Glass
+			)
+			sideWindow.Transparency = 0.22
+		end
+
+		for bandIndex = -1, 1 do
+			part(
+				building,
+				"IndustrialSideCladding",
+				Vector3.new(0.24, 0.38, depth * 0.78),
+				CFrame.new(sideX + side * 0.03, 4.2 + bandIndex * 4.1, z),
+				if bandIndex == 0 then Color3.fromRGB(219, 153, 54) else Color3.fromRGB(72, 78, 83),
+				Enum.Material.Metal
+			)
+		end
+	end
+
+	local sideSign = part(
+		building,
+		"IndustrialSideSign",
+		Vector3.new(0.28, 3.0, math.min(15, depth * 0.45)),
+		CFrame.new(x + width / 2 + 0.32, math.min(height - 4, 12), z) * CFrame.Angles(0, math.rad(90), 0),
+		Color3.fromRGB(28, 35, 41),
+		Enum.Material.Metal
+	)
+	surfaceText(sideSign, "SERVICE BAY " .. tostring(index), Color3.fromRGB(245, 151, 49))
 end
 
 function BuildingArt.Decorate(
