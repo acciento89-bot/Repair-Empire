@@ -175,3 +175,11 @@ Verification baseline:
 - [x] Starter compact van rebuilt after visual QA: corrected wheel cylinder axis, non-squashed body height, improved wheel/body ratio, shorter cab/longer cargo body, larger dark glass, slimmer fascia and refined roof/rear/branding details.
 - [x] Unpublished local Studio QA no longer fails on DataStore access; in-memory profile fallback is restricted to `RunService:IsStudio()` with `PlaceId == 0`.
 - [x] Revalidated through 45 pure-Luau tests, StyLua, Selene 0/0, release-readiness, Rojo build, iPhone XR 801x392 runtime, 0 CreatorErrors, 112-anchor/12-route reachability and 30-job catalog runtime probes.
+
+## 2026-10-03 production verification after starter-vehicle correction
+
+- [x] Canonical commit `93031ee` pushed to `origin/main`; final canonical build SHA-256 `4efa1724885b6363407bdaef54b28d283a44ab0fb14bc779cbde24fa41c7251f`.
+- [x] Existing production Place `79925227687072` opened directly and synced from the canonical Rojo project; no replacement Place/Experience created.
+- [x] Production publish completed successfully after a transient Roblox 504/503 service-side retry; Studio reported `PublishSuccessful`.
+- [x] Post-publish production runtime passed server/client initialization, DataRecoveryProbe, 112-anchor/12-route reachability and 30-job/76-stage catalog probes at iPhone XR `801x392`; sampled client baseline ~58.1 FPS.
+- [x] Published starter van spawned through the production remote with `ok=true` and visually retained upright wheels plus corrected body proportions.

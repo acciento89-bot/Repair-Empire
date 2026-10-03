@@ -53,3 +53,16 @@ Verification:
 - WorldReachabilityProbe: 112 anchors / 12 representative routes pass;
 - JobCatalogRuntimeProbe: 30 jobs / 76 stages / 14 scene variants pass;
 - vehicle QA: forced starter-van spawn succeeded and front-3/4 plus side camera reviews confirmed upright wheels and corrected body proportions.
+
+## Production publish and runtime verification
+
+- Canonical source commit: `93031ee` (`main`, pushed to `origin/main`).
+- Final canonical `build.rbxlx` SHA-256: `4efa1724885b6363407bdaef54b28d283a44ab0fb14bc779cbde24fa41c7251f`.
+- Existing production Place `79925227687072` was opened directly with Studio `EditPlace`; no new Place/Experience was created.
+- Rojo synced the canonical `RepairEmpire` project into that existing Place.
+- Roblox returned one transient 504/503 publish-service failure under server load; retry succeeded.
+- Studio then reported `PublishSuccessful` and `Published new changes in "Reparatur-Imperium " to Roblox.`
+- Post-publish production Studio play initialized server/client successfully with no new runtime CreatorErrors after the successful publish.
+- DataRecoveryProbe passed; WorldReachabilityProbe passed 112 anchors / 12 representative routes; JobCatalogRuntimeProbe passed 30 jobs / 76 stages / 14 scene variants.
+- Production iPhone XR runtime remained `801x392`, touch enabled, ~58.1 FPS sampled.
+- Production `SpawnVehicle` invocation succeeded (`ok=true`, active vehicles 1 / max 2); the published starter van rendered with upright wheels and the corrected non-squashed body proportions.
