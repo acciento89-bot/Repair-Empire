@@ -42,7 +42,7 @@ local function apply()
 		if openButton and openButton:IsA("TextButton") then
 			local class = UiLayoutRules.Classify(viewport.X, viewport.Y, touch)
 			openButton.AnchorPoint = Vector2.new(1, 0)
-			openButton.Position = UDim2.new(1, -14, 0, if class == "small_phone" then 78 else if touch then 132 else 120)
+			openButton.Position = UDim2.new(1, -14, 0, if class == "small_phone" then 88 else if touch then 132 else 120)
 			openButton.Size = if class == "small_phone" then UDim2.fromOffset(116, 42) else UDim2.fromOffset(132, 48)
 			openButton.Text = if class == "small_phone" then "TABLET" else "▣  WORK TABLET"
 			textConstraint(openButton, 12, 17)
