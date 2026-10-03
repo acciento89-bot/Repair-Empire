@@ -168,3 +168,10 @@ Verification baseline:
 ## 2026-10-03 Mobile regression corrective pass
 
 - [x] Real-phone regressions repaired and revalidated: Error 267 vehicle-input false positives, vehicle/building collision tunnelling, compact HUD/control density and service-vehicle presentation. Static suite and touch-runtime probes are green. Evidence: `docs/evidence/2026-10-03-mobile-regression-revalidation.md`. Existing Developer Product receipt/rejoin blocker remains unchanged.
+
+## 2026-10-03 HUD / starter-vehicle visual correction
+
+- [x] Compact-phone HUD/tablet density reduced after real-device screenshot review; Cash + Level/XP remain persistent while Company/Skill detail moves to the tablet.
+- [x] Starter compact van rebuilt after visual QA: corrected wheel cylinder axis, non-squashed body height, improved wheel/body ratio, shorter cab/longer cargo body, larger dark glass, slimmer fascia and refined roof/rear/branding details.
+- [x] Unpublished local Studio QA no longer fails on DataStore access; in-memory profile fallback is restricted to `RunService:IsStudio()` with `PlaceId == 0`.
+- [x] Revalidated through 45 pure-Luau tests, StyLua, Selene 0/0, release-readiness, Rojo build, iPhone XR 801x392 runtime, 0 CreatorErrors, 112-anchor/12-route reachability and 30-job catalog runtime probes.

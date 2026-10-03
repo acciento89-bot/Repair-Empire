@@ -20,6 +20,10 @@ function DataRecoveryProbe.Run(): boolean
 	if not RunService:IsStudio() then
 		return false
 	end
+	if game.PlaceId == 0 then
+		print("[Repair Empire] DataRecoveryProbe skipped for unpublished local Studio place")
+		return false
+	end
 
 	local store = DataStoreService:GetDataStore(DataStoreAdapter.GetStoreName())
 	local key = "qa:recovery:" .. HttpService:GenerateGUID(false)

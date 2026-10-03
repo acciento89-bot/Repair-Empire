@@ -269,19 +269,22 @@ function HudController.Start()
 		xpFill.Size = UDim2.fromScale(if xpNeeded == 0 then 1 else math.clamp(xp / math.max(1, xpNeeded), 0, 1), 1)
 
 		if phone then
-			metricsRow.Position = UDim2.fromOffset(8, 6)
-			metricsRow.Size = UDim2.new(1, -16, 0, 32)
-			grid.FillDirectionMaxCells = 4
-			grid.CellPadding = UDim2.fromOffset(4, 0)
-			grid.CellSize = UDim2.new(0.25, -3, 1, 0)
-			context.Position = UDim2.fromOffset(12, 40)
-			context.Size = UDim2.new(1, -24, 0, 14)
-			context.TextSize = 9
+			companyCard.Visible = false
+			skillCard.Visible = false
+			metricsRow.Position = UDim2.fromOffset(8, 5)
+			metricsRow.Size = UDim2.new(1, -16, 0, 29)
+			grid.FillDirectionMaxCells = 2
+			grid.CellPadding = UDim2.fromOffset(5, 0)
+			grid.CellSize = UDim2.new(0.5, -3, 1, 0)
+			context.Position = UDim2.fromOffset(10, 36)
+			context.Size = UDim2.new(1, -20, 0, 11)
+			context.TextSize = 8
 			xpTrack.Visible = false
-			for _, value in { cashValue, levelValue, companyValue, skillValue } do
-				value.TextSize = 12
-			end
+			cashValue.TextSize = 11
+			levelValue.TextSize = 11
 		else
+			companyCard.Visible = true
+			skillCard.Visible = true
 			metricsRow.Position = UDim2.fromOffset(12, 8)
 			metricsRow.Size = UDim2.new(1, -24, 0, 42)
 			grid.FillDirectionMaxCells = 4

@@ -11,7 +11,9 @@ local MAX_ATTEMPTS = 5
 
 local environment = PlatformConfig.EnvironmentForPlace(game.PlaceId, RunService:IsStudio())
 local storeName = ("%s_%s"):format(BASE_STORE_NAME, environment)
-local store = DataStoreService:GetDataStore(storeName)
+local localStudioMode = RunService:IsStudio() and game.PlaceId == 0
+local store = if localStudioMode then nil else DataStoreService:GetDataStore(storeName)
+local localUsers: { [number]: any } = {}
 
 local DataStoreAdapter = {}
 
@@ -32,8 +34,18 @@ local function retry(operationName: string, callback)
 end
 
 function DataStoreAdapter.UpdateUser(userId: number, transform)
+	if localStudioMode then
+		local existing = localUsers[userId]
+		local nextValue = transform(existing)
+		if nextValue ~= nil then
+			localUsers[userId] = nextValue
+		end
+		return true, nextValue
+	end
+
 	local key = ("player:%d"):format(userId)
 	return retry("UpdateAsync", function()
+		assert(store ~= nil, "persistent store unavailable")
 		return store:UpdateAsync(key, transform)
 	end)
 end

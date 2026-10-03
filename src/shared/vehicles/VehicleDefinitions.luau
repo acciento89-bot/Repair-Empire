@@ -15,7 +15,7 @@ local function vehicle(id, tier, cost, minLevel, speed, seats, style, width, hei
 end
 
 local Vehicles = {
-	vehicle("old_compact_van", 1, 0, 1, 34, 2, "compact_van", 6.4, 2.4, 10.5, 2),
+	vehicle("old_compact_van", 1, 0, 1, 34, 2, "compact_van", 6.4, 4.0, 10.5, 2),
 	vehicle("service_van", 2, 3_500, 10, 40, 2, "service_van", 6.8, 2.6, 11.8, 2),
 	vehicle("long_wheelbase_van", 3, 8_000, 18, 42, 3, "long_van", 7.0, 2.8, 14.0, 2),
 	vehicle("premium_service_van", 4, 16_000, 28, 46, 3, "premium_van", 7.1, 2.9, 13.0, 2),

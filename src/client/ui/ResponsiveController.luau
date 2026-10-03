@@ -42,31 +42,59 @@ local function apply()
 		if openButton and openButton:IsA("TextButton") then
 			local class = UiLayoutRules.Classify(viewport.X, viewport.Y, touch)
 			openButton.AnchorPoint = Vector2.new(1, 0)
-			openButton.Position = UDim2.new(1, -14, 0, if class == "small_phone" then 88 else if touch then 132 else 120)
-			openButton.Size = if class == "small_phone" then UDim2.fromOffset(116, 42) else UDim2.fromOffset(132, 48)
+			openButton.Position = UDim2.new(1, -12, 0, if class == "small_phone" then 72 else if touch then 116 else 104)
+			openButton.Size = if class == "small_phone" then UDim2.fromOffset(96, 38) else UDim2.fromOffset(124, 44)
 			openButton.Text = if class == "small_phone" then "TABLET" else "▣  WORK TABLET"
-			textConstraint(openButton, 12, 17)
+			textConstraint(openButton, 11, 16)
 		end
 		if panel and panel:IsA("Frame") then
 			local metrics = UiLayoutRules.GetMenuMetrics(viewport.X, viewport.Y, touch)
 			panel.Size = UDim2.fromScale(metrics.PanelScaleX, metrics.PanelScaleY)
+			local compactMenu = metrics.Class == "small_phone"
+			local title = panel:FindFirstChild("Title")
+			local subtitle = panel:FindFirstChild("Subtitle")
+			local accentBar = panel:FindFirstChild("AccentBar")
+			local close = panel:FindFirstChild("Close")
+			local tabs = panel:FindFirstChild("Tabs")
+			local content = panel:FindFirstChild("Content")
+			if title and title:IsA("TextLabel") then
+				title.Position = UDim2.fromOffset(14, if compactMenu then 8 else 12)
+				title.TextSize = if compactMenu then 17 else 22
+			end
+			if subtitle and subtitle:IsA("TextLabel") then
+				subtitle.Visible = not compactMenu
+			end
+			if accentBar and accentBar:IsA("Frame") then
+				accentBar.Position = UDim2.fromOffset(14, if compactMenu then 40 else 64)
+				accentBar.Size = UDim2.new(1, -28, 0, 3)
+			end
+			if close and close:IsA("TextButton") then
+				close.Position = UDim2.new(1, -12, 0, if compactMenu then 7 else 14)
+				close.Size = if compactMenu then UDim2.fromOffset(68, 32) else UDim2.fromOffset(82, 40)
+			end
+			if tabs and tabs:IsA("ScrollingFrame") then
+				tabs.Position = UDim2.fromOffset(8, if compactMenu then 47 else 74)
+				tabs.Size = UDim2.new(1, -16, 0, if compactMenu then 44 else 54)
+			end
+			if content and content:IsA("Frame") then
+				content.Position = UDim2.fromOffset(10, if compactMenu then 96 else 136)
+				content.Size = UDim2.new(1, -20, 1, if compactMenu then -106 else -148)
+			end
 			local sizeConstraint = panel:FindFirstChildOfClass("UISizeConstraint")
 			if sizeConstraint then
 				sizeConstraint.MinSize = Vector2.new(260, 300)
 				sizeConstraint.MaxSize = Vector2.new(metrics.MaxWidth, metrics.MaxHeight)
 			end
 
-			local tabs = panel:FindFirstChild("Tabs")
 			if tabs and tabs:IsA("ScrollingFrame") then
 				for _, child in tabs:GetChildren() do
 					if child:IsA("TextButton") then
-						child.Size = UDim2.fromOffset(metrics.TabWidth, 48)
+						child.Size = UDim2.fromOffset(metrics.TabWidth, if compactMenu then 40 else 48)
 						textConstraint(child, 12, 16)
 					end
 				end
 			end
 
-			local content = panel:FindFirstChild("Content")
 			if content then
 				for _, descendant in content:GetDescendants() do
 					if descendant:IsA("TextButton") then

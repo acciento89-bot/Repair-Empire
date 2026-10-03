@@ -30,9 +30,9 @@ local function remoteEvent(name: string): RemoteEvent
 end
 
 local VEHICLE_COLORS = {
-	compact_van = Color3.fromRGB(188, 198, 207),
-	service_van = Color3.fromRGB(73, 142, 188),
-	long_van = Color3.fromRGB(66, 126, 167),
+	compact_van = Color3.fromRGB(59, 89, 110),
+	service_van = Color3.fromRGB(54, 126, 173),
+	long_van = Color3.fromRGB(49, 112, 153),
 	premium_van = Color3.fromRGB(38, 48, 58),
 	pickup = Color3.fromRGB(188, 119, 55),
 	crew_van = Color3.fromRGB(55, 126, 92),
@@ -79,22 +79,39 @@ local function buildProceduralVehicle(player: Player, definition, slotIndex: num
 	local origin = Vector3.new(0, 4, 0)
 
 	local bodyColor = VEHICLE_COLORS[definition.Style] or Color3.fromRGB(120, 135, 150)
+	local compactVan = definition.Style == "compact_van"
 
 	local chassis = createVehiclePart("Chassis", Vector3.new(width, 1.0, length), CFrame.new(origin), model)
 	chassis.Material = Enum.Material.Metal
 	chassis.Color = Color3.fromRGB(48, 52, 58)
 
-	local cabinLength = math.max(4.2, length * 0.38)
+	local cabinLength = if compactVan then math.max(3.7, length * 0.34) else math.max(4.2, length * 0.38)
+	local cabinHeight = height * 0.82
 	local cabinCenterZ = -length / 2 + cabinLength / 2 + 0.4
-	local cabin =
-		createVehiclePart("Cabin", Vector3.new(width * 0.92, height, cabinLength), CFrame.new(origin + Vector3.new(0, height / 2 + 0.5, cabinCenterZ)), model)
+	local cabin = createVehiclePart(
+		"Cabin",
+		Vector3.new(width * 0.88, cabinHeight, cabinLength),
+		CFrame.new(origin + Vector3.new(0, cabinHeight / 2 + 0.48, cabinCenterZ)),
+		model
+	)
 	cabin.Material = Enum.Material.SmoothPlastic
 	cabin.Color = bodyColor
 
-	local hoodLength = math.max(1.8, cabinLength * 0.34)
+	local roofCap = createVehiclePart(
+		"CabinRoof",
+		Vector3.new(width * 0.80, 0.24, cabinLength * 0.68),
+		CFrame.new(origin + Vector3.new(0, cabinHeight + 0.58, cabinCenterZ + cabinLength * 0.10)),
+		model
+	)
+	roofCap.Material = Enum.Material.SmoothPlastic
+	roofCap.Color = bodyColor:Lerp(Color3.new(1, 1, 1), 0.06)
+	roofCap.CanCollide = false
+
+	local hoodLength = if compactVan then math.max(0.90, cabinLength * 0.22) else math.max(1.8, cabinLength * 0.34)
+	local hoodHeight = if compactVan then height * 0.22 else height * 0.42
 	local hood = createVehicleWedge(
 		"Hood",
-		Vector3.new(width * 0.9, height * 0.42, hoodLength),
+		Vector3.new(width * 0.86, hoodHeight, hoodLength),
 		CFrame.new(origin + Vector3.new(0, height * 0.2 + 0.35, -length / 2 + hoodLength / 2 - 0.1)) * CFrame.Angles(0, math.pi, 0),
 		model
 	)
@@ -104,7 +121,7 @@ local function buildProceduralVehicle(player: Player, definition, slotIndex: num
 	local cargoLength = math.max(3.2, length - cabinLength - 1.0)
 	local cargoHeight = if definition.Style == "pickup"
 		then height * 0.45
-		else if definition.Style == "truck" then height * 1.15 else if definition.Style == "compact_van" then height * 0.68 else height * 0.78
+		else if definition.Style == "truck" then height * 1.15 else if definition.Style == "compact_van" then height * 0.78 else height * 0.70
 	local cargoCenterZ = length / 2 - cargoLength / 2 - 0.3
 	local cargo = createVehiclePart(
 		"CargoBody",
@@ -116,15 +133,28 @@ local function buildProceduralVehicle(player: Player, definition, slotIndex: num
 	cargo.Color = bodyColor
 
 	if definition.Style ~= "pickup" and definition.Style ~= "truck" then
+		local roofHeight = math.max(cabinHeight, cargoHeight)
 		local roofSkin = createVehiclePart(
 			"RoofSkin",
-			Vector3.new(width * 0.86, 0.28, math.max(cabinLength + cargoLength - 0.9, 5.0)),
-			CFrame.new(origin + Vector3.new(0, math.max(height, cargoHeight) + 0.92, 0.2)),
+			Vector3.new(width * 0.78, 0.18, math.max(cabinLength + cargoLength - 1.35, 4.8)),
+			CFrame.new(origin + Vector3.new(0, roofHeight + 0.60, 0.24)),
 			model
 		)
 		roofSkin.Material = Enum.Material.SmoothPlastic
-		roofSkin.Color = bodyColor
+		roofSkin.Color = bodyColor:Lerp(Color3.new(1, 1, 1), 0.04)
 		roofSkin.CanCollide = false
+
+		for _, side in { -1, 1 } do
+			local roofEdge = createVehiclePart(
+				"RoofEdge",
+				Vector3.new(0.16, 0.16, math.max(cabinLength + cargoLength - 1.55, 4.6)),
+				CFrame.new(origin + Vector3.new(side * width * 0.395, roofHeight + 0.48, 0.24)),
+				model
+			)
+			roofEdge.Material = Enum.Material.Metal
+			roofEdge.Color = bodyColor:Lerp(Color3.new(0, 0, 0), 0.18)
+			roofEdge.CanCollide = false
+		end
 
 		for _, side in { -1, 1 } do
 			local belt = createVehiclePart(
@@ -168,7 +198,7 @@ local function buildProceduralVehicle(player: Player, definition, slotIndex: num
 		local roof = createVehiclePart(
 			"RoofModule",
 			Vector3.new(width * 0.6, 0.4, cabinLength * 0.55),
-			CFrame.new(origin + Vector3.new(0, height + 1.0, cabinCenterZ)),
+			CFrame.new(origin + Vector3.new(0, cabinHeight + 0.72, cabinCenterZ)),
 			model
 		)
 		roof.Material = Enum.Material.Metal
@@ -177,31 +207,72 @@ local function buildProceduralVehicle(player: Player, definition, slotIndex: num
 
 	local windscreen = createVehiclePart(
 		"Windscreen",
-		Vector3.new(width * 0.72, height * 0.44, 0.18),
-		CFrame.new(origin + Vector3.new(0, height * 0.7, cabinCenterZ - cabinLength / 2 - 0.1)),
+		Vector3.new(if compactVan then width * 0.74 else width * 0.70, if compactVan then cabinHeight * 0.46 else cabinHeight * 0.40, 0.16),
+		CFrame.new(origin + Vector3.new(0, cabinHeight * 0.67, cabinCenterZ - cabinLength / 2 - 0.16))
+			* CFrame.Angles(math.rad(if compactVan then -12 else -18), 0, 0),
 		model
 	)
 	windscreen.Material = Enum.Material.Glass
-	windscreen.Color = Color3.fromRGB(91, 158, 188)
-	windscreen.Transparency = 0.18
+	windscreen.Color = Color3.fromRGB(38, 65, 80)
+	windscreen.Transparency = 0.08
 	windscreen.CanCollide = false
+
+	local windscreenHeader = createVehiclePart(
+		"WindscreenHeader",
+		Vector3.new(if compactVan then width * 0.77 else width * 0.74, 0.20, 0.22),
+		CFrame.new(origin + Vector3.new(0, cabinHeight + 0.34, cabinCenterZ - cabinLength / 2 + 0.04)) * CFrame.Angles(math.rad(-18), 0, 0),
+		model
+	)
+	windscreenHeader.Material = Enum.Material.SmoothPlastic
+	windscreenHeader.Color = bodyColor:Lerp(Color3.new(0, 0, 0), 0.08)
+	windscreenHeader.CanCollide = false
+
+	for _, side in { -1, 1 } do
+		local pillar = createVehiclePart(
+			"APillar",
+			Vector3.new(0.18, cabinHeight * 0.46, 0.18),
+			CFrame.new(origin + Vector3.new(side * width * 0.385, cabinHeight * 0.69, cabinCenterZ - cabinLength / 2 - 0.09))
+				* CFrame.Angles(math.rad(if compactVan then -12 else -18), 0, 0),
+			model
+		)
+		pillar.Material = Enum.Material.SmoothPlastic
+		pillar.Color = bodyColor:Lerp(Color3.new(0, 0, 0), 0.12)
+		pillar.CanCollide = false
+	end
+
+	local lowerCladding =
+		createVehiclePart("LowerBodyCladding", Vector3.new(width * 0.93, 0.62, length * 0.82), CFrame.new(origin + Vector3.new(0, -0.02, length * 0.05)), model)
+	lowerCladding.Material = Enum.Material.SmoothPlastic
+	lowerCladding.Color = Color3.fromRGB(42, 49, 56)
+	lowerCladding.CanCollide = false
+
+	local frontApron = createVehicleWedge(
+		"FrontApron",
+		if compactVan then Vector3.new(width * 0.74, 0.46, 0.78) else Vector3.new(width * 0.82, 0.72, 1.25),
+		CFrame.new(origin + Vector3.new(0, 0.22, -length / 2 + 0.42)) * CFrame.Angles(0, math.pi, 0),
+		model
+	)
+	frontApron.Material = Enum.Material.SmoothPlastic
+	frontApron.Color = bodyColor:Lerp(Color3.new(0, 0, 0), 0.08)
 
 	for _, side in { -1, 1 } do
 		local sideWindow = createVehiclePart(
 			"SideWindow",
-			Vector3.new(0.18, height * 0.38, cabinLength * 0.52),
-			CFrame.new(origin + Vector3.new(side * width * 0.47, height * 0.7, cabinCenterZ - cabinLength * 0.08)),
+			Vector3.new(0.16, if compactVan then cabinHeight * 0.42 else cabinHeight * 0.34, if compactVan then cabinLength * 0.60 else cabinLength * 0.46),
+			CFrame.new(
+				origin + Vector3.new(side * width * 0.455, if compactVan then cabinHeight * 0.65 else cabinHeight * 0.67, cabinCenterZ - cabinLength * 0.10)
+			),
 			model
 		)
 		sideWindow.Material = Enum.Material.Glass
-		sideWindow.Color = Color3.fromRGB(79, 137, 164)
-		sideWindow.Transparency = 0.2
+		sideWindow.Color = Color3.fromRGB(41, 70, 84)
+		sideWindow.Transparency = 0.09
 		sideWindow.CanCollide = false
 
 		local mirror = createVehiclePart(
 			"Mirror",
-			Vector3.new(0.45, 0.72, 0.9),
-			CFrame.new(origin + Vector3.new(side * width * 0.58, height * 0.66, cabinCenterZ - cabinLength * 0.42)),
+			if compactVan then Vector3.new(0.34, 0.50, 0.58) else Vector3.new(0.45, 0.72, 0.9),
+			CFrame.new(origin + Vector3.new(side * width * 0.55, cabinHeight * 0.64, cabinCenterZ - cabinLength * 0.42)),
 			model
 		)
 		mirror.Material = Enum.Material.Metal
@@ -209,31 +280,59 @@ local function buildProceduralVehicle(player: Player, definition, slotIndex: num
 		mirror.CanCollide = false
 	end
 
-	local frontBumper =
-		createVehiclePart("FrontBumper", Vector3.new(width * 0.92, 0.5, 0.55), CFrame.new(origin + Vector3.new(0, -0.15, -length / 2 - 0.2)), model)
+	local frontBumper = createVehiclePart(
+		"FrontBumper",
+		if compactVan then Vector3.new(width * 0.84, 0.34, 0.44) else Vector3.new(width * 0.92, 0.5, 0.55),
+		CFrame.new(origin + Vector3.new(0, -0.15, -length / 2 - 0.2)),
+		model
+	)
 	frontBumper.Material = Enum.Material.Metal
 	frontBumper.Color = Color3.fromRGB(52, 56, 60)
 	frontBumper.CanCollide = false
 
-	local rearBumper =
-		createVehiclePart("RearBumper", Vector3.new(width * 0.92, 0.5, 0.55), CFrame.new(origin + Vector3.new(0, -0.15, length / 2 + 0.2)), model)
+	local rearBumper = createVehiclePart(
+		"RearBumper",
+		if compactVan then Vector3.new(width * 0.84, 0.34, 0.44) else Vector3.new(width * 0.92, 0.5, 0.55),
+		CFrame.new(origin + Vector3.new(0, -0.15, length / 2 + 0.2)),
+		model
+	)
 	rearBumper.Material = Enum.Material.Metal
 	rearBumper.Color = Color3.fromRGB(52, 56, 60)
 	rearBumper.CanCollide = false
 
-	local grille = createVehiclePart("FrontGrille", Vector3.new(width * 0.48, 0.9, 0.18), CFrame.new(origin + Vector3.new(0, 0.55, -length / 2 - 0.3)), model)
+	local grilleWidth = if compactVan then width * 0.34 else width * 0.48
+	local grilleHeight = if compactVan then 0.48 else 0.9
+	local grille = createVehiclePart(
+		"FrontGrille",
+		Vector3.new(grilleWidth, grilleHeight, 0.16),
+		CFrame.new(origin + Vector3.new(0, if compactVan then 0.42 else 0.55, -length / 2 - 0.3)),
+		model
+	)
 	grille.Material = Enum.Material.Metal
-	grille.Color = Color3.fromRGB(36, 40, 44)
+	grille.Color = Color3.fromRGB(31, 36, 41)
 	grille.CanCollide = false
 
-	for slot = -2, 2 do
-		local slat = createVehiclePart("GrilleSlat", Vector3.new(0.12, 0.72, 0.22), grille.CFrame * CFrame.new(slot * width * 0.07, 0, -0.06), model)
+	if compactVan then
+		local badge = createVehiclePart("FrontBadge", Vector3.new(0.42, 0.20, 0.12), CFrame.new(origin + Vector3.new(0, 0.83, -length / 2 - 0.31)), model)
+		badge.Material = Enum.Material.Metal
+		badge.Color = Color3.fromRGB(245, 151, 49)
+		badge.CanCollide = false
+	end
+
+	local grilleSlots = if compactVan then { -1, 0, 1 } else { -2, -1, 0, 1, 2 }
+	for _, slot in grilleSlots do
+		local slat = createVehiclePart(
+			"GrilleSlat",
+			Vector3.new(0.10, grilleHeight * 0.78, 0.20),
+			grille.CFrame * CFrame.new(slot * grilleWidth * 0.20, 0, -0.05),
+			model
+		)
 		slat.Material = Enum.Material.Metal
-		slat.Color = Color3.fromRGB(108, 114, 118)
+		slat.Color = Color3.fromRGB(104, 111, 117)
 		slat.CanCollide = false
 	end
 
-	local plate = createVehiclePart("RearPlate", Vector3.new(2.6, 0.8, 0.14), CFrame.new(origin + Vector3.new(0, 0.72, length / 2 + 0.31)), model)
+	local plate = createVehiclePart("RearPlate", Vector3.new(2.2, 0.56, 0.14), CFrame.new(origin + Vector3.new(0, 0.34, length / 2 + 0.31)), model)
 	plate.Material = Enum.Material.SmoothPlastic
 	plate.Color = Color3.fromRGB(238, 238, 231)
 	plate.CanCollide = false
@@ -251,6 +350,53 @@ local function buildProceduralVehicle(player: Player, definition, slotIndex: num
 	plateText.TextColor3 = Color3.fromRGB(30, 32, 34)
 	plateText.Text = "RE • " .. string.upper(definition.Id:sub(1, 3))
 	plateText.Parent = plateGui
+
+	if definition.Style ~= "pickup" and definition.Style ~= "truck" then
+		local rearDoorSeam = createVehiclePart(
+			"RearDoorSeam",
+			Vector3.new(0.07, math.max(1.0, cargoHeight * 0.82), 0.10),
+			CFrame.new(origin + Vector3.new(0, cargoHeight * 0.63, length / 2 + 0.40)),
+			model
+		)
+		rearDoorSeam.Material = Enum.Material.Metal
+		rearDoorSeam.Color = bodyColor:Lerp(Color3.new(0, 0, 0), 0.35)
+		rearDoorSeam.CanCollide = false
+
+		for _, side in { -1, 1 } do
+			local rearWindow = createVehiclePart(
+				"RearWindow",
+				Vector3.new(width * 0.32, math.max(0.72, cargoHeight * 0.38), 0.14),
+				CFrame.new(origin + Vector3.new(side * width * 0.19, cargoHeight * 0.62, length / 2 + 0.39)),
+				model
+			)
+			rearWindow.Material = Enum.Material.Glass
+			rearWindow.Color = Color3.fromRGB(36, 62, 75)
+			rearWindow.Transparency = 0.08
+			rearWindow.CanCollide = false
+
+			local rearHandle = createVehiclePart(
+				"RearDoorHandle",
+				Vector3.new(0.34, 0.16, 0.10),
+				CFrame.new(origin + Vector3.new(side * width * 0.12, 0.82, length / 2 + 0.42)),
+				model
+			)
+			rearHandle.Material = Enum.Material.Metal
+			rearHandle.Color = Color3.fromRGB(54, 59, 64)
+			rearHandle.CanCollide = false
+		end
+
+		for _, side in { -1, 1 } do
+			local slidingDoorLine = createVehiclePart(
+				"SlidingDoorLine",
+				Vector3.new(0.10, math.max(1.0, cargoHeight * 0.72), 0.08),
+				CFrame.new(origin + Vector3.new(side * width * 0.474, cargoHeight * 0.54, cargoCenterZ - cargoLength * 0.18)),
+				model
+			)
+			slidingDoorLine.Material = Enum.Material.Metal
+			slidingDoorLine.Color = bodyColor:Lerp(Color3.new(0, 0, 0), 0.28)
+			slidingDoorLine.CanCollide = false
+		end
+	end
 
 	for _, side in { -1, 1 } do
 		local handle = createVehiclePart(
@@ -282,20 +428,22 @@ local function buildProceduralVehicle(player: Player, definition, slotIndex: num
 	steeringWheel.Color = Color3.fromRGB(28, 30, 32)
 	steeringWheel.CanCollide = false
 
-	local stripe = createVehiclePart(
-		"CompanyStripe",
-		Vector3.new(width * 0.96, 0.35, cargoLength * 0.8),
-		CFrame.new(origin + Vector3.new(0, math.max(1.0, cargoHeight * 0.55), cargoCenterZ + width * 0.48)),
-		model
-	)
-	stripe.Material = Enum.Material.SmoothPlastic
-	stripe.Color = Color3.fromRGB(245, 151, 49)
-	stripe.CanCollide = false
+	for _, side in { -1, 1 } do
+		local stripe = createVehiclePart(
+			"CompanyStripe",
+			Vector3.new(0.10, 0.26, cargoLength * 0.72),
+			CFrame.new(origin + Vector3.new(side * width * 0.476, math.max(0.95, cargoHeight * 0.48), cargoCenterZ)),
+			model
+		)
+		stripe.Material = Enum.Material.SmoothPlastic
+		stripe.Color = Color3.fromRGB(245, 151, 49)
+		stripe.CanCollide = false
+	end
 
 	local brandPanel = createVehiclePart(
 		"BrandPanel",
-		Vector3.new(width * 0.82, math.max(1.1, cargoHeight * 0.38), 0.18),
-		CFrame.new(origin + Vector3.new(0, math.max(1.2, cargoHeight * 0.62), cargoCenterZ + cargoLength / 2 + 0.08)),
+		Vector3.new(width * 0.62, 0.38, 0.14),
+		CFrame.new(origin + Vector3.new(0, math.max(1.55, cargoHeight * 0.96), cargoCenterZ + cargoLength / 2 + 0.10)),
 		model
 	)
 	brandPanel.Material = Enum.Material.SmoothPlastic
@@ -316,8 +464,12 @@ local function buildProceduralVehicle(player: Player, definition, slotIndex: num
 	brandText.Parent = brandGui
 
 	for _, side in { -1, 1 } do
-		local headlight =
-			createVehiclePart("Headlight", Vector3.new(1.0, 0.55, 0.18), CFrame.new(origin + Vector3.new(side * width * 0.28, 0.5, -length / 2 - 0.1)), model)
+		local headlight = createVehiclePart(
+			"Headlight",
+			if compactVan then Vector3.new(0.72, 0.30, 0.16) else Vector3.new(1.0, 0.55, 0.18),
+			CFrame.new(origin + Vector3.new(side * width * 0.29, if compactVan then 0.54 else 0.5, -length / 2 - 0.1)),
+			model
+		)
 		headlight.Material = Enum.Material.Neon
 		headlight.Color = Color3.fromRGB(255, 240, 188)
 		headlight.CanCollide = false
@@ -335,7 +487,7 @@ local function buildProceduralVehicle(player: Player, definition, slotIndex: num
 
 	for _, side in { -1, 1 } do
 		local tailLight =
-			createVehiclePart("TailLight", Vector3.new(0.8, 0.65, 0.18), CFrame.new(origin + Vector3.new(side * width * 0.3, 0.55, length / 2 + 0.1)), model)
+			createVehiclePart("TailLight", Vector3.new(0.44, 1.10, 0.18), CFrame.new(origin + Vector3.new(side * width * 0.39, 0.78, length / 2 + 0.1)), model)
 		tailLight.Material = Enum.Material.Neon
 		tailLight.Color = Color3.fromRGB(205, 56, 49)
 		tailLight.CanCollide = false
@@ -451,35 +603,39 @@ local function buildProceduralVehicle(player: Player, definition, slotIndex: num
 	end
 
 	local axleCount = definition.Axles
+	local wheelDiameter = if compactVan then 2.08 else 2.2
+	local wheelWidth = if compactVan then 0.90 else 1.2
+	local wheelY = if compactVan then -0.73 else -0.65
+	local rimDiameter = if compactVan then 1.10 else 1.15
 	for axleIndex = 1, axleCount do
 		local alpha = if axleCount == 1 then 0.5 else (axleIndex - 1) / (axleCount - 1)
 		local z = -length * 0.36 + alpha * length * 0.72
 		for _, side in { -1, 1 } do
 			local wheel = createVehiclePart(
 				("Wheel_%d_%d"):format(axleIndex, side),
-				Vector3.new(1.2, 2.2, 2.2),
-				CFrame.new(origin + Vector3.new(side * width * 0.52, -0.65, z)) * CFrame.Angles(0, 0, math.rad(90)),
+				Vector3.new(wheelWidth, wheelDiameter, wheelDiameter),
+				CFrame.new(origin + Vector3.new(side * width * 0.50, wheelY, z)),
 				model
 			)
 			wheel.Shape = Enum.PartType.Cylinder
 			wheel.Material = Enum.Material.SmoothPlastic
-			wheel.Color = Color3.fromRGB(28, 30, 33)
+			wheel.Color = Color3.fromRGB(25, 28, 31)
 
 			local rim = createVehiclePart(
 				("Rim_%d_%d"):format(axleIndex, side),
-				Vector3.new(1.24, 1.15, 1.15),
-				CFrame.new(origin + Vector3.new(side * width * 0.525, -0.65, z)) * CFrame.Angles(0, 0, math.rad(90)),
+				Vector3.new(wheelWidth + 0.04, rimDiameter, rimDiameter),
+				CFrame.new(origin + Vector3.new(side * width * 0.505, wheelY, z)),
 				model
 			)
 			rim.Shape = Enum.PartType.Cylinder
 			rim.Material = Enum.Material.Metal
-			rim.Color = Color3.fromRGB(145, 150, 155)
+			rim.Color = if compactVan then Color3.fromRGB(96, 105, 112) else Color3.fromRGB(145, 150, 155)
 			rim.CanCollide = false
 
 			local archTrim = createVehiclePart(
 				("WheelArchTrim_%d_%d"):format(axleIndex, side),
-				Vector3.new(0.22, 0.38, 2.8),
-				CFrame.new(origin + Vector3.new(side * width * 0.515, 0.38, z)),
+				Vector3.new(0.18, 0.30, wheelDiameter + 0.44),
+				CFrame.new(origin + Vector3.new(side * width * 0.505, 0.24, z)),
 				model
 			)
 			archTrim.Material = Enum.Material.SmoothPlastic

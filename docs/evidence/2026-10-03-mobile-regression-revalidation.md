@@ -32,3 +32,24 @@ The existing real Developer Product receipt/rejoin launch gate is unchanged by t
 - iPhone XR smoke confirmed the compact HUD/tablet layout in the existing production place.
 - Existing production place 79925227687072 was republished after this corrective pass.
 - Studio returned PublishSuccessful and Published new changes in Reparatur-Imperium to Roblox.
+
+## Follow-up visual correction — HUD and starter vehicle
+
+A second real-phone review exposed two remaining presentation defects: the compact Work Tablet/HUD still consumed too much of the landscape viewport, and the starter van was vertically compressed with wheel cylinders rotated onto the wrong axis.
+
+Corrections:
+- compact-phone HUD now keeps only Cash + Level/XP persistent; company/skill detail remains available inside the tablet;
+- compact tablet panel/header/tabs/content and open button were reduced while preserving touch readability;
+- unpublished local Studio runs use an in-memory profile adapter so full world/vehicle QA can execute without DataStore publication errors;
+- starter-van wheels/rims use the correct horizontal cylinder axis and were visually revalidated as upright circles from a direct side view;
+- starter-van height/proportions, wheel diameter, cab-to-cargo ratio, glass area, front fascia, roof/rear treatment and branding were rebuilt to remove the vertically-squashed placeholder silhouette.
+
+Verification:
+- StyLua: pass; Selene: 0 errors / 0 warnings / 0 parse errors;
+- pure Luau suite: 45 tests passed;
+- release-readiness: Sandbox-ready, no configuration blockers;
+- Rojo canonical build: pass;
+- iPhone XR Studio runtime: 801x392 touch viewport, 0 CreatorErrors;
+- WorldReachabilityProbe: 112 anchors / 12 representative routes pass;
+- JobCatalogRuntimeProbe: 30 jobs / 76 stages / 14 scene variants pass;
+- vehicle QA: forced starter-van spawn succeeded and front-3/4 plus side camera reviews confirmed upright wheels and corrected body proportions.

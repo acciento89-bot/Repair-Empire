@@ -18,12 +18,12 @@ function UiLayoutRules.GetMenuMetrics(width: number, height: number, touchEnable
 	if class == "small_phone" then
 		return {
 			Class = class,
-			PanelScaleX = 0.96,
-			PanelScaleY = 0.92,
-			MaxWidth = math.max(300, width - 16),
-			MaxHeight = math.max(300, height - 16),
-			TabWidth = 102,
-			ButtonHeight = 52,
+			PanelScaleX = 0.88,
+			PanelScaleY = 0.82,
+			MaxWidth = math.max(300, width - 42),
+			MaxHeight = math.max(286, height - 34),
+			TabWidth = 86,
+			ButtonHeight = 44,
 		}
 	elseif class == "tablet" then
 		return {
@@ -79,13 +79,13 @@ function UiLayoutRules.GetHudMetrics(width: number, height: number, touchEnabled
 	if class == "small_phone" then
 		return {
 			Class = class,
-			StatusWidth = math.floor(math.min(width - 190, math.max(430, width * 0.64))),
-			StatusHeight = 60,
-			TutorialY = 82,
-			TutorialWidth = math.min(300, width - 210),
-			TutorialHeight = 38,
-			ObjectiveWidth = math.min(220, width - 220),
-			ObjectiveHeight = 58,
+			StatusWidth = math.floor(math.min(width - 260, math.max(360, width * 0.50))),
+			StatusHeight = 52,
+			TutorialY = 66,
+			TutorialWidth = math.min(286, width - 270),
+			TutorialHeight = 32,
+			ObjectiveWidth = math.min(208, width - 260),
+			ObjectiveHeight = 52,
 			MenuTop = 8,
 		}
 	end
