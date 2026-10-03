@@ -40,6 +40,54 @@ local function decorateCard(label: TextLabel, accent: boolean?)
 	padding.Parent = label
 end
 
+local function decoratePanel(frame: Frame)
+	local corner = Instance.new("UICorner")
+	corner.CornerRadius = UDim.new(0, 14)
+	corner.Parent = frame
+
+	local stroke = Instance.new("UIStroke")
+	stroke.Color = color(UiPalette.Stroke)
+	stroke.Thickness = 1
+	stroke.Transparency = 0.22
+	stroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+	stroke.Parent = frame
+end
+
+local function makeMetric(parent: Instance, name: string, titleText: string): (Frame, TextLabel)
+	local card = Instance.new("Frame")
+	card.Name = name
+	card.BackgroundColor3 = color(UiPalette.Surface)
+	card.BackgroundTransparency = 0
+	card.BorderSizePixel = 0
+	card.Parent = parent
+	decoratePanel(card)
+
+	local title = Instance.new("TextLabel")
+	title.Name = "Title"
+	title.Position = UDim2.fromOffset(10, 5)
+	title.Size = UDim2.new(1, -20, 0, 12)
+	title.BackgroundTransparency = 1
+	title.Font = Enum.Font.GothamBold
+	title.TextSize = 10
+	title.TextXAlignment = Enum.TextXAlignment.Left
+	title.TextColor3 = color(UiPalette.TextMuted)
+	title.Text = titleText
+	title.Parent = card
+
+	local value = Instance.new("TextLabel")
+	value.Name = "Value"
+	value.Position = UDim2.fromOffset(10, 17)
+	value.Size = UDim2.new(1, -20, 1, -20)
+	value.BackgroundTransparency = 1
+	value.Font = Enum.Font.GothamBold
+	value.TextSize = 15
+	value.TextXAlignment = Enum.TextXAlignment.Left
+	value.TextColor3 = color(UiPalette.Text)
+	value.Text = "—"
+	value.Parent = card
+	return card, value
+end
+
 local function pretty(id: string): string
 	local words = string.split(id, "_")
 	for index, word in words do
@@ -75,20 +123,84 @@ function HudController.Start()
 	screen.DisplayOrder = 10
 	screen.Parent = playerGui
 
-	local status = Instance.new("TextLabel")
+	local status = Instance.new("Frame")
 	status.Name = "Status"
 	status.Position = UDim2.fromOffset(16, 16)
-	status.Size = UDim2.fromOffset(720, 42)
+	status.Size = UDim2.fromOffset(720, 78)
 	status.BackgroundTransparency = 0
 	status.BackgroundColor3 = color(UiPalette.Hud)
 	status.BorderSizePixel = 0
-	status.TextScaled = true
-	status.TextWrapped = true
-	status.Font = Enum.Font.GothamMedium
-	status.TextXAlignment = Enum.TextXAlignment.Left
-	status.TextColor3 = color(UiPalette.Text)
 	status.Parent = screen
-	decorateCard(status, false)
+	decoratePanel(status)
+
+	local accent = Instance.new("Frame")
+	accent.Name = "Accent"
+	accent.Position = UDim2.fromOffset(0, 12)
+	accent.Size = UDim2.fromOffset(4, 54)
+	accent.BackgroundColor3 = color(UiPalette.Accent)
+	accent.BorderSizePixel = 0
+	accent.Parent = status
+	local accentCorner = Instance.new("UICorner")
+	accentCorner.CornerRadius = UDim.new(1, 0)
+	accentCorner.Parent = accent
+
+	local metricsRow = Instance.new("Frame")
+	metricsRow.Name = "Metrics"
+	metricsRow.Position = UDim2.fromOffset(12, 8)
+	metricsRow.Size = UDim2.new(1, -24, 0, 42)
+	metricsRow.BackgroundTransparency = 1
+	metricsRow.Parent = status
+
+	local grid = Instance.new("UIGridLayout")
+	grid.Name = "MetricGrid"
+	grid.FillDirection = Enum.FillDirection.Horizontal
+	grid.FillDirectionMaxCells = 4
+	grid.SortOrder = Enum.SortOrder.LayoutOrder
+	grid.CellPadding = UDim2.fromOffset(6, 0)
+	grid.CellSize = UDim2.new(0.25, -5, 1, 0)
+	grid.Parent = metricsRow
+
+	local cashCard, cashValue = makeMetric(metricsRow, "Cash", "CASH")
+	cashCard.LayoutOrder = 1
+	local levelCard, levelValue = makeMetric(metricsRow, "Level", "LEVEL / XP")
+	levelCard.LayoutOrder = 2
+	local companyCard, companyValue = makeMetric(metricsRow, "Company", "COMPANY")
+	companyCard.LayoutOrder = 3
+	local skillCard, skillValue = makeMetric(metricsRow, "SkillPoints", "SKILL PTS")
+	skillCard.LayoutOrder = 4
+
+	local xpTrack = Instance.new("Frame")
+	xpTrack.Name = "XpTrack"
+	xpTrack.Position = UDim2.new(0, 10, 1, -7)
+	xpTrack.Size = UDim2.new(1, -20, 0, 3)
+	xpTrack.BackgroundColor3 = color(UiPalette.ButtonDisabled)
+	xpTrack.BorderSizePixel = 0
+	xpTrack.Parent = levelCard
+	local xpTrackCorner = Instance.new("UICorner")
+	xpTrackCorner.CornerRadius = UDim.new(1, 0)
+	xpTrackCorner.Parent = xpTrack
+
+	local xpFill = Instance.new("Frame")
+	xpFill.Name = "Fill"
+	xpFill.Size = UDim2.fromScale(0, 1)
+	xpFill.BackgroundColor3 = color(UiPalette.Accent)
+	xpFill.BorderSizePixel = 0
+	xpFill.Parent = xpTrack
+	local xpFillCorner = Instance.new("UICorner")
+	xpFillCorner.CornerRadius = UDim.new(1, 0)
+	xpFillCorner.Parent = xpFill
+
+	local context = Instance.new("TextLabel")
+	context.Name = "Context"
+	context.Position = UDim2.fromOffset(16, 54)
+	context.Size = UDim2.new(1, -32, 0, 18)
+	context.BackgroundTransparency = 1
+	context.Font = Enum.Font.GothamMedium
+	context.TextSize = 11
+	context.TextXAlignment = Enum.TextXAlignment.Left
+	context.TextColor3 = color(UiPalette.TextMuted)
+	context.Text = "Basic Wrench"
+	context.Parent = status
 
 	local tutorial = Instance.new("TextLabel")
 	tutorial.Name = "Tutorial"
@@ -134,27 +246,31 @@ function HudController.Start()
 
 		local camera = Workspace.CurrentCamera
 		local viewport = if camera then camera.ViewportSize else Vector2.new(1280, 720)
-		local layoutClass = UiLayoutRules.Classify(viewport.X, viewport.Y, UserInputService.TouchEnabled)
-		if layoutClass == "small_phone" then
-			status.Text = ("$%d • Lv%d %s • Co%d • SP%d\n%s • %s"):format(
-				player:GetAttribute("Cash") or 0,
-				level,
-				xpText,
-				companyLevel,
-				skillPoints,
-				tool,
-				nextDistrictText(level)
-			)
+		local hudMetrics = UiLayoutRules.GetHudMetrics(viewport.X, viewport.Y, UserInputService.TouchEnabled)
+		local narrow = viewport.X < 560
+
+		status.Size = UDim2.fromOffset(hudMetrics.StatusWidth, hudMetrics.StatusHeight)
+		cashValue.Text = ("$%d"):format(player:GetAttribute("Cash") or 0)
+		levelValue.Text = if xpNeeded == 0 then ("LV %d  ·  MAX"):format(level) else ("LV %d  ·  %s"):format(level, xpText)
+		companyValue.Text = tostring(companyLevel)
+		skillValue.Text = tostring(skillPoints)
+		context.Text = ("%s  •  %s"):format(tool, nextDistrictText(level))
+		xpFill.Size = UDim2.fromScale(if xpNeeded == 0 then 1 else math.clamp(xp / math.max(1, xpNeeded), 0, 1), 1)
+
+		if narrow then
+			metricsRow.Size = UDim2.new(1, -24, 0, 68)
+			grid.FillDirectionMaxCells = 2
+			grid.CellPadding = UDim2.fromOffset(6, 6)
+			grid.CellSize = UDim2.new(0.5, -3, 0, 31)
+			context.Position = UDim2.fromOffset(16, 80)
+			xpTrack.Visible = false
 		else
-			status.Text = ("$%d  •  Lv%d %s  •  Company %d  •  SP %d  •  %s  •  %s"):format(
-				player:GetAttribute("Cash") or 0,
-				level,
-				xpText,
-				companyLevel,
-				skillPoints,
-				tool,
-				nextDistrictText(level)
-			)
+			metricsRow.Size = UDim2.new(1, -24, 0, 42)
+			grid.FillDirectionMaxCells = 4
+			grid.CellPadding = UDim2.fromOffset(6, 0)
+			grid.CellSize = UDim2.new(0.25, -5, 1, 0)
+			context.Position = UDim2.fromOffset(16, 54)
+			xpTrack.Visible = true
 		end
 
 		local tutorialStep = player:GetAttribute("TutorialStep") or "first_job"

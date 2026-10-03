@@ -85,9 +85,13 @@ local function apply()
 	if hud and hud:IsA("ScreenGui") then
 		local metrics = UiLayoutRules.GetHudMetrics(viewport.X, viewport.Y, touch)
 		local status = hud:FindFirstChild("Status")
-		if status and status:IsA("TextLabel") then
+		if status and status:IsA("Frame") then
 			status.Size = UDim2.fromOffset(metrics.StatusWidth, metrics.StatusHeight)
-			textConstraint(status, if metrics.Class == "small_phone" then 13 else 11, 18)
+			for _, descendant in status:GetDescendants() do
+				if descendant:IsA("TextLabel") or descendant:IsA("TextButton") then
+					textConstraint(descendant, 10, 18)
+				end
+			end
 		end
 		local tutorial = hud:FindFirstChild("Tutorial")
 		if tutorial and tutorial:IsA("TextLabel") then
