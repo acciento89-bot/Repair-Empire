@@ -44,8 +44,42 @@ function UiFactory.Button(parent: Instance, text: string, order: number?): TextB
 	button.Selectable = true
 	button.Parent = parent
 
+	button.ClipsDescendants = true
 	UiFactory.Round(button, 12)
 	UiFactory.Stroke(button)
+
+	local accentRail = Instance.new("Frame")
+	accentRail.Name = "AccentRail"
+	accentRail.Size = UDim2.new(0, 4, 1, -14)
+	accentRail.Position = UDim2.fromOffset(0, 7)
+	accentRail.BackgroundColor3 = color(UiPalette.Accent)
+	accentRail.BackgroundTransparency = 0.58
+	accentRail.BorderSizePixel = 0
+	accentRail.Parent = button
+	UiFactory.Round(accentRail, 2)
+
+	local function setFocusStyle(focused: boolean)
+		accentRail.BackgroundTransparency = if focused then 0 else 0.58
+		local stroke = button:FindFirstChildOfClass("UIStroke")
+		if stroke then
+			stroke.Color = color(if focused then UiPalette.Gold else UiPalette.Stroke)
+			stroke.Transparency = if focused then 0.08 else 0.25
+		end
+	end
+	button.SelectionGained:Connect(function()
+		setFocusStyle(true)
+	end)
+	button.SelectionLost:Connect(function()
+		setFocusStyle(false)
+	end)
+	button.MouseEnter:Connect(function()
+		setFocusStyle(true)
+	end)
+	button.MouseLeave:Connect(function()
+		if GuiService.SelectedObject ~= button then
+			setFocusStyle(false)
+		end
+	end)
 
 	local padding = Instance.new("UIPadding")
 	padding.PaddingLeft = UDim.new(0, 16)

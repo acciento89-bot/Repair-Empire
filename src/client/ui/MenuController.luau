@@ -28,6 +28,7 @@ end
 local MenuController = {
 	_screen = nil :: ScreenGui?,
 	_panel = nil :: Frame?,
+	_backdrop = nil :: TextButton?,
 	_content = nil :: Frame?,
 	_openButton = nil :: TextButton?,
 	_currentTab = "Jobs",
@@ -935,6 +936,10 @@ local function refreshTabStyles()
 			stroke.Color = color(if selected then UiPalette.Gold else UiPalette.Stroke)
 			stroke.Transparency = if selected then 0.08 else 0.35
 		end
+		local indicator = button:FindFirstChild("TabIndicator")
+		if indicator and indicator:IsA("Frame") then
+			indicator.Visible = selected
+		end
 	end
 end
 
@@ -958,6 +963,9 @@ function MenuController.Open(selectForController: boolean?)
 		return
 	end
 	panel.Visible = true
+	if MenuController._backdrop then
+		MenuController._backdrop.Visible = true
+	end
 	MenuController.Render(MenuController._currentTab)
 	if selectForController == true then
 		GuiService.SelectedObject = MenuController._tabButtons[MenuController._currentTab]
@@ -969,6 +977,9 @@ end
 function MenuController.Close()
 	if MenuController._panel then
 		MenuController._panel.Visible = false
+	end
+	if MenuController._backdrop then
+		MenuController._backdrop.Visible = false
 	end
 	GuiService.SelectedObject = nil
 end
@@ -982,6 +993,20 @@ function MenuController.Start()
 	screen.Parent = player:WaitForChild("PlayerGui")
 	MenuController._screen = screen
 
+	local backdrop = Instance.new("TextButton")
+	backdrop.Name = "Backdrop"
+	backdrop.Size = UDim2.fromScale(1, 1)
+	backdrop.BackgroundColor3 = color(UiPalette.Shadow)
+	backdrop.BackgroundTransparency = 0.28
+	backdrop.BorderSizePixel = 0
+	backdrop.Text = ""
+	backdrop.AutoButtonColor = false
+	backdrop.Visible = false
+	backdrop.ZIndex = 0
+	backdrop.Parent = screen
+	backdrop.Activated:Connect(MenuController.Close)
+	MenuController._backdrop = backdrop
+
 	local openButton = Instance.new("TextButton")
 	openButton.Name = "OpenMenu"
 	openButton.Position = UDim2.fromOffset(16, 68)
@@ -991,7 +1016,7 @@ function MenuController.Start()
 	openButton.BorderSizePixel = 0
 	openButton.Font = Enum.Font.GothamBold
 	openButton.TextSize = 16
-	openButton.Text = "WORK TABLET"
+	openButton.Text = "▣  WORK TABLET"
 	openButton.Selectable = true
 	openButton.Parent = screen
 	UiFactory.Round(openButton, 14)
@@ -1091,6 +1116,16 @@ function MenuController.Start()
 		button.Parent = tabs
 		UiFactory.Round(button, 10)
 		UiFactory.Stroke(button, UiPalette.Stroke, 1, 0.35)
+		local indicator = Instance.new("Frame")
+		indicator.Name = "TabIndicator"
+		indicator.AnchorPoint = Vector2.new(0.5, 1)
+		indicator.Position = UDim2.new(0.5, 0, 1, -3)
+		indicator.Size = UDim2.new(0.55, 0, 0, 3)
+		indicator.BackgroundColor3 = color(UiPalette.Gold)
+		indicator.BorderSizePixel = 0
+		indicator.Visible = false
+		indicator.Parent = button
+		UiFactory.Round(indicator, 2)
 		MenuController._tabButtons[tab.Id] = button
 		button.Activated:Connect(function()
 			MenuController.Render(tab.Id)
