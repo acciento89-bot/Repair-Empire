@@ -25,3 +25,10 @@ Corrective pass based on real small-phone gameplay findings: Error 267 under dri
 - Building-collision regression probe stopped the test van outside the collidable shell with 4.04 studs face clearance.
 
 The existing real Developer Product receipt/rejoin launch gate is unchanged by this corrective pass.
+
+## Live refresh
+
+- Revalidated canonical main immediately before release: 45 pure-Luau tests, Selene 0/0, Rojo build and release-readiness all passed.
+- iPhone XR smoke confirmed the compact HUD/tablet layout in the existing production place.
+- Existing production place 79925227687072 was republished after this corrective pass.
+- Studio returned PublishSuccessful and Published new changes in Reparatur-Imperium to Roblox.
