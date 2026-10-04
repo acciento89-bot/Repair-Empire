@@ -133,9 +133,100 @@ function HudController.Start()
 	screen.DisplayOrder = 10
 	screen.Parent = playerGui
 
+	local logo = Instance.new("Frame")
+	logo.Name = "RepairEmpireLogo"
+	logo.Position = UDim2.fromOffset(16, 10)
+	logo.Size = UDim2.fromOffset(210, 72)
+	logo.BackgroundTransparency = 1
+	logo.Parent = screen
+
+	local repairWord = Instance.new("TextLabel")
+	repairWord.Name = "RepairWord"
+	repairWord.Size = UDim2.fromOffset(150, 32)
+	repairWord.BackgroundTransparency = 1
+	repairWord.Font = Enum.Font.GothamBlack
+	repairWord.Text = "REPAIR"
+	repairWord.TextSize = 28
+	repairWord.TextXAlignment = Enum.TextXAlignment.Left
+	repairWord.TextColor3 = color(UiPalette.Accent)
+	repairWord.TextStrokeColor3 = Color3.fromRGB(48, 34, 24)
+	repairWord.TextStrokeTransparency = 0.42
+	repairWord.Parent = logo
+
+	local empireWord = Instance.new("TextLabel")
+	empireWord.Name = "EmpireWord"
+	empireWord.Position = UDim2.fromOffset(18, 26)
+	empireWord.Size = UDim2.fromOffset(160, 34)
+	empireWord.BackgroundTransparency = 1
+	empireWord.Font = Enum.Font.GothamBlack
+	empireWord.Text = "EMPIRE"
+	empireWord.TextSize = 30
+	empireWord.TextXAlignment = Enum.TextXAlignment.Left
+	empireWord.TextColor3 = color(UiPalette.Text)
+	empireWord.TextStrokeColor3 = color(UiPalette.Panel)
+	empireWord.TextStrokeTransparency = 0.28
+	empireWord.Parent = logo
+
+	local logoTag = Instance.new("TextLabel")
+	logoTag.Name = "Tagline"
+	logoTag.Position = UDim2.fromOffset(2, 61)
+	logoTag.Size = UDim2.fromOffset(208, 11)
+	logoTag.BackgroundTransparency = 1
+	logoTag.Font = Enum.Font.GothamBold
+	logoTag.Text = "BUILD • REPAIR • GROW"
+	logoTag.TextSize = 8
+	logoTag.TextXAlignment = Enum.TextXAlignment.Left
+	logoTag.TextColor3 = color(UiPalette.TextMuted)
+	logoTag.Parent = logo
+
+	local serviceProgress = Instance.new("Frame")
+	serviceProgress.Name = "ServiceProgress"
+	serviceProgress.AnchorPoint = Vector2.new(0.5, 0)
+	serviceProgress.Position = UDim2.new(0.5, 0, 0, 14)
+	serviceProgress.Size = UDim2.fromOffset(310, 52)
+	serviceProgress.BackgroundColor3 = color(UiPalette.Hud)
+	serviceProgress.BackgroundTransparency = 0.02
+	serviceProgress.BorderSizePixel = 0
+	serviceProgress.Parent = screen
+	decoratePanel(serviceProgress)
+
+	local progressText = Instance.new("TextLabel")
+	progressText.Name = "ProgressText"
+	progressText.Position = UDim2.fromOffset(10, 4)
+	progressText.Size = UDim2.new(1, -20, 0, 24)
+	progressText.BackgroundTransparency = 1
+	progressText.Font = Enum.Font.GothamBold
+	progressText.Text = "SERVICE LEVEL 1 / 100"
+	progressText.TextSize = 11
+	progressText.TextXAlignment = Enum.TextXAlignment.Center
+	progressText.TextColor3 = color(UiPalette.Text)
+	progressText.Parent = serviceProgress
+
+	local progressTrack = Instance.new("Frame")
+	progressTrack.Name = "ProgressTrack"
+	progressTrack.Position = UDim2.fromOffset(12, 34)
+	progressTrack.Size = UDim2.new(1, -24, 0, 10)
+	progressTrack.BackgroundColor3 = color(UiPalette.ButtonDisabled)
+	progressTrack.BorderSizePixel = 0
+	progressTrack.ClipsDescendants = true
+	progressTrack.Parent = serviceProgress
+	local progressTrackCorner = Instance.new("UICorner")
+	progressTrackCorner.CornerRadius = UDim.new(1, 0)
+	progressTrackCorner.Parent = progressTrack
+
+	local progressFill = Instance.new("Frame")
+	progressFill.Name = "ProgressFill"
+	progressFill.Size = UDim2.fromScale(0.01, 1)
+	progressFill.BackgroundColor3 = color(UiPalette.Accent)
+	progressFill.BorderSizePixel = 0
+	progressFill.Parent = progressTrack
+	local progressFillCorner = Instance.new("UICorner")
+	progressFillCorner.CornerRadius = UDim.new(1, 0)
+	progressFillCorner.Parent = progressFill
+
 	local status = Instance.new("Frame")
 	status.Name = "Status"
-	status.Position = UDim2.fromOffset(16, 16)
+	status.Position = UDim2.fromOffset(16, 88)
 	status.Size = UDim2.fromOffset(720, 78)
 	status.BackgroundTransparency = 0
 	status.BackgroundColor3 = color(UiPalette.Hud)
@@ -214,7 +305,7 @@ function HudController.Start()
 
 	local tutorial = Instance.new("TextLabel")
 	tutorial.Name = "Tutorial"
-	tutorial.Position = UDim2.fromOffset(16, 68)
+	tutorial.Position = UDim2.fromOffset(16, 176)
 	tutorial.Size = UDim2.fromOffset(360, 54)
 	tutorial.BackgroundTransparency = 0
 	tutorial.BackgroundColor3 = color(UiPalette.Surface)
@@ -259,7 +350,9 @@ function HudController.Start()
 		local hudMetrics = UiLayoutRules.GetHudMetrics(viewport.X, viewport.Y, UserInputService.TouchEnabled)
 		local phone = hudMetrics.Class == "small_phone"
 
-		status.Position = UDim2.fromOffset(if phone then 12 else 16, if phone then 10 else 16)
+		logo.Visible = not phone
+		serviceProgress.Visible = not phone
+		status.Position = UDim2.fromOffset(if phone then 12 else 16, if phone then 10 else 88)
 		status.Size = UDim2.fromOffset(hudMetrics.StatusWidth, hudMetrics.StatusHeight)
 		cashValue.Text = ("$%d"):format(player:GetAttribute("Cash") or 0)
 		levelValue.Text = if xpNeeded == 0 then ("LV %d  ·  MAX"):format(level) else ("LV %d  ·  %s"):format(level, xpText)
@@ -267,6 +360,8 @@ function HudController.Start()
 		skillValue.Text = tostring(skillPoints)
 		context.Text = ("%s  •  %s"):format(tool, nextDistrictText(level))
 		xpFill.Size = UDim2.fromScale(if xpNeeded == 0 then 1 else math.clamp(xp / math.max(1, xpNeeded), 0, 1), 1)
+		progressText.Text = ("SERVICE LEVEL %d / %d"):format(level, ProgressionConfig.MaxPlayerLevel)
+		progressFill.Size = UDim2.fromScale(math.clamp(level / ProgressionConfig.MaxPlayerLevel, 0, 1), 1)
 
 		if phone then
 			companyCard.Visible = false

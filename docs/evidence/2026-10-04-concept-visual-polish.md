@@ -23,3 +23,11 @@ The visual contract was introduced with a failing test before production impleme
 - PlaySolo visual QA: 0 CreatorErrors; WorldVerticalLayerProbe, WorldReachabilityProbe and JobCatalogRuntimeProbe passed; sampled client baseline about 57.6 FPS.
 - Visual inspection was performed from the generated local PlaySolo build at desktop viewport size.
 - This evidence covers the source/runtime visual pass only; Roblox production publishing is a separate gate.
+
+## Concept-fidelity pass 2
+
+- Added a branded Repair Empire wordmark and centered service-level progress capsule while retaining the production HUD metrics and Work Tablet workflow.
+- Wide layouts move the HUD below the new concept header; compact-phone layouts hide the decorative header and keep the existing dense mobile-safe HUD.
+- The established branded workshop/service-HQ world art remains the primary visual anchor rather than replacing it with generic concept scenery.
+- Final Studio PlaySolo: 0 CreatorErrors; WorldVerticalLayerProbe, WorldReachabilityProbe and JobCatalogRuntimeProbe passed; sampled client baseline ~57.2 FPS.
+- Static verification: 47 pure-Luau tests, Selene 0/0, StyLua, Rojo build and git diff check pass.

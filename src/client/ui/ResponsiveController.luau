@@ -124,7 +124,8 @@ local function apply()
 		end
 		local tutorial = hud:FindFirstChild("Tutorial")
 		if tutorial and tutorial:IsA("TextLabel") then
-			tutorial.Position = UDim2.fromOffset(if metrics.Class == "small_phone" then 12 else 16, metrics.TutorialY)
+			tutorial.Position =
+				UDim2.fromOffset(if metrics.Class == "small_phone" then 12 else 16, if metrics.Class == "small_phone" then metrics.TutorialY else 176)
 			tutorial.Size = UDim2.fromOffset(metrics.TutorialWidth, metrics.TutorialHeight)
 			tutorial.TextScaled = metrics.Class ~= "small_phone"
 			tutorial.TextSize = if metrics.Class == "small_phone" then 11 else tutorial.TextSize

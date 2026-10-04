@@ -189,3 +189,10 @@ Verification baseline:
 - [x] Native Roblox concept-quality presentation pass implemented for this game; no static concept screenshot is used in gameplay.
 - [x] Lighting/VFX and native ScreenGui styling are test-guarded and pass local static verification plus Studio PlaySolo runtime QA.
 - [x] Evidence: `docs/evidence/2026-10-04-concept-visual-polish.md`.
+
+## 2026-10-04 concept-fidelity pass 2
+
+- [x] Branded Repair Empire wordmark and service-level progress hierarchy added to the production HUD.
+- [x] Desktop/tablet composition now matches the concept family while compact-phone density remains protected.
+- [x] Existing production workshop/service-HQ art retained as the game's distinct world identity.
+- [x] Final PlaySolo: 0 CreatorErrors; vertical/reachability/job-catalog probes green; ~57.2 FPS sampled; 47 pure-Luau tests and static gates green.
