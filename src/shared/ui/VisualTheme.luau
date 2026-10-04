@@ -1,0 +1,53 @@
+--!strict
+
+return {
+	Id = "repair-empire",
+	Title = "Repair Empire",
+	Colors = {
+		Foundation = "#101820",
+		Panel = "#182632",
+		Panel2 = "#253746",
+		Accent = "#F59B45",
+		Accent2 = "#58C7DB",
+		Accent3 = "#74D99F",
+		Text = "#F7FAFC",
+		Muted = "#B5C1CB",
+	},
+	Lighting = {
+		Brightness = 2.6,
+		ClockTime = 13.8,
+		ExposureCompensation = 0.06,
+		EnvironmentDiffuseScale = 0.52,
+		EnvironmentSpecularScale = 0.58,
+		FogStart = 620,
+		FogEnd = 2200,
+		Ambient = "#81919A",
+		OutdoorAmbient = "#B7C3C8",
+		FogColor = "#CBD7DA",
+	},
+	Atmosphere = {
+		Density = 0.13,
+		Offset = 0.0,
+		Color = "#E5EFF1",
+		Decay = "#B8A08E",
+		Glare = 0.08,
+		Haze = 0.75,
+	},
+	Effects = {
+		BloomIntensity = 0.22,
+		BloomSize = 24,
+		BloomThreshold = 1.4,
+		Saturation = 0.02,
+		Contrast = 0.06,
+		TintColor = "#FFF9EE",
+		SunRaysIntensity = 0.035,
+		SunRaysSpread = 0.58,
+	},
+	Clouds = {
+		Cover = 0.18,
+		Density = 0.2,
+		Color = "#FFFFFF",
+	},
+	TargetGuis = { "RepairEmpireHUD", "RepairEmpireMenu" },
+	TargetPrefixes = { "RepairEmpire" },
+}

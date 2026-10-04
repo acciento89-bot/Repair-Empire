@@ -183,3 +183,9 @@ Verification baseline:
 - [x] Production publish completed successfully after a transient Roblox 504/503 service-side retry; Studio reported `PublishSuccessful`.
 - [x] Post-publish production runtime passed server/client initialization, DataRecoveryProbe, 112-anchor/12-route reachability and 30-job/76-stage catalog probes at iPhone XR `801x392`; sampled client baseline ~58.1 FPS.
 - [x] Published starter van spawned through the production remote with `ok=true` and visually retained upright wheels plus corrected body proportions.
+
+## 2026-10-04 concept visual-polish pass
+
+- [x] Native Roblox concept-quality presentation pass implemented for this game; no static concept screenshot is used in gameplay.
+- [x] Lighting/VFX and native ScreenGui styling are test-guarded and pass local static verification plus Studio PlaySolo runtime QA.
+- [x] Evidence: `docs/evidence/2026-10-04-concept-visual-polish.md`.
