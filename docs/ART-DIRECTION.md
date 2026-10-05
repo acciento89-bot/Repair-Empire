@@ -3,6 +3,12 @@
 ## Concept interpretation
 The approved concept image is a **feature montage**, not a simultaneous gameplay HUD. Jobs, Daily, Company, Workshop, Shop and other full panels stay hidden until the player opens the main menu or a contextual launcher. Normal gameplay keeps only the compact service HUD, progression and objective information visible.
 
+## Graphic fidelity
+- The **service-city identity** uses the branded service-HQ yard as the foreground hero, with a lit workshop canopy, orange HQ marker and service-fleet dressing.
+- Residential, downtown and industrial districts remain grounded and readable, while a softer far-city skyline provides depth beyond the playable service grid.
+- Repair Empire orange is used for HQ/fleet wayfinding and service emphasis; trade colors stay reserved for category guidance.
+- All added skyline/HQ dressing is non-colliding and may not obstruct vehicles, anchors or job paths.
+
 ## Core visual language
 - Grounded modern service-company aesthetic: believable residential, city and industrial spaces with clean stylization rather than photorealism.
 - Brand palette: deep navy/charcoal structures, warm Repair Empire orange highlights, muted concrete/metal/brick, restrained trade colors.
