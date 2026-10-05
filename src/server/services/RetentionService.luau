@@ -107,7 +107,10 @@ function RetentionService:GetRetentionStatus(player: Player)
 	end
 
 	local dataService = require(script.Parent.PlayerDataService)
-	local profile = dataService:RequireProfile(player)
+	local profile = dataService:GetProfile(player)
+	if profile == nil then
+		return { ok = false, error = "profile_loading" }
+	end
 	local day = RetentionConfig.GetDayNumber()
 	self:_EnsureDailyState(profile, day)
 

@@ -694,6 +694,13 @@ function HudController.Start()
 	previewPart("VanStripe", Vector3.new(4.05, 0.24, 2.04), Vector3.new(2.8, 1.1, 2.1), color(UiPalette.Accent), Enum.Material.Neon)
 
 	task.spawn(function()
+		if player:GetAttribute("RepairEmpireLoaded") ~= true then
+			player:GetAttributeChangedSignal("RepairEmpireLoaded"):Wait()
+		end
+		if player:GetAttribute("RepairEmpireLoaded") ~= true then
+			return
+		end
+
 		local remoteFolder = ReplicatedStorage:FindFirstChild("RepairEmpireRemotes")
 		local request = remoteFolder and remoteFolder:FindFirstChild("RequestRetentionStatus")
 		if not request or not request:IsA("RemoteFunction") then
