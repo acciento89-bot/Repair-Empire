@@ -164,6 +164,36 @@ function BackdropArt.Add(world: Instance, worldConfig)
 		skylineBlock(model, x, skylineZ, 22 + (index % 3) * 6, 28 + (index % 4) * 10, 18, 72 + (index % 3) * 7)
 	end
 
+	local farLayer = Instance.new("Folder")
+	farLayer.Name = "FarCityLayer"
+	farLayer.Parent = model
+	for index = 0, 10 do
+		local x = first.Center[1] + 285 + index * 42
+		local height = 44 + (index % 5) * 14
+		local tower = part(
+			farLayer,
+			"Part",
+			"FarCityTower",
+			Vector3.new(18 + (index % 3) * 5, height, 18 + (index % 2) * 4),
+			CFrame.new(x, height / 2 - 10, -245 - (index % 2) * 18),
+			Color3.fromRGB(63 + index, 73 + index, 86 + index),
+			if index % 3 == 0 then Enum.Material.Glass else Enum.Material.Concrete
+		)
+		if index % 3 == 0 then
+			tower.Transparency = 0.18
+		end
+		local crown = part(
+			farLayer,
+			"Part",
+			"FarCityCrown",
+			Vector3.new(math.max(8, tower.Size.X - 4), 0.35, 0.24),
+			tower.CFrame * CFrame.new(0, height / 2 + 0.35, -tower.Size.Z / 2 - 0.08),
+			if index % 2 == 0 then Color3.fromRGB(245, 151, 49) else Color3.fromRGB(88, 173, 201),
+			Enum.Material.Neon
+		)
+		crown.Transparency = 0.42
+	end
+
 	for index = 0, 4 do
 		utilityPylon(model, last.Center[1] - 120 + index * 58, 168)
 	end
