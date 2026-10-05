@@ -993,6 +993,17 @@ function MenuController.Start()
 	screen.Parent = player:WaitForChild("PlayerGui")
 	MenuController._screen = screen
 
+	local conceptRequest = Instance.new("BindableEvent")
+	conceptRequest.Name = "ConceptOpen"
+	conceptRequest.Parent = screen
+	conceptRequest.Event:Connect(function(tab)
+		if type(tab) ~= "string" or renderers[tab] == nil then
+			return
+		end
+		MenuController._currentTab = tab
+		MenuController.Open()
+	end)
+
 	local backdrop = Instance.new("TextButton")
 	backdrop.Name = "Backdrop"
 	backdrop.Size = UDim2.fromScale(1, 1)

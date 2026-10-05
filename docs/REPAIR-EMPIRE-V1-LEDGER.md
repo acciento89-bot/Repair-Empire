@@ -201,3 +201,4 @@ Verification baseline:
 
 - [x] Concept-family HUD source published to existing production Place `79925227687072` as `v35`.
 - [x] Post-publish runtime probes passed: vertical layer, data recovery, 112-anchor reachability and 30-job/76-stage catalog; sampled client baseline ~57.4 FPS.
+- [x] Concept-fidelity pass 3: live Service Hub + service progress/daily/workshop preview cards, production-tab bridge and unobstructed wide-layout job composition are implemented and runtime-verified.

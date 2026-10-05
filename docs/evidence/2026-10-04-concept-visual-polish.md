@@ -31,3 +31,10 @@ The visual contract was introduced with a failing test before production impleme
 - The established branded workshop/service-HQ world art remains the primary visual anchor rather than replacing it with generic concept scenery.
 - Final Studio PlaySolo: 0 CreatorErrors; WorldVerticalLayerProbe, WorldReachabilityProbe and JobCatalogRuntimeProbe passed; sampled client baseline ~57.2 FPS.
 - Static verification: 47 pure-Luau tests, Selene 0/0, StyLua, Rojo build and git diff check pass.
+
+## Concept-fidelity pass 3
+
+- Added the live wide-layout concept composition: Service Hub quick cards, Service Progress, five-day Daily Rewards and a native Workshop ViewportFrame preview while keeping the production workshop/world as the visual anchor.
+- Service Hub cards open the real Jobs, Tools and Vehicles tabs through a client-only menu bridge; Daily opens the production retention tab.
+- The bulky wide HUD strip is replaced by compact cash/level/company/skill metrics; tutorial and current-job cards move to the lower center so the workshop/avatar remain unobstructed.
+- Final PlaySolo recheck: `0 CreatorErrors`; WorldVerticalLayerProbe, 112-anchor/12-route reachability and 30-job/76-stage catalog probes passed; sampled client baseline ~57.6 FPS. Static verification passed with 48 pure-Luau tests, Selene 0/0, StyLua, Rojo build and git diff check.

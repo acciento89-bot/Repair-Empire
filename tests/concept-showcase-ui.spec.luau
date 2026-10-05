@@ -1,0 +1,15 @@
+local fs = require("@lune/fs")
+
+return function()
+	local hud = fs.readFile("src/client/ui/HudController.luau")
+	local menu = fs.readFile("src/client/ui/MenuController.luau")
+	assert(string.find(hud, 'conceptShowcase.Name = "ConceptShowcase"', 1, true), "concept showcase layer missing")
+	assert(string.find(hud, 'serviceHub.Name = "ServiceHubShowcase"', 1, true), "service hub showcase missing")
+	assert(string.find(hud, 'conceptProgressCard.Name = "ConceptProgressCard"', 1, true), "progress showcase missing")
+	assert(string.find(hud, 'conceptDailyRewards.Name = "ConceptDailyRewards"', 1, true), "daily showcase missing")
+	assert(string.find(hud, 'conceptVistaCard.Name = "ConceptVistaCard"', 1, true), "visual showcase missing")
+	assert(string.find(hud, 'local conceptViewport = Instance.new("ViewportFrame")', 1, true), "visual preview must use native ViewportFrame")
+	assert(string.find(hud, "conceptShowcase.Visible = not phone", 1, true), "concept showcase must stay off small phones")
+	assert(string.find(hud, "objective.Position = UDim2.new(0.55, 0, 1, -86)", 1, true), "wide objective must stay clear of hero playfield")
+	assert(string.find(menu, 'conceptRequest.Name = "ConceptOpen"', 1, true), "menu concept bridge missing")
+end
