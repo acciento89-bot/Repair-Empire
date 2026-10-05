@@ -5,7 +5,7 @@ return function()
 	local backdrop = fs.readFile("src/server/world/BackdropArt.luau")
 	local art = fs.readFile("docs/ART-DIRECTION.md")
 
-	assert(string.find(yard, '"WorkshopCanopy"', 1, true), "workshop canopy missing")
+	assert(string.find(yard, '"WorkshopCanopy"', 1, true), "service-HQ canopy missing")
 	assert(string.find(yard, '"HqMarker"', 1, true), "HQ marker missing")
 	assert(string.find(yard, '"CanopyLamp"', 1, true), "canopy lamp missing")
 	assert(string.find(backdrop, 'farLayer.Name = "FarCityLayer"', 1, true), "far city layer missing")
