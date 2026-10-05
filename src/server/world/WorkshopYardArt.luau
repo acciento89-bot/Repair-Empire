@@ -234,23 +234,9 @@ function WorkshopYardArt.Decorate(parent: Instance, x: number, z: number)
 	gateText.Text = "REPAIR EMPIRE  •  SERVICE HQ"
 	gateText.Parent = gateGui
 
-	local canopy = part(
-		model,
-		"WorkshopCanopy",
-		Vector3.new(38, 0.7, 11),
-		CFrame.new(x - 4, 8.8, z - 7),
-		Color3.fromRGB(31, 43, 53),
-		Enum.Material.Metal
-	)
+	local canopy = part(model, "WorkshopCanopy", Vector3.new(38, 0.7, 11), CFrame.new(x - 4, 8.8, z - 7), Color3.fromRGB(31, 43, 53), Enum.Material.Metal)
 	for _, side in { -1, 1 } do
-		part(
-			model,
-			"CanopyPost",
-			Vector3.new(0.8, 8.5, 0.8),
-			CFrame.new(x + side * 17, 4.25, z - 7),
-			Color3.fromRGB(65, 72, 78),
-			Enum.Material.Metal
-		)
+		part(model, "CanopyPost", Vector3.new(0.8, 8.5, 0.8), CFrame.new(x + side * 17, 4.25, z - 7), Color3.fromRGB(65, 72, 78), Enum.Material.Metal)
 	end
 	for index = -3, 3 do
 		local lamp = part(
@@ -270,22 +256,9 @@ function WorkshopYardArt.Decorate(parent: Instance, x: number, z: number)
 		light.Parent = lamp
 	end
 
-	local hqMarker = part(
-		model,
-		"HqMarker",
-		Vector3.new(2.4, 11.5, 2.4),
-		CFrame.new(x - 25, 5.75, z - 10),
-		Color3.fromRGB(20, 34, 46),
-		Enum.Material.Metal
-	)
-	local markerGlow = part(
-		model,
-		"HqMarkerGlow",
-		Vector3.new(2.7, 0.34, 2.7),
-		hqMarker.CFrame * CFrame.new(0, 4.8, 0),
-		Color3.fromRGB(245, 151, 49),
-		Enum.Material.Neon
-	)
+	local hqMarker = part(model, "HqMarker", Vector3.new(2.4, 11.5, 2.4), CFrame.new(x - 25, 5.75, z - 10), Color3.fromRGB(20, 34, 46), Enum.Material.Metal)
+	local markerGlow =
+		part(model, "HqMarkerGlow", Vector3.new(2.7, 0.34, 2.7), hqMarker.CFrame * CFrame.new(0, 4.8, 0), Color3.fromRGB(245, 151, 49), Enum.Material.Neon)
 	markerGlow.Transparency = 0.08
 
 	serviceCharger(model, CFrame.new(x + 38, 0, z - 12))
