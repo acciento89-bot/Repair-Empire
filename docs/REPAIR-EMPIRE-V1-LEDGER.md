@@ -196,3 +196,8 @@ Verification baseline:
 - [x] Desktop/tablet composition now matches the concept family while compact-phone density remains protected.
 - [x] Existing production workshop/service-HQ art retained as the game's distinct world identity.
 - [x] Final PlaySolo: 0 CreatorErrors; vertical/reachability/job-catalog probes green; ~57.2 FPS sampled; 47 pure-Luau tests and static gates green.
+
+## 2026-10-05 concept production publish
+
+- [x] Concept-family HUD source published to existing production Place `79925227687072` as `v35`.
+- [x] Post-publish runtime probes passed: vertical layer, data recovery, 112-anchor reachability and 30-job/76-stage catalog; sampled client baseline ~57.4 FPS.
