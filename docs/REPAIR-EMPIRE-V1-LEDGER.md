@@ -202,3 +202,11 @@ Verification baseline:
 - [x] Concept-family HUD source published to existing production Place `79925227687072` as `v35`.
 - [x] Post-publish runtime probes passed: vertical layer, data recovery, 112-anchor reachability and 30-job/76-stage catalog; sampled client baseline ~57.4 FPS.
 - [x] Concept-fidelity pass 3: live Service Hub + service progress/daily/workshop preview cards, production-tab bridge and unobstructed wide-layout job composition are implemented and runtime-verified.
+
+## 2026-10-05 graphic-fidelity pass 4
+
+- [x] Source-side concept graphic fidelity implemented: Lit service-HQ foreground, workshop canopy/HQ marker detail and layered far-city backdrop.
+- [x] Contextual-menu rule preserved: full Shop/Daily/Style/Revive/Result surfaces are not permanently visible during normal gameplay.
+- [x] CI verification green on run `37287958876`; merged source commit `06228c4`.
+- [ ] Fresh Roblox Studio PlaySolo visual acceptance after this pass.
+- [ ] Publish/republish this exact graphic-fidelity source to the existing canonical Place after Studio acceptance.
