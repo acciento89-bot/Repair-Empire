@@ -131,17 +131,6 @@ local function addGradient(gui: GuiObject, top: Color3, bottom: Color3, rotation
 	typed.Rotation = rotation
 end
 
-local function buttonColor(name: string): Color3
-	local lower = string.lower(name)
-	if string.find(lower, "revive", 1, true) or string.find(lower, "retry", 1, true) or string.find(lower, "claim", 1, true) then
-		return hex(VisualTheme.Colors.Accent3)
-	end
-	if string.find(lower, "shop", 1, true) or string.find(lower, "style", 1, true) or string.find(lower, "supply", 1, true) then
-		return hex(VisualTheme.Colors.Accent2)
-	end
-	return hex(VisualTheme.Colors.Accent)
-end
-
 local function shouldPolishFrame(name: string): boolean
 	local lower = string.lower(name)
 	for _, token in { "status", "panel", "card", "metric", "objective", "result", "tutorial", "warning", "pill" } do
@@ -157,18 +146,19 @@ local function polish(instance: Instance)
 		return
 	end
 	if instance:IsA("TextButton") then
-		local accent = buttonColor(instance.Name)
-		instance.BackgroundColor3 = accent
-		instance.TextColor3 = hex(VisualTheme.Colors.Text)
+		-- Respect the semantic color chosen by the owning screen. The previous
+		-- polish pass replaced every generic button with the brand orange,
+		-- flattening Jobs/Tools/Fleet/Workshop and selected/disabled states.
+		local base = instance.BackgroundColor3
 		instance.AutoButtonColor = false
 		addCorner(instance, 12)
-		addStroke(instance, accent:Lerp(Color3.new(1, 1, 1), 0.42), 0.32, 1.35)
-		addGradient(instance, accent:Lerp(Color3.new(1, 1, 1), 0.11), accent:Lerp(Color3.new(0, 0, 0), 0.11), 90)
+		addStroke(instance, base:Lerp(hex(VisualTheme.Colors.Accent2), 0.22), 0.48, 1.15)
+		addGradient(instance, base:Lerp(Color3.new(1, 1, 1), 0.055), base:Lerp(Color3.new(0, 0, 0), 0.075), 90)
 		instance.MouseEnter:Connect(function()
-			TweenService:Create(instance, TweenInfo.new(0.12), { BackgroundColor3 = accent:Lerp(Color3.new(1, 1, 1), 0.13) }):Play()
+			TweenService:Create(instance, TweenInfo.new(0.12), { BackgroundColor3 = base:Lerp(Color3.new(1, 1, 1), 0.10) }):Play()
 		end)
 		instance.MouseLeave:Connect(function()
-			TweenService:Create(instance, TweenInfo.new(0.12), { BackgroundColor3 = accent }):Play()
+			TweenService:Create(instance, TweenInfo.new(0.12), { BackgroundColor3 = base }):Play()
 		end)
 		instance:SetAttribute("KNVisualPolished", true)
 	elseif instance:IsA("Frame") and shouldPolishFrame(instance.Name) and instance.BackgroundTransparency < 0.96 then
@@ -181,7 +171,7 @@ local function polish(instance: Instance)
 		instance:SetAttribute("KNVisualPolished", true)
 	elseif instance:IsA("ScrollingFrame") and instance.BackgroundTransparency < 0.96 then
 		instance.BackgroundColor3 = hex(VisualTheme.Colors.Panel)
-		instance.ScrollBarImageColor3 = hex(VisualTheme.Colors.Accent)
+		instance.ScrollBarImageColor3 = hex(VisualTheme.Colors.Accent2)
 		addCorner(instance, 14)
 		addStroke(instance, hex(VisualTheme.Colors.Accent2), 0.76, 1)
 		instance:SetAttribute("KNVisualPolished", true)

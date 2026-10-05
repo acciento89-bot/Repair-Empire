@@ -85,6 +85,17 @@ local function buildProceduralVehicle(player: Player, definition, slotIndex: num
 	chassis.Material = Enum.Material.Metal
 	chassis.Color = Color3.fromRGB(48, 52, 58)
 
+	local collisionHull = createVehiclePart(
+		"DriveCollision",
+		Vector3.new(math.max(4.4, width * 0.82), 1.0, math.max(7.0, length * 0.72)),
+		chassis.CFrame * CFrame.new(0, -1.27, 0),
+		model
+	)
+	collisionHull.Transparency = 1
+	collisionHull.CanCollide = true
+	collisionHull.CanQuery = true
+	collisionHull.CanTouch = true
+
 	local cabinLength = if compactVan then math.max(3.7, length * 0.34) else math.max(4.2, length * 0.38)
 	local cabinHeight = height * 0.82
 	local cabinCenterZ = -length / 2 + cabinLength / 2 + 0.4
@@ -668,7 +679,57 @@ local function buildProceduralVehicle(player: Player, definition, slotIndex: num
 
 	model.PrimaryPart = chassis
 	model.Parent = Workspace
-	return model, seat, exhaustEmitter
+	return model, seat, exhaustEmitter, chassis
+end
+
+local function activatePhysicalAssembly(model: Model, chassis: BasePart): AlignOrientation
+	-- A server-PivotTo vehicle replicates as discrete transform updates and looks
+	-- visibly choppy on clients. Weld the authored model into one physics assembly
+	-- so Roblox can interpolate replicated motion between server snapshots.
+	for _, descendant in model:GetDescendants() do
+		if descendant:IsA("BasePart") then
+			descendant.CanCollide = descendant.Name == "DriveCollision"
+			if descendant ~= chassis then
+				descendant.Massless = true
+				local weld = Instance.new("WeldConstraint")
+				weld.Name = "DriveWeld"
+				weld.Part0 = chassis
+				weld.Part1 = descendant
+				weld.Parent = descendant
+			end
+		end
+	end
+
+	local steeringAttachment = Instance.new("Attachment")
+	steeringAttachment.Name = "DriveOrientationAttachment"
+	steeringAttachment.Parent = chassis
+
+	local steering = Instance.new("AlignOrientation")
+	steering.Name = "DriveOrientation"
+	steering.Mode = Enum.OrientationAlignmentMode.OneAttachment
+	steering.Attachment0 = steeringAttachment
+	steering.CFrame = chassis.CFrame.Rotation
+	steering.RigidityEnabled = false
+	steering.Responsiveness = 28
+	steering.MaxTorque = 2_000_000
+	steering.MaxAngularVelocity = math.rad(120)
+	steering.Parent = chassis
+
+	for _, descendant in model:GetDescendants() do
+		if descendant:IsA("BasePart") then
+			descendant.Anchored = false
+		end
+	end
+
+	-- Keep simulation authoritative on the server while still using Roblox's
+	-- built-in physics interpolation on clients.
+	local canSet = chassis:CanSetNetworkOwnership()
+	if canSet then
+		chassis:SetNetworkOwner(nil)
+	end
+	chassis.AssemblyLinearVelocity = Vector3.zero
+	chassis.AssemblyAngularVelocity = Vector3.zero
+	return steering
 end
 
 function VehicleService:Purchase(player: Player, vehicleId: any)
@@ -775,7 +836,7 @@ function VehicleService:Spawn(player: Player)
 	end
 
 	local slotIndex = #entries + 1
-	local model, seat, exhaustEmitter = buildProceduralVehicle(player, definition, slotIndex)
+	local model, seat, exhaustEmitter, chassis = buildProceduralVehicle(player, definition, slotIndex)
 	local character = player.Character
 	local root = character and character:FindFirstChild("HumanoidRootPart")
 
@@ -807,9 +868,15 @@ function VehicleService:Spawn(player: Player)
 		model:PivotTo(CFrame.new(targetCFrame.Position.X, chassisY, targetCFrame.Position.Z) * targetCFrame.Rotation)
 	end
 
+	local steering = activatePhysicalAssembly(model, chassis)
+	local _, spawnYaw, _ = chassis.CFrame:ToOrientation()
+
 	table.insert(entries, {
 		Model = model,
 		Seat = seat,
+		Chassis = chassis,
+		Steering = steering,
+		Yaw = spawnYaw,
 		Definition = definition,
 		ExhaustEmitter = exhaustEmitter,
 		Input = {
@@ -857,38 +924,29 @@ function VehicleService:UpdateInput(player: Player, payload: any)
 	end
 end
 
-local function vehicleCanAdvance(entry, model: Model, driver: Player, rotated: CFrame, distance: number): boolean
-	if math.abs(distance) < 0.001 then
-		return true
+local function setDriveAttribute(model: Model, name: string, value: any)
+	if model:GetAttribute(name) ~= value then
+		model:SetAttribute(name, value)
 	end
+end
 
-	local definition = entry.Definition
-	local width = definition.BodySize[1]
-	local length = definition.BodySize[3]
-	local params = OverlapParams.new()
-	params.FilterType = Enum.RaycastFilterType.Exclude
-	local excluded: { Instance } = { model }
-	if driver.Character then
-		table.insert(excluded, driver.Character)
+local function setExhaustRate(entry, rate: number)
+	local emitter = entry.ExhaustEmitter
+	if emitter and emitter.Rate ~= rate then
+		emitter.Rate = rate
 	end
-	params.FilterDescendantsInstances = excluded
-	params.RespectCanCollide = true
-	params.MaxParts = 16
+end
 
-	local footprint = Vector3.new(math.max(3.4, width * 0.76), 1.65, math.max(5.2, length * 0.70))
-	local substeps = math.max(1, math.ceil(math.abs(distance) / 0.65))
-	for step = 1, substeps do
-		local alpha = step / substeps
-		local candidate = rotated * CFrame.new(0, 0, -distance * alpha)
-		local probe = candidate * CFrame.new(0, 0.55, 0)
-		for _, hit in Workspace:GetPartBoundsInBox(probe, footprint, params) do
-			if hit.CanCollide and not hit:IsDescendantOf(model) then
-				return false
-			end
-		end
+local function brakeAssembly(entry, dt: number)
+	local chassis = entry.Chassis
+	if not chassis or not chassis.Parent then
+		return
 	end
-
-	return true
+	local velocity = chassis.AssemblyLinearVelocity
+	local horizontal = Vector3.new(velocity.X, 0, velocity.Z)
+	local alpha = 1 - math.exp(-10 * math.max(0, dt))
+	horizontal = horizontal:Lerp(Vector3.zero, alpha)
+	chassis.AssemblyLinearVelocity = Vector3.new(horizontal.X, velocity.Y, horizontal.Z)
 end
 
 function VehicleService:_Step(dt: number)
@@ -897,31 +955,31 @@ function VehicleService:_Step(dt: number)
 			local entry = entries[index]
 			local model = entry.Model
 			local seat = entry.Seat
-			if model.Parent == nil or seat.Parent == nil then
+			local chassis = entry.Chassis
+			local steering = entry.Steering
+			if model.Parent == nil or seat.Parent == nil or not chassis or chassis.Parent == nil then
 				table.remove(entries, index)
 				continue
 			end
 
 			local occupant = seat.Occupant
 			if occupant == nil then
-				model:SetAttribute("Driving", false)
-				model:SetAttribute("DriveThrottle", 0)
-				model:SetAttribute("DriveSteer", 0)
-				if entry.ExhaustEmitter then
-					entry.ExhaustEmitter.Rate = 0
-				end
+				setDriveAttribute(model, "Driving", false)
+				setDriveAttribute(model, "DriveThrottle", 0)
+				setDriveAttribute(model, "DriveSteer", 0)
+				setExhaustRate(entry, 0)
+				brakeAssembly(entry, dt)
 				continue
 			end
 
 			local driver = Players:GetPlayerFromCharacter(occupant.Parent)
 			if driver == nil or driver.UserId ~= ownerUserId then
 				occupant.Sit = false
-				model:SetAttribute("Driving", false)
-				model:SetAttribute("DriveThrottle", 0)
-				model:SetAttribute("DriveSteer", 0)
-				if entry.ExhaustEmitter then
-					entry.ExhaustEmitter.Rate = 0
-				end
+				setDriveAttribute(model, "Driving", false)
+				setDriveAttribute(model, "DriveThrottle", 0)
+				setDriveAttribute(model, "DriveSteer", 0)
+				setExhaustRate(entry, 0)
+				brakeAssembly(entry, dt)
 				continue
 			end
 
@@ -932,45 +990,36 @@ function VehicleService:_Step(dt: number)
 				throttle = input.Throttle
 				steer = input.Steer
 			end
+
 			local moving = math.abs(throttle) >= 0.01 or math.abs(steer) >= 0.01
-			model:SetAttribute("Driving", moving)
-			model:SetAttribute("DriveThrottle", throttle)
-			model:SetAttribute("DriveSteer", steer)
-			if entry.ExhaustEmitter then
-				entry.ExhaustEmitter.Rate = if moving then 7 + math.abs(throttle) * 7 else 2
-			end
-			if not moving then
-				continue
-			end
+			setDriveAttribute(model, "Driving", moving)
+			setDriveAttribute(model, "DriveThrottle", throttle)
+			setDriveAttribute(model, "DriveSteer", steer)
+			setExhaustRate(entry, if moving then 7 + math.abs(throttle) * 7 else 2)
 
-			local current = model:GetPivot()
 			local turnRate = math.rad(55) * (0.35 + math.abs(throttle) * 0.65)
-			local rotated = current * CFrame.Angles(0, -steer * turnRate * dt, 0)
-			local distance = throttle * entry.Definition.Speed * dt
-
-			-- Vehicles are server-moved, so normal part collision alone cannot stop
-			-- PivotTo from tunnelling through buildings. Blockcast the chassis
-			-- footprint before translating; still allow steering in place.
-			if vehicleCanAdvance(entry, model, driver, rotated, distance) then
-				model:PivotTo(rotated * CFrame.new(0, 0, -distance))
-			else
-				model:PivotTo(rotated)
-				distance = 0
-				entry.Input = {
-					Throttle = 0,
-					Steer = steer,
-					UpdatedAt = os.clock(),
-				}
+			entry.Yaw -= steer * turnRate * dt
+			if steering and steering.Parent then
+				steering.CFrame = CFrame.Angles(0, entry.Yaw, 0)
 			end
 
-			if RunService:IsStudio() and model:GetAttribute("StudioDriveVerified") ~= true then
+			local targetForward = CFrame.Angles(0, entry.Yaw, 0).LookVector
+			local targetHorizontal = targetForward * (throttle * entry.Definition.Speed)
+			local velocity = chassis.AssemblyLinearVelocity
+			local currentHorizontal = Vector3.new(velocity.X, 0, velocity.Z)
+			local response = if math.abs(throttle) >= 0.01 then 5.5 else 9.0
+			local alpha = 1 - math.exp(-response * math.max(0, dt))
+			local nextHorizontal = currentHorizontal:Lerp(targetHorizontal, alpha)
+			chassis.AssemblyLinearVelocity = Vector3.new(nextHorizontal.X, velocity.Y, nextHorizontal.Z)
+
+			if RunService:IsStudio() and model:GetAttribute("StudioDriveVerified") ~= true and moving then
 				model:SetAttribute("StudioDriveVerified", true)
 				print(
-					("[Repair Empire] VehicleDriveObserved id=%s throttle=%.2f steer=%.2f stepDistance=%.3f"):format(
+					("[Repair Empire] VehiclePhysicsDriveObserved id=%s throttle=%.2f steer=%.2f speed=%.2f"):format(
 						entry.Definition.Id,
 						throttle,
 						steer,
-						math.abs(distance)
+						nextHorizontal.Magnitude
 					)
 				)
 			end
