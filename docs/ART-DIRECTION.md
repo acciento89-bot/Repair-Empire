@@ -1,5 +1,8 @@
 # Repair Empire Art Direction
 
+## Concept interpretation
+The approved concept image is a **feature montage**, not a simultaneous gameplay HUD. Jobs, Daily, Company, Workshop, Shop and other full panels stay hidden until the player opens the main menu or a contextual launcher. Normal gameplay keeps only the compact service HUD, progression and objective information visible.
+
 ## Core visual language
 - Grounded modern service-company aesthetic: believable residential, city and industrial spaces with clean stylization rather than photorealism.
 - Brand palette: deep navy/charcoal structures, warm Repair Empire orange highlights, muted concrete/metal/brick, restrained trade colors.

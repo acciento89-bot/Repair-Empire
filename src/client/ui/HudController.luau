@@ -729,10 +729,10 @@ function HudController.Start()
 		local hudMetrics = UiLayoutRules.GetHudMetrics(viewport.X, viewport.Y, UserInputService.TouchEnabled)
 		local phone = hudMetrics.Class == "small_phone"
 
-		conceptShowcase.Visible = not phone
+		conceptShowcase.Visible = false
 		logo.Visible = not phone
 		serviceProgress.Visible = not phone
-		status.Visible = phone
+		status.Visible = true
 		status.Position = UDim2.fromOffset(if phone then 12 else 16, if phone then 10 else 88)
 		status.Size = UDim2.fromOffset(hudMetrics.StatusWidth, hudMetrics.StatusHeight)
 		cashValue.Text = ("$%d"):format(player:GetAttribute("Cash") or 0)
