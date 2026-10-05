@@ -208,5 +208,5 @@ Verification baseline:
 - [x] Source-side concept graphic fidelity implemented: Lit service-HQ foreground, workshop canopy/HQ marker detail and layered far-city backdrop.
 - [x] Contextual-menu rule preserved: full Shop/Daily/Style/Revive/Result surfaces are not permanently visible during normal gameplay.
 - [x] CI verification green on run `37287958876`; merged source commit `06228c4`.
-- [ ] Fresh Roblox Studio PlaySolo visual acceptance after this pass.
-- [ ] Publish/republish this exact graphic-fidelity source to the existing canonical Place after Studio acceptance.
+- [x] Fresh Roblox Studio PlaySolo visual acceptance passed: service-HQ composition and compact gameplay HUD verified; vertical, data-recovery, reachability and job-catalog probes passed.
+- [x] Graphic-fidelity source published to existing production Place `79925227687072` as `v38`; no new Place/Experience created. Evidence: `docs/evidence/2026-10-05-graphic-fidelity-runtime-publish.md`.
