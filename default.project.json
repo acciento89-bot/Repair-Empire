@@ -5,6 +5,9 @@
     "Workspace": {
       "$properties": {
         "StreamingEnabled": true
+      },
+      "$attributes": {
+        "RepairEmpireBuildRevision": "2026-10-06-ui-vehicle-smoothing"
       }
     },
     "ReplicatedStorage": {
