@@ -210,3 +210,17 @@ Verification baseline:
 - [x] CI verification green on run `37287958876`; merged source commit `06228c4`.
 - [x] Fresh Roblox Studio PlaySolo visual acceptance passed: service-HQ composition and compact gameplay HUD verified; vertical, data-recovery, reachability and job-catalog probes passed.
 - [x] Graphic-fidelity source published to existing production Place `79925227687072` as `v38`; no new Place/Experience created. Evidence: `docs/evidence/2026-10-05-graphic-fidelity-runtime-publish.md`.
+
+
+## 2026-10-06 UI palette / vehicle smoothing corrective pass
+
+- [x] Global orange button override removed; authored semantic button colors now survive the polish layer.
+- [x] Runtime UI probe passed: 20 visible buttons, 5 color families, dominant-color ratio 0.650.
+- [x] Live vehicle motion migrated from server Heartbeat `Model:PivotTo()` teleports to a welded physical assembly using `AssemblyLinearVelocity` + `AlignOrientation` with server network ownership.
+- [x] Runtime vehicle probe passed: physical assembly true, 12.21 studs measured travel, 177 frames, ~58.5 FPS, zero-motion ratio 0.192, max per-frame step 0.3058.
+- [x] Combined targeted runtime result: `pass=true uiPass=true drivePass=true`.
+- [x] Regression protection added in `ui-button-color-preservation.spec.luau` and `vehicle-physics-smoothing.spec.luau`.
+- [x] Fresh source gates: Selene 0/0, 53 pure-Luau tests, Rojo build and release-readiness pass.
+- [x] Existing production Universe `10768475286` / Place `79925227687072` synced from canonical `main`; no replacement Place/Experience created.
+- [x] Pre-publish cloud parity: `preserve=true orangeOverride=false physical=true velocity=true`, build revision `2026-10-06-ui-vehicle-smoothing`.
+- [x] Studio publish succeeded as `v39`; independent no-Rojo cloud reopen retained all corrected source markers. Evidence: `docs/evidence/2026-10-06-ui-vehicle-smoothing-corrective-pass.md`.
