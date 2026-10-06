@@ -1,58 +1,51 @@
-# Repair Empire V1 - Master Implementation Plan
+# Repair Empire V1 Master Plan
 
-## Execution protocol
-For every task:
-1. Read canonical specs.
-2. Read ledger.
-3. Read current phase detail plan.
-4. Implement only the next open task plus explicit dependencies.
-5. Test against acceptance criteria.
-6. Commit with phase/task identifier.
-7. Mark ledger only after verification.
+## Objective
+Ship a polished native mobile repair-company simulator whose first minute supports accept job -> drive -> arrive -> repair -> reward.
 
-Do not silently reduce scope to an MVP.
+## P00 Product lock
+Core loop, job categories, city scope, upgrade economy, monetization boundaries and visual identity.
 
-## Phases
-P00 Product Definition - freeze decisions and terminology.
-P01 Technical Foundation - project/source structure, config, remotes, service skeleton.
-P02 Player Foundation - profile, spawn, HUD, input.
-P03 Job Engine - offer/accept/stages/complete/reward.
-P04 Economy & Progression - Cash, XP, levels, unlocks and four-branch Skill Tree.
-P05 Tools - ownership, equip, tiers, gating.
-P06 Vehicles - ownership, spawn, travel integration.
-P07 Company Tycoon - workshop, employees, passive systems.
-P08 World - three districts, building/job anchors, streaming/performance.
-P09 Multiplayer & Co-op - parties/contribution/large contracts.
-P10 Monetization - passes, products, receipts.
-P11 Retention - daily jobs, login reward, achievements.
-P12 Prestige & Endgame - reset/meta progression.
-P13 UI/UX Polish - responsive layouts, controller, accessibility and complete progression/management screens.
-P14 Security Hardening - remote audit, rate limits, exploit tests.
-P15 Analytics & Balancing - event schema, dashboards/checklists, pacing passes.
-P16 Release - QA matrix, store presentation checklist, staged launch.
-P17 Post-launch - incident handling, content cadence, measured iteration.
-P18 Final Polish & Game Feel - visual design, retention completeness, jobs/quests, vehicles, world/audio/effects and full player-journey acceptance. P18 is a mandatory pre-public-launch gate despite its corrective phase number.
-P19 Production Art & World Quality - final environment art, repair-scene assets, tool/vehicle/workshop art, VFX/audio, lighting/material polish and screenshot-quality acceptance. P19 is mandatory before public launch.
+## P01 Unity mobile foundation
+Project structure, identifiers, portrait, safe area, 60 FPS target and build setup.
 
-## Milestone gates
-M1 Playable Core: P00-P04.
-M2 Progression Build: P05-P08.
-M3 Social/Commercial Build: P09-P12.
-M4 Release Candidate: P13-P16 plus P18 and P19.
-M5 Live Product: P17 operational after the P18/P19 quality gates.
+## P02 Vehicle
+Responsive touch driving, road collision, chase camera, reset/recovery and vehicle catalog foundation.
 
-## Change control
-Any scope change must:
-- state reason
-- identify affected docs/phases
-- update master plan and ledger
-- avoid retroactively marking incomplete work as done
+## P03 City/navigation
+Compact district, road network, repair shop, customer destinations, route guidance and map abstraction.
 
-## Definition of Done - global
-Code/config committed.
-Acceptance criteria pass.
-No known P0/P1 defect introduced.
-Documentation updated if interface/data contract changed.
-Ledger reflects verified reality.
-Functional implementation alone does not satisfy final-polish acceptance; player-facing presentation and runtime journey quality must also be verified.
-Production-art acceptance requires normal player-view screenshot evidence; procedural blockout geometry alone is not sufficient.
+## P04 Job engine
+Data-driven service calls, selection, navigation, arrival, repair interactions, rewards and difficulty.
+
+## P05 Tablet
+Jobs, Tools, Vehicles, Workshop, Employees and Daily Jobs with readable mobile hierarchy.
+
+## P06 Economy/progression
+Cash, XP/levels, tool tiers, vehicle upgrades, workshop growth, employees and versioned profile.
+
+## P07 Repair interactions
+Tap/hold/sequence minigames for plumbing, heating, climate and electrical/energy work.
+
+## P08 Game feel
+Vehicle audio, repair audio, VFX, haptics, camera polish and transition feedback.
+
+## P09 Retention
+Daily jobs, login rewards, achievements and company goals.
+
+## P10 Monetization
+Optional cosmetics/convenience, StoreKit/Google Play Billing and receipt restore/retry.
+
+## P11 Production art
+Final van, workshop, city kit, customer locations, tool/repair assets, lighting and UI assets.
+
+## P12 QA/release
+Device matrix, vehicle stability, save/billing tests, performance/thermal, store assets/privacy and rollout.
+
+## Definition of Done
+- Vehicle never becomes trapped by the default city route.
+- Controls respond immediately.
+- Job/tablet text remains readable on compact phones.
+- Core loop can be completed repeatedly without state corruption.
+- 60 FPS target on supported reference devices.
+- iOS/Android store validation passes.
