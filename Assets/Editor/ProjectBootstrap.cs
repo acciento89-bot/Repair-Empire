@@ -12,9 +12,9 @@ namespace Kamilunavo.RepairEmpire.Editor
     {
         private const string ScenePath = "Assets/Scenes/Main.unity";
 
-        static ProjectBootstrap() => EditorApplication.delayCall += Ensure;
+        static ProjectBootstrap() => EditorApplication.delayCall += InitializeProject;
 
-        private static void Ensure()
+        public static void InitializeProject()
         {
             if (EditorApplication.isPlayingOrWillChangePlaymode) return;
 
@@ -36,3 +36,5 @@ namespace Kamilunavo.RepairEmpire.Editor
         }
     }
 }
+
+#endif
