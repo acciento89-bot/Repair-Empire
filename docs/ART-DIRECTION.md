@@ -28,3 +28,18 @@ Upper-left: one service-call card.
 Right: Tablet action.
 Bottom: steering left/right + Brake + Accelerate.
 Tablet: high-contrast dark navy shell, orange active tab/action, white text, light blue-gray metadata.
+
+## Primary visual reference
+
+![Primary Repair Empire concept](concepts/PRIMARY-CONCEPT.png)
+
+This image is the binding visual target for the branded service van, contemporary city, workshop/HQ, navigation language, service-call presentation and tablet UI. The concept contains multiple UI states: the Tablet and detailed job interfaces are contextual overlays and must not cover normal driving.
+
+### Non-negotiable visual gates
+- Driving view prioritizes road, route guidance and vehicle readability; HUD stays compact.
+- The city must read as a designed service district, not a corridor of primitive boxes.
+- The van is a hero asset with recognizable Kamilunavo/Repair Empire branding and clear driving feedback.
+- Navy is the structural UI color; orange is an action/accent color, not a full-screen wash.
+- Tablet content must maintain high contrast and readable row/action hierarchy on small phones.
+- Default road network and vehicle physics must not allow routine soft-locks or trapping.
+
