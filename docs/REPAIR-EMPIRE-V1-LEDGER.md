@@ -111,7 +111,10 @@ Status: [ ] open · [~] implemented/not device verified · [x] verified · [!] b
 - [ ] P10-T06 memory/thermal pass
 - [ ] P10-T07 App Store package
 - [ ] P10-T08 Play Store package
-- [ ] P10-T09 staged release
+- [ ] P10-T09 TestFlight RC archive + upload
+- [ ] P10-T10 TestFlight processing + internal tester assignment
+- [ ] P10-T11 TestFlight install/smoke test on physical iPhone
+- [ ] P10-T12 staged release
 
 ## Next open task
 P01-T05: first Unity compile/import and Play Mode verification.
