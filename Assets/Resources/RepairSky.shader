@@ -2,5 +2,5 @@ Shader "Repair/Sky" { Properties { _MainTex("Panorama",2D)="white"{} } SubShader
 #pragma vertex vert
 #pragma fragment frag
 #include "UnityCG.cginc"
-sampler2D _MainTex;struct v2f{float4 pos:SV_POSITION;float3 dir:TEXCOORD0;};v2f vert(float4 vertex:POSITION){v2f o;o.pos=UnityObjectToClipPos(vertex);o.dir=vertex.xyz;return o;}fixed4 frag(v2f i):SV_Target{float3 d=normalize(i.dir);float u=atan2(d.z,d.x)/6.283185+.25;float v=saturate(.14+d.y*.90);return tex2D(_MainTex,float2(u,v));}
+sampler2D _MainTex;struct v2f{float4 pos:SV_POSITION;float3 dir:TEXCOORD0;};v2f vert(float4 vertex:POSITION){v2f o;o.pos=UnityObjectToClipPos(vertex);o.dir=vertex.xyz;return o;}fixed4 frag(v2f i):SV_Target{float3 d=normalize(i.dir);float u=atan2(d.z,d.x)/6.283185+.08;float v=saturate(.32+d.y*.70);return tex2D(_MainTex,float2(u,v));}
 ENDCG } } }

@@ -17,7 +17,7 @@ namespace Kamilunavo.RepairEmpire.Input
 
         public static HoldButton Create(Transform parent, string label, Vector2 min, Vector2 max, Color color)
         {
-            var go = new GameObject(label + "Button", typeof(RectTransform), typeof(Image), typeof(HoldButton));
+            var go = new GameObject(label + "Button", typeof(RectTransform), typeof(UI.RoundedPanel), typeof(HoldButton));
             go.transform.SetParent(parent, false);
             var rect = go.GetComponent<RectTransform>();
             rect.anchorMin = min;
