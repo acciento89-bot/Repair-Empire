@@ -17,6 +17,8 @@ namespace Kamilunavo.RepairEmpire.Editor
         public static void ValidateIosAds(string output)
         {
             var xml=new XmlDocument();xml.XmlResolver=null;xml.Load(Path.Combine(output,"Info.plist"));
+            var orientations=xml.SelectNodes("/plist/dict/key[.='UISupportedInterfaceOrientations']/following-sibling::array[1]/string");
+            foreach(var expected in new[]{"UIInterfaceOrientationPortrait","UIInterfaceOrientationLandscapeLeft","UIInterfaceOrientationLandscapeRight"}){bool found=false;foreach(XmlNode orientation in orientations)if(orientation.InnerText==expected)found=true;if(!found)throw new InvalidOperationException("iOS exported orientation missing: "+expected);}
             var id=xml.SelectSingleNode("/plist/dict/key[.='GADApplicationIdentifier']/following-sibling::string[1]")?.InnerText;
             if(string.IsNullOrEmpty(id) || !id.StartsWith("ca-app-pub-") || !id.Contains("~"))
                 throw new InvalidOperationException("iOS AdMob application ID is missing from exported Info.plist; native app would abort at startup.");

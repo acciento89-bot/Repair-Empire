@@ -14,7 +14,7 @@ namespace Kamilunavo.RepairEmpire.Monetization
         private RewardedAd _ad;
         private bool _prepared,_initialized,_loading;
         private readonly AdLoadGeneration _loads=new();
-        private double _loadedAt,_retryAt;
+        private double _loadedAt,_retryAt,_nextPrepareAt;
         private string _session="";
         private bool _rewarded;
         public bool IsPresenting {get;private set;}
@@ -29,9 +29,11 @@ namespace Kamilunavo.RepairEmpire.Monetization
             _game=game;_config=MonetizationConfig.Load();
             Status=T("Video gerade nicht verfügbar","Video currently unavailable");
         }
+        private void Update(){TickPreparation(Time.realtimeSinceStartupAsDouble,Prepare);}
+        private void TickPreparation(double now,Action prepare){if(_game==null||!_game.Profile.Supported||!_game.Hud.ShopOpen||IsPresenting||_game.Store?.IsPresenting==true||now<_retryAt||now<_nextPrepareAt)return;_nextPrepareAt=now+1;prepare();}
         public void Prepare()
         {
-            if(!Application.isMobilePlatform || Time.realtimeSinceStartupAsDouble<_retryAt)return;
+            if(!_game.Profile.Supported || !Application.isMobilePlatform || IsPresenting || Time.realtimeSinceStartupAsDouble<_retryAt)return;
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
             if(!string.IsNullOrEmpty(RepairPersistence.QaKey))return;
 #endif

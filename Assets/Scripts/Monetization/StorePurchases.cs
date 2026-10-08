@@ -10,9 +10,9 @@ namespace Kamilunavo.RepairEmpire.Monetization
     {
         private StoreController _store;
         private readonly StoreReconnectGate _reconnect=new();
-        public bool CanRetry=>Application.isMobilePlatform&&!Ready&&!Busy&&_reconnect.CanBegin(Time.realtimeSinceStartupAsDouble);
+        public bool CanRetry=>_game?.Profile.Supported==true&&Application.isMobilePlatform&&!Ready&&!Busy&&!IsPresenting&&_reconnect.CanBegin(Time.realtimeSinceStartupAsDouble);
         public void RetryConnection(){if(CanRetry)Connect();}
-        private RepairGame _game;
+        private RepairGame _game;private bool _restorePending;
         private readonly HashSet<string> _fetched=new();
         private readonly HashSet<string> _deferred=new();
         public event Action Changed;
@@ -24,6 +24,7 @@ namespace Kamilunavo.RepairEmpire.Monetization
         public void Initialize(RepairGame game)
         {
             _game=game;
+            if(!_game.Profile.Supported){SetStatus(T("Spielstand bleibt geschützt – Shop gesperrt","Save protected – shop unavailable"));return;}
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
             if(!string.IsNullOrEmpty(RepairPersistence.QaKey)){SetStatus(T("Store im Prüflauf deaktiviert","Store disabled during QA"));return;}
 #endif
@@ -32,7 +33,7 @@ namespace Kamilunavo.RepairEmpire.Monetization
         }
         private async void Connect()
         {
-            if(Ready||Busy||!_reconnect.TryBegin(Time.realtimeSinceStartupAsDouble))return;
+            if(!_game.Profile.Supported||Ready||Busy||!_reconnect.TryBegin(Time.realtimeSinceStartupAsDouble))return;
             Busy=true;SetStatus(T("Store wird verbunden …","Connecting to store …"));
             try
             {
@@ -59,8 +60,8 @@ namespace Kamilunavo.RepairEmpire.Monetization
             finally{_reconnect.EndAttempt();}
         }
         public string Price(string id)=>_store?.GetProductById(id)?.metadata?.localizedPriceString??"";
-        public bool Owned(string id)=>_game!=null && (_game.Profile.Commerce.Entitlements&(id==CommerceRules.Starter?1:id==CommerceRules.Collection?2:0))!=0;
-        public bool CanBuy(string id)=>RepairPersistence.Writable && Ready && !Busy && !_deferred.Contains(id) && !Owned(id) && CommerceRules.KnownProduct(id) &&
+        public bool Owned(string id)=>_game!=null && _game.Profile.Supported && _game.Profile.Commerce!=null && (_game.Profile.Commerce.Entitlements&(id==CommerceRules.Starter?1:id==CommerceRules.Collection?2:0))!=0;
+        public bool CanBuy(string id)=>RepairPersistence.Writable && Ready && !Busy && !IsPresenting && !_deferred.Contains(id) && !Owned(id) && CommerceRules.KnownProduct(id) &&
             _store?.GetProductById(id)?.availableToPurchase==true && !string.IsNullOrWhiteSpace(Price(id));
         public void Buy(string id)
         {
@@ -70,13 +71,15 @@ namespace Kamilunavo.RepairEmpire.Monetization
         }
         public void Restore()
         {
-            if(_store==null || !Ready || Busy)return;
-            Busy=true;SetStatus(T("Käufe werden wiederhergestellt …","Restoring purchases …"));
-            _store.RestoreTransactions((ok,_)=>
-            {
-                if(this==null)return;
-                if(!ok){Busy=false;SetStatus(T("Wiederherstellung nicht verfügbar","Restore unavailable"));}
-            });
+            if(_store==null || !Ready || Busy || IsPresenting)return;
+            RestoreCore(callback=>_store.RestoreTransactions(callback));
+        }
+        private void RestoreCore(Action<Action<bool,string>> restore)
+        {
+            if(Busy||IsPresenting||!_game.Profile.Supported||!_game.Save())return;
+            _restorePending=true;Busy=true;IsPresenting=true;SetStatus(T("Käufe werden wiederhergestellt …","Restoring purchases …"));
+            try{restore((ok,_)=>{if(this==null)return;_restorePending=false;Busy=false;IsPresenting=false;SetStatus(ok?T("Wiederherstellung abgeschlossen","Restore completed"):T("Wiederherstellung nicht verfügbar","Restore unavailable"));});}
+            catch(Exception){_restorePending=false;Busy=false;IsPresenting=false;SetStatus(T("Wiederherstellung nicht verfügbar","Restore unavailable"));}
         }
         private void ProductsFetched(List<Product> products)
         {
@@ -87,6 +90,7 @@ namespace Kamilunavo.RepairEmpire.Monetization
         }
         private void PurchasesFetched(Orders orders)
         {
+            if(!_game.Profile.Supported){Busy=false;SetStatus(T("Spielstand bleibt geschützt – Käufe unverändert","Save protected – purchases unchanged"));return;}
             var active=new HashSet<string>();_deferred.Clear();var pendingFailure=false;
             foreach(var order in orders.PendingOrders)
             {
@@ -133,7 +137,7 @@ namespace Kamilunavo.RepairEmpire.Monetization
         {
             if(Fulfill(order)){Busy=false;SetStatus(T("Kauf freigeschaltet","Purchase unlocked"));}
         }
-        private void Confirmed(Order order){Busy=false;IsPresenting=false;if(order is FailedOrder)SetStatus(T("Kaufbestätigung noch offen – später wiederherstellen","Purchase confirmation pending – restore later"));else Changed?.Invoke();}
+        private void Confirmed(Order order){Busy=false;if(!_restorePending)IsPresenting=false;if(order is FailedOrder)SetStatus(T("Kaufbestätigung noch offen – später wiederherstellen","Purchase confirmation pending – restore later"));else Changed?.Invoke();}
         private void Failed(FailedOrder order){Busy=false;SetStatus(order.FailureReason==PurchaseFailureReason.UserCancelled?T("Kauf abgebrochen","Purchase cancelled"):T("Kauf nicht abgeschlossen","Purchase not completed"));}
         private void Deferred(DeferredOrder order)
         {
@@ -144,7 +148,7 @@ namespace Kamilunavo.RepairEmpire.Monetization
         private void ProductsFailed(ProductFetchFailed failure)=>Unavailable(T("Shop gerade nicht verfügbar","Shop currently unavailable"));
         private void PurchasesFailed(PurchasesFetchFailureDescription failure){Busy=false;SetStatus(T("Käufe konnten nicht geladen werden","Purchases could not be loaded"));}
         private void Unavailable(string message){_reconnect.Failed(Time.realtimeSinceStartupAsDouble);Ready=false;Busy=false;SetStatus(message);}
-        private void SetStatus(string message){if(!Busy)IsPresenting=false;Status=message;Changed?.Invoke();}
+        private void SetStatus(string message){if(!Busy&&!_restorePending)IsPresenting=false;Status=message;Changed?.Invoke();}
         private void OnDestroy()
         {
             if(_store==null)return;

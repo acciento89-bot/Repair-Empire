@@ -76,6 +76,7 @@ public static class BuildAutomation
 
     private static void Build(BuildTarget target, string output, bool development)
     {
+        PlayerSettings.defaultInterfaceOrientation=UIOrientation.AutoRotation;PlayerSettings.allowedAutorotateToPortrait=true;PlayerSettings.allowedAutorotateToLandscapeLeft=true;PlayerSettings.allowedAutorotateToLandscapeRight=true;PlayerSettings.allowedAutorotateToPortraitUpsideDown=false;
         RepairArtImports.Ensure();
         ValidateAll();Kamilunavo.RepairEmpire.Editor.CommerceConfiguration.Configure();
         if (target == BuildTarget.iOS)
