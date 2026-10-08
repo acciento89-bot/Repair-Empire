@@ -3,6 +3,8 @@ using System.Globalization;
 using Kamilunavo.RepairEmpire.Gameplay;
 namespace Kamilunavo.RepairEmpire.Core {
 public static class RepairRules {
+ public static float VehicleSpeed(int vehicle){return vehicle==2?28:vehicle==1?25:22;}
+ public static float WorkshopRate(RepairProfile p){return 1+.12f*(Math.Max(1,Math.Min(5,p.Workshop))-1);}
  public static int XpTarget(RepairProfile p){return 99+22*p.Level;}
  public static bool IsArrival(float dx,float dz,float speed){return !float.IsNaN(dx)&&!float.IsNaN(dz)&&!float.IsNaN(speed)&&dx*dx+dz*dz<=36&&Math.Abs(speed)<=1;}
  public static bool CanTake(RepairProfile p,JobDefinition j){return p.Supported&&j!=null&&p.Level>=j.MinimumLevel&&(p.ToolMask&(1<<j.ToolTier))!=0;}

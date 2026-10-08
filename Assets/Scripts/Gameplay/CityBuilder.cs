@@ -1,65 +1,26 @@
 using UnityEngine;
-
-namespace Kamilunavo.RepairEmpire.Gameplay
-{
-    public sealed class CityBuilder : MonoBehaviour
-    {
-        private static readonly Color Road = new(0.16f, 0.17f, 0.18f);
-        private static readonly Color Sidewalk = new(0.56f, 0.57f, 0.55f);
-        private static readonly Color Navy = new(0.03f, 0.10f, 0.16f);
-        private static readonly Color Orange = new(1f, 0.30f, 0.05f);
-        private static readonly Color Cyan = new(0.05f, 0.66f, 1f);
-
-        public void Build()
-        {
-            Random.InitState(260906);
-            CreateBox("Road", new Vector3(0f, -0.25f, 220f), new Vector3(16f, 0.5f, 470f), Road, true);
-            CreateBox("SidewalkL", new Vector3(-10f, 0f, 220f), new Vector3(4f, 0.35f, 470f), Sidewalk, true);
-            CreateBox("SidewalkR", new Vector3(10f, 0f, 220f), new Vector3(4f, 0.35f, 470f), Sidewalk, true);
-
-            for (var z = 10; z < 450; z += 22)
-            {
-                BuildBuilding(-16f, z);
-                BuildBuilding(16f, z);
-            }
-
-            BuildWorkshop();
-
-            for (var z = 25; z < 420; z += 16)
-                CreateBox("RouteArrow", new Vector3(0f, 0.04f, z), new Vector3(1.6f, 0.05f, 4f), Cyan, false);
-
-            var marker = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-            marker.name = "DestinationMarker";
-            marker.transform.position = new Vector3(0f, 2f, 284f);
-            marker.transform.localScale = new Vector3(1.4f, 2.5f, 1.4f);
-            marker.GetComponent<Renderer>().material = Material(Orange);
-            Object.Destroy(marker.GetComponent<Collider>());
-        }
-
-        private static void BuildBuilding(float x, float z)
-        {
-            var h = Random.Range(8f, 18f);
-            var color = Random.value > 0.5f ? Navy : new Color(0.34f, 0.39f, 0.44f);
-            CreateBox("Building", new Vector3(x, h * 0.5f, z), new Vector3(8f, h, 14f), color, true);
-        }
-
-        private static void BuildWorkshop()
-        {
-            CreateBox("RepairEmpireWorkshop", new Vector3(14f, 3.5f, 35f), new Vector3(12f, 7f, 20f), Navy, true);
-            CreateBox("WorkshopAccent", new Vector3(8.3f, 3.5f, 35f), new Vector3(0.4f, 4.5f, 15f), Orange, false);
-        }
-
-        private static GameObject CreateBox(string name, Vector3 position, Vector3 scale, Color color, bool collider)
-        {
-            var go = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            go.name = name;
-            go.transform.position = position;
-            go.transform.localScale = scale;
-            go.GetComponent<Renderer>().material = Material(color);
-            if (!collider) Object.Destroy(go.GetComponent<Collider>());
-            return go;
-        }
-
-        private static Material Material(Color color) => new(Shader.Find("Standard")) { color = color };
-    }
+using Kamilunavo.RepairEmpire.Visuals;
+namespace Kamilunavo.RepairEmpire.Gameplay {
+ public sealed class CityBuilder:MonoBehaviour {
+  public Transform Destination;Transform arrows,world;RepairGame game;
+  Material asphalt,concrete,stone,navy,orange,glass,steel,leaf,wood,white,cyan;
+  public void Build(){world=new GameObject("Authored static district").transform;world.SetParent(transform,false);Random.InitState(261008);asphalt=MeshArt.Mat("CityAsphalt",new(.19f,.205f,.21f));concrete=MeshArt.Mat("CityPaving",new(.66f,.66f,.62f));stone=MeshArt.Mat("CityStone",new(.58f,.60f,.58f));navy=MeshArt.Mat("CityNavy",new(.025f,.07f,.105f));orange=MeshArt.Mat("CityOrange",new(1,.32f,.045f));glass=MeshArt.Mat("CityGlazing",new(.2f,.39f,.49f));glass.SetFloat("_Metallic",.62f);glass.SetFloat("_Glossiness",.85f);steel=MeshArt.Mat("CityMetal",new(.13f,.19f,.23f));leaf=MeshArt.Mat("CityLeaves",new(.32f,.56f,.17f));wood=MeshArt.Mat("CityWood",new(.31f,.23f,.12f));white=MeshArt.Mat("CityLines",new(.96f,.93f,.82f));cyan=MeshArt.Mat("RouteCyan",new(.04f,.78f,1),-1,true);
+   var ground=Box("Continuous driveable ground",new(0,-.3f,220),new(150,.5f,510),concrete,true);
+   foreach(float x in new[]{0f,-32f,32f}){float width=x==0?16:12;Box("Asphalt avenue",new(x,-.035f,220),new(width,.025f,470),asphalt);foreach(int side in new[]{-1,1}){Box("Low pavement",new(x+side*(width/2+1.8f),0,220),new(3.6f,.05f,470),concrete);for(int z=4;z<450;z+=8)Box("Pavement joint",new(x+side*(width/2+1.8f),.028f,z),new(3.5f,.008f,.014f),stone);}for(int z=4;z<450;z+=10)if(!AtJunction(z))Box("Lane dash",new(x,.002f,z),new(.1f,.01f,3.2f),white);}
+   foreach(float z in new[]{96f,220f,340f}){Box("Cross street",new(0,.004f,z),new(92,.025f,10),asphalt);for(int side=-1;side<=1;side+=2)for(int i=0;i<7;i++)Box("Crosswalk",new(-6+i*2,.02f,z+side*6.5f),new(1.1f,.02f,2.1f),white);}
+   for(int z=14;z<445;z+=24){if(AtJunction(z,17))continue;foreach(float x in new[]{-18f,18f,-49f,49f}){if(x==18&&z<62)continue;Building(x,z,Random.Range(12,30),x>0?-1:1);}}
+   for(int z=12;z<435;z+=25){if(AtJunction(z,12))continue;foreach(int side in new[]{-1,1}){Tree(new(side*11.2f,0,z));Lamp(new(side*8.9f,0,z+9));Box("Planter",new(side*11.2f,.2f,z),new(1.5f,.4f,1.5f),stone);}}
+   Workshop();MeshArt.Batch(world.gameObject);var env=new GameObject("Route and customer marker").transform;env.SetParent(transform,false);arrows=new GameObject("Directional cyan chevrons").transform;arrows.SetParent(env,false);for(int i=0;i<10;i++){var arrow=new GameObject("Route chevron").transform;arrow.SetParent(arrows,false);foreach(int side in new[]{-1,1}){var arm=MeshArt.Box(arrow,"Chevron arm",new(side*.34f,.04f,-.27f),new(.16f,.035f,.84f),cyan);arm.transform.localRotation=Quaternion.Euler(0,side*44,0);}}
+   Destination=new GameObject("Service address pin").transform;Destination.SetParent(env,false);MeshArt.Lathe(Destination,"Orange pin",new[]{0f,.55f,1.05f,1.55f},new[]{0f,.32f,.55f,.18f},12,orange,Vector3.one);MeshArt.Oval(Destination,"Pin center",new(0,1.0f,-.12f),new(.24f,.24f,.24f),white);var ring=MeshArt.Ring(Destination,"Address circle",1.5f,.1f,-1.9f,orange,40);
+   var sky=new Material(Shader.Find("Repair/Sky"));sky.mainTexture=Resources.Load<Texture2D>("Art/SkyPanorama");RenderSettings.skybox=sky;ArtLifetime.Own(gameObject,sky);RenderSettings.ambientLight=new(.7f,.77f,.81f);RenderSettings.fog=true;RenderSettings.fogColor=new(.65f,.79f,.91f);RenderSettings.fogMode=FogMode.Linear;RenderSettings.fogStartDistance=170;RenderSettings.fogEndDistance=430;
+  }
+  public void Bind(RepairGame owner){game=owner;}
+  void Update(){if(game==null||arrows==null)return;var job=game.ActiveJob;arrows.gameObject.SetActive(job!=null);Destination.gameObject.SetActive(job!=null);if(job==null)return;Destination.position=new(job.DestinationX,2,job.DestinationZ);var from=game.Vehicle.transform.position;var direction=new Vector3(job.DestinationX-from.x,0,job.DestinationZ-from.z);if(direction.sqrMagnitude<.01f)return;var rot=Quaternion.LookRotation(direction.normalized);for(int i=0;i<arrows.childCount;i++){var a=arrows.GetChild(i);a.position=new Vector3(from.x,0,from.z)+direction.normalized*(6+i*3);a.rotation=rot;a.gameObject.SetActive(6+i*3<direction.magnitude);}}
+  static bool AtJunction(float z,float radius=9){foreach(float c in new[]{96f,220f,340f})if(Mathf.Abs(z-c)<radius)return true;return false;}
+  GameObject Box(string name,Vector3 position,Vector3 scale,Material material,bool collider=false){var go=MeshArt.Box(world,name,position,scale,material);if(collider){var c=go.AddComponent<BoxCollider>();c.center=Vector3.zero;c.size=scale;}return go;}
+  void Building(float x,float z,float h,int facing){var tint=MeshArt.Mat("Facade"+((int)h%4),new(.50f+.03f*((int)h%4),.54f+.02f*((int)h%4),.55f+.02f*((int)h%4)));float width=Mathf.Abs(x)>30?13:10,depth=17;Box("Concrete building core",new(x,h/2,z),new(width,h,depth),tint,true);Box("Roof crown",new(x,h+.18f,z),new(width+.35f,.35f,depth+.35f),stone);float front=x+facing*(width/2+.025f);for(int floor=1;floor<h/3;floor++){float y=floor*3.05f;for(int col=0;col<5;col++){float zz=z-6.5f+col*3.1f;Box("Reflective glass pane",new(front,y,zz),new(.035f,2.30f,2.62f),glass);Box("Window mullion",new(front+facing*.03f,y,zz+1.35f),new(.09f,2.4f,.065f),steel);}Box("Facade floor band",new(front+facing*.04f,y-1.3f,z),new(.13f,.1f,depth),stone);}Box("Storefront glazing",new(front,1.25f,z),new(.04f,2.25f,depth-1.2f),glass);Box("Shop canopy",new(front+facing*.65f,2.66f,z),new(1.35f,.16f,depth-1),navy);for(int i=0;i<4;i++)Box("Entrance frame",new(front+facing*.08f,1.2f,z-5.6f+i*3.75f),new(.12f,2.4f,.09f),steel);Box("Rooftop plant",new(x,h+.6f,z+3),new(2.5f,1.2f,3.3f),steel);}
+  void Tree(Vector3 p){var root=new GameObject("Street tree").transform;root.SetParent(world,false);root.localPosition=p;MeshArt.Lathe(root,"Trunk",new[]{0f,2.5f,3.2f},new[]{.13f,.10f,.04f},7,wood,Vector3.one);for(int i=0;i<3;i++)MeshArt.Oval(root,"Leaf canopy",new((i-1)*.7f,3.1f+i*.33f,0),new(2.25f,2.05f,2.0f),leaf,10);}
+  void Lamp(Vector3 p){var root=new GameObject("Street light").transform;root.SetParent(world,false);root.localPosition=p;MeshArt.Lathe(root,"Lamp pole",new[]{0f,.18f,4.8f},new[]{.16f,.11f,.075f},8,steel,Vector3.one);MeshArt.Box(root,"Lamp arm",new(.43f,4.78f,0),new(.85f,.1f,.09f),steel);MeshArt.Box(root,"Lamp housing",new(.85f,4.75f,0),new(.5f,.1f,.28f),navy);}
+  void Workshop(){Box("Workshop rear wall",new(25,3.5f,35),new(.3f,7,20),navy,true);foreach(int side in new[]{-1,1})Box("Workshop side wall",new(19,3.5f,35+side*10),new(12,7,.3f),stone,true);Box("Workshop roof",new(19,7,35),new(12.4f,.3f,20.4f),navy);Box("Workshop fascia",new(12.8f,5.7f,35),new(.32f,2.2f,20),navy);Box("Orange garage lintel",new(12.55f,4.35f,35),new(.3f,.35f,20),orange);VanArt.Text(world,"REPAIR",new(12.5f,6.2f,35),.90f,Color.white,Quaternion.Euler(0,90,0));VanArt.Text(world,"EMPIRE",new(12.5f,5.20f,35),.90f,new(1,.32f,.045f),Quaternion.Euler(0,90,0));for(int i=0;i<4;i++){Box("Garage pillar",new(12.8f,2.05f,25+i*6.65f),new(.6f,4.1f,.5f),navy,true);Box("Safety bollard",new(11.8f,.62f,25+i*6.65f),new(.25f,1.25f,.25f),orange);}for(int i=0;i<4;i++){Box("Tool cabinet",new(24,1,28+i*4),new(1.2f,2,2.1f),steel);for(int j=0;j<5;j++)Box("Cabinet drawer",new(23.36f,.25f+j*.3f,28+i*4),new(.025f,.07f,1.85f),orange);}for(int i=0;i<3;i++)Box("Garage ceiling light",new(19,6.7f,29+i*6),new(5,.07f,.22f),MeshArt.Mat("WorkshopLight",new(1,.89f,.65f),-1,true));}
+ }
 }

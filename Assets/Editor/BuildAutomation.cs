@@ -7,20 +7,77 @@ using UnityEditor.Build.Reporting;
 
 public static class BuildAutomation
 {
+    public static void ValidateAll(){RepairValidation.RunAndValidateInput();RepairValidation.ValidateRepairBoundary();RepairValidation.ValidateHud();RepairValidation.ConfigureAndValidateArt();UnityEngine.Debug.Log("REPAIR_COMMERCE_EDITOR_PASS "+Kamilunavo.RepairEmpire.Validation.RepairCommerceChecks.Run());}
     public static void BuildAndroid()
     {
         EditorUserBuildSettings.buildAppBundle = false;
-        Build(BuildTarget.Android, GetOutput("-buildOutput", "Builds/Android/app-dev.apk"));
+        ApplyVersionArguments();
+        Build(BuildTarget.Android, GetOutput("-buildOutput", "Builds/Android/app-dev.apk"), development: true);
+    }
+
+    public static void BuildAndroidRelease()
+    {
+        EditorUserBuildSettings.buildAppBundle = true;
+        ApplyVersionArguments();
+        Build(BuildTarget.Android, GetOutput("-buildOutput", "Builds/Android/RepairEmpire.aab"), development: false);
     }
 
     public static void BuildIOS()
     {
-        PlayerSettings.iOS.appleDeveloperTeamID = "TKG684N5GL";
-        Build(BuildTarget.iOS, GetOutput("-buildOutput", "Builds/iOS"));
+        var previousSdk = PlayerSettings.iOS.sdkVersion;
+        try
+        {
+            PlayerSettings.iOS.appleDeveloperTeamID = "TKG684N5GL";PlayerSettings.iOS.appleEnableAutomaticSigning=true;
+            PlayerSettings.iOS.sdkVersion = iOSSdkVersion.DeviceSDK;
+            ApplyVersionArguments();
+            Build(BuildTarget.iOS, GetOutput("-buildOutput", "Builds/iOS"), development: false);
+        }
+        finally
+        {
+            PlayerSettings.iOS.sdkVersion = previousSdk;
+        }
     }
 
-    private static void Build(BuildTarget target, string output)
+    public static void BuildIOSSimulator()
     {
+        BuildSimulator(development: false);
+    }
+
+    public static void BuildIOSSimulatorQa()
+    {
+        BuildSimulator(development: true);
+    }
+
+    private static void BuildSimulator(bool development)
+    {
+        var previousSdk = PlayerSettings.iOS.sdkVersion;
+        try
+        {
+            PlayerSettings.iOS.sdkVersion = iOSSdkVersion.SimulatorSDK;
+            Build(BuildTarget.iOS, GetOutput("-buildOutput", "/private/tmp/RepairEmpire-iOS-Simulator"), development);
+        }
+        finally
+        {
+            PlayerSettings.iOS.sdkVersion = previousSdk;
+        }
+    }
+
+    public static void BuildMacPreview()
+    {
+        PlayerSettings.resizableWindow = true;
+        Build(BuildTarget.StandaloneOSX, GetOutput("-buildOutput", "/private/tmp/RepairEmpirePreview.app"), development: true);
+    }
+
+    public static void BuildMacReview()
+    {
+        PlayerSettings.resizableWindow = true;
+        Build(BuildTarget.StandaloneOSX, GetOutput("-buildOutput", "/private/tmp/RepairEmpireReview.app"), development: false);
+    }
+
+    private static void Build(BuildTarget target, string output, bool development)
+    {
+        RepairArtImports.Ensure();
+        ValidateAll();Kamilunavo.RepairEmpire.Editor.CommerceConfiguration.Configure();
         if (target == BuildTarget.iOS)
         {
             Directory.CreateDirectory(output);
@@ -44,12 +101,44 @@ public static class BuildAutomation
             scenes = scenes,
             locationPathName = output,
             target = target,
-            options = BuildOptions.Development | BuildOptions.AllowDebugging
+            options = development ? BuildOptions.Development | BuildOptions.AllowDebugging : BuildOptions.None
         };
 
+        if((target==BuildTarget.iOS || target==BuildTarget.Android) && EditorUserBuildSettings.activeBuildTarget!=target)
+            throw new InvalidOperationException("Native SDK postprocessors require launching Unity with -buildTarget "+target+" before this build.");
         var report = BuildPipeline.BuildPlayer(options);
+        
+        
+        if(report.summary.result==BuildResult.Succeeded&&target==BuildTarget.iOS)Kamilunavo.RepairEmpire.Editor.CommerceBuildHooks.ValidateIosAds(output);
+        foreach(var shader in UnityEngine.Resources.LoadAll<UnityEngine.Shader>(""))
+            if(ShaderUtil.ShaderHasError(shader))throw new InvalidOperationException("Build contains a shader compilation error: "+shader.name);
         if (report.summary.result != BuildResult.Succeeded)
             throw new InvalidOperationException($"Build failed: {report.summary.result} with {report.summary.totalErrors} error(s).");
+    }
+
+    private static void ApplyVersionArguments()
+    {
+        var versionName = GetOptionalArgument("-versionName");
+        if (!string.IsNullOrWhiteSpace(versionName))
+            PlayerSettings.bundleVersion = versionName.Trim();
+
+        var buildNumber = GetOptionalArgument("-buildNumber");
+        if (string.IsNullOrWhiteSpace(buildNumber)) return;
+        if (!int.TryParse(buildNumber, out var numericBuild) || numericBuild < 1)
+            throw new InvalidOperationException($"Invalid -buildNumber '{buildNumber}'. Expected a positive integer.");
+
+        PlayerSettings.iOS.buildNumber = numericBuild.ToString();
+        PlayerSettings.Android.bundleVersionCode = numericBuild;
+    }
+
+    private static string GetOptionalArgument(string key)
+    {
+        var args = Environment.GetCommandLineArgs();
+        for (var i = 0; i < args.Length - 1; i++)
+        {
+            if (args[i] == key) return args[i + 1];
+        }
+        return null;
     }
 
     private static string GetOutput(string key, string fallback)

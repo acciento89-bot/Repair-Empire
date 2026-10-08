@@ -20,7 +20,8 @@ namespace Kamilunavo.RepairEmpire.Editor
 
             PlayerSettings.companyName = "Kamilunavo";
             PlayerSettings.productName = "Repair Empire";
-            PlayerSettings.defaultInterfaceOrientation = UIOrientation.Portrait;
+            PlayerSettings.defaultInterfaceOrientation = UIOrientation.AutoRotation;
+            PlayerSettings.allowedAutorotateToPortrait=true;PlayerSettings.allowedAutorotateToLandscapeLeft=true;PlayerSettings.allowedAutorotateToLandscapeRight=true;PlayerSettings.allowedAutorotateToPortraitUpsideDown=false;PlayerSettings.iOS.targetOSVersionString="15.0";PlayerSettings.Android.minSdkVersion=AndroidSdkVersions.AndroidApiLevel26;PlayerSettings.Android.targetArchitectures=AndroidArchitecture.ARM64;PlayerSettings.SetScriptingBackend(UnityEditor.Build.NamedBuildTarget.Android,ScriptingImplementation.IL2CPP);
             PlayerSettings.bundleVersion = "1.0";
             PlayerSettings.iOS.buildNumber = "1";
             PlayerSettings.Android.bundleVersionCode = 1;
