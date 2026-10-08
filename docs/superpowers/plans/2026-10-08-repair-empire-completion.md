@@ -7,8 +7,8 @@ Review Focus: repeated/delayed repaircompletion cannot pay twice; lateral arriva
 
 ### Task 1 pure company/repair economy
 Create Core/RepairProfile,RepairRules,RepairSave and Gameplay/JobCatalog/expandedJobDefinition; Editor/RepairValidation. Interfaces BeginJob(p,id)->ticket,AdvanceRepair(p,ticket,phase)->bool,Complete(p,ticket,save)->bool,BuyTool/BuyVehicle/UpgradeWorkshop/Hire,ClaimDaily/ClaimDailyJobs/AccrueOffline,IsArrival(dx,dz,speed)->bool.
-- [ ] Missing-type RED then actual bundledMono/Core/editor GREEN for orderedphases/ticketreplay/save rollback/leveltargets/toolgates/ownership/offlineUTC/daily/date reversal/unknownschema normalization/lateralarrival.
-- [ ] Commit coherent pure state/safe persistence foundation.
+- [x] Missing-type RED then actual bundledMono/Core/editor GREEN for orderedphases/ticketreplay/save rollback/leveltargets/toolgates/ownership/offlineUTC/daily/date reversal/unknownschema normalization/lateralarrival.
+- [x] Commit coherent pure state/safe persistence foundation.
 
 ### Task 2 playable world/tablet/repair
 Modify bootstrap/RepairGame/VehicleController/CityBuilder/TabletController; author VanArt/CityArt/RepairHud/RepairFeedback/RepairPanel; own art/audio/resources; native usable-region/inputhelpers/optionalcommerce. Interfaces Profile/ActiveJob/Paused/BeginRepair/Advance/Complete/Save/Refresh; held-input reset and actual physics automation.
