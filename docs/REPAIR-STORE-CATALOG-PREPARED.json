@@ -1,0 +1,59 @@
+{
+  "appStoreConnectAppId": "6819872687",
+  "bundleId": "com.kamilunavo.repairempire",
+  "state": "PREPARED_ONLY_NOT_CREATED",
+  "gate": "App Store Connect developer-account reauthentication; current Safari still login page",
+  "products": [
+    {
+      "productId": "com.kamilunavo.repairempire.starter",
+      "referenceName": "Repair Empire Starter",
+      "type": "NON_CONSUMABLE",
+      "baseTerritory": "DEU",
+      "intendedBasePriceEUR": "1.99",
+      "localizations": {
+        "de-DE": {
+          "name": "Repair Starterpaket",
+          "description": "500 Cash und ein exklusiver Van-Look."
+        },
+        "en-US": {
+          "name": "Repair Starter Pack",
+          "description": "500 Cash and an exclusive van look."
+        }
+      },
+      "grants": {
+        "cashOnce": 500,
+        "cosmeticStyles": [
+          4
+        ]
+      },
+      "restore": "Cosmetics only; cash never paid again on restoration"
+    },
+    {
+      "productId": "com.kamilunavo.repairempire.vancollection",
+      "referenceName": "Repair Empire Van Collection",
+      "type": "NON_CONSUMABLE",
+      "baseTerritory": "DEU",
+      "intendedBasePriceEUR": "2.99",
+      "localizations": {
+        "de-DE": {
+          "name": "Van-Designpaket",
+          "description": "Drei exklusive Lackierungen für deinen Van."
+        },
+        "en-US": {
+          "name": "Van Design Collection",
+          "description": "Three exclusive paint styles for your van."
+        }
+      },
+      "grants": {
+        "cashOnce": 0,
+        "cosmeticStyles": [
+          5,
+          6,
+          7
+        ]
+      },
+      "restore": "Reconcile actual owned entitlements; no earned upgrades or currency"
+    }
+  ],
+  "ads": "Voluntary 50-Cash video, five per UTC day, 60-second cooldown; InternalTestAds remains true for internal QA; live privacy/consent/reward gates unresolved"
+}
