@@ -8,7 +8,11 @@ namespace Kamilunavo.RepairEmpire.Input
     {
         public bool Held { get; private set; }
 
-        public void OnPointerDown(PointerEventData eventData) => Held = true;
+        public void OnPointerDown(PointerEventData eventData) => Held = isActiveAndEnabled;
+        public void ResetInput() => Held = false;
+        private void OnDisable() => ResetInput();
+        private void OnApplicationFocus(bool focus) { if (!focus) ResetInput(); }
+        private void OnApplicationPause(bool paused) { if (paused) ResetInput(); }
         public void OnPointerUp(PointerEventData eventData) => Held = false;
 
         public static HoldButton Create(Transform parent, string label, Vector2 min, Vector2 max, Color color)

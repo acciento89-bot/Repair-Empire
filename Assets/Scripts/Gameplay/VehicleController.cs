@@ -38,7 +38,7 @@ namespace Kamilunavo.RepairEmpire.Gameplay
         {
             if (!InputEnabled)
             {
-                Damp(0.88f);
+                ResetMotion();
                 return;
             }
 
@@ -72,8 +72,15 @@ namespace Kamilunavo.RepairEmpire.Gameplay
             _body.linearVelocity = new Vector3(v.x * amount, v.y, v.z * amount);
         }
 
+        public void SetInputEnabled(bool enabled)
+        {
+            InputEnabled = enabled;
+            if (!enabled) ResetMotion();
+        }
+
         public void ResetMotion()
         {
+            Left?.ResetInput(); Right?.ResetInput(); Accelerate?.ResetInput(); Brake?.ResetInput();
             _body.linearVelocity = Vector3.zero;
             _body.angularVelocity = Vector3.zero;
         }
