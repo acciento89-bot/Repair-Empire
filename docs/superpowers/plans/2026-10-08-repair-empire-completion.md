@@ -12,9 +12,9 @@ Create Core/RepairProfile,RepairRules,RepairSave and Gameplay/JobCatalog/expande
 
 ### Task 2 playable world/tablet/repair
 Modify bootstrap/RepairGame/VehicleController/CityBuilder/TabletController; author VanArt/CityArt/RepairHud/RepairFeedback/RepairPanel; own art/audio/resources; native usable-region/inputhelpers/optionalcommerce. Interfaces Profile/ActiveJob/Paused/BeginRepair/Advance/Complete/Save/Refresh; held-input reset and actual physics automation.
-- [ ] Appropriate input/pause/viewport/scroll/min-size/actual repair RED→GREEN.
-- [ ] Bind inspected concept graphics, real van/district/route/minimap/categoryrepair, sixfunctionaltabs/progression/settings/commerce.
-- [ ] Actual Mac controller driving/arrival/allfourcategoryrepairs/repeat/recovery and rendered UI inspection; commit/backup.
+- [x] Appropriate input/pause/viewport/scroll/min-size/actual repair RED→GREEN.
+- [x] Bind inspected concept graphics, real van/district/route/minimap/categoryrepair, sixfunctionaltabs/progression/settings/commerce.
+- [x] Actual Mac controller driving/arrival/allfourcategoryrepairs/repeat/recovery and rendered UI inspection; commit/backup.
 
 ### Task 3 native acceptance/internaldelivery
 BuildAutomation native SDKs, Editor validation, QA/RepairRuntimeQa isolated savedprofiles/actualholdbuttons/1800ssoak, owncatalog/apps/signingworkflow.

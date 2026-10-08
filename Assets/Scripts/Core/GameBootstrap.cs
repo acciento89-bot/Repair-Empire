@@ -7,7 +7,7 @@ using Kamilunavo.RepairEmpire.Visuals;
 using Kamilunavo.RepairEmpire.Monetization;
 namespace Kamilunavo.RepairEmpire {
  public sealed class GameBootstrap:MonoBehaviour {
-  void Start(){Screen.orientation=ScreenOrientation.AutoRotation;Screen.autorotateToLandscapeLeft=Screen.autorotateToLandscapeRight=Screen.autorotateToPortrait=true;Screen.autorotateToPortraitUpsideDown=false;Application.targetFrameRate=60;QualitySettings.vSyncCount=0;
+  void Start(){Screen.orientation=ScreenOrientation.AutoRotation;Screen.autorotateToLandscapeLeft=Screen.autorotateToLandscapeRight=Screen.autorotateToPortrait=true;Screen.autorotateToPortraitUpsideDown=false;Application.targetFrameRate=60;QualitySettings.vSyncCount=0;QualitySettings.antiAliasing=4;QualitySettings.shadowResolution=ShadowResolution.High;QualitySettings.shadowCascades=2;
    if(FindFirstObjectByType<EventSystem>()==null)new GameObject("EventSystem",typeof(EventSystem),typeof(StandaloneInputModule));
    var sun=new GameObject("Daylight",typeof(Light));var light=sun.GetComponent<Light>();light.type=LightType.Directional;light.intensity=1.15f;light.color=new Color(1,.92f,.78f);light.shadows=LightShadows.Soft;sun.transform.rotation=Quaternion.Euler(42,-25,0);QualitySettings.shadowDistance=65;
    var city=new GameObject("Repair Empire city").AddComponent<CityBuilder>();city.Build();var game=new GameObject("RepairGame").AddComponent<RepairGame>();
