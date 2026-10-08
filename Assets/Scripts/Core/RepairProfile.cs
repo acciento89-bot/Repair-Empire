@@ -1,0 +1,15 @@
+using System;
+namespace Kamilunavo.RepairEmpire.Core {
+[Serializable] public sealed class RepairProfile {
+ public int Schema=1,Cash=1130,Level=2,Xp=124,CompletedJobs,ToolMask=1,VehicleMask=1,Vehicle,Workshop=1,Employees,RepairPhase,DailyStreak,DailyJobs,Style;
+ public long NextTicket=1,ActiveTicket,CompletedTicket,OfflineUtc;
+ public string ActiveJob="",DailyDay="",JobsDay="",JobsClaimDay="",Language="de";
+ public bool Sound=true,Haptics=true,ReducedMotion,HighContrast;
+ public bool[] Styles={true,false,false,false,false,false,false,false};
+ public float SavedX,SavedZ,SavedHeading;
+ public bool Supported {get{return Schema==1;}}
+ public RepairProfile Clone(){var p=(RepairProfile)MemberwiseClone();p.Styles=Styles==null?null:(bool[])Styles.Clone();return p;}
+ public void CopyFrom(RepairProfile other){foreach(var f in typeof(RepairProfile).GetFields())f.SetValue(this,f.GetValue(other));Styles=other.Styles==null?null:(bool[])other.Styles.Clone();}
+ public void Normalize(){if(!Supported)return;Cash=Clamp(Cash,0,100000000);Level=Clamp(Level,1,100);Xp=Clamp(Xp,0,999999);CompletedJobs=Clamp(CompletedJobs,0,1000000);ToolMask=(ToolMask&7)|1;VehicleMask=(VehicleMask&7)|1;Vehicle=Clamp(Vehicle,0,2);if((VehicleMask&(1<<Vehicle))==0)Vehicle=0;Workshop=Clamp(Workshop,1,5);Employees=Clamp(Employees,0,3);RepairPhase=Clamp(RepairPhase,0,3);CompletedTicket=Math.Max(0,CompletedTicket);ActiveTicket=Math.Max(0,ActiveTicket);long frontier=Math.Max(ActiveTicket,CompletedTicket);NextTicket=frontier>=long.MaxValue-1000?long.MaxValue:Math.Max(1,Math.Max(frontier+1,NextTicket));DailyStreak=Clamp(DailyStreak,0,7);DailyJobs=Clamp(DailyJobs,0,999);OfflineUtc=Math.Max(0,OfflineUtc);ActiveJob=ActiveJob??"";DailyDay=DailyDay??"";JobsDay=JobsDay??"";JobsClaimDay=JobsClaimDay??"";Language=Language=="en"?"en":"de";if(Styles==null||Styles.Length!=8){var old=Styles;Styles=new bool[8];if(old!=null)Array.Copy(old,Styles,Math.Min(8,old.Length));}Styles[0]=true;Style=Clamp(Style,0,7);if(!Styles[Style])Style=0;SavedX=Finite(SavedX)?Math.Max(-50,Math.Min(50,SavedX)):0;SavedZ=Finite(SavedZ)?Math.Max(0,Math.Min(440,SavedZ)):0;SavedHeading=Finite(SavedHeading)?SavedHeading%360:0;}
+ static int Clamp(int v,int a,int b){return Math.Max(a,Math.Min(b,v));}static bool Finite(float v){return !float.IsNaN(v)&&!float.IsInfinity(v);}
+}}

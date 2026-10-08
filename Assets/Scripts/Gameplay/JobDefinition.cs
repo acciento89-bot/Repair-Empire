@@ -11,6 +11,9 @@ namespace Kamilunavo.RepairEmpire.Gameplay
         public int Xp;
         public float DestinationZ;
         public string RequiredTool;
+        public string TitleDe;
+        public int CategoryIndex, MinimumLevel=1, ToolTier;
+        public float DestinationX;
 
         public JobDefinition(string id, string title, string category, string address, int reward, int xp, float destinationZ, string requiredTool)
         {
