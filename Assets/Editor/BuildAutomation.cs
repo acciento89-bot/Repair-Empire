@@ -54,7 +54,7 @@ public static class BuildAutomation
         try
         {
             PlayerSettings.iOS.sdkVersion = iOSSdkVersion.SimulatorSDK;
-            Build(BuildTarget.iOS, GetOutput("-buildOutput", "/private/tmp/RepairEmpire-iOS-Simulator"), development);
+            Build(BuildTarget.iOS, GetOutput("-buildOutput", "/private/tmp/RepairEmpire-iOS-Simulator"), development, scriptDebugging: false);
         }
         finally
         {
@@ -74,7 +74,7 @@ public static class BuildAutomation
         Build(BuildTarget.StandaloneOSX, GetOutput("-buildOutput", "/private/tmp/RepairEmpireReview.app"), development: false);
     }
 
-    private static void Build(BuildTarget target, string output, bool development)
+    private static void Build(BuildTarget target, string output, bool development, bool scriptDebugging = true)
     {
         PlayerSettings.defaultInterfaceOrientation=UIOrientation.AutoRotation;PlayerSettings.allowedAutorotateToPortrait=true;PlayerSettings.allowedAutorotateToLandscapeLeft=true;PlayerSettings.allowedAutorotateToLandscapeRight=true;PlayerSettings.allowedAutorotateToPortraitUpsideDown=false;
         RepairArtImports.Ensure();
@@ -102,7 +102,7 @@ public static class BuildAutomation
             scenes = scenes,
             locationPathName = output,
             target = target,
-            options = development ? BuildOptions.Development | BuildOptions.AllowDebugging : BuildOptions.None
+            options = development ? BuildOptions.Development | (scriptDebugging ? BuildOptions.AllowDebugging : BuildOptions.None) : BuildOptions.None
         };
 
         if((target==BuildTarget.iOS || target==BuildTarget.Android) && EditorUserBuildSettings.activeBuildTarget!=target)
