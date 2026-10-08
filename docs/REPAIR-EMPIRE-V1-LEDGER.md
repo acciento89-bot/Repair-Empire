@@ -112,12 +112,12 @@ Status: [ ] open · [~] implemented/not device verified · [x] verified · [!] b
 - [ ] P10-T07 App Store package
 - [ ] P10-T08 Play Store package
 - [ ] P10-T09 TestFlight RC archive + upload
-- [ ] P10-T10 TestFlight processing + internal tester assignment
+- [x] P10-T10 TestFlight processing + internal tester assignment
 - [ ] P10-T11 TestFlight install/smoke test on physical iPhone
 - [ ] P10-T12 staged release
 
 ## Current open acceptance
-Apple build processing/internal tester assignment, genuine purchase/restore/video and approved privacy URL, physical device smoke/thermal feedback, and actual Duo landscape/inner-display acceptance. Earlier task checklists below are historical; current 2026-10-08 delivery evidence is recorded at the end.
+Actual tester invitation acceptance/physical installation, genuine purchase/restore/video and approved privacy URL, physical device smoke/thermal feedback, and actual Duo landscape/inner-display acceptance. Earlier task checklists below are historical; current 2026-10-08 delivery evidence is recorded at the end.
 
 
 ## Unity 6.6 bootstrap verification - 2026-10-06
@@ -191,3 +191,9 @@ Native iOS release source27a642d archived and AppStore-exported successfully. IP
 Lossless nativearchive backup180929688bytes SHA7a69ff725bd20dd60796ebc74956e3e93b827c22ce064024f9189c3ac6f07cd5: all61regularfiles and symlinks verified. Private draft407175909 assetsIPA622784897, central-signedAAB622762295, archive622797213/proof622797217, currentOrganizerInfo622822320; cloudserverdigests match before removal of5.44GB generatedexports/Derived/uncompressedcopies. User Unity project remains fully remote-backed.
 Limited normal native startup with QA_MODE/QA_ID empty oncompact: realplayer active, normalprofilecreated, actualiOSStoreKitcontroller initialization logged, no consoleexception observed; optionalOnStoreConnectedcallbackwarning and simulatorStoreKit1 noted. No verifiedprice/nativeconsent/adsready or genuinepurchase/reward claim.
 Task3 remains OPEN for external acceptance rather than falsely complete. Technical delivery/backups are done; proceed with user-authorized physical-feedback fixes inPerfectDrop (landscapeupperHUD) andRisingSteps (automaticjumpturning), then shared deferred commerce regressions while waiting for required Apple/privacy/device evidence.
+
+### Apple processing / internal assignment verified — 2026-10-08 22:55–22:58Berlin
+
+After user restored the correct ASC Safari session, actual UI confirmed processed build1.0(1) d2ae127f-2a6d-473a-9b6c-7dd91c8f6d50, initially blocked by missing compliance and no internal group. No first-party custom encryption found; following Apple's operating-system encryption documentation and the existing SDK release baseline, completed the questionnaire with none of the additional/proprietary algorithms. Saved UI changed to Bereit zum Testen.
+
+Created internal Kamilunavo Intern group fcf307c1-0813-448b-b80d-d5469d74d290 with automatic Xcode-build distribution; added only the existing owner/admin tester requested by the user. UI confirms Interne Gruppe · 1 Tester:in · 1 Build, tester Eingeladen on8Oct2026, assigned1.0(1) Bereit zum Testen, build detail group row shows1 tester. German concrete driving/jobs/tablet/save/audio/haptics/orientation notes saved (Gesichert). Public/external release was not started. Actual invitation acceptance, physical installation and gameplay feedback remain pending; do not claim ImTest/physical smoke from the invitation.
