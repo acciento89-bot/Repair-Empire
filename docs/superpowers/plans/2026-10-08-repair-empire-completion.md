@@ -19,6 +19,8 @@ Modify bootstrap/RepairGame/VehicleController/CityBuilder/TabletController; auth
 ### Task 3 native acceptance/internaldelivery
 BuildAutomation native SDKs, Editor validation, QA/RepairRuntimeQa isolated savedprofiles/actualholdbuttons/1800ssoak, owncatalog/apps/signingworkflow.
 - [ ] Native compact/iPad/genuineavailableDuo functional/readability/lifecycle/reload +1800ssoak; no substituted physical proof.
-- [ ] One final fresh whole-change review; one regression-backed correction pass.
+- [x] One final fresh whole-change review; one regression-backed correction pass.
 - [ ] Native signed iOS/archive/TestFlight tester and central-key Android verified; genuinecommerce/privacy gates recorded.
-- [ ] Fullrepo push/remotetreeverify/finalbinary durable backup, remove only regenerated caches.
+- [x] Fullrepo push/remotetreeverify/finalbinary durable backup, remove only regenerated caches.
+
+Task3 partial acceptance: compact606/iPad604, actual1800secondsoak/errors0 and freshreload6each PASS. SignedAndroid and nativeiOSarchive/strictIPA/internal-onlyOrganizerupload/durablecloudbackups PASS. Duoouter4repairsPASS after recovery, landscapeFAIL/innerunavailable. Apple processing/testerassignment/genuinecommerce/privacy/physical evidence pending; Task3 not complete. Native source27a642d; Android sourceb71c170.

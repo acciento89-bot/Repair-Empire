@@ -116,8 +116,8 @@ Status: [ ] open · [~] implemented/not device verified · [x] verified · [!] b
 - [ ] P10-T11 TestFlight install/smoke test on physical iPhone
 - [ ] P10-T12 staged release
 
-## Next open task
-P01-T05: first Unity compile/import and Play Mode verification.
+## Current open acceptance
+Apple build processing/internal tester assignment, genuine purchase/restore/video and approved privacy URL, physical device smoke/thermal feedback, and actual Duo landscape/inner-display acceptance. Earlier task checklists below are historical; current 2026-10-08 delivery evidence is recorded at the end.
 
 
 ## Unity 6.6 bootstrap verification - 2026-10-06
@@ -184,3 +184,10 @@ Duo outer first full run failed actual isolation hold for category3 while host d
 Recovered1.88GB from three Xcode Organizer copies only after SHA256 equality of every regular file exceptInfo.plist against existing private draft archive proofs. Current Xcode-addedInfo.plist metadata saved to each existing unpublished draft and server digest verified before deletion. Compressed lossless archive backups and all Unity source retained. Receipt work/repair-organizer-duplicate-cleanup.json, additional compiled cache receipt work/repair-cache-recovery-20261008.json. Android signed release and iOS distribution archive remain pending.
 
 Android release1 native compile/graphics/135Core+21interaction+25commerce checks passed. Unity packaging failed writing libil2cpp.so into lintAAR at128Mi free; exact compiled Gradle inputs retained (104main payload hashes),2.86GB regenerable compiler artifacts removed after remote source backup, packaging retried unchanged with JVM1536m/maxworkers2 and succeeded28s. UnsignedSHA1088301811a3e29669ae0ab70214ed0be973a47bbdf7245b2acf48aa5eeec2c9. Actual566entries, package1.0(1), ownAdMob and six ELF libraries with≥16KBload alignment independently checked. Central signing run37830216005SUCCESS; signedSHA7e176d64b01bc42167363f8c7aa43cd61ef9b4af12605341260c39e3141695e3. Actual local jarsigner plus SHA1/SHA256pins and allpayloadbytes match. Unpublished draft407175909 holds unsigned/signed/nativepayload/validation/provenance. No Play upload or productionads claim. Androidsourceb71c170; iOS source changes only automatic-signing flag and platform-specific array importer fingerprint.
+
+
+## Internal delivery — 2026-10-08 21:33 Berlin
+Native iOS release source27a642d archived and AppStore-exported successfully. IPA93116284bytes SHA256bf6d81dc8ec68dc704b5c4da1e2f36cfd317e23f76e83614147cf475e9ed1de5; strict/deep AppleDistribution signature, teamTKG684N5GL, get-task-allowfalse, ownAdMob, all3orientations and internal-only export verified. CLIupload failed nilActor/provider credentials; existing XcodeOrganizer then successfully uploaded viaTestFlightInternalOnly, observed UploadedtoApple/Today21:33/Build1. Nonfatal vendorUnityRuntime missingdSYM UUID392D7A7F-6A4F-3A7A-8788-4089FA96FF38, no complete-symbol claim. SafariASC remains login page, so processing/ImTest/groupassignment are OPEN.
+Lossless nativearchive backup180929688bytes SHA7a69ff725bd20dd60796ebc74956e3e93b827c22ce064024f9189c3ac6f07cd5: all61regularfiles and symlinks verified. Private draft407175909 assetsIPA622784897, central-signedAAB622762295, archive622797213/proof622797217, currentOrganizerInfo622822320; cloudserverdigests match before removal of5.44GB generatedexports/Derived/uncompressedcopies. User Unity project remains fully remote-backed.
+Limited normal native startup with QA_MODE/QA_ID empty oncompact: realplayer active, normalprofilecreated, actualiOSStoreKitcontroller initialization logged, no consoleexception observed; optionalOnStoreConnectedcallbackwarning and simulatorStoreKit1 noted. No verifiedprice/nativeconsent/adsready or genuinepurchase/reward claim.
+Task3 remains OPEN for external acceptance rather than falsely complete. Technical delivery/backups are done; proceed with user-authorized physical-feedback fixes inPerfectDrop (landscapeupperHUD) andRisingSteps (automaticjumpturning), then shared deferred commerce regressions while waiting for required Apple/privacy/device evidence.
