@@ -7,7 +7,7 @@ using UnityEditor.Build.Reporting;
 
 public static class BuildAutomation
 {
-    public static void ValidateAll(){RepairValidation.RunAndValidateInput();RepairValidation.ValidateRepairBoundary();RepairValidation.ValidateHud();RepairValidation.ConfigureAndValidateArt();UnityEngine.Debug.Log("REPAIR_COMMERCE_EDITOR_PASS "+Kamilunavo.RepairEmpire.Validation.RepairCommerceChecks.Run());}
+    public static void ValidateAll(){var loggedErrors=new System.Collections.Generic.List<string>();UnityEngine.Application.LogCallback capture=(message,stack,type)=>{if(type==UnityEngine.LogType.Error||type==UnityEngine.LogType.Exception||type==UnityEngine.LogType.Assert)loggedErrors.Add(message);};UnityEngine.Application.logMessageReceived+=capture;try{RepairValidation.RunAndValidateInput();RepairValidation.ValidateRepairBoundary();RepairValidation.ValidateHud();RepairValidation.ConfigureAndValidateArt();UnityEngine.Debug.Log("REPAIR_COMMERCE_EDITOR_PASS "+Kamilunavo.RepairEmpire.Validation.RepairCommerceChecks.Run());if(loggedErrors.Count>0)throw new InvalidOperationException("REPAIR_VALIDATION_LOG_FAIL "+string.Join("\n",loggedErrors));}finally{UnityEngine.Application.logMessageReceived-=capture;}}
     public static void BuildAndroid()
     {
         EditorUserBuildSettings.buildAppBundle = false;

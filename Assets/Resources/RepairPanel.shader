@@ -44,15 +44,15 @@ Shader "Repair/Panel"
             {
                 fixed4 c=(tex2D(_MainTex,i.uv)+_TextureSampleAdd)*i.color;
                 float2 size=max(i.panel.zw,1), localPoint=(i.panel.xy-.5)*size;
-                float radius=min(28,min(size.x,size.y)*.48);
+                float radius=min(9,min(size.x,size.y)*.18);
                 float2 q=abs(localPoint)-(size*.5-radius);
                 float distance=length(max(q,0))+min(max(q.x,q.y),0)-radius;
                 c.a*=1-smoothstep(-.5,1,distance);
                 float edge=1-smoothstep(1,3,abs(distance+2));
                 float gold=step(.5,i.color.r)*step(.3,i.color.g);
-                c.rgb*=lerp(.83,1.25,i.panel.y);
-                c.rgb+=pow(saturate(i.panel.y),8)*lerp(float3(.02,.035,.055),float3(.10,.07,.01),gold);
-                c.rgb=lerp(c.rgb,lerp(float3(.23,.31,.44),float3(1,.87,.41),gold),edge*.65);
+                c.rgb*=lerp(.96,1.04,i.panel.y);
+                c.rgb+=pow(saturate(i.panel.y),8)*float3(.006,.009,.014);
+                c.rgb=lerp(c.rgb,lerp(float3(.23,.31,.44),float3(1,.87,.41),gold),edge*.18);
                 #ifdef UNITY_UI_CLIP_RECT
                 c.a*=UnityGet2DClipping(i.world.xy,_ClipRect);
                 #endif
