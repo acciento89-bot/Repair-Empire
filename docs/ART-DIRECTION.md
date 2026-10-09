@@ -43,3 +43,11 @@ This image is the binding visual target for the branded service van, contemporar
 - Tablet content must maintain high contrast and readable row/action hierarchy on small phones.
 - Default road network and vehicle physics must not allow routine soft-locks or trapping.
 
+
+## 2026-10-09 service dashboard revision
+
+The user's approved menu reference supersedes the original full dark tablet treatment. Repair keeps its own workshop identity: a warm ivory menu, dark navy lettering, muted green-blue scenic panels, white illustrated cards and a fixed orange primary action. The supplied Rising Steps screenshot is a hierarchy reference only; no fantasy artwork, game branding or third-party assets are copied. Driving retains compact navy overlays, orange service actions and cyan route guidance.
+
+Normal entry opens the company dashboard. Its hero shows the live route or company progress; all eight specialist sections are exposed as illustrated cards. Four small permanent destinations (Home, Calls, Workshop, Shop), an options shortcut and the persistent drive action reduce navigation overhead. Jobs retain accurate individual service diagrams, paid status, requirements and payouts. Narrow usable panes stack commerce/settings actions rather than reducing touch targets.
+
+Original code-drawn city, customer, van, workshop, tools, earnings, daily, options and design illustrations are owned by ServiceIllustrationGraphic. The city uses the existing owned textures plus native authored roofs, awnings, café details, planted verges and kiosks. The van gains physical visual trim, step treads, wheel arches, wipers and company lettering. Road geometry/colliders and the vehicle physics body are unchanged; decorative additions remain outside the road corridors. Actual rendering and performance acceptance are required before release.
