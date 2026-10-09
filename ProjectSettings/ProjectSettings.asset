@@ -451,7 +451,7 @@ PlayerSettings:
   mobileMTRendering:
     Android: 1
     VisionOS: 1
-    iPhone: 2
+    iPhone: 1
     tvOS: 1
   m_BuildTargetGroupLightmapEncodingQuality: []
   m_BuildTargetGroupHDRCubemapEncodingQuality: []
