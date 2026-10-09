@@ -1,0 +1,29 @@
+{
+  "game": "RepairEmpire",
+  "repository": "acciento89-bot/Repair-Empire",
+  "nativeSourceCommit": "0896a292134294373ee4ddfadb99903c98306188",
+  "internalVersion": "1.0(3)",
+  "testflight": {
+    "appId": "6819872687",
+    "buildId": "5f271201-e514-4a85-a625-2595f97a1b85",
+    "version": "1.0",
+    "build": 3,
+    "status": "Im Test",
+    "group": "Kamilunavo Intern",
+    "groupId": "fcf307c1-0813-448b-b80d-d5469d74d290",
+    "testers": 1,
+    "notesSaved": true,
+    "observedVia": "Authenticated Safari App Store Connect UI",
+    "publicRelease": false
+  },
+  "ipa": "/Users/piotrkaminski/Developer/KamilunavoDelivery-20261009/outputs/RepairEmpire-1.0-build3-AppStore.ipa",
+  "ipaSHA256": "619565f63556bfe5cbca08d8ef7de0b010eb3ee79764e30e65f340f7374ecd12",
+  "android": "/Users/piotrkaminski/Developer/KamilunavoDelivery-20261009/outputs/repairempire-build3-central-signed/RepairEmpire-1.0-build3.aab",
+  "androidSHA256": "3b9403e99da1d1bb031f36f3488b86278f16683bdd50814cc84a5d25aa04e50c",
+  "androidPayloadEntries": 566,
+  "signingRun": "37992507969",
+  "unpublishedBackupTag": "repairempire-build3-presentation-tutorial",
+  "archiveSHA256": "e64d5c666c51c9bb85086daa1696428a07650ca558827352b8af6c7c10b78d5f",
+  "archiveFilesByteVerified": 61,
+  "vendorSymbolWarning": "UnityRuntime.framework dSYM UUID392D7A7F-6A4F-3A7A-8788-4089FA96FF38 missing; own framework symbols retained in verified archive"
+}
