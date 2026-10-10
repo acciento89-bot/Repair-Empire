@@ -1,29 +1,60 @@
 {
   "game": "RepairEmpire",
   "repository": "acciento89-bot/Repair-Empire",
-  "nativeSourceCommit": "0896a292134294373ee4ddfadb99903c98306188",
-  "internalVersion": "1.0(3)",
+  "nativeSourceCommit": "699c86f8231ef3a7a34d551bb374ae3307f6d931",
+  "verifiedRemoteMain": "699c86f8231ef3a7a34d551bb374ae3307f6d931",
+  "internalVersion": "1.0(4)",
   "testflight": {
     "appId": "6819872687",
-    "buildId": "5f271201-e514-4a85-a625-2595f97a1b85",
+    "buildId": "ff586457-be05-4b29-87e7-33e0b3fdfa41",
     "version": "1.0",
-    "build": 3,
+    "build": 4,
     "status": "Im Test",
     "group": "Kamilunavo Intern",
     "groupId": "fcf307c1-0813-448b-b80d-d5469d74d290",
     "testers": 1,
     "notesSaved": true,
     "observedVia": "Authenticated Safari App Store Connect UI",
+    "observedAtUTC": "2026-10-10T18:45:39.323Z",
     "publicRelease": false
   },
-  "ipa": "/Users/piotrkaminski/Developer/KamilunavoDelivery-20261009/outputs/RepairEmpire-1.0-build3-AppStore.ipa",
-  "ipaSHA256": "619565f63556bfe5cbca08d8ef7de0b010eb3ee79764e30e65f340f7374ecd12",
-  "android": "/Users/piotrkaminski/Developer/KamilunavoDelivery-20261009/outputs/repairempire-build3-central-signed/RepairEmpire-1.0-build3.aab",
-  "androidSHA256": "3b9403e99da1d1bb031f36f3488b86278f16683bdd50814cc84a5d25aa04e50c",
-  "androidPayloadEntries": 566,
-  "signingRun": "37992507969",
-  "unpublishedBackupTag": "repairempire-build3-presentation-tutorial",
-  "archiveSHA256": "e64d5c666c51c9bb85086daa1696428a07650ca558827352b8af6c7c10b78d5f",
+  "ipa": "/Volumes/SSK SSD/Kamilunavo/Builds/VisualRevision-20261010/RepairEmpire/native-ios/RepairEmpire-1.0-build4-AppStore.ipa",
+  "ipaSHA256": "62591f9166e4c478fa7bce472a5dc79917dc668c60a736cfba9b848f59bc20c1",
+  "android": "/Volumes/SSK SSD/Kamilunavo/Builds/VisualRevision-20261010/RepairEmpire/native-android/central-signed/RepairEmpire-1.0-build4.aab",
+  "androidSHA256": "f5bb792ea3a0f1ac4559e6bdf86b930b15aded7753d7fa4cffedf225ed372a90",
+  "androidPayloadEntries": 567,
+  "signingRun": "38076747705",
+  "signingRunURL": "https://github.com/acciento89-bot/Repair-Empire/actions/runs/38076747705",
+  "unpublishedBackupTag": "repairempire-build4-concept-polish",
+  "archiveSHA256": "549beae28ae4ecebdba8cdd9c2100cea4e557e42f68fcd4b974db79e0f7f1fda",
   "archiveFilesByteVerified": 61,
-  "vendorSymbolWarning": "UnityRuntime.framework dSYM UUID392D7A7F-6A4F-3A7A-8788-4089FA96FF38 missing; own framework symbols retained in verified archive"
+  "actualScreens": "/Volumes/SSK SSD/Kamilunavo/Builds/VisualRevision-20261010/Screens/RepairEmpire-actual.png",
+  "desktopReceipts": [
+    {
+      "file": "/Volumes/SSK SSD/Kamilunavo/Builds/VisualRevision-20261010/RepairEmpire/runtime-reviewed-full/PASS.txt",
+      "receipt": "REPAIR_RUNTIME_PASS 1204",
+      "sha256": "c7d4fecd2d2a587df179f0f9ef662333cee3e14b6939467cc748740a38f39c6b"
+    },
+    {
+      "file": "/Volumes/SSK SSD/Kamilunavo/Builds/VisualRevision-20261010/RepairEmpire/runtime-reviewed-reload/PASS.txt",
+      "receipt": "REPAIR_RUNTIME_PASS 7",
+      "sha256": "38213edc12e5ec96959592e87d8dbbd73398b1a84ce00fa19c8bdea92ba590b6"
+    },
+    {
+      "file": "/Volumes/SSK SSD/Kamilunavo/Builds/VisualRevision-20261010/RepairEmpire/runtime-depth-final/PASS.txt",
+      "receipt": "REPAIR_RUNTIME_PASS 1295",
+      "sha256": "a946e135409797697c83ef493b7ed435983c6dbd0926da5f7441311625581b75"
+    }
+  ],
+  "vendorSymbolWarning": "UnityRuntime.framework dSYM missing; app and UnityFramework dSYM retained",
+  "acceptanceLimits": [
+    "Desktop callbacks and PointerEventData do not establish physical iPhone raw multi-touch or thermal/performance acceptance.",
+    "OneMoreFloor full mechanics receipt precedes final decorative canal quarter; final editor/presentation/reload use latest art.",
+    "Rising camera receipt precedes final material/cliff polish; camera/input code unchanged.",
+    "Repair full mechanics receipt precedes final depth-tested decorative font binding; final presentation uses latest binding.",
+    "No genuine provider purchase/reward acceptance or cinematic equivalence claim.",
+    "Rising build 5 retains the camera/input code already in build 4. Desktop touch-event scenarios pass; the reported physical-phone issue is not declared resolved.",
+    "Known vendor UnityRuntime.framework dSYM is missing; app and UnityFramework symbols remain in retained archives.",
+    "Immutable package-generation proofs precede Apple upload; current TestFlight state is recorded separately here and in native-ios/status.json."
+  ]
 }
