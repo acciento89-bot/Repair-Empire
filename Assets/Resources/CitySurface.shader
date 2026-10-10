@@ -26,6 +26,10 @@ Shader "Repair/CitySurface" {
    float3 weights=pow(abs(normalize(i.worldNormal)),4);
    weights/=max(.0001,weights.x+weights.y+weights.z);
    o.Albedo=(sampleSurface(i.worldPos.zy)*weights.x+sampleSurface(i.worldPos.xz)*weights.y+sampleSurface(i.worldPos.xy)*weights.z)*_Color.rgb;
+   // Restrained baked appearance: small-scale surface variation and warm ground bounce.
+   float grain=sin(i.worldPos.x*29.7+i.worldPos.z*17.1)*sin(i.worldPos.y*23.3+i.worldPos.z*11.8);
+   o.Albedo*=.97+grain*.025;
+   o.Occlusion=.93;
    o.Metallic=_Metallic;o.Smoothness=_Glossiness;o.Alpha=1;
   }
   ENDCG
