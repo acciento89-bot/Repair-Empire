@@ -1,5 +1,7 @@
 {
   "InternalTestAds": true,
   "IosRewarded": "ca-app-pub-8944085355624754/3268977305",
-  "AndroidRewarded": "ca-app-pub-8944085355624754/3101367057"
+  "AndroidRewarded": "ca-app-pub-8944085355624754/3101367057",
+  "IosInterstitial": "",
+  "AndroidInterstitial": ""
 }

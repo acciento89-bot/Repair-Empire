@@ -5,7 +5,9 @@ namespace Kamilunavo.RepairEmpire.Monetization
     [Serializable] public sealed class MonetizationConfig
     {
         public bool InternalTestAds=true;
-        public string IosRewarded="",AndroidRewarded="";
+        public string IosRewarded="",AndroidRewarded="",IosInterstitial="",AndroidInterstitial="";
+        public static string InterstitialUnit(bool ios,bool internalTest,string production)=>internalTest?(ios?"ca-app-pub-3940256099942544/4411468910":"ca-app-pub-3940256099942544/1033173712"):(string.IsNullOrWhiteSpace(production)?"":production);
+        public string InterstitialId=>InterstitialUnit(Application.platform==RuntimePlatform.IPhonePlayer,InternalTestAds,Application.platform==RuntimePlatform.IPhonePlayer?IosInterstitial:AndroidInterstitial);
         public static MonetizationConfig Load()
         {
             var text=Resources.Load<TextAsset>("Monetization");

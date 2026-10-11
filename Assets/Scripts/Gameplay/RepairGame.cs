@@ -6,14 +6,22 @@ using UnityEngine.UI;
 using Kamilunavo.RepairEmpire.Core;
 namespace Kamilunavo.RepairEmpire.Gameplay {
  public sealed class RepairGame:MonoBehaviour {
-  public UI.RepairHud Hud;public Monetization.StorePurchases Store;public Monetization.RewardedVideos Videos;public VehicleController Vehicle;public Text CashText,LevelText,ToolText,JobTitle,JobMeta,DistanceText,StatusText;public Button CompleteButton;
+  public UI.RepairHud Hud;public Monetization.StorePurchases Store;public Monetization.RewardedVideos Videos;public Monetization.InterstitialVideos Interstitials;public VehicleController Vehicle;public Text CashText,LevelText,ToolText,JobTitle,JobMeta,DistanceText,StatusText;public Button CompleteButton;
   public readonly List<JobDefinition> Jobs=new List<JobDefinition>(JobCatalog.All);
   public RepairProfile Profile=new RepairProfile();public RepairInteraction Interaction;public readonly RepairTutorial Tutorial=new RepairTutorial();
   public event Action Changed;public event Action<string> Feedback;
   public bool RepairOpen{get;private set;}public bool TabletOpen{get;private set;}
+  public bool ResultOpen{get;private set;}public JobDefinition ResultJob{get;private set;}
+  public bool ResultParked=>Vehicle!=null&&Mathf.Abs(Vehicle.SpeedKmh/3.6f)<=1;
+  public bool SafeAdContext=>Hud?.ModalOpen==true&&(TabletOpen||ResultOpen)&&ResultParked&&!RepairOpen&&!Tutorial.Active&&!ApplicationInterrupted;
+  public readonly Monetization.NativePresentationGate PresentationGate=new Monetization.NativePresentationGate();bool previousAudioPause;
+  public bool AcquirePresentation(object owner){if(ApplicationInterrupted||!PresentationGate.TryAcquire(owner))return false;previousAudioPause=AudioListener.pause;AudioListener.pause=true;Interaction?.ResetInput();SyncPause();return true;}
+  public void ReleasePresentation(object owner){if(!PresentationGate.Release(owner))return;AudioListener.pause=previousAudioPause;SyncPause();}
+  public void DismissResult(){if(NativePresenting?.Invoke()==true||PresentationGate.Busy)return;ResultOpen=false;ResultJob=null;TabletOpen=false;SyncPause();}
+  void PaidResult(long ticket,JobDefinition job){ResultJob=job;ResultOpen=true;RepairOpen=false;Interaction.SetPhase(3);SyncPause();RefreshProfile();Interstitials?.PaidResult(ticket,job);}
   public Func<bool> NativePresenting;bool focused=true,osPaused;RepairSave storage;float nextSnapshot;
-  public bool ApplicationInterrupted=>osPaused||!focused||(NativePresenting!=null&&NativePresenting());
-  public bool Paused{get{return RepairOpen||TabletOpen||osPaused||!focused||(NativePresenting!=null&&NativePresenting());}}
+  public bool ApplicationInterrupted=>osPaused||!focused||PresentationGate.Busy||(NativePresenting!=null&&NativePresenting());
+  public bool Paused{get{return RepairOpen||ResultOpen||TabletOpen||PresentationGate.Busy||osPaused||!focused||(NativePresenting!=null&&NativePresenting());}}
   public JobDefinition ActiveJob{get{return JobCatalog.Find(Profile.ActiveJob);}}
   public float Distance{get{var j=ActiveJob;if(j==null||Vehicle==null)return 0;var d=Vehicle.transform.position-new Vector3(j.DestinationX,0,j.DestinationZ);d.y=0;return d.magnitude;}}
   public int Cash{get{return Profile.Cash;}}public int Level{get{return Profile.Level;}}public int Xp{get{return Profile.Xp;}}
@@ -22,10 +30,10 @@ namespace Kamilunavo.RepairEmpire.Gameplay {
   public bool SelectJob(JobDefinition job){if(job==null||RepairOpen||NativePresenting?.Invoke()==true)return false;if(ActiveJob?.Id==job.Id&&Profile.ActiveTicket>Profile.CompletedTicket)return true;if(Vehicle!=null&&!RepairRules.CanDispatch(Vehicle.transform.position.x-job.DestinationX,Vehicle.transform.position.z-job.DestinationZ)){Feedback?.Invoke(T("Erst vom Kunden wegfahren, dann neuen Auftrag wählen","Leave the customer before dispatching a new call"));return false;}bool result=Transact(p=>RepairRules.BeginJob(p,job.Id)>0);if(result)Interaction=new RepairInteraction(Profile.RepairPhase,RepairRules.WorkshopRate(Profile),ActiveJob?.Presentation);return result;}
   public bool BeginRepair(){var j=ActiveJob;if(j==null||Vehicle==null||Paused||!Profile.Supported||Profile.ActiveTicket<=Profile.CompletedTicket||!RepairRules.IsArrival(Vehicle.transform.position.x-j.DestinationX,Vehicle.transform.position.z-j.DestinationZ,Vehicle.SpeedKmh/3.6f))return false;RepairOpen=true;Interaction=new RepairInteraction(Profile.RepairPhase,RepairRules.WorkshopRate(Profile),ActiveJob?.Presentation);SyncPause();RefreshProfile();return true;}
   public bool AdvanceRepair(int phase){if(!RepairOpen||!Profile.Supported||Profile.RepairPhase!=phase||phase<0||phase>2)return false;var next=Profile.Clone();if(!RepairRules.AdvanceRepair(next,next.ActiveTicket,phase))return false;
-   if(phase==2){if(storage==null||!RepairRules.Complete(next,next.ActiveTicket,DateTime.UtcNow,storage.Save))return false;Profile.CopyFrom(next);RepairOpen=false;Interaction.SetPhase(3);Feedback?.Invoke(T("Auftrag abgeschlossen!","Service call completed!"));SyncPause();RefreshProfile();return true;}
+   if(phase==2){var paidJob=ActiveJob;long paidTicket=next.ActiveTicket;if(storage==null||!RepairRules.Complete(next,next.ActiveTicket,DateTime.UtcNow,storage.Save))return false;Profile.CopyFrom(next);Feedback?.Invoke(T("Auftrag abgeschlossen!","Service call completed!"));PaidResult(paidTicket,paidJob);return true;}
    if(storage==null||!storage.Save(next))return false;Profile.CopyFrom(next);Interaction.SetPhase(Profile.RepairPhase);Feedback?.Invoke(T("Schritt erledigt","Step completed"));RefreshProfile();return true;
   }
-  public void CompleteActiveJob(){if(!RepairOpen||Profile.RepairPhase!=3||storage==null)return;if(RepairRules.Complete(Profile,Profile.ActiveTicket,DateTime.UtcNow,storage.Save)){RepairOpen=false;SyncPause();RefreshProfile();}}
+  public void CompleteActiveJob(){if(!RepairOpen||Profile.RepairPhase!=3||storage==null)return;var paidJob=ActiveJob;long paidTicket=Profile.ActiveTicket;if(RepairRules.Complete(Profile,paidTicket,DateTime.UtcNow,storage.Save)){PaidResult(paidTicket,paidJob);}}
   public void CloseRepair(){if(NativePresenting?.Invoke()==true)return;RepairOpen=false;Interaction?.ResetInput();SyncPause();RefreshProfile();}
   public void SetTabletOpen(bool open){if(NativePresenting?.Invoke()==true)return;TabletOpen=open;Interaction?.ResetInput();SyncPause();RefreshProfile();}
   public bool Transact(Func<RepairProfile,bool> change){if(!Profile.Supported||storage==null)return false;var next=Profile.Clone();if(!change(next)||!storage.Save(next))return false;Profile.CopyFrom(next);RefreshProfile();return true;}
@@ -46,5 +54,6 @@ namespace Kamilunavo.RepairEmpire.Gameplay {
   void OnApplicationFocus(bool value){focused=value;Interaction?.ResetInput();if(!value)Save();SyncPause();}
   void OnApplicationPause(bool value){osPaused=value;Interaction?.ResetInput();if(value)Save();SyncPause();}
   void OnApplicationQuit(){Save();}
+  void OnDestroy(){if(PresentationGate.Busy)AudioListener.pause=previousAudioPause;}
  }
 }

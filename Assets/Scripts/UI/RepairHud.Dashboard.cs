@@ -28,15 +28,15 @@ namespace Kamilunavo.RepairEmpire.UI {
   void ServicePhoto(Transform parent,JobDefinition job,float x,float y,float w,float h){if(Application.isPlaying)ScenePhoto(parent,"ModeledServicePhoto"+job.Id,Studio().Thumbnail(job.Id),x,y,w,h);else Symbol(parent,job,x,y,w,h);}
   void ItemGlyph(Transform parent,string item,float x,float y,float w,float h){var go=new GameObject("ServiceItemGlyph",typeof(RectTransform),typeof(CanvasRenderer),typeof(ServiceItemGlyph));go.transform.SetParent(parent,false);At((RectTransform)go.transform,x,y,w,h);var glyph=go.GetComponent<ServiceItemGlyph>();glyph.Item=item;glyph.raycastTarget=false;}
   void RenderPage(){if(rendering||modal==null)return;rendering=true;try{
-   Clear(modal);repairHold=null;progress=null;ResolveSelected();float pad=12;bool repair=game.RepairOpen;var names=PageNames();modal.GetComponent<Image>().color=Paper;modal.GetComponent<Image>().material=null;
-   Panel(modal,"ServiceHeader",0,0,width,size+pad*2,Navy);Panel(modal,"BrandStripe",pad,pad,4,size,Orange);Label(modal,"TabletTitle",repair?T("REPARATUR","REPAIR"):"REPAIR EMPIRE",pad+14,pad,width-(width<300?size:size*2)-48,size*.55f,24,White);
+   Clear(modal);repairHold=null;progress=null;ResolveSelected();float pad=12;bool repair=game.RepairOpen,result=game.ResultOpen;var names=PageNames();modal.GetComponent<Image>().color=Paper;modal.GetComponent<Image>().material=null;
+   Panel(modal,"ServiceHeader",0,0,width,size+pad*2,Navy);Panel(modal,"BrandStripe",pad,pad,4,size,Orange);Label(modal,"TabletTitle",result?T("AUFTRAG BEZAHLT","ORDER PAID"):repair?T("REPARATUR","REPAIR"):"REPAIR EMPIRE",pad+14,pad,width-(width<300?size:size*2)-48,size*.55f,24,White);
    Label(modal,"TabletSubtitle",repair?T("SERVICE AM KUNDEN","CUSTOMER SERVICE"):T("SERVICE-ZENTRALE","SERVICE DISPATCH")+" · $"+game.Cash.ToString("N0"),pad+14,pad+size*.55f,width-(width<300?size:size*2)-48,size*.4f,14,Muted);
    if(!repair&&width>=300)Button(modal,"DashboardOptions","•••",width-size*2-pad-6,pad,size,size,()=>ShowPage(6),true,Mist);
    Button(modal,"Close","×",width-size-pad,pad,size,size,Close,true,Mist);
    float top=size+pad*2+10,bodyW=width-pad*2,bottom=pad;
-   if(!repair){bottom=size*2+pad*3+12;if(page!=9){Label(modal,"SectionTitle",names[page],pad,top,bodyW,28,22,Ink);top+=36;}}
+   if(!repair){bottom=size*2+pad*3+12;if(page!=9&&!result){Label(modal,"SectionTitle",names[page],pad,top,bodyW,28,22,Ink);top+=36;}}
    body=Panel(modal,"PageBody",pad,top,bodyW,Mathf.Max(size,height-top-bottom),Color.clear);
-   if(repair)RenderRepair();else{RenderTablet();RenderDriveFooter(pad,bodyW);RenderNavigation(pad,bodyW);}
+   if(result)RenderPaidResult();else if(repair)RenderRepair();else{RenderTablet();RenderDriveFooter(pad,bodyW);RenderNavigation(pad,bodyW);}
   }finally{rendering=false;}}
   void RenderNavigation(float pad,float w){float y=height-size-pad;var nav=Panel(modal,"DashboardNavigation",0,y-8,width,size+pad+8,Navy);Panel(nav,"NavigationDivider",pad,0,w,1,Line);int[] destinations={0,1,3,9};string[] labels={T("Aufträge","Calls"),T("Ausrüstung","Equipment"),T("Werkstatt","Workshop"),T("Firma","Company")};float bw=(w-12)/4;
    // On the narrowest reserved pane, two rows preserve full-size logical targets.

@@ -4,7 +4,7 @@
   "sourceSha256": null,
   "reviewer": "Codex actual rendered image inspection",
   "reviewedAt": "2026-10-11",
-  "reason": "Fresh actual 24-photo/1377-check player confirms distinct physical repair objects and settings, reflective chrome and preserved contact progress. The city/vehicle/material density and overall scene fidelity still fall short of the approved concept; technical checks do not clear graphical acceptance.",
+  "reason": "Fresh actual 24-photo/1377-check player confirms distinct physical repair objects and settings, reflective chrome and preserved contact progress. The city/vehicle/material density and overall scene fidelity still fall short of the approved concept; technical checks do not clear graphical acceptance. New commerce player passes four real drives/repairs and1296 checks, including paid-result input lock. The new paid-result page still needs a more compact welcoming visual treatment; commerce functionality does not upgrade graphical acceptance.",
   "criteria": {
     "concept_similarity": "failed",
     "character_or_tower": "pending",
@@ -29,7 +29,23 @@
         "origin": "Unity-render"
       }
     ],
-    "submenus": [],
+    "submenus": [
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RisingExpansion-20261011/Repair/CommerceRuntimeVerified/tablet-de-7.png",
+        "sha256": "ce0c3bb5e4134964a78fe42119d1722af9ba899c18b88246a98ec546d32db3c9",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RisingExpansion-20261011/Repair/CommerceRuntimeVerified/tablet-en-7.png",
+        "sha256": "723bbb76ddafbb21276bea041ac2b21ad5ce6a134614c3d6554c98d152aa03dd",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RisingExpansion-20261011/Repair/CommerceRuntimeVerified/repair-paid-result-0.png",
+        "sha256": "733d18b9a2d3d8eafa20e116e0e5f5d1b6ec42674987c39853b7f63e26ab4409",
+        "origin": "Unity-render"
+      }
+    ],
     "variants": [
       {
         "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RisingExpansion-20261011/Repair/ContextRuntime/fixture-call-0-1.png",
