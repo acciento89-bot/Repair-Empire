@@ -1,12 +1,12 @@
 {
   "game": "Repair Empire",
-  "status": "pending",
+  "status": "failed",
   "sourceSha256": null,
-  "reviewer": null,
-  "reviewedAt": null,
-  "reason": "New 24 fixtures, city, van and UI require actual Unity rendering and concept comparison.",
+  "reviewer": "Codex actual rendered image inspection",
+  "reviewedAt": "2026-10-11",
+  "reason": "Fresh actual 24-photo/1377-check player confirms distinct physical repair objects and settings, reflective chrome and preserved contact progress. The city/vehicle/material density and overall scene fidelity still fall short of the approved concept; technical checks do not clear graphical acceptance.",
   "criteria": {
-    "concept_similarity": "pending",
+    "concept_similarity": "failed",
     "character_or_tower": "pending",
     "world_variants": "pending",
     "menu_identity": "pending",
@@ -15,9 +15,37 @@
   },
   "evidence": {
     "concept": [],
-    "menu": [],
-    "gameplay": [],
+    "menu": [
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RisingExpansion-20261011/Repair/ContextRuntime/showcase-de-dashboard.png",
+        "sha256": "e0ba68d5b27891290a69398c023063e1753404b1c51f487cceadf59347852ff6",
+        "origin": "Unity-render"
+      }
+    ],
+    "gameplay": [
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RisingExpansion-20261011/Repair/ContextRuntime/showcase-driving-guide.png",
+        "sha256": "4b6d597b04d75cb85fba398c480b3c66303780c8f743fbfb0eb2acdc53a1b85b",
+        "origin": "Unity-render"
+      }
+    ],
     "submenus": [],
-    "variants": []
+    "variants": [
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RisingExpansion-20261011/Repair/ContextRuntime/fixture-call-0-1.png",
+        "sha256": "bc3b7677c084f2281b2232ae30421f0ea077a1353d842e15f5168e7ef7b910e2",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RisingExpansion-20261011/Repair/ContextRuntime/fixture-call-1-1.png",
+        "sha256": "6cc7c9aea6e8a4396621f5c76591becda90e2d641948cb060b65b08fea76eaf2",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RisingExpansion-20261011/Repair/ContextRuntime/fixture-call-2-3.png",
+        "sha256": "c94404ffb254889240ae43dfaa83cc25dabe77573b4ddadb58bbe183cec91d02",
+        "origin": "Unity-render"
+      }
+    ]
   }
 }
