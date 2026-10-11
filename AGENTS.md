@@ -19,3 +19,7 @@ Repair Empire is a native iOS/Android Unity service-business simulator.
 - Tablet pauses driving input while open.
 - Touch targets are at least 48 logical points.
 - DE/EN required before release.
+
+## TestFlight visual release gate — 2026-10-11
+
+The user requires actual Unity-rendered gameplay, menus, character/tower and world/design variants to resemble the approved concept before ANY new TestFlight upload. Compilation and functional tests alone do not satisfy this gate. Run `python3 scripts/verify-visual-release.py` before scripted or Xcode GUI distribution. A failed/pending/stale review blocks upload. Inspect actual rendered evidence against the approved board before recording a passed report in `docs/QA/visual-release-gate.json`; bind it to the exact Unity source fingerprint. Never mark illustrations or generated mockups as actual gameplay. All other release checks remain required.

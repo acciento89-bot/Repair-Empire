@@ -1,0 +1,23 @@
+{
+  "game": "Repair Empire",
+  "status": "pending",
+  "sourceSha256": null,
+  "reviewer": null,
+  "reviewedAt": null,
+  "reason": "New 24 fixtures, city, van and UI require actual Unity rendering and concept comparison.",
+  "criteria": {
+    "concept_similarity": "pending",
+    "character_or_tower": "pending",
+    "world_variants": "pending",
+    "menu_identity": "pending",
+    "submenu_navigation": "pending",
+    "readability": "pending"
+  },
+  "evidence": {
+    "concept": [],
+    "menu": [],
+    "gameplay": [],
+    "submenus": [],
+    "variants": []
+  }
+}
