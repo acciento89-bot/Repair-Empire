@@ -32,11 +32,11 @@ namespace Kamilunavo.RepairEmpire.Visuals
   {
    if(_materials.TryGetValue(finish,out var existing))return existing;var mat=new Material(Resources.Load<Material>("Materials/Surface")){name="FixturePBR"+finish};float metal=0,gloss=.25f;
    mat.color=finish switch {
-    FixtureFinish.Ceramic=>new(.94f,.94f,.90f),FixtureFinish.Chrome=>new(.79f,.81f,.82f),FixtureFinish.Steel=>new(.55f,.60f,.61f),FixtureFinish.Copper=>new(.72f,.40f,.23f),FixtureFinish.Brass=>new(.69f,.51f,.23f),
+    FixtureFinish.Ceramic=>new(.94f,.94f,.90f),FixtureFinish.Chrome=>new(.84f,.86f,.88f),FixtureFinish.Steel=>new(.55f,.60f,.61f),FixtureFinish.Copper=>new(.72f,.40f,.23f),FixtureFinish.Brass=>new(.69f,.51f,.23f),
     FixtureFinish.Navy=>new(.035f,.06f,.08f),FixtureFinish.Orange=>new(.96f,.31f,.055f),FixtureFinish.Blue=>new(.13f,.25f,.30f),FixtureFinish.Green=>new(.22f,.47f,.29f),FixtureFinish.Dirt=>new(.34f,.29f,.22f),
     FixtureFinish.Stone=>new(.74f,.70f,.62f),FixtureFinish.Grout=>new(.54f,.52f,.47f),FixtureFinish.Plaster=>new(.80f,.79f,.72f),FixtureFinish.Wood=>new(.48f,.34f,.20f),FixtureFinish.Concrete=>new(.52f,.54f,.51f),
     FixtureFinish.Cloth=>new(.15f,.29f,.36f),FixtureFinish.Lamp=>new(1,.90f,.68f),_=>new(.37f,.48f,.51f)};
-   if(finish==FixtureFinish.Chrome||finish==FixtureFinish.Steel||finish==FixtureFinish.Copper||finish==FixtureFinish.Brass){metal=finish==FixtureFinish.Chrome?.94f:.82f;gloss=finish==FixtureFinish.Chrome?.90f:finish==FixtureFinish.Steel?.61f:.67f;mat.mainTexture=Texture(1);}
+   if(finish==FixtureFinish.Chrome||finish==FixtureFinish.Steel||finish==FixtureFinish.Copper||finish==FixtureFinish.Brass){metal=finish==FixtureFinish.Chrome?1f:.82f;gloss=finish==FixtureFinish.Chrome?.90f:finish==FixtureFinish.Steel?.61f:.67f;mat.mainTexture=Texture(1);}
    else if(finish==FixtureFinish.Ceramic)gloss=.73f;
    else if(finish==FixtureFinish.Stone||finish==FixtureFinish.Plaster||finish==FixtureFinish.Concrete){mat.mainTexture=Texture(0);gloss=finish==FixtureFinish.Stone?.31f:.10f;}
    else if(finish==FixtureFinish.Wood){mat.mainTexture=Texture(2);gloss=.27f;}
@@ -48,20 +48,23 @@ namespace Kamilunavo.RepairEmpire.Visuals
   }
   public Cubemap Environment()
   {
-   if(_environment!=null)return _environment;const int n=64;var cube=new Cubemap(n,TextureFormat.RGB24,true){name="FixturePBRStudioReflection",filterMode=FilterMode.Trilinear,wrapMode=TextureWrapMode.Clamp};
+   if(_environment!=null)return _environment;const int n=64;var cube=new Cubemap(n,TextureFormat.RGBAHalf,true){name="FixturePBRStudioReflection",filterMode=FilterMode.Trilinear,wrapMode=TextureWrapMode.Clamp};
    for(int face=0;face<6;face++){
     var pixels=new Color[n*n];for(int y=0;y<n;y++)for(int x=0;x<n;x++){
      float u=(x+.5f)/n*2-1,v=(y+.5f)/n*2-1;Vector3 d=face switch {0=>new(1,-v,-u),1=>new(-1,-v,u),2=>new(u,1,v),3=>new(u,-1,-v),4=>new(u,-v,1),_=>new(-u,-v,-1)};d.Normalize();
-     var color=Color.Lerp(new Color(.12f,.12f,.11f),new Color(.64f,.61f,.55f),Mathf.Clamp01(d.y*.6f+.55f));
-     // Actual studio environment directions contain two softbox panels and dark joinery.
-     float panel=Mathf.Pow(Mathf.Clamp01((Vector3.Dot(d,new Vector3(-.62f,.61f,-.48f).normalized)-.81f)/.17f),.6f);
-     float strip=Mathf.Clamp01((Vector3.Dot(d,new Vector3(.64f,.25f,-.72f).normalized)-.94f)/.05f);
-     color=Color.Lerp(color,new Color(.99f,.99f,.96f),Mathf.Max(panel,strip));
-     if(Mathf.Abs(d.y)<.13f&&d.z>.3f)color*=.38f;pixels[y*n+x]=color;
+     var color=Color.Lerp(new Color(.20f,.18f,.14f),new Color(.80f,.79f,.73f),Mathf.Clamp01(d.y*.65f+.52f));
+     // Broad window and narrow softbox reflected on physical metal. HDR stores
+     // real bright specular energy; no emission or scene-global environment changes.
+     float panel=Panel(d,new Vector3(-.62f,.42f,-.66f),.58f,.55f);
+     float strip=Panel(d,new Vector3(.64f,.25f,-.72f),.09f,.67f);
+     color=Color.Lerp(color,new Color(3.1f,3.0f,2.78f),panel);
+     color=Color.Lerp(color,new Color(2.25f,2.40f,2.55f),strip);
+     if(Mathf.Abs(d.y)<.09f&&d.z>.45f)color*=.42f;color.a=1;pixels[y*n+x]=color;
     }cube.SetPixels(pixels,(CubemapFace)face);
    }
    cube.Apply(true,true);ArtLifetime.Own(gameObject,cube);_environment=cube;return cube;
   }
+  static float Panel(Vector3 direction,Vector3 normal,float width,float height){normal.Normalize();var across=Vector3.Cross(Vector3.up,normal).normalized;var vertical=Vector3.Cross(normal,across).normalized;float forward=Vector3.Dot(direction,normal);if(forward<=.15f)return 0;float x=Mathf.Abs(Vector3.Dot(direction,across))/forward,y=Mathf.Abs(Vector3.Dot(direction,vertical))/forward;return (1-Mathf.SmoothStep(0,1,Mathf.InverseLerp(width-.06f,width+.06f,x)))*(1-Mathf.SmoothStep(0,1,Mathf.InverseLerp(height-.06f,height+.06f,y)));}
   public static void PrepareRenderers(GameObject model)
   {
    foreach(var renderer in model.GetComponentsInChildren<MeshRenderer>()){
