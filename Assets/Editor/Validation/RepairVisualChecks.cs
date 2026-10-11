@@ -38,7 +38,12 @@ namespace Kamilunavo.RepairEmpire.Validation {
   public static void ValidateSwitchContactVisibility(){
    var root=new GameObject("SwitchContactVisibilityFixture");var view=new GameObject("ActualServiceCameraFixture",typeof(Camera));
    try{
-    var scene=ServiceSceneArt.BuildFixture(root.transform,"switch",1,2);var camera=view.GetComponent<Camera>();camera.transform.position=new(1.55f,1.50f,-2.55f);camera.transform.LookAt(new Vector3(0,.48f,0));camera.fieldOfView=35;camera.aspect=1;
+    var scene=ServiceSceneArt.BuildFixture(root.transform,"switch",1,2);var camera=view.GetComponent<Camera>();var pose=scene.GetComponent<FixturePhotoPose>();
+    if(pose==null)throw new Exception("REPAIR_VISUAL_FAIL missing actual fixture photo pose");
+    camera.transform.position=root.transform.TransformPoint(pose.Eye);camera.transform.LookAt(root.transform.TransformPoint(pose.Target));camera.fieldOfView=pose.FieldOfView;camera.aspect=1;
+    var completed=FixtureMaterials.Get(scene.transform,FixtureFinish.Chrome);var pending=FixtureMaterials.Get(scene.transform,FixtureFinish.Orange);
+    var contrast=new Vector3(completed.color.r-pending.color.r,completed.color.g-pending.color.g,completed.color.b-pending.color.b);
+    if(contrast.sqrMagnitude<.20f)throw new Exception("REPAIR_VISUAL_FAIL completed and pending contacts lack visible color contrast");
     var renderers=scene.GetComponentsInChildren<MeshRenderer>();
     for(int i=0;i<4;i++){
      var contact=scene.transform.Find("Service fixture/Electrical contact "+i).GetComponent<MeshRenderer>();Vector3 target=contact.bounds.center;var viewport=camera.WorldToViewportPoint(target);
@@ -47,7 +52,7 @@ namespace Kamilunavo.RepairEmpire.Validation {
      foreach(var renderer in renderers){if(renderer==contact||!renderer.enabled||!renderer.bounds.IntersectRay(ray,out float entry)||entry>=distance)continue;var mesh=renderer.GetComponent<MeshFilter>().sharedMesh;var vertices=mesh.vertices;var indices=mesh.triangles;
       for(int t=0;t<indices.Length;t+=3)if(TriangleHit(ray,renderer.transform.TransformPoint(vertices[indices[t]]),renderer.transform.TransformPoint(vertices[indices[t+1]]),renderer.transform.TransformPoint(vertices[indices[t+2]]),out float hit)&&hit<distance-.001f)throw new Exception("REPAIR_VISUAL_FAIL contact "+i+" hidden from actual service camera by "+renderer.name);
      }
-     string expected=i<2?"FixtureChrome":"FixtureOrange";if(contact.sharedMaterial.name!=expected)throw new Exception("REPAIR_VISUAL_FAIL ordered contact progress is not shown "+i);
+     var expected=i<2?completed:pending;if(contact.sharedMaterial!=expected)throw new Exception("REPAIR_VISUAL_FAIL ordered contact progress is not shown "+i);
     }
     Debug.Log("REPAIR_SWITCH_CONTACTS_PASS four exposed contacts inside actual camera and ordered progress");
    }finally{UnityEngine.Object.DestroyImmediate(view);UnityEngine.Object.DestroyImmediate(root);}

@@ -7,7 +7,7 @@ namespace Kamilunavo.RepairEmpire.Core {
  public string[] CompletedContracts=new string[0];
  [NonSerialized] public bool RewardInFlight;
  public bool TutorialCompleted;
- public bool Sound=true,Haptics=true,ReducedMotion,HighContrast;
+ public bool Sound=true,Music=true,Haptics=true,ReducedMotion,HighContrast;
  public bool[] Styles={true,false,false,false,false,false,false,false};
  public float SavedX,SavedZ,SavedHeading;
  public Monetization.CommerceProfile Commerce=new Monetization.CommerceProfile();public Monetization.RewardProfile Rewards=new Monetization.RewardProfile();

@@ -12,6 +12,6 @@ namespace Kamilunavo.RepairEmpire.Gameplay {
    for(int c=0;c<4;c++)for(int i=0;i<en[c].Length;i++)Add(list,"call-"+c+"-"+i,en[c][i],de[c][i],c,new[]{"Garden Residence","Central Offices","Oak Street","City Suites","Park Apartments","Workshop Annex"}[i%6],180+40*i,120+20*i,65+55*i+(c%2)*20,c==0?0:c==1?1:2,c==0?2:c==1?3:4);
    return list.ToArray();
   }
-  static void Add(System.Collections.Generic.List<JobDefinition> list,string id,string en,string de,int c,string address,int reward,int xp,float z,int tool,int level){var j=new JobDefinition(id,en,new[]{"Plumbing","Electrical","Heating","Climate"}[c],address,reward,xp,z,new[]{"Basic Wrench","Voltage Tester","Professional Kit"}[tool]);j.TitleDe=de;j.CategoryIndex=c;j.ToolTier=tool;j.MinimumLevel=level;j.DestinationX=(list.Count%2==0?5.5f:-5.5f);list.Add(j);}
+  static void Add(System.Collections.Generic.List<JobDefinition> list,string id,string en,string de,int c,string address,int reward,int xp,float z,int tool,int level){var j=new JobDefinition(id,en,new[]{"Plumbing","Electrical","Heating","Climate"}[c],address,reward,xp,z,new[]{"Basic Wrench","Voltage Tester","Professional Kit"}[tool]);j.Presentation=JobPresentationCatalog.For(id);j.TitleDe=de;j.CategoryIndex=c;j.ToolTier=tool;j.MinimumLevel=level;j.DestinationX=(list.Count%2==0?5.5f:-5.5f);list.Add(j);}
  }
 }

@@ -288,3 +288,12 @@ The coordinated desktop acceptance receipts and actual rendered views are record
 Acceptance remains bounded: desktop event-driven input and rendered QA do not establish physical iPhone raw multi-touch, thermal or 60 FPS acceptance; genuine provider purchase/reward transactions and full cinematic equivalence to the concept illustrations remain open. The known vendor UnityRuntime.framework dSYM warning does not prevent internal delivery; the game's own and UnityFramework symbols remain retained. No public App Review submission or Play publication was performed.
 
 Full driving/four-job/exact-once acceptance predates only the final decorative depth-tested world-font atlas binding. Final presentation acceptance exercises that binding and the unobstructed switch contacts. Four paid jobs were restored in a fresh process.
+
+
+## Review revisions and original music — 2026-10-11; TestFlight blocked
+
+Four different original musical scores now ship as bounded imported loops with an independent Music choice and master Sound mute. Fresh local Unity aggregate/Mac build exit 0 includes 45 music checks and zero music validation errors. Detailed provenance, current limitations and evidence: `docs/MUSIC-DESIGN-20261011.md`. Intended music source gain .22, .35-second fade, separate focus/pause gates, one owned voice; no third-party music or samples. Physical audible mix acceptance remains pending.
+
+24 unique fixture keys/3 persisted phases/11 job-specific workflow patterns, proper item glyphs and previous-menu history are integrated. New physical settings cover9 distinct contexts/17 structural signatures (max4908 vertices per fixture), small owned textures/materials and one isolated local reflection cube; global RenderSettings and gameplay collision remain unchanged. Fresh aggregate verifies all24 workflow/fixture bindings, context/material/teardown and HUD4260 checks. Earlier actual1377-check showcase/24 rendered thumbnails predates final context/PBR correction and new45-check music teardown; fresh pictures must be assessed. Duplicate completed-contract payment/distance guards remain tested.
+
+All current visual release reports remain failed/pending. Passing tests, mesh counts or a local build is not graphical acceptance. Do not upload any new TestFlight build until exact-source actual Unity renders satisfy the user’s concept gate. The user-deleted historical docs/concepts/PRIMARY-CONCEPT.png remains unstaged.
