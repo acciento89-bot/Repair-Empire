@@ -50,9 +50,9 @@ namespace Kamilunavo.RepairEmpire.UI {
    var drive=Button(modal,accept?"AcceptSelected":page==9?"DashboardDrive":"ReturnDrive",caption,actionX,y,actionW,size,()=>{if(accept){if(game.SelectJob(call))Close();else ShowNotice(T("Auftrag nicht verfügbar oder noch beim Kunden","Call unavailable or still at the customer"));}else if(page==9&&call==null)ShowPage(0);else Close();},!accept||RepairRules.CanTake(game.Profile,call));drive.GetComponentInChildren<Text>().fontSize=drive.GetComponentInChildren<Text>().resizeTextMaxSize=16;
    float bodyTop=-body.anchoredPosition.y;body.sizeDelta=new Vector2(w,Mathf.Max(size,y-12-bodyTop));var viewport=body.Find("ScrollViewport") as RectTransform;if(viewport!=null)viewport.sizeDelta=body.sizeDelta;
   }
-  void RenderDashboard(){float w=body.rect.width;bool wide=w>=600;float heroH=wide?150:Mathf.Clamp(w*.39f,98,156);var c=Scroll(heroH+560);var hero=Panel(c,"CompanyHero",0,0,w,heroH,Navy);
+  void RenderDashboard(){float w=body.rect.width;bool wide=w>=600;float heroH=wide?190:Mathf.Clamp(w*.62f,160,272);var c=Scroll(heroH+560);var hero=Panel(c,"CompanyHero",0,0,w,heroH,Navy);
    if(Application.isPlaying)ScenePhoto(hero,"ModeledWorkshopPhoto",Studio().WorkshopImage(),0,0,w,heroH);else Illustration(hero,3,0,0,w,heroH);
-   Panel(hero,"WorkshopCaptionSurface",0,heroH-44,w,44,Navy);Label(hero,"WorkshopCaption",T("KLEINE REPARATUREN. GROSSE WIRKUNG.","SMALL REPAIRS. REAL IMPACT."),14,heroH-42,w-28,40,15,White);
+   Panel(hero,"WorkshopCaptionSurface",0,heroH-34,w,34,Navy);Label(hero,"WorkshopCaption",T("KLEINE REPARATUREN. GROSSE WIRKUNG.","SMALL REPAIRS. REAL IMPACT."),14,heroH-33,w-28,31,14,White);
    float y=heroH+12;Label(c,"CurrentCallHeading",game.ActiveJob!=null?T("AKTUELLER AUFTRAG","CURRENT SERVICE CALL"):T("DEIN NÄCHSTER AUFTRAG","YOUR NEXT SERVICE CALL"),0,y,w,27,15,Ink);y+=32;var call=NextCall();if(call!=null){CallCard(c,call,"DashboardCurrentCall",0,y,w,Mathf.Max(126,size+60),()=>{selectedJob=call;ShowPage(0);},false);y+=Mathf.Max(126,size+60)+10;}
    else{EmptyCalls(c,8,y,w-16,Mathf.Max(110,size*2));y+=Mathf.Max(110,size*2)+10;}
    int shown=0;foreach(var job in game.Jobs){if(job.Id==call?.Id||RepairRules.IsPaid(game.Profile,job.Id))continue;float h=Mathf.Max(size+38,96);CallCard(c,job,"DashboardNext"+job.Id,0,y,w,h,()=>{selectedJob=job;ShowPage(0);},false);y+=h+8;if(++shown==1)break;}

@@ -321,3 +321,22 @@ Sealed continuous faucet bend/aerator with owned HDR chrome reflections; narrowe
 Mac build exit0; conceptpolish111034/commerce25; fresh native1296 checks with4 actual Rigidbody drives/ordered repairs/once-only payouts exit0; fresh showcase1381/24 genuine distinct fixture photos exit0.
 
 The straight sparse city, simple van body, workshop scene, vegetation/light and overall art density still fall short of the Concept. **Visual gate stays FAILED; no TestFlight.** Exact proof/capture paths and remaining gaps: `docs/GRAPHICS-COMPARISON-20261011.md`.
+
+
+## 2026-10-11 — original authored asset pass and actual Concept evidence
+
+Original recessed residential shopfronts/windows/cornices, folded scalloped canopy, visible front dormers and climbing leaves; original brick course relief/normal Standard shader. Fixture covers original3owned textures/11materials/37045vertices and collision separation.
+
+Final Mac aggregate/build exit0; conceptpolish119048checks; residential37045vertices/11materials/3textures. Actual isolated Mac1296checks with4real Rigidbody drives/ordered repairs/once-only payout and fresh showcase1381checks/24distinct modeled fixture photographs, both exit0. Early nonisolated QA launch error was rerun correctly with separate QA IDs; it is excluded from acceptance.
+
+The street remains too straight and sparse; van shape, trees, workshop lighting, scene density and compact HUD remain below the approved Concept. **Visual acceptance stays FAILED. No TestFlight or version bump.** Exact proof/scene-source digests: `docs/GRAPHICS-COMPARISON-20261011.md`; provenance: `docs/ORIGINAL-ASSETS-20261011.md`. User-deleted historical Concept PNG remains unstaged.
+
+## 2026-10-15 — original workshop and fitted van glazing
+
+Continued Repair Empire immediately after Perfect Drop 1.0(13) was resubmitted to App Review. Original 3D room, timber ceiling, workshop fixtures and tools, company identity, two masked warm work lights and original generated plaster/oak material assets replace the sparse workshop hero. The cached real Unity photo is now 960 × 600 with a closer camera and larger dashboard allocation. Fixed navigation and drive actions remain accessible. Previously pending original residential/coachwork models and shader are included in this verified source; no gameplay rules, save schema, package migration or driving physics change.
+
+Native image review found the former flat windshield intersecting the curved coachwork. An actual engine RED case reproduced the occlusion; glass/wipers now follow the identical body station surface. GREEN 57 actual mesh rays and the fresh native image confirm the correction. Only the workshop photo uses a new 24-bit depth target. The coachwork body geometry remains unchanged.
+
+Frozen source `7674de39e10679fa123ea9ccac13d87cae499a31c8d9882afb2095e826c57594`: full Unity aggregate and Mac build exit 0; fresh native presentation 1,381 checks, full four-driven-job/ordered-repair/exactly-once payout 1,296 checks and separate-process saved-profile reload 7 checks, all exit 0. All 314 native bundle files were reverified. Root reviewed real workshop and DE/EN dashboard frames against the unchanged approved three-view Concept. Independent source review found no actionable defects. Exact logs, source/image hashes, generated-asset provenance and limitations: `docs/QA/repair-workshop-20261015.json` and `docs/REPAIR-WORKSHOP-20261015.md`.
+
+Whole-game Concept approval remains **FAILED**; current street composition/density, van/foliage/lighting and compact driving HUD do not meet the full reference yet. No numerical similarity or physical-device performance claim. No Repair Empire TestFlight upload, App Review submission or build-number change. Historical deleted Concept PNG remains unstaged.

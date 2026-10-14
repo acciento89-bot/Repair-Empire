@@ -55,15 +55,15 @@ namespace Kamilunavo.RepairEmpire.Visuals
  public sealed class UrbanArtKit
  {
   readonly Transform owner;
-  public readonly Material Brick,Plaster,Trim,Glass,Roof,LeafMass,Leaves,Metal;readonly Material paleFacade,goldenCrown;
+  public readonly Material Brick,Plaster,Trim,Glass,Roof,LeafMass,Leaves,Metal;readonly Material paleFacade,goldenCrown,shopTeal,shopCanvas;
   public UrbanArtKit(Transform root,Material stone,Material glass,Material steel)
   {
    owner=root;Metal=steel;Glass=Own("UrbanResidentialGlazing",new Color(.33f,.43f,.48f));Glass.SetFloat("_Metallic",.18f);Glass.SetFloat("_Glossiness",.73f);
-   Brick=Own("UrbanWarmBrick",Color.white);Brick.mainTexture=Texture(false);
+   Brick=Own("UrbanWarmBrick",Color.white);Brick.shader=Resources.Load<Shader>("RepairResidentialMasonry");Brick.mainTexture=Texture(false);Brick.SetFloat("_Relief",.13f);
    Plaster=Own("UrbanWarmPlaster",new Color(.91f,.84f,.70f));Plaster.mainTexture=Texture(true);
    Trim=Own("UrbanLimestoneTrim",new Color(.83f,.79f,.66f));Trim.mainTexture=Plaster.mainTexture;
    paleFacade=Own("UrbanWarmPlasterPale",new Color(.95f,.91f,.82f));paleFacade.mainTexture=Plaster.mainTexture;
-   goldenCrown=Own("UrbanGoldenCrown",new Color(.47f,.53f,.16f));
+   goldenCrown=Own("UrbanGoldenCrown",new Color(.47f,.53f,.16f));shopTeal=Own("UrbanPaintedShopTeal",new Color(.12f,.26f,.25f));shopCanvas=Own("UrbanCanvasWarmOchre",new Color(.72f,.44f,.22f));
    Roof=Own("UrbanSlateRoof",new Color(.19f,.24f,.27f));
    LeafMass=Own("UrbanCrownShadow",new Color(.22f,.34f,.12f));
    Leaves=Own("UrbanLeafDetail",new Color(.69f,.80f,.35f));Leaves.shader=Resources.Load<Shader>("Foliage");Leaves.mainTexture=LeafTexture();Leaves.SetFloat("_Cutoff",.42f);
@@ -75,7 +75,7 @@ namespace Kamilunavo.RepairEmpire.Visuals
    for(int y=0;y<size;y++)for(int x=0;x<size;x++){
     int row=y/16,xx=(x+(row%2)*16)%32;bool mortar=y%16<2||xx<2;float grain=Mathf.Sin(x*12.7f+y*4.9f)*.025f+Mathf.Sin(x*.31f+y*.17f)*.02f;
     float brickShade=.88f+Mathf.Sin((xx/32f+row)*3.71f)*.06f;
-    pixels[y*size+x]=plaster?new Color(.91f+grain,.91f+grain,.91f+grain):mortar?new Color(.62f,.59f,.52f):new Color(.57f*brickShade+grain,.26f*brickShade+grain,.16f*brickShade+grain);
+    pixels[y*size+x]=plaster?new Color(.91f+grain,.91f+grain,.91f+grain):mortar?new Color(.62f,.59f,.52f):new Color(.66f*brickShade+grain,.32f*brickShade+grain,.20f*brickShade+grain);
    }
    var texture=new Texture2D(size,size,TextureFormat.RGB24,true){name=plaster?"UrbanPlasterGrain":"UrbanBrickCourses",wrapMode=TextureWrapMode.Repeat,filterMode=FilterMode.Bilinear};texture.SetPixels(pixels);texture.Apply(true,true);ArtLifetime.Own(owner.gameObject,texture);return texture;
   }
@@ -90,7 +90,7 @@ namespace Kamilunavo.RepairEmpire.Visuals
   }
   static GameObject Box(Transform parent,string name,Vector3 at,Vector3 scale,Material mat,float bevel=0){var go=bevel>0?MeshArt.BevelBox(parent,name,at,scale,bevel,mat):MeshArt.Box(parent,name,at,scale,mat);
    // Physical brick courses repeat at masonry scale rather than stretching over a pier.
-   if(mat.name.StartsWith("UrbanWarmBrick")||mat.name.StartsWith("UrbanWarmPlaster")){var mesh=go.GetComponent<MeshFilter>().sharedMesh;var points=mesh.vertices;var normals=mesh.normals;var uv=new Vector2[points.Length];for(int i=0;i<points.Length;i++){var point=points[i]+at;var n=normals[i];uv[i]=Mathf.Abs(n.y)>.7f?new Vector2(point.x/.92f,point.z/.62f):Mathf.Abs(n.x)>Mathf.Abs(n.z)?new Vector2(point.z/.92f,point.y/.62f):new Vector2(point.x/.92f,point.y/.62f);}mesh.uv=uv;}return go;}
+   if(mat.name.StartsWith("UrbanWarmBrick")||mat.name.StartsWith("UrbanWarmPlaster")){var mesh=go.GetComponent<MeshFilter>().sharedMesh;var points=mesh.vertices;var normals=mesh.normals;var uv=new Vector2[points.Length];for(int i=0;i<points.Length;i++){var point=points[i]+at;var n=normals[i];uv[i]=Mathf.Abs(n.y)>.7f?new Vector2(point.x/.92f,point.z/.62f):Mathf.Abs(n.x)>Mathf.Abs(n.z)?new Vector2(point.z/.92f,point.y/.62f):new Vector2(point.x/.92f,point.y/.62f);}mesh.uv=uv;if(mat.shader.name=="Repair/ResidentialMasonry")mesh.RecalculateTangents();}return go;}
 
 
   public void Facade(float x,float z,float height,float width,float depth,int facing,int district)
@@ -99,15 +99,34 @@ namespace Kamilunavo.RepairEmpire.Visuals
    var root=new GameObject(names[district]).transform;root.SetParent(owner,false);root.localPosition=new Vector3(x,0,z);root.localRotation=Quaternion.Euler(0,facing*90,0);
    Material facade=district==0?Brick:district==3?paleFacade:Plaster;
    if(district==2){Envelope(root,depth,width,7.0f,Plaster,4,false);var upper=new GameObject("Setback upper residence").transform;upper.SetParent(root,false);upper.localPosition=new Vector3(1.25f,7,-1.0f);Envelope(upper,depth*.72f,width-2,height-7,Plaster,3,false);FlatRoof(upper,depth*.72f,width-2,height-7);Box(root,"Modern terrace parapet",new Vector3(-depth*.37f,7.35f,width*.28f),new Vector3(depth*.25f,.55f,.18f),Trim);}
-   else{Envelope(root,depth,width,height,facade,district==1?6:4,district!=1);if(district==0||district==3)PitchedRoof(root,depth,width,height,district==3);else FlatRoof(root,depth,width,height);}
+   else{Envelope(root,depth,width,height,facade,district==1?5:4,true);if(district==0||district==3)PitchedRoof(root,depth,width,height,district==3);else FlatRoof(root,depth,width,height);}
    // A few broad authored features define each frontage, rather than covering
    // every wall with the same dense window-grid ornament.
-   float front=width*.5f;
-   if(district==1){for(int column=0;column<3;column++)Box(root,"Office projecting vertical fin",new Vector3((column-1)*depth*.31f,height*.5f,front+.16f),new Vector3(.20f,height,.42f),Roof);}
+   float front=width*.5f;Storefront(root,depth,front,district);
+   if(district==1){for(int column=0;column<3;column++)Box(root,"Office projecting vertical fin",new Vector3((column-1)*depth*.31f,height*.5f,front+.11f),new Vector3(.10f,height,.17f),Trim);}
    if(district==0||district==3){for(int floor=2;floor<height/3;floor+=2){float y=floor*3;float xx=district==0?-depth*.22f:depth*.20f;Box(root,"Recessed residential balcony",new Vector3(xx,y-.80f,front+.35f),new Vector3(3.4f,.18f,.80f),Trim);Box(root,"Balcony metal rail",new Vector3(xx,y-.08f,front+.74f),new Vector3(3.4f,.08f,.06f),Metal);for(int post=0;post<6;post++)Box(root,"Balcony slender baluster",new Vector3(xx-1.5f+post*.60f,y-.46f,front+.74f),new Vector3(.05f,.80f,.05f),Metal);}}
-   Box(root,"Urban shop sign backing",new Vector3(0,2.64f,front+.10f),new Vector3(depth*.47f,.46f,.12f),Roof,.03f);
-   VanArt.Text(root,new[]{"RIVERSIDE MARKET","CITY OFFICES","RIVERSIDE LOFTS","NEIGHBOURHOOD CAFÉ"}[district],new Vector3(0,2.64f,front+.19f),.21f,new Color(.93f,.89f,.77f),Quaternion.Euler(0,180,0));
+   Box(root,"Urban shop sign backing",new Vector3(0,3.08f,front+.14f),new Vector3(depth*.47f,.38f,.12f),Roof,.03f);
+   VanArt.Text(root,new[]{"RIVERSIDE MARKET","CITY OFFICES","RIVERSIDE LOFTS","NEIGHBOURHOOD CAFÉ"}[district],new Vector3(0,3.08f,front+.21f),.21f,new Color(.93f,.89f,.77f),Quaternion.Euler(0,180,0));
    foreach(int side in new[]{-1,1}){Box(root,"Shop stone planter",new Vector3(side*depth*.42f,.35f,front+.36f),new Vector3(.78f,.66f,.82f),Trim,.07f);Shrub(root,new Vector3(side*depth*.42f,.78f,front+.36f),.55f);}
+  }
+  void Storefront(Transform root,float span,float front,int district){
+   var paint=district%2==0?shopTeal:Roof;var canvas=district==3?shopTeal:shopCanvas;
+   // Two differently recessed shops share a masonry frontage, not a flat ground-floor window grid.
+   for(int shop=0;shop<2;shop++){float center=(shop==0?-1:1)*span*.235f,width=span*.405f;
+    Box(root,"Painted shopfront lower panel",new Vector3(center,.39f,front+.17f),new Vector3(width,.70f,.22f),paint,.025f);
+    foreach(int edge in new[]{-1,1}){float xx=center+edge*width*.5f;Box(root,"Shopfront carved upright",new Vector3(xx,1.42f,front+.19f),new Vector3(.15f,2.80f,.29f),paint);Box(root,"Shopfront upright capital",new Vector3(xx,2.66f,front+.22f),new Vector3(.25f,.17f,.34f),Trim);}
+    for(int pane=0;pane<3;pane++){float xx=center+(pane-1)*width*.27f;Box(root,"Shop display transom",new Vector3(xx,2.29f,front+.11f),new Vector3(width*.27f,.045f,.12f),paint);Box(root,"Shop window slim mullion",new Vector3(xx,1.49f,front+.12f),new Vector3(.045f,1.68f,.12f),paint);}
+    var v=new List<Vector3>();var t=new List<int>();var uv=new List<Vector2>();const int curve=8;
+    for(int row=0;row<=curve;row++){float f=(float)row/curve,yy=2.99f-.27f*Mathf.Sin(f*Mathf.PI*.5f),zz=front+.08f+f*.98f;foreach(int side in new[]{-1,1}){v.Add(new Vector3(center+side*width*.53f,yy,zz));uv.Add(new Vector2(side<0?0:1,f));}if(row>0){int k=row*2;t.AddRange(new[]{k-2,k,k-1,k-1,k,k+1});}}
+    MeshArt.Mesh(root,"Shop canvas awning",v.ToArray(),t.ToArray(),uv.ToArray(),canvas);
+    Box(root,"Awning hanging valance",new Vector3(center,2.64f,front+1.055f),new Vector3(width*1.06f,.16f,.026f),canvas);
+    for(int scallop=0;scallop<10;scallop++){float xx=center-width*.50f+(scallop+.5f)*width*.10f;var flap=MeshArt.Ring(root,"Awning scalloped hem",width*.055f,width*.055f,0,canvas,8,180);flap.transform.localPosition=new Vector3(xx,2.56f,front+1.072f);flap.transform.localRotation=Quaternion.Euler(90,0,0);}
+   }
+   // A separate narrow entrance gives the block an authored domestic address.
+   float door=-span*.5f+span*.105f;Box(root,"Shop recessed entrance",new Vector3(door,1.24f,front+.12f),new Vector3(1.12f,2.20f,.10f),shopTeal,.02f);Box(root,"Entrance glass inset",new Vector3(door,1.68f,front+.18f),new Vector3(.83f,1.09f,.025f),Glass);Box(root,"Entrance lower raised panel",new Vector3(door,.60f,front+.19f),new Vector3(.83f,.55f,.035f),paint);Box(root,"Entrance brass pull",new Vector3(door+.36f,1.17f,front+.23f),new Vector3(.032f,.25f,.025f),Metal);
+   for(int dentil=0;dentil<20;dentil++)Box(root,"Shop cornice dentil",new Vector3(-span*.48f+dentil*span*.96f/19,3.43f,front+.22f),new Vector3(.12f,.11f,.22f),Trim);
+   Box(root,"Shop continuous cornice",new Vector3(0,3.55f,front+.15f),new Vector3(span,.14f,.40f),Trim,.025f);
+   var leaves=new List<Vector3>();var leafTriangles=new List<int>();for(int leaf=0;leaf<18;leaf++){float yy=.6f+leaf*.115f,xx=span*.465f+Mathf.Sin(leaf*1.9f)*.08f;var at=new Vector3(xx,yy,front+.34f);var across=new Vector3(Mathf.Cos(leaf*.8f)*.075f,.018f,Mathf.Sin(leaf*.8f)*.035f);var along=new Vector3(leaf%2==0?-.045f:.045f,-.22f,0);int k=leaves.Count;leaves.AddRange(new[]{at,at+along*.35f-across,at+along,at+along*.35f+across,at+along*.45f+Vector3.forward*.028f,at+along*.45f+Vector3.back*.012f});for(int edge=0;edge<4;edge++)leafTriangles.AddRange(new[]{k+4,k+edge,k+(edge+1)%4,k+5,k+(edge+1)%4,k+edge});}MeshArt.Mesh(root,"Shop climbing vine leaves",leaves.ToArray(),leafTriangles.ToArray(),null,LeafMass);
   }
   void Envelope(Transform root,float span,float depth,float height,Material facade,int columns,bool residential)
   {
@@ -123,6 +142,7 @@ namespace Kamilunavo.RepairEmpire.Visuals
     Box(root,"Window inset upper reveal",new Vector3(xx,y+1.08f,front-.06f),new Vector3(paneWidth,.12f,.37f),facade);
     Box(root,"Fine glazing mullion",new Vector3(xx,y,front-.10f),new Vector3(.055f,2.08f,.09f),residential?Trim:Metal);
     if(residential&&floor>0){float infill=(cell-paneWidth)*.5f;foreach(int side in new[]{-1,1})Box(root,"Residential masonry infill",new Vector3(xx+side*(paneWidth*.5f+infill*.5f),y,front-.09f),new Vector3(infill,2.41f,.38f),facade);
+     foreach(int side in new[]{-1,1})Box(root,"Recessed sash stone jamb",new Vector3(xx+side*(paneWidth*.5f+.055f),y,front+.035f),new Vector3(.11f,2.13f,.28f),Trim);Box(root,"Sash lintel drip molding",new Vector3(xx,y+1.12f,front+.06f),new Vector3(paneWidth+.29f,.11f,.35f),Trim);
      Box(root,"Residential sash meeting rail",new Vector3(xx,y-.05f,front-.08f),new Vector3(paneWidth,.065f,.08f),Trim);if(floor==1||floor==3)WindowArch(root,xx,y+1.04f,front+.115f,paneWidth*.5f+.055f);
      if(col%2==0&&floor==1){Box(root,"Window flower box",new Vector3(xx,y-1.1f,front+.34f),new Vector3(paneWidth*.85f,.21f,.27f),Roof,.025f);for(int plant=0;plant<3;plant++)Shrub(root,new Vector3(xx+(plant-1)*.30f,y-.94f,front+.34f),.22f);}
     }
@@ -141,11 +161,11 @@ namespace Kamilunavo.RepairEmpire.Visuals
   }
   void PitchedRoof(Transform root,float span,float depth,float height,bool mansard)
   {
-   float peak=height+(mansard?3.0f:2.1f);float inset=mansard?span*.20f:0;
+   float peak=height+(mansard?3.4f:2.7f);float inset=mansard?span*.20f:0;
    Vector3[] v={new(-span*.52f,height,-depth*.54f),new(span*.52f,height,-depth*.54f),new(inset,peak,-depth*.54f),new(-inset,peak,-depth*.54f),new(-span*.52f,height,depth*.54f),new(span*.52f,height,depth*.54f),new(inset,peak,depth*.54f),new(-inset,peak,depth*.54f)};
    MeshArt.Mesh(root,mansard?"Mansard roof shoulders":"Terrace pitched roof",v,new[]{0,3,2,0,2,1,4,5,6,4,6,7,0,4,7,0,7,3,1,2,6,1,6,5,3,7,6,3,6,2},null,Roof);
    Box(root,"Roof ridge cap",new Vector3(0,peak+.05f,0),new Vector3(Mathf.Max(.20f,inset*2),.13f,depth*1.10f),Metal,.03f);
-   for(int dormer=0;dormer<3;dormer++){float xx=(dormer-1)*span*.28f;Box(root,"Urban dormer casing",new Vector3(xx,height+1.15f,depth*.36f),new Vector3(1.76f,1.65f,1.33f),Plaster,.075f);Box(root,"Dormer inset glazing",new Vector3(xx,height+1.19f,depth*.36f+.68f),new Vector3(1.23f,1.06f,.035f),Glass);Box(root,"Dormer slate cap",new Vector3(xx,height+2.03f,depth*.36f),new Vector3(1.91f,.17f,1.51f),Roof,.035f);}
+   for(int dormer=0;dormer<3;dormer++){float xx=(dormer-1)*span*.28f,dz=depth*.54f+.16f;Box(root,"Urban dormer casing",new Vector3(xx,height+1.15f,dz-.66f),new Vector3(1.76f,1.65f,1.33f),Plaster,.045f);Box(root,"Dormer inset glazing",new Vector3(xx,height+1.19f,dz+.018f),new Vector3(1.23f,1.06f,.035f),Glass);foreach(int side in new[]{-1,1})Box(root,"Dormer shaped stone jamb",new Vector3(xx+side*.68f,height+1.19f,dz+.06f),new Vector3(.11f,1.18f,.16f),Trim);Box(root,"Dormer sash",new Vector3(xx,height+1.19f,dz+.06f),new Vector3(.055f,1.08f,.08f),Trim);Box(root,"Dormer carved sill",new Vector3(xx,height+.61f,dz+.09f),new Vector3(1.51f,.13f,.25f),Trim);var cap=new[]{new Vector3(xx-.96f,height+2.0f,dz-1.38f),new Vector3(xx,height+2.39f,dz-1.38f),new Vector3(xx+.96f,height+2.0f,dz-1.38f),new Vector3(xx-.96f,height+2.0f,dz+.16f),new Vector3(xx,height+2.39f,dz+.16f),new Vector3(xx+.96f,height+2.0f,dz+.16f)};MeshArt.Mesh(root,"Dormer slate cap",cap,new[]{0,1,2,3,5,4,0,3,4,0,4,1,1,4,5,1,5,2},null,Roof);}
    foreach(int side in new[]{-1,1})Box(root,"Historic eaves cornice",new Vector3(0,height-.14f,side*depth*.52f),new Vector3(span*1.045f,.22f,.28f),Trim,.045f);
    for(int course=0;course<6;course++){float t=(course+.5f)/6;float xx=Mathf.Lerp(span*.52f,inset,t),yy=Mathf.Lerp(height,peak,t);foreach(int side in new[]{-1,1})MeshArt.Tube(root,"Slate roof course",new[]{new Vector3(side*xx,yy+.028f,-depth*.53f),new Vector3(side*xx,yy+.028f,depth*.53f)},.013f,Metal,6);}
    Box(root,"Brick chimney stack",new Vector3(span*.36f,height+1.45f,-depth*.26f),new Vector3(.78f,2.4f,.96f),Brick,.04f);Box(root,"Chimney flue cap",new Vector3(span*.36f,height+2.71f,-depth*.26f),new Vector3(1.01f,.18f,1.17f),Metal);

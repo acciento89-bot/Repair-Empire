@@ -1,0 +1,25 @@
+{
+  "createdAt": "2026-10-15",
+  "assets": [
+    {
+      "name": "workshop_plaster",
+      "source": "/Users/piotrkaminski/.codex/generated_images/01a11788-3eb6-7e32-963e-51b37d78e2ed/exec-f1916012-15b2-4e44-92b7-abbe5eb87df7.png",
+      "prompt": "Use case: photorealistic-natural. Asset type: original seamless PBR base-color texture for a Unity mobile game workshop wall. Create one flat square, edge-to-edge tileable warm pale limestone-beige painted plaster texture, very fine realistic mineral grain and restrained trowel marks, faint age variation, understated clean maintained artisan garage. Orthographic straight-on material scan, uniform neutral diffuse illumination baked into NO direction; no shadows, no ambient occlusion, no perspective, no objects, no seams, no borders, no text, no watermark. Neutral ivory beige average, low contrast; not yellow and not gray. High-quality physically plausible plaster albedo, useful surface detail at 1024 square. The entire image must be only the continuous material, no tile borders.",
+      "provider": "built-in image_gen",
+      "role": "Original bitmap albedo material asset, not gameplay screenshot",
+      "projectAsset": "Assets/Resources/Art/Workshop/Plaster.png",
+      "sha256": "24f3d4c83af5e1bb7c990a012a23d77a67a5aaa63743d50a1629d50ae6eb9a07",
+      "unmodifiedCopy": true
+    },
+    {
+      "name": "workshop_oak",
+      "source": "/Users/piotrkaminski/.codex/generated_images/01a11788-3eb6-7e32-963e-51b37d78e2ed/exec-68cbb9c4-6046-4faf-aebc-1e0050e8d573.png",
+      "prompt": "Use case: photorealistic-natural. Asset type: original seamless PBR base-color texture for a Unity mobile game craftsman's workbench. Create one flat square, edge-to-edge tileable honey oak/plywood workbench surface, finely resolved parallel horizontal wood grain, light natural wear and tiny restrained nicks, warm but subdued medium beige brown, premium clean workshop furniture. Orthographic straight-on material scan, uniform neutral diffuse illumination baked into NO direction. No perspective, no cast shadows, no highlights, no tools, no objects, no board edges, no frame, no text, no watermark. No overly dark knots or big scratches, no artificial glossy coating; realistic fine albedo texture useful on 3D worktops and beams, 1024 square. Entire image only continuous wood grain.",
+      "provider": "built-in image_gen",
+      "role": "Original bitmap albedo material asset, not gameplay screenshot",
+      "projectAsset": "Assets/Resources/Art/Workshop/Oak.png",
+      "sha256": "626c7bcc516ffb540c6d0af13893ee86f33b8d80de7cca50fd6895b7c420bf4d",
+      "unmodifiedCopy": true
+    }
+  ]
+}
