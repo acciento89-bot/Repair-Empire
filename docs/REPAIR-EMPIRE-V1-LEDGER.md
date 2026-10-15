@@ -476,3 +476,14 @@ Actual RED caught opaque scroll coverage, clamped-aspect cropping and short-wide
 Frozen source`398834f49ed03bcc536ccae3279cae981bde4c67c22e2fc64ac16af814ad435b`: aggregate/Mac0, LayoutPresentation1492/LayoutFull1478/LayoutReload7 all0; four real Rigidbody journeys/ordered repairs/exact-once pay. All314native bundle files reverified. Existing54collisionfields/heightRNG/24halts/1728signs, controllers/cameras/jobs/save/commerce/scenes/packages/version and strict van/workshop budgets unchanged. Exact assets/prompts/receipts/native views/Concept boards: docs/QA/repair-lighting-studio-20261016.json, Builds/RepairLightingStudio-20261016.
 
 This bounded slice is verified. Whole Concept quality remains FAILED/iconpending/no Repair upload or90percent/device60FPS/live-commerce/Apple claim. Town/material detail and some fixture modeling/first-thumbnail lighting still need work. Next coherent pass is own sky/civic silhouette/curved lamps, followed by fixture polish. Approved siblings/OMF submission untouched; historical Concept deletion remains unstaged. Continue under05:30Berlin deadline; heavy jobs serially.
+
+
+## 2026-10-16 — verified original skyline and street fixtures
+
+Original full-sphere daylight sky, modeled Riverside civic hall and curved street lamps are integrated into the actual district. The hall has 25 arched windows, a clock/cupola, mansards, cornices and steps, at 18,995 authored vertices and five existing materials. Its front clears the actual legal rotated-van envelope plus two metres; decorative paving begins at the existing ground edge, with no overlapping faces. No new colliders or random calls. The 28 lamp roots and sign clearances remain unchanged.
+
+Independent review identified four buried dormer panes and a hall inside legal driving space. The engine regression reproduced both before correction. All 25 actual window rays now reach glazing first; the independent authored lamp check measures the curved tube before static batching. Final source review found no remaining actionable issue.
+
+Exact source `49127a1196f0bf022aadfe2bd62d55b22813ec2c0b69eb43fdd2c818c049bca2`: aggregate/Mac build exit 0; native presentation 1,498, four-drive/repair 1,478 and saved-profile reload 7 checks, all passing. All 314 bundle files and unchanged ProjectSettings bytes verified. Actual before/after/reference images and original asset provenance: [skyline evidence](QA/repair-skyline-finish-20261016.json), Builds/RepairSkylineFinish-20261016.
+
+This verifies the bounded skyline slice. Whole Concept graphics remains FAILED, icon pending, no Repair upload or numerical similarity claim. The native scene still has simplified materials and fixtures. Next work is fixture modeling, cold-thumbnail reflection consistency and complete room coverage. Approved siblings/OMF submission and the historical user-owned Concept deletion are untouched. Heavy jobs remain serial under the 05:30 Berlin deadline.

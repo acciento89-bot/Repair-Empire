@@ -211,10 +211,12 @@ namespace Kamilunavo.RepairEmpire.QA {
    var host=new GameObject("QA actual street inspection",typeof(Camera));var camera=host.GetComponent<Camera>();camera.CopyFrom(Camera.main);camera.enabled=false;camera.aspect=4f/3f;var target=new RenderTexture(1024,768,24,RenderTextureFormat.ARGB32){antiAliasing=2};target.Create();camera.targetTexture=target;var previous=RenderTexture.active;var pixels=new Texture2D(1024,768,TextureFormat.RGB24,false);
    try
    {
-    foreach(var name in new[]{"street-parked-car","street-layout","street-tree-canopy"})
+    foreach(var name in new[]{"street-parked-car","street-layout","street-tree-canopy","street-civic-hall","street-curved-lamp"})
     {
      if(name=="street-parked-car"){camera.transform.position=parked.transform.position+new Vector3(4.3f,2.7f,-6.6f);camera.transform.LookAt(parked.transform.position+Vector3.up*.85f);camera.fieldOfView=37;}
      else if(name=="street-tree-canopy"){var tree=GameObject.Find("Authored urban street tree").transform;var crown=tree.TransformPoint(new Vector3(0,5.5f,0));camera.transform.position=crown+new Vector3(5.8f,1.1f,-7.4f);camera.transform.LookAt(crown);camera.fieldOfView=37;}
+     else if(name=="street-civic-hall"){var hall=GameObject.Find("Original Riverside civic hall");Check(hall!=null,"Native street contains the original modeled civic landmark");camera.transform.position=hall.transform.position+new Vector3(37,30,-70);camera.transform.LookAt(hall.transform.position+Vector3.up*17);camera.fieldOfView=40;}
+     else if(name=="street-curved-lamp"){var lamp=GameObject.Find("Street light").transform;Check(lamp.Find("Curved street lamp arm")!=null,"Native street uses actual curved lamp geometry");camera.transform.position=lamp.position+new Vector3(3,4.6f,-6);camera.transform.LookAt(lamp.position+new Vector3(.60f,4.65f,0));camera.fieldOfView=38;}
      else{camera.transform.position=new Vector3(-2.2f,3.0f,8);camera.transform.LookAt(new Vector3(1,4,115));camera.fieldOfView=45;}
      camera.Render();scenePixels.Remove(target);RenderedFingerprint(target);RenderTexture.active=target;pixels.ReadPixels(new Rect(0,0,1024,768),0,0);pixels.Apply();File.WriteAllBytes(Path.Combine(output,name+".png"),pixels.EncodeToPNG());
     }

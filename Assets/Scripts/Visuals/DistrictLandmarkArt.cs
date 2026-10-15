@@ -8,7 +8,7 @@ namespace Kamilunavo.RepairEmpire.Visuals
  public static class DistrictLandmarkArt
  {
   static GameObject Box(Transform p,string name,Vector3 at,Vector3 size,Material material,float bevel=.035f)=>MeshArt.BevelBox(p,name,at,size,bevel,material);
-  public static void ClockTower(Transform parent,UrbanArtKit kit,Vector3 position,float baseHeight)
+  public static void ClockTower(Transform parent,UrbanArtKit kit,Vector3 position,float baseHeight,bool roundedRoof=false)
   {
    var root=new GameObject("Original Riverside clock tower").transform;root.SetParent(parent,false);root.localPosition=position;
    Box(root,"Clock tower roof plinth",new(0,baseHeight,0),new(7.2f,.60f,7.2f),kit.Trim);
@@ -24,7 +24,7 @@ namespace Kamilunavo.RepairEmpire.Visuals
     var hour=Box(face,"Clock hour hand",new(.20f,.14f,3.15f),new(.09f,.62f,.035f),kit.Trim,.015f);hour.transform.localRotation=Quaternion.Euler(0,0,-55);
     var minute=Box(face,"Clock minute hand",new(-.12f,.36f,3.17f),new(.055f,.91f,.035f),kit.Trim,.01f);minute.transform.localRotation=Quaternion.Euler(0,0,18);
    }
-   var roof=MeshArt.Lathe(root,"Clock tower slate cupola",new[]{0f,.18f,1.35f,2.40f,2.7f},new[]{4.5f,4.5f,3.15f,1.2f,0f},4,kit.Roof,Vector3.one);roof.transform.localPosition=new(0,baseHeight+6.9f,0);roof.transform.localRotation=Quaternion.Euler(0,45,0);
+   var roof=MeshArt.Lathe(root,"Clock tower slate cupola",roundedRoof?new[]{0f,.18f,.55f,1.1f,1.8f,2.35f,2.7f}:new[]{0f,.18f,1.35f,2.40f,2.7f},roundedRoof?new[]{4.5f,4.5f,4.3f,3.7f,2.4f,1f,0f}:new[]{4.5f,4.5f,3.15f,1.2f,0f},roundedRoof?20:4,kit.Roof,Vector3.one);roof.transform.localPosition=new(0,baseHeight+6.9f,0);roof.transform.localRotation=Quaternion.Euler(0,45,0);
    MeshArt.Tube(root,"Clock tower finial",new[]{new Vector3(0,baseHeight+9.3f,0),new Vector3(0,baseHeight+11.8f,0)},.055f,kit.Metal,12);
    MeshArt.Oval(root,"Clock tower finial globe",new(0,baseHeight+10.1f,0),new(.32f,.32f,.32f),kit.Trim,16);
   }

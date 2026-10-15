@@ -71,3 +71,10 @@ Exact prompt, source/project/meta/material hashes, authoring method and native d
 
 
 16October2026: Original built-in imagegen ServiceRoomReflection-v1 panorama; exact prompt/original/mechanical1024×512 conversion/Unity imports and64RGBAHalf prototype hashes in docs/QA/repair-lighting-studio-20261016.json and Builds/RepairLightingStudio-20261016/generated-asset-provenance.json. Assets/ArtSources/ServiceRoomReflection-v1.png is reflection input only, not gameplay imagery; Assets/Resources/Art/ServiceRoomReflection-v1.asset is shared HDR data. Scene clone is non-readable and owned, original survives cleanup.
+
+
+## Original daylight sky — 2026-10-16
+
+Built-in imagegen output exec-2702cdb4-f799-4e83-8cf8-0ca7cf7ca1c1.png is sky-only original artwork. The archived 1774×887 image is mechanically resized to Assets/Resources/Art/ServiceDaySky-v1.png (1024×512); no painted city/vehicle replaces 3D objects. Unity imports shared non-readable sRGB/mipmapped/HQ compressed data, Repeat U and Clamp V. RepairSky uses true latitude/longitude coordinates. Exact prompt, original/project/import hashes and actual native comparisons are in docs/QA/repair-skyline-finish-20261016.json and Builds/RepairSkylineFinish-20261016/generated-sky-provenance.json.
+
+DistrictCivicHall.cs, rounded clock-cupola extension and StreetLampArt.cs are original authored meshes. Existing district materials are borrowed; new meshes and scene sky material are owned and disposed, while imported sky data survives. No external model/license dependency was added.

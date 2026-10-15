@@ -1,10 +1,10 @@
 {
   "game": "Repair Empire",
   "status": "failed",
-  "sourceSha256": "398834f49ed03bcc536ccae3279cae981bde4c67c22e2fc64ac16af814ad435b",
-  "reviewer": "Codex actual native lighting/studio/approved Concept comparison",
+  "sourceSha256": "49127a1196f0bf022aadfe2bd62d55b22813ec2c0b69eb43fdd2c818c049bca2",
+  "reviewer": "Codex actual native skyline and approved Concept comparison",
   "reviewedAt": "2026-10-16",
-  "reason": "Larger true3Drepair/backdrop and responsive framing verified; whole-town/vehicle/fixture fidelity still below the approved Concept.",
+  "reason": "Actual sky, modeled civic silhouette and curved lamps improve the street; whole vehicle and fixture fidelity remains below the approved Concept.",
   "criteria": {
     "concept_similarity": "failed",
     "character_or_tower": "failed",
@@ -23,68 +23,73 @@
     ],
     "menu": [
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairLightingStudio-20261016/LayoutPresentation/showcase-de-dashboard.png",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairSkylineFinish-20261016/SkylinePresentation/showcase-de-dashboard.png",
         "sha256": "7efdd6d165a1e5c23d09ca21bfa115bd3a01717ca4f0003107042d3c8bacd7d7",
         "origin": "Unity-render"
       },
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairLightingStudio-20261016/LayoutPresentation/landscape-de-section-9.png",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairSkylineFinish-20261016/SkylinePresentation/landscape-de-section-9.png",
         "sha256": "b1dc898e3d9f310aeeee3fec14dc4ff9f454cce85ccb881e2ff1067ecdadbd91",
         "origin": "Unity-render"
       }
     ],
     "gameplay": [
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairLightingStudio-20261016/LayoutPresentation/showcase-driving-service.png",
-        "sha256": "cbf0f0f8469db28c5e267534ff27cf87c8651b84e23a838db69c94aca86422c0",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairSkylineFinish-20261016/SkylinePresentation/showcase-driving-service.png",
+        "sha256": "7344cc1719c24b2dda2fec878e9f23a4cddefcfb6fa39d02c560353c5311f624",
         "origin": "Unity-render"
       },
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairLightingStudio-20261016/LayoutPresentation/street-layout.png",
-        "sha256": "d397b3ff9f7dee66a166d19be77ace915511df3afbb824c58ab897841da17761",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairSkylineFinish-20261016/SkylinePresentation/street-layout.png",
+        "sha256": "38037a2f4bca04870d3b564bd5e78b454ce887c5679f0558692a0d0814b3a911",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairSkylineFinish-20261016/SkylinePresentation/street-civic-hall.png",
+        "sha256": "59678455b1f54dfe646b8ccbf3837b152dfdcb083d6fc5f53abce4437307d022",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairSkylineFinish-20261016/SkylinePresentation/street-curved-lamp.png",
+        "sha256": "8925aee58343a6abb5db8e0fa9f10c3923379c9c770921e25a339f3d7dfeab0c",
         "origin": "Unity-render"
       }
     ],
     "submenus": [
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairLightingStudio-20261016/LayoutPresentation/portrait-de-section-0.png",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairSkylineFinish-20261016/SkylinePresentation/portrait-de-section-0.png",
         "sha256": "d48e8d3571fbc9f608683424c640d054460c526fa8386b9a6dbef52f5f933313",
         "origin": "Unity-render"
       },
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairLightingStudio-20261016/LayoutFull/repair-faucet-stage1.png",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairSkylineFinish-20261016/SkylineFull/repair-faucet-stage1.png",
         "sha256": "5158254c0eff2178ddc4e8b4b1af8299ce18e0ddcb5ee618f7bea7d3066db572",
         "origin": "Unity-render"
       },
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairLightingStudio-20261016/LayoutFull/repair-faucet-wide-unusual.png",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairSkylineFinish-20261016/SkylineFull/repair-faucet-wide-unusual.png",
         "sha256": "d4fe43ff475eca79bb9b1f436755f8ff7c7df4989c1c83038157ab23fb824e93",
-        "origin": "Unity-render"
-      },
-      {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairLightingStudio-20261016/LayoutFull/repair-faucet-portrait-restored.png",
-        "sha256": "2a81467bedac3b15c558c32bb760c2d5e41b14a505eba3ba3d475ce80f77c815",
         "origin": "Unity-render"
       }
     ],
     "variants": [
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairLightingStudio-20261016/LayoutPresentation/fixture-switch.png",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairSkylineFinish-20261016/SkylinePresentation/fixture-switch.png",
         "sha256": "f0eac7acec0b6a9d0342e9acf71bb6c8fea90e058e83e4197f3d18da059fe136",
         "origin": "Unity-render"
       },
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairLightingStudio-20261016/LayoutPresentation/fixture-call-2-3.png",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairSkylineFinish-20261016/SkylinePresentation/fixture-call-2-3.png",
         "sha256": "4b63bf126e5635cb0e84908a94074892895e18df8a8cbe1a974e09ea7679ee81",
         "origin": "Unity-render"
       }
     ]
   },
   "previousReview": {
-    "sourceSha256": "88e507b97538e333bf76aa46a7fc6e138b6ee85116c7b99e0b6260971e9dec6b",
+    "sourceSha256": "398834f49ed03bcc536ccae3279cae981bde4c67c22e2fc64ac16af814ad435b",
     "status": "failed",
-    "archive": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairLightingStudio-20261016/visual-release-gate.json.before"
+    "archive": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairSkylineFinish-20261016/visual-release-gate.json.before"
   },
-  "candidateReport": "docs/QA/repair-lighting-studio-20261016.json",
+  "candidateReport": "docs/QA/repair-skyline-finish-20261016.json",
   "evidenceNote": "Menus are genuine Unity captures containing decorative generated workshop art; this art is not evidence of3D scene quality."
 }

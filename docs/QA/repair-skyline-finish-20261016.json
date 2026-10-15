@@ -1,0 +1,293 @@
+{
+  "game": "Repair Empire",
+  "date": "2026-10-16",
+  "sourceSha256": "49127a1196f0bf022aadfe2bd62d55b22813ec2c0b69eb43fdd2c818c049bca2",
+  "baseCommit": "cf24bea58e549d380c4ff5561c60efd675111204",
+  "scope": "Original full-sphere daylight sky, modeled civic skyline, curved street lamps and real legal-envelope/window visibility guards.",
+  "supersedes": "docs/QA/repair-lighting-studio-20261016.json",
+  "implemented": [
+    "Original sky-only generated panorama, mechanically resized1024×512, non-readable/mipmapped/sRGB import; true latitude-longitude sky shader with RepeatU/ClampV. No painted town or vehicle is substituted for scene geometry.",
+    "Original civic hall at Z480: wings, mansards, clock/cupola,25 arched windows, cornices, pilasters and steps.18995 authored vertices/5 shared kit materials under unchanged20k/8 budget. Custom solid meshes closed with positive volume.",
+    "Hall is beyond actual465 recovery authority plus maximum rotated2.2×4.6 van support and2m margin. A decorative ground extension begins exactly at old ground edge475, avoiding both legal driving penetration and coplanar fighting. No collider, RNG or driving changes.",
+    "28 original curved lamp arms, shaped housings and recessed lenses retain their exact roots/positions and customer sign clearance. Actual authored arm finite geometry/normals/curved midpoint verified before batching.",
+    "Independent review corrections are reproduced by actual RED tests: hall overlapping legal van volume and4 buried dormer panes. All25 pane rays now hit actual glazing before opaque masonry; final source review closed all important findings.",
+    "Native model inspection views supplement actual production driving/UI captures; all cached fixture, orientation, four real route/repair and reload checks retained."
+  ],
+  "preserved": [
+    "All ProjectSettings bytes unchanged against verified Linear-light base; scenes/packages/versions/monetization/controller/camera/job/save authority unchanged.",
+    "54 collision volumes, deterministic height RNG,24 actual customer parking volumes,1728 sign headings and13 parked cars/furniture clearances. Van68888 vertices/27 renderers/9 materials.",
+    "Approved siblings and OMF submission unchanged. Historical user-owned Concept deletion remains unstaged. No Repair upload."
+  ],
+  "assets": {
+    "provenance": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairSkylineFinish-20261016/generated-sky-provenance.json",
+      "sha256": "855a6d0d39c44dfe215949b28eec20fb48626610ac2f39a11b90fa4722b66997",
+      "origin": "exact-original-imagegen-prompt-and-integration"
+    },
+    "original": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairSkylineFinish-20261016/ServiceDaySky-v1-original.png",
+      "sha256": "79e0813988470c7b06d7ce1b5ade355a9e03a9b84b54b5c5e5c91d101b85264f",
+      "origin": "original-built-in-imagegen-output"
+    },
+    "source": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Projects/Repair-Empire/Assets/Resources/Art/ServiceDaySky-v1.png",
+      "sha256": "937b7ba96ca5931b3fc2994804bdd7d021bf483aee2f68bd718692060e2c4ce8",
+      "origin": "mechanically-resized-original"
+    },
+    "importer": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Projects/Repair-Empire/Assets/Resources/Art/ServiceDaySky-v1.png.meta",
+      "sha256": "38001d57d68fc88faa4dbf87de2ac5429141398cb47ed15b95228097e0e5fb67",
+      "origin": "Unity-importer"
+    },
+    "sharedSourceSurvivesOwnerDisposal": true
+  },
+  "validation": {
+    "aggregateAndMacExitCode": 0,
+    "log": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairSkylineFinish-20261016/unity-skyline-seam.log",
+      "sha256": "3a9ba2278c67610107932144d66c6110a8bb15df496b6cde5f8b154904a3dc80",
+      "origin": "Unity-aggregate-and-Mac-build"
+    },
+    "receipt": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairSkylineFinish-20261016/source-native-receipt.json",
+      "sha256": "9ad7d72b7b81be3fb05903f66f6efc238bac3dbad3e7cb3e76516189041ab20b",
+      "origin": "exact-source-native-binding"
+    },
+    "bundleManifest": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairSkylineFinish-20261016/native-bundle-manifest.json",
+      "sha256": "dcb7ac356fa4ed1aef07399ea7fb0deb23554562b447b9b9ebf941f6fec9637c",
+      "origin": "all314native-bundle-files"
+    },
+    "settingsDelta": "None",
+    "unchangedAuthorityFiles": 36,
+    "runs": {
+      "SkylinePresentation": {
+        "checks": 1498,
+        "processExitCode": 0,
+        "imageCount": 80,
+        "result": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairSkylineFinish-20261016/SkylinePresentation/PASS.txt",
+          "sha256": "c194897f0b14b97ab7675a83966b39f3b386333111b14755ce6903a181b02bed",
+          "origin": "actual-native-result"
+        },
+        "checksFile": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairSkylineFinish-20261016/SkylinePresentation/checks.txt",
+          "sha256": "a7d24f6bf5b7afe80639aadd9430a13984dbaeb6ce144aaf6abe54e3b8175a28",
+          "origin": "actual-native-checks"
+        },
+        "provenance": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairSkylineFinish-20261016/SkylinePresentation/PROVENANCE.json",
+          "sha256": "404c0b18fada94285bdda36c44906e400c7428c1a7684c39b24b4c88d7c0af45",
+          "origin": "native-source-binding"
+        },
+        "imageManifest": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairSkylineFinish-20261016/SkylinePresentation/IMAGE-HASHES.json",
+          "sha256": "8092c52e2ee75f9915fd2820d56cfc6ff051f292f3fcfd72c4aa9a60243f49a2",
+          "origin": "actual-Unity-render-manifest"
+        },
+        "log": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairSkylineFinish-20261016/SkylinePresentation.log",
+          "sha256": "6f6ee3e7d685c6c6bcfab66534c33f7fedff6e77ad4cc97fe975dd5580c4c88e",
+          "origin": "native-Mac-log"
+        }
+      },
+      "SkylineFull": {
+        "checks": 1478,
+        "processExitCode": 0,
+        "imageCount": 60,
+        "result": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairSkylineFinish-20261016/SkylineFull/PASS.txt",
+          "sha256": "74f76dd2c1b3afbd734d2ba63ba297be958e3ebccb43ebf5d83795244646d636",
+          "origin": "actual-native-result"
+        },
+        "checksFile": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairSkylineFinish-20261016/SkylineFull/checks.txt",
+          "sha256": "48aa9c78dd8aecaed866a1a98f90a88309fce24adef9c88b70e612d390757281",
+          "origin": "actual-native-checks"
+        },
+        "provenance": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairSkylineFinish-20261016/SkylineFull/PROVENANCE.json",
+          "sha256": "b27cbea8d01698106d8ab33be2921a1a25c0f3f557220f0bef60d68dcb2624cb",
+          "origin": "native-source-binding"
+        },
+        "imageManifest": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairSkylineFinish-20261016/SkylineFull/IMAGE-HASHES.json",
+          "sha256": "a041ca93f37c42395223da326a9d7300749e42cf3503a79ea740727e9f91a294",
+          "origin": "actual-Unity-render-manifest"
+        },
+        "log": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairSkylineFinish-20261016/SkylineFull.log",
+          "sha256": "97f0d187e2b60d353aabc41174baeeaa47806e3e70129f39d7e2fa572f12dd85",
+          "origin": "native-Mac-log"
+        }
+      },
+      "SkylineReload": {
+        "checks": 7,
+        "processExitCode": 0,
+        "imageCount": 1,
+        "result": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairSkylineFinish-20261016/SkylineReload/PASS.txt",
+          "sha256": "38213edc12e5ec96959592e87d8dbbd73398b1a84ce00fa19c8bdea92ba590b6",
+          "origin": "actual-native-result"
+        },
+        "checksFile": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairSkylineFinish-20261016/SkylineReload/checks.txt",
+          "sha256": "a47cdbe2c393a6d3242b1a93b7d3a4c797bf0fcce1aae50ab49f39ff59a87fa3",
+          "origin": "actual-native-checks"
+        },
+        "provenance": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairSkylineFinish-20261016/SkylineReload/PROVENANCE.json",
+          "sha256": "5ec33f31c4509c7b458dcb218ffad7794afc59dfce2aac70021d3fea2c70704a",
+          "origin": "native-source-binding"
+        },
+        "imageManifest": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairSkylineFinish-20261016/SkylineReload/IMAGE-HASHES.json",
+          "sha256": "9c21bfa7cefd518db26cde1788e82baed0784f0389fcb465b700cc7aec3792bb",
+          "origin": "actual-Unity-render-manifest"
+        },
+        "log": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairSkylineFinish-20261016/SkylineReload.log",
+          "sha256": "6369b55bf7e010e66e64506e109403016bb38b0a9180b9a49260b16a67ef5343",
+          "origin": "native-Mac-log"
+        }
+      }
+    },
+    "architecture": {
+      "authoredVertices": 18995,
+      "materials": 5,
+      "archedPanes": 25,
+      "legalVanMaxZ": 467.5495,
+      "decorativePlazaMinZ": 475,
+      "lamps": 28
+    }
+  },
+  "candidateHistory": [
+    {
+      "stage": "Original sky/model missing",
+      "log": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairSkylineFinish-20261016/unity-skyline-red.log",
+        "sha256": "6cb25d696790659d30df98dd8d2d6838b04e92235bc58af26c304eb97561eef3",
+        "origin": "pre-implementation-engine-regression"
+      }
+    },
+    {
+      "stage": "Static batching budget ambiguity",
+      "log": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairSkylineFinish-20261016/unity-skyline-green.log",
+        "sha256": "cb08c4919421ffb9f1b34dedb960874f23477fb48dfde0b3e5f8cde310d12e2b",
+        "origin": "superseded-budget-fixture"
+      },
+      "note": "Whole-district shared mesh455621verts was incorrectly charged to one landmark. Budget unchanged; now independently measures unbatched model and actual batched world semantics/lifetime."
+    },
+    {
+      "stage": "Important independent source-review findings",
+      "log": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairSkylineFinish-20261016/unity-skyline-regression-red.log",
+        "sha256": "600404a5653c2a9db9b53e7360c25740b59845124f950ee63718cf2fe4459e8a",
+        "origin": "actual-window-triangle-and-legal-envelope-regression"
+      }
+    },
+    {
+      "stage": "Plaza seam follow-up",
+      "note": "Before final native freeze removed4m coplanar ground overlap; actual existing-ground/plaza bounds now checked. Intermediate builds retained and never accepted as final proof."
+    }
+  ],
+  "sourceReview": {
+    "reviewer": "Independent read-only repair_skyline_review16",
+    "decision": "No remaining important source issue after legal envelope, dormer, authored lamp and plaza seam corrections.",
+    "scope": "Source correctness/ownership/regressions only; root separately inspects actual native visual evidence."
+  },
+  "visualEvidence": {
+    "concept": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Artifacts/KamilunavoDelivery-20261009/concepts-20261010/repair-empire-3-ansichten.png",
+      "sha256": "0571d35c40de036f83f86f3b423c234f321586abcfec97d9d259710d816723f1",
+      "origin": "approved-concept"
+    },
+    "menu": [
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairSkylineFinish-20261016/SkylinePresentation/showcase-de-dashboard.png",
+        "sha256": "7efdd6d165a1e5c23d09ca21bfa115bd3a01717ca4f0003107042d3c8bacd7d7",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairSkylineFinish-20261016/SkylinePresentation/landscape-de-section-9.png",
+        "sha256": "b1dc898e3d9f310aeeee3fec14dc4ff9f454cce85ccb881e2ff1067ecdadbd91",
+        "origin": "Unity-render"
+      }
+    ],
+    "gameplay": [
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairSkylineFinish-20261016/SkylinePresentation/showcase-driving-service.png",
+        "sha256": "7344cc1719c24b2dda2fec878e9f23a4cddefcfb6fa39d02c560353c5311f624",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairSkylineFinish-20261016/SkylinePresentation/street-layout.png",
+        "sha256": "38037a2f4bca04870d3b564bd5e78b454ce887c5679f0558692a0d0814b3a911",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairSkylineFinish-20261016/SkylinePresentation/street-civic-hall.png",
+        "sha256": "59678455b1f54dfe646b8ccbf3837b152dfdcb083d6fc5f53abce4437307d022",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairSkylineFinish-20261016/SkylinePresentation/street-curved-lamp.png",
+        "sha256": "8925aee58343a6abb5db8e0fa9f10c3923379c9c770921e25a339f3d7dfeab0c",
+        "origin": "Unity-render"
+      }
+    ],
+    "submenus": [
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairSkylineFinish-20261016/SkylinePresentation/portrait-de-section-0.png",
+        "sha256": "d48e8d3571fbc9f608683424c640d054460c526fa8386b9a6dbef52f5f933313",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairSkylineFinish-20261016/SkylineFull/repair-faucet-stage1.png",
+        "sha256": "5158254c0eff2178ddc4e8b4b1af8299ce18e0ddcb5ee618f7bea7d3066db572",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairSkylineFinish-20261016/SkylineFull/repair-faucet-wide-unusual.png",
+        "sha256": "d4fe43ff475eca79bb9b1f436755f8ff7c7df4989c1c83038157ab23fb824e93",
+        "origin": "Unity-render"
+      }
+    ],
+    "variants": [
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairSkylineFinish-20261016/SkylinePresentation/fixture-switch.png",
+        "sha256": "f0eac7acec0b6a9d0342e9acf71bb6c8fea90e058e83e4197f3d18da059fe136",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairSkylineFinish-20261016/SkylinePresentation/fixture-call-2-3.png",
+        "sha256": "4b63bf126e5635cb0e84908a94074892895e18df8a8cbe1a974e09ea7679ee81",
+        "origin": "Unity-render"
+      }
+    ]
+  },
+  "comparisons": [
+    {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairSkylineFinish-20261016/konzept-stadt-vergleich.png",
+      "sha256": "70891a5e58a95290d9d0861270f1c94925f41493b99c813bd7248d709b72c663",
+      "origin": "mechanical-layout-of-unretouched-Unity-PNGs-and-labeled-reference"
+    },
+    {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairSkylineFinish-20261016/modellansichten.png",
+      "sha256": "8595575c578cada0be8164240eeb7623767e5a8df74d74995428b44bc04285e0",
+      "origin": "mechanical-layout-of-unretouched-Unity-PNGs-and-labeled-reference"
+    }
+  ],
+  "decision": {
+    "boundedSkylineFinish": "verified",
+    "fullConceptSimilarity": "failed",
+    "icon": "pending",
+    "uploadPerformed": false
+  },
+  "remaining": [
+    "Overall native vehicle/detail/fixture atmosphere still needs work against Concept; no numerical90percent similarity claim.",
+    "Closed-stage faucet cartridge and first cached thumbnail reflection consistency require the next coherent repair-scene pass.",
+    "Mac validation does not establish physical-device60FPS/thermal/touch, actual paid purchases/ad serving, iOS icon exports or Apple approval."
+  ]
+}
