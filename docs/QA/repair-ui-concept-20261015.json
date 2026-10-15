@@ -1,0 +1,483 @@
+{
+  "game": "Repair Empire",
+  "createdAt": "2026-10-15T04:34:36.652770+00:00",
+  "sourceSha256": "974646e3271e7db4366c0d72324a76cbd457886a56342f1dd34f5dedfcaa3a5c",
+  "status": "menu/driving UI slice verified; whole-game graphics not approved",
+  "baseCommit": "60a4a4f",
+  "concept": {
+    "path": "/Volumes/SSK SSD/Kamilunavo/Artifacts/KamilunavoDelivery-20261009/concepts-20261010/repair-empire-3-ansichten.png",
+    "sha256": "0571d35c40de036f83f86f3b423c234f321586abcfec97d9d259710d816723f1",
+    "origin": "approved-concept"
+  },
+  "changes": [
+    "Original rounded UI geometry with restrained edge/gradient, default Unity stencil/RectMask compatibility and filled-progress fallback; removes dependency on a custom panel material that the presenter cleared.",
+    "Warm ivory tablet, rounded actual 3D photo masks, separate current call and two compact next calls, four original vector navigation icons in wide and narrow layouts.",
+    "Direct header Shop, retained parent Back and modal pause; visible wallet badge; no duplicate dashboard wallet subtitle.",
+    "Smaller light driving call card with actual cached 3D fixture thumbnail and visible address/reward, own vector pause/tablet/steering/pedals; existing HoldButton input authority retained.",
+    "Short reserved landscape uses compact localized left-side mission/tutorial copy to clear car/road centre; mission height derives from actual scaled touch target size."
+  ],
+  "nativeRuns": [
+    {
+      "case": "VerifiedPresentation",
+      "checks": 1422,
+      "receipt": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedPresentation/PROVENANCE.json",
+        "sha256": "b0e61aa3d0fa0c0c302974fd2a33466539e7a462de2eeed711adb7e8114fbf9f",
+        "origin": "native-process-receipt"
+      },
+      "pass": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedPresentation/PASS.txt",
+        "sha256": "c5070f8c7317f37d3e4ca844a71f1f7f27ee3fc10ba423b443609a406f815d86",
+        "origin": "native-process-proof"
+      }
+    },
+    {
+      "case": "VerifiedFull",
+      "checks": 1311,
+      "receipt": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedFull/PROVENANCE.json",
+        "sha256": "8c86178e1997ca86271b68ff296375fea6c6ec31802013a07e80a8d326672502",
+        "origin": "native-process-receipt"
+      },
+      "pass": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedFull/PASS.txt",
+        "sha256": "86b012c70d977d0c92f3d862ae53d2fca3edd4929bbbf247600c3240efdbd7c6",
+        "origin": "native-process-proof"
+      }
+    },
+    {
+      "case": "VerifiedReload",
+      "checks": 7,
+      "receipt": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedReload/PROVENANCE.json",
+        "sha256": "89485fef59fa7d2c9c1f7da18969572b0dfa87905ac9c8f9d5cf5191acb65d38",
+        "origin": "native-process-receipt"
+      },
+      "pass": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedReload/PASS.txt",
+        "sha256": "38213edc12e5ec96959592e87d8dbbd73398b1a84ce00fa19c8bdea92ba590b6",
+        "origin": "native-process-proof"
+      }
+    }
+  ],
+  "bundleManifest": {
+    "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/native-bundle-manifest.json",
+    "sha256": "bfc2258c3f4ab7f522ad731b14dbcd88bb97f0818d2001ce89a49f0e929ba7b4",
+    "origin": "all-314-native-file-hashes"
+  },
+  "bundleFilesReverified": true,
+  "projectSettingsUnchanged": true,
+  "engine": {
+    "log": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/unity-ui-verified-build.log",
+      "sha256": "655359c2abcc959de8184fa680524d240a672f315b3b10641de49a0996b0ed50",
+      "origin": "Unity-editor-log"
+    },
+    "aggregateMarkers": [
+      "REPAIR_RULE_PASS 152",
+      "REPAIR_EDITOR_RULE_PASS 152",
+      "REPAIR_INTERACTION_PASS 21",
+      "REPAIR_INTERACTION_EDITOR_PASS 21",
+      "REPAIR_INPUT_PASS held reset and stationary pause",
+      "REPAIR_BOUNDARY_PASS lateral/speed/ordered stages/modal",
+      "REPAIR_HUD_PASS actual minimum controls/modal/scroll binding",
+      "REPAIR_SWITCH_CONTACTS_PASS four exposed contacts inside actual camera and ordered progress",
+      "REPAIR_WORLD_TEXT_PASS actual front/rear occlusion, depth-tested shader, shared atlas and bounded material lifetime",
+      "REPAIR_VISUAL_EDITOR_PASS modeled service identity, detail, replacement and collision isolation",
+      "REPAIR_ART_PASS loaded Texture2D, bounded van branding and actual textured avenues",
+      "REPAIR_JOB_PRESENTATION_PASS calls=24 fixtures=24 phases=3 workflowPatterns=11",
+      "REPAIR_FIXTURE_CONTEXT_PASS keys=24 contexts=9 structuralSignatures=17 maxVertices=4908",
+      "REPAIR_FIXTURE_STUDIO_PASS localReflection=true globalEnvironmentUntouched=true",
+      "REPAIR_HUD_REGRESSION_PASS checks=4260",
+      "REPAIR_DRIVING_DENSITY_PASS (750.00, 1334.00) pointScale=2 information and action separated",
+      "REPAIR_DRIVING_DENSITY_PASS (1136.00, 640.00) pointScale=2 information and action separated",
+      "REPAIR_CONCEPT_UI_PASS rounded actual card geometry preserves solid centre and transparent corners",
+      "REPAIR_CONCEPT_POLISH_PASS checks=146304",
+      "REPAIR_RESIDENTIAL_MODELS_PASS actualConceptRender=PENDING",
+      "REPAIR_VAN_COACHWORK_PASS checks=75420 uniqueVertices=52166 renderers=26 materials=9 actualConceptReview=PENDING",
+      "REPAIR_VAN_GLASS_PASS actual mesh rays=57 shell never obscures glazing",
+      "REPAIR_WORKSHOP_PASS vertices=122676 activeRenderers=29 materials=21 actualVisualReview=PENDING",
+      "REPAIR_INTERSTITIAL_PASS 54",
+      "REPAIR_MONETIZATION_PASS 623",
+      "REPAIR_LIVE_EFFECT_MASTER_MUTE_PASS",
+      "REPAIR_COMMERCE_PASS 25",
+      "REPAIR_COMMERCE_EDITOR_PASS 25",
+      "REPAIR_COMMERCE_PASS 25"
+    ],
+    "roundedCardRegression": {
+      "red": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/rounded-red-valid.log",
+        "sha256": "ad00a507767eeebfad8244e6cd6a27b4bf8bb0e0e944a6d805e7710eaa06ad5f",
+        "origin": "actual-engine-red-regression"
+      },
+      "green": "Actual card mesh no longer covers its corner but retains solid centre."
+    },
+    "densityRegression": {
+      "red": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/density-red.log",
+        "sha256": "870cc30f4e062a890fe834af8205eabad2d17f969b2bd54c9f520d3cec23458d",
+        "origin": "actual-engine-red-regression"
+      },
+      "green": "Actual UI metadata/CTA rectangles remain separate for750x1334@2x and1136x640@2x layouts."
+    }
+  },
+  "nativeCoverage": "Presentation1422: actual image pixels, DE/EN sections, portrait/landscape/reserved panes,48-point targets, actual raycast header Shop and parent Back pause. Full1311: four real Rigidbody trips and stopped job repairs, ordered phases, repeat paid-contract rejection, save/economy/tools. New-process reload7: same persisted QA profile.",
+  "sourceReview": {
+    "reviewer": "repair_ui_review15",
+    "result": "Approved after addressing metadata/CTA density overlap, reserved landscape obstruction and narrow missing nav icons. Read-only; native verification performed separately by root."
+  },
+  "uiAssetProvenance": {
+    "RoundedPanel": "Original project native UI mesh, not a screenshot/bitmap paintover.",
+    "ServiceUiIcon": "Original code-authored vector geometry for service navigation/control pictograms; no external font-glyph imagery.",
+    "photos": "Same owned 3D fixture/workshop studio and cache; user wallet/commerce/job progression never changed by rendering."
+  },
+  "visualReview": {
+    "reviewer": "Codex actual frozen-source native frames against immutable approved board",
+    "result": "Warmer rounded menu and compact task/controls visibly improve hierarchy; no full Concept similarity percentage claimed.",
+    "comparison": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/concept-menu-driving-actual.png",
+      "sha256": "f59628e502009da969f9b79b94a8de81b407511f56685c34ec2d229c65aab656",
+      "origin": "labelled-concept-crop-and-unretouched-native-frame-comparison"
+    },
+    "frames": {
+      "fixture-call-0-0.png": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedPresentation/fixture-call-0-0.png",
+        "sha256": "36d691142064febea443dcb3f9914a97a7a978159e951593e6556f872d83569c",
+        "origin": "Unity-render"
+      },
+      "fixture-call-0-1.png": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedPresentation/fixture-call-0-1.png",
+        "sha256": "ccbee54888ee7589840f742da57b947f468fbc01cc0cee07fff5a4f0be8af00f",
+        "origin": "Unity-render"
+      },
+      "fixture-call-0-2.png": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedPresentation/fixture-call-0-2.png",
+        "sha256": "6be12022c03d56a3f4278a868c459599738c4bca9388d7ee1047ab7042019eb1",
+        "origin": "Unity-render"
+      },
+      "fixture-call-1-0.png": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedPresentation/fixture-call-1-0.png",
+        "sha256": "b4018fa10a6983a70a1b5c573a2baefe874f2b8a9bd6b4d656686b6744954cb2",
+        "origin": "Unity-render"
+      },
+      "fixture-call-1-1.png": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedPresentation/fixture-call-1-1.png",
+        "sha256": "da29627dca992c186d782d31b49401b9ae60e6644756d3234c9da1169d82eaa8",
+        "origin": "Unity-render"
+      },
+      "fixture-call-1-2.png": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedPresentation/fixture-call-1-2.png",
+        "sha256": "d9a90ea9628ffb357ade8b4a04db0dd9fdea3f40f1be8a509e6ccf8f17d2ba46",
+        "origin": "Unity-render"
+      },
+      "fixture-call-1-3.png": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedPresentation/fixture-call-1-3.png",
+        "sha256": "9a86042d40f67a92023163246892f1a11e7c61bbef963417ae4ff78235acd013",
+        "origin": "Unity-render"
+      },
+      "fixture-call-1-4.png": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedPresentation/fixture-call-1-4.png",
+        "sha256": "a854e7806bcc86b4c93ed95c3a9fa5b3e87e7d5f905675d5312f69c74db65034",
+        "origin": "Unity-render"
+      },
+      "fixture-call-2-0.png": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedPresentation/fixture-call-2-0.png",
+        "sha256": "e1fe65c1a0c298a7d88ba9eafbc19c3e00b0990dbcc9fe7092feb0fa7d0c87e9",
+        "origin": "Unity-render"
+      },
+      "fixture-call-2-1.png": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedPresentation/fixture-call-2-1.png",
+        "sha256": "276ae6902439768e1d132387bd98069a92a56ce80ab70cc1f1dcc267f623e05a",
+        "origin": "Unity-render"
+      },
+      "fixture-call-2-2.png": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedPresentation/fixture-call-2-2.png",
+        "sha256": "c1ad4c0b3384cd02f879a8023c7085195a474cbde7e56d087fa210ff1a3184aa",
+        "origin": "Unity-render"
+      },
+      "fixture-call-2-3.png": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedPresentation/fixture-call-2-3.png",
+        "sha256": "6da269032e1302185b055a431404d1c93ae290f6d65e1ea0dc48428e2d5a2ca0",
+        "origin": "Unity-render"
+      },
+      "fixture-call-2-4.png": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedPresentation/fixture-call-2-4.png",
+        "sha256": "8fe9109bbe50ae6e857c94decb208a128bce2142e586c9b1e91fe8ef9121e347",
+        "origin": "Unity-render"
+      },
+      "fixture-call-2-5.png": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedPresentation/fixture-call-2-5.png",
+        "sha256": "74be5fac203c1f52451bf20975202dfb1745a0760376c88da37ed403e8740910",
+        "origin": "Unity-render"
+      },
+      "fixture-call-3-0.png": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedPresentation/fixture-call-3-0.png",
+        "sha256": "7ae724217b6124d07c9ff2cc9e94bb7e75f3474d169c8875119543e669ebf044",
+        "origin": "Unity-render"
+      },
+      "fixture-call-3-1.png": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedPresentation/fixture-call-3-1.png",
+        "sha256": "cc547613324c75e2f233bb134e19838df3578b498e61e930bed7804b2dfdbd29",
+        "origin": "Unity-render"
+      },
+      "fixture-call-3-2.png": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedPresentation/fixture-call-3-2.png",
+        "sha256": "3c3418b0930c70a2a3aaad55e2c4f08c10edecfb5264b560f213c676489bd548",
+        "origin": "Unity-render"
+      },
+      "fixture-call-3-3.png": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedPresentation/fixture-call-3-3.png",
+        "sha256": "2f8f7217d684e09868acae3cd0d6d63eb7c9f0adb31b7de057cac463f65c548c",
+        "origin": "Unity-render"
+      },
+      "fixture-call-3-4.png": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedPresentation/fixture-call-3-4.png",
+        "sha256": "593782d7d314de66ea8f879256e816a1dbf369e4889ca4cb3e2abf8f15331c09",
+        "origin": "Unity-render"
+      },
+      "fixture-call-3-5.png": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedPresentation/fixture-call-3-5.png",
+        "sha256": "fac87d3ec8fe5783ae6c984f7a42438af754c05444be2657c77542bf6c87fd7b",
+        "origin": "Unity-render"
+      },
+      "fixture-faucet.png": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedPresentation/fixture-faucet.png",
+        "sha256": "e58ae4ea05619b4a1fae580aed39c5cfa07db1115e1275f27ba305006d86ce6c",
+        "origin": "Unity-render"
+      },
+      "fixture-sink.png": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedPresentation/fixture-sink.png",
+        "sha256": "31b9825192bd33dd50d0e1488143362d8accae4d92eec5b2f68b9ff9ca76e521",
+        "origin": "Unity-render"
+      },
+      "fixture-switch.png": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedPresentation/fixture-switch.png",
+        "sha256": "2c507da2eb12467d8d57ccdd0d4454093060807d957aa72104caadcb69e20d31",
+        "origin": "Unity-render"
+      },
+      "fixture-toilet.png": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedPresentation/fixture-toilet.png",
+        "sha256": "6f12dacb181f729da558886c37b7ac07b211f9520dae26313f72e7c33902c3b9",
+        "origin": "Unity-render"
+      },
+      "landscape-de-section-0.png": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedPresentation/landscape-de-section-0.png",
+        "sha256": "de23e5364fdc7f2c27819896b66f1b84b7e2e8f2e37dbd067ed81723415af396",
+        "origin": "Unity-render"
+      },
+      "landscape-de-section-6.png": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedPresentation/landscape-de-section-6.png",
+        "sha256": "0a3a1892e9698183fd9bd8e496357edcdba115c14978bd7e115daae78b0677ed",
+        "origin": "Unity-render"
+      },
+      "landscape-de-section-9.png": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedPresentation/landscape-de-section-9.png",
+        "sha256": "da8f12a0d1f5c6529782b68e0653d6add545dced681f1132bed55a5a25294df1",
+        "origin": "Unity-render"
+      },
+      "landscape-en-section-0.png": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedPresentation/landscape-en-section-0.png",
+        "sha256": "56a418cc7c4bc6328fa6663b1629c5afaa0ce9633b89bc0d619e1bc0212f446e",
+        "origin": "Unity-render"
+      },
+      "landscape-en-section-6.png": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedPresentation/landscape-en-section-6.png",
+        "sha256": "6165ed431688c3aead0eefc187bcbb8cd4c58d4563d7da03839d96aa9e0c1d23",
+        "origin": "Unity-render"
+      },
+      "landscape-en-section-9.png": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedPresentation/landscape-en-section-9.png",
+        "sha256": "d04fcc426d9272aea93a20e7538eaed3fe2d1a2ae6598fbd23708cc03901cfe1",
+        "origin": "Unity-render"
+      },
+      "landscape-home.png": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedPresentation/landscape-home.png",
+        "sha256": "4c5e09878c92de5939caa1b98b63a4f62c5e71a21003833ae2ec4c260691f762",
+        "origin": "Unity-render"
+      },
+      "landscape-tablet.png": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedPresentation/landscape-tablet.png",
+        "sha256": "56a418cc7c4bc6328fa6663b1629c5afaa0ce9633b89bc0d619e1bc0212f446e",
+        "origin": "Unity-render"
+      },
+      "portrait-de-section-0.png": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedPresentation/portrait-de-section-0.png",
+        "sha256": "c358f4c66556c5afbaba6dd8a2409c58c78d63a586c42b43d17d7de8da925d69",
+        "origin": "Unity-render"
+      },
+      "portrait-de-section-6.png": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedPresentation/portrait-de-section-6.png",
+        "sha256": "edf0e8a805b212b0bfc4ae7255617c5ee7e54f760b460a0c24144e960b5b617d",
+        "origin": "Unity-render"
+      },
+      "portrait-de-section-9.png": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedPresentation/portrait-de-section-9.png",
+        "sha256": "1bb9d31581ffefcc4392fbc044c1290c9f91d2bae2101e74e1619f5d798b53af",
+        "origin": "Unity-render"
+      },
+      "portrait-en-section-0.png": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedPresentation/portrait-en-section-0.png",
+        "sha256": "bf9c823059546e623f85a0d2ab1c6f108148660c15a896bb87413b97f29a74bb",
+        "origin": "Unity-render"
+      },
+      "portrait-en-section-6.png": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedPresentation/portrait-en-section-6.png",
+        "sha256": "e41559b317aa215b6cf25db99ac4109e53e4d5847ce691d10103a8748a79cd92",
+        "origin": "Unity-render"
+      },
+      "portrait-en-section-9.png": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedPresentation/portrait-en-section-9.png",
+        "sha256": "a8ffede031acf2446d09be535793f673dacf0d0e861a9c1e49ee120e365b6eb7",
+        "origin": "Unity-render"
+      },
+      "reserved-pane.png": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedPresentation/reserved-pane.png",
+        "sha256": "9d6531f72332247811223416ae6d1ea6019aa6472eca42589cb0fda0050d3c5f",
+        "origin": "Unity-render"
+      },
+      "showcase-dashboard-entry.png": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedPresentation/showcase-dashboard-entry.png",
+        "sha256": "2cbfee5d89a1028a6dd74815f807c1903fe04b66ce1bd0568cc59ecd2f09acf7",
+        "origin": "Unity-render"
+      },
+      "showcase-de-0.png": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedPresentation/showcase-de-0.png",
+        "sha256": "35dd5563ddac0a47af890f10d8df0a725c5a249fdde8ba983c0297d008b525ec",
+        "origin": "Unity-render"
+      },
+      "showcase-de-1.png": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedPresentation/showcase-de-1.png",
+        "sha256": "b77acc9ea26c33c291c0dc7eebe28771c366beb3b8daff54e8397eb60df420ff",
+        "origin": "Unity-render"
+      },
+      "showcase-de-2.png": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedPresentation/showcase-de-2.png",
+        "sha256": "34691871a48c08825a684b07e61f9e3471dbae07e6c0568814202f6be3c180ad",
+        "origin": "Unity-render"
+      },
+      "showcase-de-3.png": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedPresentation/showcase-de-3.png",
+        "sha256": "dcb251a9e609c2b3f9b240d15272521a0f498b0ebf718c2e256195c892bbef96",
+        "origin": "Unity-render"
+      },
+      "showcase-de-4.png": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedPresentation/showcase-de-4.png",
+        "sha256": "71738db142eeaee144a6e77f6f5536ce122d3fa96190cd69cf9ce30d16e86a25",
+        "origin": "Unity-render"
+      },
+      "showcase-de-5.png": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedPresentation/showcase-de-5.png",
+        "sha256": "c17fcf366e507614a6c14bcaeb43b22321f0135d9cb20d8f5cd0ca239d25668a",
+        "origin": "Unity-render"
+      },
+      "showcase-de-6.png": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedPresentation/showcase-de-6.png",
+        "sha256": "76a1f638c81126e2ec5451e43b37d1dac52180bf281642818ab228fdc7830465",
+        "origin": "Unity-render"
+      },
+      "showcase-de-7.png": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedPresentation/showcase-de-7.png",
+        "sha256": "674b920ebb959418456166a1c196a153b627eca38bcf214c431145db9032822d",
+        "origin": "Unity-render"
+      },
+      "showcase-de-dashboard-sections.png": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedPresentation/showcase-de-dashboard-sections.png",
+        "sha256": "003c3bb78029f69834cdbb049ed2c961320e920b0baf252bf9d307c724d9e49f",
+        "origin": "Unity-render"
+      },
+      "showcase-de-dashboard.png": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedPresentation/showcase-de-dashboard.png",
+        "sha256": "2cbfee5d89a1028a6dd74815f807c1903fe04b66ce1bd0568cc59ecd2f09acf7",
+        "origin": "Unity-render"
+      },
+      "showcase-driving-guide.png": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedPresentation/showcase-driving-guide.png",
+        "sha256": "bbf2d57a907428ff168ccabbd95e57ff807e006269dd830d507b31a4bc37d141",
+        "origin": "Unity-render"
+      },
+      "showcase-driving-service.png": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedPresentation/showcase-driving-service.png",
+        "sha256": "dd2c2ed191835b1c7ecac0f5d5943243c27d208f45f7a2220cc6e7d8e3b882d3",
+        "origin": "Unity-render"
+      },
+      "showcase-en-0.png": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedPresentation/showcase-en-0.png",
+        "sha256": "ee84189f78d85aad051898404dcbaea61468d1c9a9bbf5aae8af5f180842774f",
+        "origin": "Unity-render"
+      },
+      "showcase-en-1.png": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedPresentation/showcase-en-1.png",
+        "sha256": "1589498824caeb60d532309db10592fd10714d418bd245e1821d3fe4783ad997",
+        "origin": "Unity-render"
+      },
+      "showcase-en-2.png": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedPresentation/showcase-en-2.png",
+        "sha256": "5d988d6421956d1e67fcdcc3eeea7687e7b11ac58601d01355aa890f8b2917da",
+        "origin": "Unity-render"
+      },
+      "showcase-en-3.png": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedPresentation/showcase-en-3.png",
+        "sha256": "64c42113ecf3c2b2c6d6d4fe2aab7e115ac2d2239ccf154d1c0ef9d6e42421f4",
+        "origin": "Unity-render"
+      },
+      "showcase-en-4.png": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedPresentation/showcase-en-4.png",
+        "sha256": "f11d5477c2a2425399cd1505b68fc032f37beb03c220aa09cf420e8846e78ca5",
+        "origin": "Unity-render"
+      },
+      "showcase-en-5.png": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedPresentation/showcase-en-5.png",
+        "sha256": "3066df60e028c01bc5cb237e366d83549116b292841893c025ce4cfc1a890aea",
+        "origin": "Unity-render"
+      },
+      "showcase-en-6.png": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedPresentation/showcase-en-6.png",
+        "sha256": "3e720b08e69aeb972e8230a76a324901f22e29e47c6b74afddaeb86477531c87",
+        "origin": "Unity-render"
+      },
+      "showcase-en-7.png": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedPresentation/showcase-en-7.png",
+        "sha256": "62376e8d2cce87b5334bd3cc501f72e9e642581de8175b975e150eb2938860bf",
+        "origin": "Unity-render"
+      },
+      "showcase-en-dashboard-sections.png": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedPresentation/showcase-en-dashboard-sections.png",
+        "sha256": "4ad96934bdd46cb5afd665c5a66cb5ff5da697d11c921cd615b6856b52958ee2",
+        "origin": "Unity-render"
+      },
+      "showcase-en-dashboard.png": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedPresentation/showcase-en-dashboard.png",
+        "sha256": "ae48bb047b8a8f1054a876162184b27fd18ecd93547546168004565eebea33c9",
+        "origin": "Unity-render"
+      },
+      "showcase-guide-replay-entry.png": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedPresentation/showcase-guide-replay-entry.png",
+        "sha256": "08d719d6299fbf1c3c4773678175efde3b625056b90ee9cd3e37433dac514e99",
+        "origin": "Unity-render"
+      },
+      "workshop-native.png": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedPresentation/workshop-native.png",
+        "sha256": "40e5d82c4823142781cb5a6ef92fd23fccc68364a2ef72a67107596f89cf3d93",
+        "origin": "Unity-render"
+      }
+    },
+    "remaining": [
+      "Street composition and density, van/foliage/material/lighting finish still below the full approved Concept.",
+      "Full iOS/physical-device visual, touch, thermal and60FPS acceptance remain unmeasured in this pass."
+    ]
+  },
+  "storeIconGate": {
+    "report": "docs/QA/store-icon-review.json",
+    "status": "pending",
+    "crossProjectGuardEvidence": "/Volumes/SSK SSD/Kamilunavo/Builds/AppIconAudit-20261015/guard-validation.json",
+    "scope": "User requested accurate icons for all4apps; source/native PNG integrity, effective iOS assignment, source-bound gameplay and explicit variant review now gate future uploads. Existing public submissions untouched."
+  },
+  "limits": [
+    "No new iOS/Android release number, TestFlight upload or App Review submission for Repair Empire.",
+    "Actual players are native Mac Metal, not physical iOS screenshots or performance proof.",
+    "QA disables genuine store transactions/native advertising requests; no claim of live purchases or ad delivery.",
+    "Existing engine API/development/serialization analyzer warnings remain; no warning-free claim.",
+    "Earlier candidate captures/logs are retained but are not final-source evidence."
+  ],
+  "preservedUserChange": "Unstaged historical docs/concepts/PRIMARY-CONCEPT.png deletion"
+}

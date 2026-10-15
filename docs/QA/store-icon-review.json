@@ -1,0 +1,27 @@
+{
+  "game": "Repair-Empire",
+  "status": "pending",
+  "sourceSha256": "974646e3271e7db4366c0d72324a76cbd457886a56342f1dd34f5dedfcaa3a5c",
+  "reviewer": "Codex direct source-icon and actual native-frame comparison",
+  "reviewedAt": "2026-10-15",
+  "reason": "The icon depicts a white/orange service van, ladder, workshop and tool branding. These subjects exist in the current game; realistic rendering promise still needs assessment with the full graphical pass and native exported icon variants before release.",
+  "decision": "No new upload approval. Complete accurate native icon and variant review before setting passed.",
+  "variantConsistencyChecked": false,
+  "evidence": {
+    "sourceIcon": {
+      "path": "Assets/Resources/Art/RepairEmpireIcon.png",
+      "sha256": "38a1f5845aac52aa74c7c722b65aff91494cf9c3a705c9bf837a0c7c1a8214a5",
+      "origin": "project-icon"
+    },
+    "nativeIcon": null,
+    "gameplay": [
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairUiConcept-20261015/VerifiedPresentation/showcase-driving-service.png",
+        "sha256": "dd2c2ed191835b1c7ecac0f5d5943243c27d208f45f7a2220cc6e7d8e3b882d3",
+        "origin": "Unity-render"
+      }
+    ]
+  },
+  "policy": "https://developer.apple.com/app-store/review/guidelines/#accurate-metadata",
+  "limits": "Source-art motif review is not Apple approval, and does not establish the appearance of every exported native icon. Existing submitted builds are not withdrawn or altered."
+}
