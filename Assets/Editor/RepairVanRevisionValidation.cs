@@ -152,6 +152,6 @@ public static class RepairVanRevisionValidation
   }
   finally{UnityEngine.Object.DestroyImmediate(root);}
  }
- public static void Validate(){ValidateConceptProportions();ValidateCurvedRear();ValidateExterior();ValidateCabin();ValidateWheelOpenings();ValidateArtwork();}
+ public static void Validate(){ValidateConceptProportions();ValidateCurvedRear();ValidateExterior();ValidateCabin();ValidateWheelOpenings();RepairVanFinishValidation.ValidateWheelhouses();RepairVanFinishValidation.ValidateSurfaces();ValidateArtwork();}
 }
 #endif

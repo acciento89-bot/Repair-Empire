@@ -86,7 +86,12 @@ namespace Kamilunavo.RepairEmpire.Visuals
   static List<float> BodyRings()
   {
    var rings=new List<float>(Stations);rings.Add(-1.42f);rings.Add(1.38f);rings.Add(.79f);rings.Add(1.29f);foreach(var p in CabAperture)if(!rings.Exists(z=>Mathf.Abs(z-p.x)<.000001f))rings.Add(p.x);
-   for(int i=0;i<=46;i++){float z=Mathf.Lerp(Stations[0],Stations[Stations.Length-1],i/46f);bool near=false;foreach(float existing in rings)if(Mathf.Abs(existing-z)<.002f){near=true;break;}if(!near)rings.Add(z);}rings.Sort();return rings;
+   void Add(float z){if(!rings.Exists(existing=>Mathf.Abs(existing-z)<.002f))rings.Add(z);}
+   // Spend samples on the curved arch rather than straight cargo panels.
+   // Uniform longitudinal chords previously cut into the tire-width cavity.
+   foreach(float axle in new[]{-1.42f,1.38f})for(int i=0;i<=12;i++)Add(axle+Mathf.Cos(i*Mathf.PI/12)*.375f);
+   foreach(float z in new[]{-2.02f,-1.94f,-1.86f,-1.20f,-.80f,-.46f,-.36f,-.26f,.45f,1.56f,1.66f,1.98f,2.07f})Add(z);
+   rings.Sort();return rings;
   }
   public static GameObject Windshield(Transform parent,Material material,bool seal=false)
   {
@@ -127,7 +132,7 @@ namespace Kamilunavo.RepairEmpire.Visuals
     case 6:a=(3+t)*Mathf.PI*.5f;x=w-lower+Mathf.Cos(a)*lower;y=Sill+lower+Mathf.Sin(a)*lower;break;
     default:y=WindowHeight(t,Sill+lower,top-upper,glassBottom,glassTop);x=SideAt(y,z);break;
    }
-   float side=Mathf.SmoothStep(0,1,(Mathf.Abs(x)/w-.72f)/.20f);if(y<1.06f)y=Mathf.Max(y,Mathf.Lerp(Sill,Arch(z),side));return new Vector3(x,y,BendZ(z,x,y));
+   float side=Mathf.SmoothStep(0,1,(Mathf.Abs(x)/w-.40f)/.25f);if(y<1.06f)y=Mathf.Max(y,Mathf.Lerp(Sill,Arch(z),side));return new Vector3(x,y,BendZ(z,x,y));
   }
   static Vector3 SectionNormal(float z,float around)
   {
@@ -292,14 +297,14 @@ namespace Kamilunavo.RepairEmpire.Visuals
   public static GameObject Bumper(Transform parent,string name,Vector3 at,Material material)
   {
    float[] x={-1.085f,-1.07f,-1.03f,-.96f,-.72f,0,.72f,.96f,1.03f,1.07f,1.085f};
-   float depth=name=="Front bumper"?.07f:.09f;
+   bool front=name=="Front bumper";float depth=front?.12f:.09f;
    const int sides=20;var v=new List<Vector3>();var uv=new List<Vector2>();var t=new List<int>();
    for(int ring=0;ring<x.Length;ring++)for(int i=0;i<sides;i++){
     float a=i*Mathf.PI*2/sides,c=Mathf.Cos(a),s=Mathf.Sin(a),roll=Mathf.SmoothStep(0,1,(1.085f-Mathf.Abs(x[ring]))/.125f);
-    float wrap=(name=="Rear bumper"?.10f:-.16f)*Mathf.Pow(Mathf.Abs(x[ring])/1.085f,4);v.Add(new Vector3(x[ring]*.84f,Mathf.Sign(c)*Mathf.Pow(Mathf.Abs(c),.55f)*Mathf.Lerp(.025f,.075f,roll),wrap+Mathf.Sign(s)*Mathf.Pow(Mathf.Abs(s),.55f)*Mathf.Lerp(depth*.29f,depth,roll)));uv.Add(new Vector2(ring/(float)(x.Length-1),i/(float)sides));
+    float wrap=(front?-.22f:.14f)*Mathf.Pow(Mathf.Abs(x[ring])/1.085f,4);v.Add(new Vector3(x[ring]*.80f,Mathf.Sign(c)*Mathf.Pow(Mathf.Abs(c),.48f)*Mathf.Lerp(.025f,front?.115f:.075f,roll),wrap+Mathf.Sign(s)*Mathf.Pow(Mathf.Abs(s),.48f)*Mathf.Lerp(depth*.29f,depth,roll)));uv.Add(new Vector2(ring/(float)(x.Length-1),i/(float)sides));
    }
    for(int ring=1;ring<x.Length;ring++)for(int i=0;i<sides;i++){int a=(ring-1)*sides+i,b=ring*sides+i,next=(i+1)%sides;t.AddRange(new[]{a,(ring-1)*sides+next,b,(ring-1)*sides+next,ring*sides+next,b});}
-   foreach(int end in new[]{0,x.Length-1}){int center=v.Count;v.Add(new Vector3(x[end]*.84f,0,(name=="Rear bumper"?.10f:-.16f)*Mathf.Pow(Mathf.Abs(x[end])/1.085f,4)));uv.Add(new(.5f,.5f));for(int i=0;i<sides;i++){int a=end*sides+i,b=end*sides+(i+1)%sides;t.AddRange(end==0?new[]{center,b,a}:new[]{center,a,b});}}
+   foreach(int end in new[]{0,x.Length-1}){int center=v.Count;v.Add(new Vector3(x[end]*.80f,0,(front?-.22f:.14f)*Mathf.Pow(Mathf.Abs(x[end])/1.085f,4)));uv.Add(new(.5f,.5f));for(int i=0;i<sides;i++){int a=end*sides+i,b=end*sides+(i+1)%sides;t.AddRange(end==0?new[]{center,b,a}:new[]{center,a,b});}}
    var go=MeshArt.Mesh(parent,name,v.ToArray(),t.ToArray(),uv.ToArray(),material);go.transform.localPosition=at;return go;
   }
   public static GameObject WheelArch(Transform parent,int side,float axle,Material material)

@@ -11,12 +11,12 @@ namespace Kamilunavo.RepairEmpire.Visuals {
   {
    if(built)return;built=true;
    var white=Own("VanPearl",new(.92f,.925f,.92f));white.SetFloat("_Glossiness",.61f);white.SetFloat("_Metallic",.025f);
-   var navy=Own("VanNavy",Navy);navy.SetFloat("_Glossiness",.20f);var orange=Own("VanOrange",Orange);livery=Own("VanStyleLivery",Orange);livery.SetFloat("_Glossiness",.64f);
-   var glass=Own("VanGlass",new(.32f,.40f,.45f,.26f),false,"Materials/VanCabGlass");glass.SetFloat("_Metallic",0);glass.SetFloat("_Glossiness",.94f);
+   var navy=Own("VanNavy",Navy,false,"Materials/VanMoldedSurface");navy.SetFloat("_Glossiness",.20f);navy.SetFloat("_BumpScale",.24f);var orange=Own("VanOrange",Orange);livery=Own("VanStyleLivery",Orange);livery.SetFloat("_Glossiness",.64f);
+   var glass=Own("VanGlass",new(.48f,.53f,.54f,.16f),false,"Materials/VanCabGlass");glass.SetFloat("_Metallic",0);glass.SetFloat("_Glossiness",.94f);
    glass.SetFloat("_Mode",3);glass.SetInt("_SrcBlend",(int)UnityEngine.Rendering.BlendMode.One);glass.SetInt("_DstBlend",(int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);glass.SetInt("_ZWrite",0);glass.DisableKeyword("_ALPHATEST_ON");glass.DisableKeyword("_ALPHABLEND_ON");glass.EnableKeyword("_ALPHAPREMULTIPLY_ON");glass.SetOverrideTag("RenderType","Transparent");glass.renderQueue=3000;
    var metal=Own("VanChrome",new(.48f,.50f,.52f));metal.SetFloat("_Metallic",.74f);metal.SetFloat("_Glossiness",.48f);
-   var tyre=Own("VanTyre",new(.018f,.022f,.025f));tyre.SetFloat("_Glossiness",.12f);tailLight=Own("VanTail",new(.46f,.018f,.012f),true);tailLight.SetFloat("_Glossiness",.72f);tailLight.mainTexture=Resources.Load<Texture2D>("Art/VanRedLens-v1");
-   var headLight=Own("VanHeadlamp",new(.56f,.64f,.69f));headLight.SetFloat("_Glossiness",.91f);headLight.SetFloat("_Metallic",.20f);headLight.color=Color.white;headLight.mainTexture=Resources.Load<Texture2D>("Art/VanHeadlampOptics-v1");
+   var tyre=Own("VanTyre",new(.023f,.025f,.026f),false,"Materials/VanMoldedSurface");tyre.SetFloat("_Glossiness",.12f);tyre.SetFloat("_BumpScale",.12f);tailLight=Own("VanTail",new(.46f,.018f,.012f),true);tailLight.SetFloat("_Glossiness",.72f);tailLight.mainTexture=Resources.Load<Texture2D>("Art/VanRedLens-v1");
+   var headLight=Own("VanHeadlamp",new(.78f,.83f,.86f,.16f),false,"Materials/VanCabGlass");headLight.SetFloat("_Glossiness",.94f);headLight.SetFloat("_Metallic",.04f);headLight.mainTexture=Resources.Load<Texture2D>("Art/VanHeadlampOptics-v1");
    VanCoachworkGeometry.Body(transform,white);
    MeshArt.BevelBox(transform,"Underbody",new(0,.255f,0),new(1.52f,.13f,4.21f),.045f,navy);
    VanCoachworkGeometry.Windshield(transform,navy,true);VanCoachworkGeometry.Windshield(transform,glass).GetComponent<MeshRenderer>().shadowCastingMode=UnityEngine.Rendering.ShadowCastingMode.Off;Cabin(navy,tyre,metal);
@@ -61,7 +61,7 @@ namespace Kamilunavo.RepairEmpire.Visuals {
    var logo=new GameObject("Repair gear and wrench").transform;logo.SetParent(transform,false);logo.localPosition=new(-.31f,1.39f,VanCoachworkGeometry.RearSkinZ(-.31f,1.39f)-.006f);logo.localScale=new Vector3(1,1,.025f);Gear(logo,.235f,orange,navy,white);VanCoachworkGeometry.FitPrintedGear(logo,transform);
    Text(transform,"REPARIEREN\nVERBESSERN\nMENSCHEN\nGLÜCKLICHER\nMACHEN",new(.30f,1.40f,VanCoachworkGeometry.RearSkinZ(.30f,1.40f)-.008f),.069f,Navy,Quaternion.identity);
    Text(transform,"KAMILUNAVO",new(.32f,.57f,VanCoachworkGeometry.RearSkinZ(.32f,.57f)-.028f),.039f,Color.white,Quaternion.identity);
-   VanCoachworkGeometry.Bumper(transform,"Rear bumper",new(0,.26f,-2.27f),navy);VanCoachworkGeometry.Bumper(transform,"Front bumper",new(0,.26f,2.24f),navy);
+   VanCoachworkGeometry.Bumper(transform,"Rear bumper",new(0,.26f,-2.27f),navy);VanCoachworkGeometry.Bumper(transform,"Front bumper",new(0,.33f,2.19f),navy);
    VanCoachworkGeometry.SculptedPanel(transform,"Front lower bumper fascia",new Vector2(0,.46f),new Vector2(1.55f,.29f),.055f,navy,false,.018f,.020f);
    VanCoachworkGeometry.SculptedPanel(transform,"Grille",new Vector2(0,.81f),new Vector2(1.10f,.43f),.055f,navy,false,.014f,.012f,.22f);
    VanCoachworkGeometry.SculptedPanel(transform,"Front fleet badge",new Vector2(0,1.025f),new Vector2(.12f,.045f),.020f,metal,false,.014f,.006f);
@@ -69,13 +69,14 @@ namespace Kamilunavo.RepairEmpire.Visuals {
    Text(transform,"RE-1027",new(0,.51f,VanCoachworkGeometry.FrontSkinZ(0,.51f)+.043f),.050f,Navy,Quaternion.Euler(0,180,0));
    foreach(int side in new[]{-1,1})
    {
-    VanCoachworkGeometry.SculptedPanel(transform,"Fog light recess",new Vector2(side*.60f,.43f),new Vector2(.18f,.105f),.025f,navy,false,.034f,.006f);
-    VanCoachworkGeometry.SculptedPanel(transform,"Fog lamp lens",new Vector2(side*.60f,.43f),new Vector2(.083f,.045f),.018f,metal,false,.039f,.006f);
+    VanCoachworkGeometry.SculptedPanel(transform,"Fog light recess",new Vector2(side*.60f,.46f),new Vector2(.18f,.105f),.025f,navy,false,.034f,.006f);
+    VanCoachworkGeometry.SculptedPanel(transform,"Fog lamp lens",new Vector2(side*.60f,.46f),new Vector2(.083f,.045f),.018f,metal,false,.047f,.006f);
     VanCoachworkGeometry.Wiper(transform,side,navy);
    }
    VanProductionDetails.Build(transform,white,livery,navy,tyre,metal,orange,headLight);
+   VanProductionDetails.PrepareMoldedSurfaces(transform,navy,tyre);
    foreach(int side in new[]{-1,1})foreach(float z in new[]{-1.42f,1.38f})BuildWheel(side,z,metal,tyre,navy);
-   VehicleReflection();DistrictArtGeometry.Combine(transform,true);VanProductionDetails.ReleaseBatchedDetails(transform);foreach(var renderer in GetComponentsInChildren<MeshRenderer>(true))if(renderer.sharedMaterial==glass)renderer.shadowCastingMode=UnityEngine.Rendering.ShadowCastingMode.Off;if(Motor!=null)body=Motor.GetComponent<Rigidbody>();
+   VehicleReflection();DistrictArtGeometry.Combine(transform,true);VanProductionDetails.ReleaseBatchedDetails(transform);foreach(var renderer in GetComponentsInChildren<MeshRenderer>(true))if(renderer.sharedMaterial==glass||renderer.sharedMaterial==headLight)renderer.shadowCastingMode=UnityEngine.Rendering.ShadowCastingMode.Off;if(Motor!=null)body=Motor.GetComponent<Rigidbody>();
   }
   void BuildWheel(int side,float axle,Material metal,Material tyre,Material navy)
   {
@@ -91,7 +92,7 @@ namespace Kamilunavo.RepairEmpire.Visuals {
     MeshArt.Lathe(rim,"Steel centre cap",new[]{.106f,.111f,.114f},new[]{.043f,.045f,.040f},24,metal,Vector3.one);
     for(int bolt=0;bolt<5;bolt++){float a=bolt*Mathf.PI*2/5;var nut=MeshArt.Lathe(rim,"Wheel lug nut",new[]{0f,.002f,.010f,.011f},new[]{.0085f,.0085f,.0085f,0f},6,metal,Vector3.one);nut.transform.localPosition=new(Mathf.Cos(a)*.067f,.106f,Mathf.Sin(a)*.067f);}
    }
-   VanProductionDetails.TireSipes(wheel,tyre);wheels.Add(wheel);DistrictArtGeometry.Combine(wheel,false);
+   VanProductionDetails.TireSipes(wheel,tyre);VanProductionDetails.PrepareMoldedSurfaces(wheel,navy,tyre);wheels.Add(wheel);DistrictArtGeometry.Combine(wheel,false);
   }
   void Cabin(Material plastic,Material cloth,Material metal)
   {

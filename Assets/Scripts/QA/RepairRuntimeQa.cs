@@ -90,12 +90,29 @@ namespace Kamilunavo.RepairEmpire.QA {
    }
    finally{RenderTexture.active=previous;camera.targetTexture=null;target.Release();Destroy(target);Destroy(sample);Destroy(cameraHost);Destroy(host);}
   }
+  void CheckNativeMoldedSurface(VanArt vehicle)
+  {
+   Material material=null;foreach(var renderer in vehicle.GetComponentsInChildren<MeshRenderer>(true))if(renderer.sharedMaterial!=null&&renderer.sharedMaterial.name=="VanNavy"){material=renderer.sharedMaterial;break;}
+   Check(material!=null&&material.IsKeywordEnabled("_NORMALMAP")&&material.GetTexture("_BumpMap")==Resources.Load<Texture2D>("Art/VanMoldedGrain-v1"),"Production molded plastic uses original shared normal texture and serialized native variant");
+   var host=new GameObject("QA native molded surface");var cameraHost=new GameObject("QA molded camera",typeof(Camera));var key=new GameObject("QA molded grazing light",typeof(Light));var camera=cameraHost.GetComponent<Camera>();camera.enabled=false;camera.cullingMask=1<<ServiceSceneArt.PreviewLayer;camera.clearFlags=CameraClearFlags.SolidColor;camera.backgroundColor=Color.gray;camera.orthographic=true;camera.orthographicSize=.35f;camera.nearClipPlane=.1f;camera.farClipPlane=4;camera.transform.position=new Vector3(0,-250,-1.5f);
+   var light=key.GetComponent<Light>();light.type=LightType.Directional;light.cullingMask=1<<ServiceSceneArt.PreviewLayer;light.intensity=2;light.shadows=LightShadows.None;key.transform.rotation=Quaternion.Euler(25,55,0);
+   var target=new RenderTexture(128,128,0,RenderTextureFormat.ARGB32);var pixels=new Texture2D(128,128,TextureFormat.RGB24,false);var previous=RenderTexture.active;float scale=material.GetFloat("_BumpScale");
+   try
+   {
+    host.transform.position=new Vector3(0,-250,0);var pane=MeshArt.Mesh(host.transform,"QA molded plastic patch",new[]{new Vector3(-.5f,-.5f,0),new Vector3(-.5f,.5f,0),new Vector3(.5f,.5f,0),new Vector3(.5f,-.5f,0)},new[]{0,1,2,0,2,3},new[]{Vector2.zero,Vector2.up,Vector2.one,Vector2.right},material);pane.layer=ServiceSceneArt.PreviewLayer;pane.GetComponent<MeshFilter>().sharedMesh.RecalculateTangents();target.Create();camera.targetTexture=target;
+    Color32[] Render(float amount,string name){material.SetFloat("_BumpScale",amount);camera.Render();RenderTexture.active=target;pixels.ReadPixels(new Rect(0,0,128,128),0,0);pixels.Apply();File.WriteAllBytes(Path.Combine(output,name+".png"),pixels.EncodeToPNG());return pixels.GetPixels32();}
+    var flat=Render(0,"material-plastic-flat");var grain=Render(scale,"material-plastic-grain");int changed=0;for(int i=0;i<flat.Length;i++)if(Math.Abs(flat[i].r-grain[i].r)+Math.Abs(flat[i].g-grain[i].g)+Math.Abs(flat[i].b-grain[i].b)>1)changed++;
+    Check(changed>32,"Actual native GPU micrograin differs from flat control in "+changed+" pixels; normal variant survives build");
+   }
+   finally{material.SetFloat("_BumpScale",scale);RenderTexture.active=previous;camera.targetTexture=null;scenePixels.Remove(target);target.Release();Destroy(target);Destroy(pixels);Destroy(cameraHost);Destroy(host);light.enabled=false;Destroy(key);}
+   Check(material.GetFloat("_BumpScale")==scale,"Material inspection restores production finish authority");
+  }
   IEnumerator CaptureVanViews()
   {
    // Let the unpaused production Rigidbody settle on the actual road before
    // measuring. An isolated art-local y=0 is not the driving support plane.
    yield return new WaitForSecondsRealtime(.35f);
-   var vehicle=game.Vehicle.GetComponentInChildren<VanArt>();Check(vehicle!=null,"Actual driving van supplies the model inspection");CheckNativeGlass(vehicle);var support=game.Vehicle.GetComponent<BoxCollider>();Check(support!=null,"Actual service van retains its driving support collider");int tires=0;
+   var vehicle=game.Vehicle.GetComponentInChildren<VanArt>();Check(vehicle!=null,"Actual driving van supplies the model inspection");CheckNativeGlass(vehicle);CheckNativeMoldedSurface(vehicle);var support=game.Vehicle.GetComponent<BoxCollider>();Check(support!=null,"Actual service van retains its driving support collider");int tires=0;
    foreach(var filter in vehicle.GetComponentsInChildren<MeshFilter>(true))if(filter.name=="Rubber tire")
    {
     tires++;float bottom=float.PositiveInfinity;foreach(var point in filter.sharedMesh.vertices)bottom=Mathf.Min(bottom,filter.transform.TransformPoint(point).y);

@@ -1,10 +1,10 @@
 {
   "game": "Repair Empire",
   "status": "failed",
-  "sourceSha256": "da5426fd53524800207d90f5711f09af8ffb0d54f1bff7dfee033fff74e89fde",
-  "reviewer": "Codex direct final native van-detail and approved Concept comparison",
+  "sourceSha256": "6b3e99469d78583c4ea2ef54c04fa4647fcef57c7da2d8c68efffdb8bbfbd878",
+  "reviewer": "Codex direct final native van-finish and approved Concept comparison",
   "reviewedAt": "2026-10-15",
-  "reason": "Original commercial-van detail integrated and native1472/1377/7 pass. Overall street/vehicle/scene finish remains below approved Concept; no full graphical approval.",
+  "reason": "Full tire-width cavities/dark liners, actual optical assemblies and original molded surface normals verified on native1475/1377/7. Whole scene/vehicle material/composition finish still below approved Concept; no graphical release approval.",
   "criteria": {
     "concept_similarity": "failed",
     "character_or_tower": "failed",
@@ -23,63 +23,63 @@
     ],
     "menu": [
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTransitDetail-20261015/TreadPresentation/showcase-de-dashboard.png",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVanFinish-20261015/NativePresentation/showcase-de-dashboard.png",
         "sha256": "7b6f86e30dc90d9b51ed2b441931460884f18b71c31abc562af4eaf9bd72e22d",
         "origin": "Unity-render"
       },
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTransitDetail-20261015/TreadPresentation/landscape-de-section-9.png",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVanFinish-20261015/NativePresentation/landscape-de-section-9.png",
         "sha256": "15c29061d65467984c13674e06dd8768a1761495517a81702201246c286c29e4",
         "origin": "Unity-render"
       }
     ],
     "gameplay": [
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTransitDetail-20261015/TreadPresentation/showcase-driving-service.png",
-        "sha256": "b023e87cdcf96a698570d5a244bce80100848e68713e91fd0eba21addb6deba7",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVanFinish-20261015/NativePresentation/showcase-driving-service.png",
+        "sha256": "2aaa805ded906479c31efdad3564093bc30f1b2a7a81f6b03992c2e998f3f624",
         "origin": "Unity-render"
       },
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTransitDetail-20261015/TreadPresentation/van-front-three-quarter.png",
-        "sha256": "b5fbd8909d46635ee46e9f50fb342c176db7646b84e13152efa5f0563ee432fa",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVanFinish-20261015/NativePresentation/van-front-three-quarter.png",
+        "sha256": "eee591d5399ba0b766550b1cc90552904955f152d0f88902325992d7c63f3c71",
         "origin": "Unity-render"
       }
     ],
     "submenus": [
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTransitDetail-20261015/TreadPresentation/portrait-de-section-0.png",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVanFinish-20261015/NativePresentation/portrait-de-section-0.png",
         "sha256": "ae8489c641fd8c1178b4595e78b1b5aab019ca7bbd6329518428ebd4f1901443",
         "origin": "Unity-render"
       },
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTransitDetail-20261015/TreadFull/repair-faucet-stage1.png",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVanFinish-20261015/NativeFull/repair-faucet-stage1.png",
         "sha256": "fc59bfb333760a9d861f88171d873f0196b79d0cedcf2919b45d2ccd853264d0",
         "origin": "Unity-render"
       },
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTransitDetail-20261015/TreadFull/repair-paid-result-0.png",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVanFinish-20261015/NativeFull/repair-paid-result-0.png",
         "sha256": "a94229d2671a6e13445ee55d53ba7ca2e94df4ecbb45235a30445f92c81306ba",
         "origin": "Unity-render"
       }
     ],
     "variants": [
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTransitDetail-20261015/TreadPresentation/fixture-call-2-3.png",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVanFinish-20261015/NativePresentation/fixture-call-2-3.png",
         "sha256": "edaa9005ee132b1ab241071a0f248e837941d6b31bb7530acece6a6bc56b6bf5",
         "origin": "Unity-render"
       },
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTransitDetail-20261015/TreadPresentation/fixture-switch.png",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVanFinish-20261015/NativePresentation/fixture-switch.png",
         "sha256": "47d2d25fb90d99c1a3fe2f5473249088516763a5c90d11d8962a920e96fba05f",
         "origin": "Unity-render"
       }
     ]
   },
   "previousReview": {
-    "sourceSha256": "5dc2e67f7952204cadfc43e3635e00557ac13b7fe72210fc507044110bb41277",
+    "sourceSha256": "da5426fd53524800207d90f5711f09af8ffb0d54f1bff7dfee033fff74e89fde",
     "status": "failed",
-    "archive": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTransitDetail-20261015/visual-release-gate.json.before"
+    "archive": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVanFinish-20261015/visual-release-gate.json.before"
   },
-  "candidateReport": "docs/QA/repair-transit-details-20261015.json",
+  "candidateReport": "docs/QA/repair-van-finish-20261015.json",
   "evidenceNote": "Menus are genuine Unity captures containing decorative generated workshop art; this art is not evidence of3D scene quality."
 }

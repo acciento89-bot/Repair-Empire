@@ -1,10 +1,10 @@
 {
   "game": "Repair-Empire",
   "status": "pending",
-  "sourceSha256": "da5426fd53524800207d90f5711f09af8ffb0d54f1bff7dfee033fff74e89fde",
+  "sourceSha256": "6b3e99469d78583c4ea2ef54c04fa4647fcef57c7da2d8c68efffdb8bbfbd878",
   "reviewer": "Codex direct source-icon and actual native-frame comparison",
   "reviewedAt": "2026-10-15",
-  "reason": "Current gameplay includes new original commercial-van details. Repair icon assignment/submissions untouched; exported native icon variants and rendering-promise accuracy remain pending.",
+  "reason": "Original van optical/surface and wheelhouse finish improved. Repair icon assignment/submissions untouched; exported native icon variants and rendering-promise accuracy remain pending.",
   "decision": "No new upload approval. Complete accurate native icon and variant review before setting passed.",
   "variantConsistencyChecked": false,
   "evidence": {
@@ -16,8 +16,8 @@
     "nativeIcon": null,
     "gameplay": [
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTransitDetail-20261015/TreadPresentation/showcase-driving-service.png",
-        "sha256": "b023e87cdcf96a698570d5a244bce80100848e68713e91fd0eba21addb6deba7",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVanFinish-20261015/NativePresentation/showcase-driving-service.png",
+        "sha256": "2aaa805ded906479c31efdad3564093bc30f1b2a7a81f6b03992c2e998f3f624",
         "origin": "Unity-render"
       }
     ]
