@@ -1,0 +1,327 @@
+{
+  "game": "Repair Empire",
+  "date": "2026-10-15",
+  "sourceSha256": "a55b78003d5abc5993374bc3bbd532e95e2de9c3669ffbdc77d73e4b28ddf17d",
+  "baseCommit": "b6b11a506471166e4c253f192aa5a27c2307775e",
+  "scope": "Coherent compact commercial-street composition, original parked cars/pockets, closer follow view, warmer fill and correctly placed customer signage.",
+  "supersedes": "docs/QA/repair-van-finish-20261015.json",
+  "implemented": [
+    "Main avenue13.2m instead of16m,3.4m pavements and main-frontage cores3m closer (centres X18→15; visible facades X13→10). Matching curbs, drains, trees, street furniture and road-facing lamps. Side avenues/cross streets retain original layout.",
+    "13real outside-road parking pockets with curbs/paint and an original sculpted5228vertex passenger car: curved body/wheel arches, tapered glazing, fitted roof/pillars,4rounded road wheels/alloys, mirrors/handles/lamps/bumpers. Shared finite district materials, owned meshes, no new colliders/RNG/per-frame logic.",
+    "Main cameraFOV52, follow distance7.8/height3.8; existing damping/input/controller untouched. Larger readable van with closer street perspective; warmer gentle sun/ambient fill and longer scene fog.",
+    "Compact2.7m customer plates with fitted real text/arrow, centre|X|8/Y4.05 and grounded posts clear of road and projecting awnings/cornices/sills. Parking positions avoid planters, benches and all customer posts; four-metre decorative lamp offsets clear customer signage.",
+    "Engine regression sweeps24jobs×72billboard headings against actual projecting facade/lamp bounds, all24full van stopping volumes and13car-body/pavement-furniture placements. Real native arrival asserts entire physical plate against actual road bounds, not an obsolete fixed street width.",
+    "Native-only actual parked-car/street camera readbacks restore/dispose targets/cameras and preserve driving/company state; no generated illustration used as3Dproof."
+  ],
+  "preserved": [
+    "All54original collision volumes retain every exact field except the explicitly intended22main-frontage X18→15 relocation. Immutable original JSON not rewritten; exact deterministic height RNG retained.",
+    "All24original customer destinations, job identifiers/pay/ordered interactions/exact-once rewards, input/controller, save/commerce authority, scenes/packages/version and byte-identical ProjectSettings.",
+    "Moving van68888retained vertices/27active renderers/9materials and strict70k/32/9ceilings unchanged; all existing aperture/normal/material/lifecycle checks retained.",
+    "Approved Perfect Drop/Rising Steps and existing One More Floor submission untouched; no Repair upload. User-owned historical Concept deletion remains unstaged."
+  ],
+  "originalAssets": [
+    {
+      "kind": "original procedural parked vehicle, street and layout",
+      "sources": [
+        {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Projects/Repair-Empire/Assets/Scripts/Visuals/ParkedVehicleArt.cs",
+          "sha256": "8e5a0571e8a88678c620ad58e3b01a26168b23ff159d60f61520c4416b0f4efa",
+          "origin": "original-source"
+        },
+        {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Projects/Repair-Empire/Assets/Scripts/Gameplay/CityBuilder.cs",
+          "sha256": "34f2246be13c983b1e390913acb306d7ceed6ce8a1ac072f2475cb82f21979fa",
+          "origin": "original-source"
+        },
+        {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Projects/Repair-Empire/Assets/Scripts/Visuals/DistrictArtGeometry.cs",
+          "sha256": "d8c207502a994fb817e47226cf7ccf9553c1631a6f0d793b294f7b7cdf2fc16f",
+          "origin": "original-source"
+        }
+      ],
+      "externalMeshShipped": false
+    }
+  ],
+  "unity": {
+    "aggregateAndMacBuildExitCode": 0,
+    "log": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetRebuild-20261015/unity-street-accepted-native.log",
+      "sha256": "c16e3274b25ad6f21ba2e0c815fb3134236d3283707af22d3487d6fd79a0176a",
+      "origin": "native-Unity-Editor-and-build-log"
+    },
+    "receipt": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetRebuild-20261015/source-native-receipt.json",
+      "sha256": "a81cf03ad2cf98e487529dba4bc8cf84f23b74c5191b67a580ceb89468d8c1ab",
+      "origin": "exact-source-native-build-binding"
+    },
+    "bundleManifest": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetRebuild-20261015/native-bundle-manifest.json",
+      "sha256": "f0b644a7322f937d35a8236dbac06636b8b386930df45585005f8439b70cdd49",
+      "origin": "all-native-bundle-files"
+    },
+    "nativeFileCount": 314,
+    "settingsBefore": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetRebuild-20261015/settings-before.json",
+      "sha256": "7c88f48c8b782c77a29bb9392f494044a0980b0afec9cb345dfbe09e69ec868a",
+      "origin": "pre-edit-settings-hashes"
+    },
+    "settingsUnchanged": true
+  },
+  "runs": {
+    "FinalPresentation": {
+      "checks": 1481,
+      "processExitCode": 0,
+      "result": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetRebuild-20261015/FinalPresentation/PASS.txt",
+        "sha256": "65956cdaf47b9620c65f046c543e7eac1c16ef5be49ea32bdc42d84e002f64d3",
+        "origin": "actual-native-result"
+      },
+      "checksFile": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetRebuild-20261015/FinalPresentation/checks.txt",
+        "sha256": "9527d9f8aadbf85e6cdf65394efe205bd5e7086b4167058391188355433c1210",
+        "origin": "actual-native-checks"
+      },
+      "provenance": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetRebuild-20261015/FinalPresentation/PROVENANCE.json",
+        "sha256": "da209b3ffcb9cffcb9bd634ae87f9650c7bd98deb17fa885b3e98827eb025a00",
+        "origin": "native-source-binding"
+      },
+      "log": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetRebuild-20261015/FinalPresentation.log",
+        "sha256": "a55c09f9a18b90237f15465ce0d879a614c9826b550385fec18b596e67553d12",
+        "origin": "native-Mac-log"
+      },
+      "imageManifest": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetRebuild-20261015/FinalPresentation/IMAGE-HASHES.json",
+        "sha256": "94e77fa366563725473bb4ac30669a5d18c5a40d8036d8aac6bd2dae366e7c8c",
+        "origin": "actual-Unity-render-manifest"
+      },
+      "imageCount": 75
+    },
+    "FinalFull": {
+      "checks": 1377,
+      "processExitCode": 0,
+      "result": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetRebuild-20261015/FinalFull/PASS.txt",
+        "sha256": "c863575bd616b2a7b2287886a6e8ca8bd1af6e0e31f2d02097f50b0bf4c56f0e",
+        "origin": "actual-native-result"
+      },
+      "checksFile": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetRebuild-20261015/FinalFull/checks.txt",
+        "sha256": "dffba9320b5e0597c963b27d7519876025de91b24f439684728c48c6b3a808ee",
+        "origin": "actual-native-checks"
+      },
+      "provenance": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetRebuild-20261015/FinalFull/PROVENANCE.json",
+        "sha256": "4ecbe0e59103e046a76708cfa9ae0137edae34cca63a0ed45f4f12dee7d8672b",
+        "origin": "native-source-binding"
+      },
+      "log": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetRebuild-20261015/FinalFull.log",
+        "sha256": "649b231ee304540903e1655f971983ba316d4ecf308e35f7285b993baab9d1ad",
+        "origin": "native-Mac-log"
+      },
+      "imageManifest": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetRebuild-20261015/FinalFull/IMAGE-HASHES.json",
+        "sha256": "9a9961e8e513fabcb56443fded7f8785ee00945d2a64b6717008377c3675d247",
+        "origin": "actual-Unity-render-manifest"
+      },
+      "imageCount": 58
+    },
+    "FinalReload": {
+      "checks": 7,
+      "processExitCode": 0,
+      "result": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetRebuild-20261015/FinalReload/PASS.txt",
+        "sha256": "38213edc12e5ec96959592e87d8dbbd73398b1a84ce00fa19c8bdea92ba590b6",
+        "origin": "actual-native-result"
+      },
+      "checksFile": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetRebuild-20261015/FinalReload/checks.txt",
+        "sha256": "a47cdbe2c393a6d3242b1a93b7d3a4c797bf0fcce1aae50ab49f39ff59a87fa3",
+        "origin": "actual-native-checks"
+      },
+      "provenance": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetRebuild-20261015/FinalReload/PROVENANCE.json",
+        "sha256": "7806d340620a160480ff9d66495a81c171d87053bcc0227df3ded1d908932c5c",
+        "origin": "native-source-binding"
+      },
+      "log": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetRebuild-20261015/FinalReload.log",
+        "sha256": "fdebd274ad71b544ac8ecbdd0b5729270837e1d24862b7ab36612e87cac63c9b",
+        "origin": "native-Mac-log"
+      },
+      "imageManifest": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetRebuild-20261015/FinalReload/IMAGE-HASHES.json",
+        "sha256": "c3c40252064f66dba56aa4c5da07f017144714049625b24c4aa3d362df0eb30c",
+        "origin": "actual-Unity-render-manifest"
+      },
+      "imageCount": 1
+    }
+  },
+  "geometryEvidence": {
+    "mainFrontages": 22,
+    "originalVolumes": 54,
+    "customerVanVolumesClear": 24,
+    "signSweepPoses": 1728,
+    "parkedCars": 13,
+    "passengerVerticesEach": 5228,
+    "movingVan": {
+      "retainedVertices": 68888,
+      "activeRenderers": 27,
+      "materials": 9
+    },
+    "workshop": {
+      "retainedVertices": 150684,
+      "activeRenderers": 29,
+      "materials": 21
+    }
+  },
+  "candidateHistory": [
+    {
+      "stage": "Compact frontage RED",
+      "log": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetRebuild-20261015/unity-layout-red.log",
+        "sha256": "b0d44cab7160b0976498417d92efc7fed114dedac94421af20ad26ddaacd6fcb",
+        "origin": "pre-fix-engine-regression"
+      }
+    },
+    {
+      "stage": "Actual car/planter RED",
+      "log": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetRebuild-20261015/unity-parking-red.log",
+        "sha256": "b2b38d508da62dc117d350586116acea45a58a41de24d60dcf2e07c031a646e3",
+        "origin": "pre-fix-engine-regression"
+      }
+    },
+    {
+      "stage": "Actual awning/sign RED",
+      "log": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetRebuild-20261015/unity-sign-red.log",
+        "sha256": "041ce169eef17e4ea2912ef361d4607999080a2b9155617572b9d532418ee8e2",
+        "origin": "pre-fix-engine-regression"
+      }
+    },
+    {
+      "stage": "Full-yaw actual lamp/sign RED",
+      "log": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetRebuild-20261015/unity-lamp-red.log",
+        "sha256": "379399dd10ce104c3419487d76cec5082ce2209fbeb57c0197986d9fb5b7e815",
+        "origin": "pre-fix-engine-regression"
+      }
+    },
+    {
+      "stage": "Initial native drive rejects old8.1mcentre assumption",
+      "outcome": "Replaced old centre-only constant with stronger actual whole-plate/actual avenue bounds test. Initial failed native candidate retained; not counted as acceptance.",
+      "receipt": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetRebuild-20261015/source-native-receipt-initial.json",
+        "sha256": "6f3d959056d6bc6285eaf999d8bd5da66de2a1067928d1460699a4fa33b04415",
+        "origin": "superseded-native-binding"
+      },
+      "log": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetRebuild-20261015/NativeFull.log",
+        "sha256": "e99ee4715f40c085b78b548617195ee0f51fcd5f2da2458319761ed4b1857501",
+        "origin": "superseded-native-diagnostic"
+      }
+    }
+  ],
+  "sourceReview": {
+    "reviewer": "independent read-only repair_concept_van_review15",
+    "decision": "No remaining Critical or Important source findings; source approved.",
+    "findingsClosed": [
+      "Three car/planter intersections, then car/customer-post placements.",
+      "Plate/awning, then cornice/sill and five customer/lamp intersections; strict full-yaw actual-geometry guard added.",
+      "QA lookup uses actual CityBuilder scene root; strengthened road-bounds guard."
+    ],
+    "scope": "Source quality/ownership only. Native appearance/device/release remain root-owned."
+  },
+  "visualEvidence": {
+    "concept": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Artifacts/KamilunavoDelivery-20261009/concepts-20261010/repair-empire-3-ansichten.png",
+      "sha256": "0571d35c40de036f83f86f3b423c234f321586abcfec97d9d259710d816723f1",
+      "origin": "approved-concept"
+    },
+    "gameplay": [
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetRebuild-20261015/FinalPresentation/showcase-driving-service.png",
+        "sha256": "6070a6c0fd5899c3f8357db09873cca38d85faf79443790cea11c3729c23d496",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetRebuild-20261015/FinalPresentation/landscape-home.png",
+        "sha256": "a62f08affc89842b4fd8e2d65d257e3b491bbf0ad134052181ce7ea8a44b2a23",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetRebuild-20261015/FinalPresentation/street-layout.png",
+        "sha256": "7934d8b046feccb61d668c9d657ac48ccae7fefd5c3601609344d17bce15d1f9",
+        "origin": "Unity-render"
+      }
+    ],
+    "model": [
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetRebuild-20261015/FinalPresentation/street-parked-car.png",
+        "sha256": "8f3dc54bdc3c222358e8616a69980bc6e2802c2bee6bdd6c102896d955fba258",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetRebuild-20261015/FinalPresentation/van-front-three-quarter.png",
+        "sha256": "9b153b534e4504710121fbb7a0716f5fd8234db3876bf6a943572cb6782c79bd",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetRebuild-20261015/FinalPresentation/van-rear-three-quarter.png",
+        "sha256": "460d21344e776a1dd462921b94e0c07bba50c69475155fed9c6ef5f49257eb9e",
+        "origin": "Unity-render"
+      }
+    ],
+    "menus": [
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetRebuild-20261015/FinalPresentation/showcase-de-dashboard.png",
+        "sha256": "a31db78cc86d177c11d82bdcf69daf997727b440fbf99c3ccd85c793ca3961f7",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetRebuild-20261015/FinalPresentation/landscape-de-section-9.png",
+        "sha256": "15c29061d65467984c13674e06dd8768a1761495517a81702201246c286c29e4",
+        "origin": "Unity-render"
+      }
+    ],
+    "repairs": [
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetRebuild-20261015/FinalFull/repair-faucet-stage1.png",
+        "sha256": "1d3e2e68bdcc0119d4d995944d269b36c5f63350aa6647b1fe8cf0c3b270c613",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetRebuild-20261015/FinalFull/repair-paid-result-0.png",
+        "sha256": "a94229d2671a6e13445ee55d53ba7ca2e94df4ecbb45235a30445f92c81306ba",
+        "origin": "Unity-render"
+      }
+    ]
+  },
+  "comparisons": [
+    {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetRebuild-20261015/konzept-unity-vergleich.png",
+      "sha256": "a304b28afefa1bc56e412ee6e50744ccc56f1f809482d9cf2407d443a7756e92",
+      "origin": "mechanical-layout-of-unretouched-native-PNGs-and-labeled-reference"
+    },
+    {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetRebuild-20261015/street-native-views.png",
+      "sha256": "62578e7d3022b1ef54796af948d8c351d8fd93f817da06fedaa49f5b3cedf24d",
+      "origin": "mechanical-layout-of-unretouched-native-PNGs-and-labeled-reference"
+    }
+  ],
+  "decision": {
+    "boundedStreetRebuild": "verified",
+    "fullConceptSimilarity": "failed",
+    "storeIconReview": "pending",
+    "uploadPerformed": false
+  },
+  "remaining": [
+    "Actual native composition is denser and closer, but tree cores, flat glazing/materials, simplified parked-car/van surfaces and repair composition are still visibly below the approved Concept. No90percent claim.",
+    "Next pass: original canopy surface/denser authored leaves/branches and richer facade reflection/materials, then closer actual repair presentation.",
+    "Generated workshop artwork is decorative UI art, not proof of3Dscene quality.",
+    "Native Mac Metal checks do not establish physical-device60FPS/thermal/touch,live purchases/ad delivery,exported store icon variants or Apple approval."
+  ]
+}

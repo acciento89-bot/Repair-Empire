@@ -66,7 +66,7 @@ namespace Kamilunavo.RepairEmpire.Visuals
    paleFacade=Own("UrbanWarmPlasterPale",new Color(.95f,.91f,.82f));paleFacade.mainTexture=Plaster.mainTexture;
    goldenCrown=Own("UrbanGoldenCrown",new Color(.30f,.39f,.13f));shopTeal=Own("UrbanPaintedShopTeal",new Color(.12f,.26f,.25f));shopCanvas=Own("UrbanCanvasWarmOchre",new Color(.72f,.44f,.22f));
    Roof=Own("UrbanSlateRoof",new Color(.19f,.24f,.27f));
-   LeafMass=Own("UrbanCrownShadow",new Color(.18f,.29f,.10f));
+   LeafMass=Own("UrbanCrownShadow",new Color(.25f,.36f,.12f));
    Leaves=Own("UrbanLeafDetail",new Color(.86f,.92f,.78f));Leaves.shader=Resources.Load<Shader>("Foliage");Leaves.mainTexture=Resources.Load<Texture2D>("Art/StreetLeafSprigs-v1");Leaves.SetFloat("_Cutoff",.42f);
   }
   Material Own(string name,Color color){var material=new Material(Resources.Load<Material>("Materials/Surface")){name=name,color=color};material.SetFloat("_Glossiness",.12f);ArtLifetime.Own(owner.gameObject,material);return material;}

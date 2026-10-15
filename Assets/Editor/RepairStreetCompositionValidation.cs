@@ -29,13 +29,26 @@ public static class RepairStreetCompositionValidation
   try {root.GetComponent<CityBuilder>().Build();var entries=new List<string>();foreach(var collider in root.GetComponentsInChildren<BoxCollider>(true))entries.Add(collider.name+"|"+V(collider.transform.position)+"|"+V(collider.transform.eulerAngles)+"|"+V(collider.transform.lossyScale)+"|"+V(collider.center)+"|"+V(collider.size)+"|"+collider.isTrigger);entries.Sort(StringComparer.Ordinal);return new CitySnapshot{colliders=entries.ToArray(),randomState=JsonUtility.ToJson(UnityEngine.Random.state)};}
   finally {state.Restore();UnityEngine.Object.DestroyImmediate(root);}
  }
+ static string[] CompactFrontageCollisionLayout(CitySnapshot original)
+ {
+  // Approved compact-street authoring moves only the existing main-frontage
+  // cores three metres inward. Keep every other saved volume field exact.
+  var result=new List<string>();int moved=0;
+  foreach(var entry in original.colliders)
+  {
+   var fields=entry.Split('|');var position=fields[1].Split(',');float x=float.Parse(position[0],CultureInfo.InvariantCulture);
+   if(fields[0]=="Modeled masonry building core"&&Mathf.Abs(x)<30){Require(Mathf.Abs(x)==18,"ORIGINAL_FRONTAGE_BASELINE_CHANGED");position[0]=(Mathf.Sign(x)*15).ToString("R",CultureInfo.InvariantCulture);fields[1]=string.Join(",",position);moved++;}
+   result.Add(string.Join("|",fields));
+  }
+  Require(moved>=10,"ORIGINAL_FRONTAGE_CORES_MISSING");result.Sort(StringComparer.Ordinal);return result.ToArray();
+ }
  public static void CaptureAndValidate()
  {
   Require(!File.Exists(Baseline),"BASELINE_ALREADY_EXISTS");var before=Snapshot();Directory.CreateDirectory(Path.GetDirectoryName(Baseline));File.WriteAllText(Baseline,JsonUtility.ToJson(before,true)+"\n");Debug.Log("REPAIR_STREET_BASELINE_CAPTURED colliders="+before.colliders.Length);Validate();
  }
  public static void Validate()
  {
-  Require(File.Exists(Baseline),"MISSING_ORIGINAL_COLLISION_BASELINE");var expected=JsonUtility.FromJson<CitySnapshot>(File.ReadAllText(Baseline));var actual=Snapshot();Require(string.Join("\n",actual.colliders)==string.Join("\n",expected.colliders),"COLLISION_AUTHORITY_CHANGED");Require(actual.randomState==expected.randomState,"HEIGHT_RANDOM_SEQUENCE_CHANGED");
+  Require(File.Exists(Baseline),"MISSING_ORIGINAL_COLLISION_BASELINE");var expected=JsonUtility.FromJson<CitySnapshot>(File.ReadAllText(Baseline));var actual=Snapshot();Require(string.Join("\n",actual.colliders)==string.Join("\n",CompactFrontageCollisionLayout(expected)),"COMPACT_COLLISION_LAYOUT_CHANGED");Require(actual.randomState==expected.randomState,"HEIGHT_RANDOM_SEQUENCE_CHANGED");
   var root=new GameObject("Original street canopy fixture");var owned=new HashSet<UnityEngine.Object>();Texture2D brick=null,leaves=null;
   try
   {
@@ -46,7 +59,7 @@ public static class RepairStreetCompositionValidation
    foreach(var filter in root.GetComponentsInChildren<MeshFilter>())owned.Add(filter.sharedMesh);foreach(var renderer in root.GetComponentsInChildren<MeshRenderer>()){var material=renderer.sharedMaterial;if(!AssetDatabase.Contains(material))owned.Add(material);if(material.mainTexture!=null&&!AssetDatabase.Contains(material.mainTexture))owned.Add(material.mainTexture);}
   }
   finally {UnityEngine.Object.DestroyImmediate(root);}
-  foreach(var asset in owned)Require(asset==null,"OWNED_CANOPY_RESOURCE_LEAK");Require(brick!=null&&leaves!=null,"SHARED_ORIGINAL_TEXTURE_DESTROYED");Debug.Log("REPAIR_STREET_COMPOSITION_PASS exact collider/random authority, broad canopy, original shared textures and owned cleanup");
+  foreach(var asset in owned)Require(asset==null,"OWNED_CANOPY_RESOURCE_LEAK");Require(brick!=null&&leaves!=null,"SHARED_ORIGINAL_TEXTURE_DESTROYED");RepairStreetLayoutValidation.Validate();Debug.Log("REPAIR_STREET_COMPOSITION_PASS54exact original volume fields with main-frontage X18to15 relocation only; exact height RNG, original shared textures and owned cleanup");
  }
 }
 #endif

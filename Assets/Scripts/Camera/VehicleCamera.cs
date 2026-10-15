@@ -5,8 +5,8 @@ namespace Kamilunavo.RepairEmpire.CameraSystem
     public sealed class VehicleCamera : MonoBehaviour
     {
         public Transform Target;
-        public float Distance = 8.5f;
-        public float Height = 4.2f;
+        public float Distance = 7.8f;
+        public float Height = 3.8f;
         public float Smooth = 10f;
 
         private void LateUpdate()

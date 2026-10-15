@@ -1,12 +1,14 @@
 # Repair Empire
 
+Current overnight street pass: **13.2m avenue, closer facades,13modeled parking pockets/original curved cars**, aligned street furniture, warmer fill and closer driving view. Native **1481 /1377 /7** checks pass on the exact source, including four real drives and saved-profile reload. Customer signs are checked against actual projecting architecture/lamps through1728poses. Original54collision volumes retain every field except the intended22main-frontage X18→15 move. [Actual Concept comparison, native images and evidence](docs/QA/repair-street-rebuild-20261015.json). Whole Concept review remains failed; next work is canopy/glazing/materials and repair composition.
+
 Native iOS + Android service-business simulator by Kamilunavo.
 
 ## Current work — 2026-10-15
 
 Latest scope: the user reports Perfect Drop and Rising Steps approved. Leave both apps and their submissions untouched; current work is Repair Empire only.
 
-Current overnight van finish: full-width wheel cavities and inboard liners remove the visible painted underside; rounded wraparound bumpers, real reflector assemblies under transparent headlamp lenses and lighter cabin glazing improve the model. An original generated micrograin height asset supplies shared Unity normal detail on rubber/plastic. Stable metric UVs/tangents and a serialized native shader variant retain the existing material/batching owners.
+Previous verified van finish: full-width wheel cavities and inboard liners remove the visible painted underside; rounded wraparound bumpers, real reflector assemblies under transparent headlamp lenses and lighter cabin glazing improve the model. An original generated micrograin height asset supplies shared Unity normal detail on rubber/plastic. Stable metric UVs/tangents and a serialized native shader variant retain the existing material/batching owners.
 
 Fresh exact-source Unity aggregate/Mac build and native presentation /four-driven-job /saved-profile reload pass **1,475 /1,377 /7** checks. Actual GPU relief differs from its flat control in12,033pixels. Moving model: **68,888 retained vertices /27 active renderers /9 materials**, inside unchanged ceilings. New actual wheelhouse regression failed before the fix and passes all16clearance rays afterward. All314native bundle files and byte-identical ProjectSettings reverified. [Original assets, real before/after and Concept comparison](docs/QA/repair-van-finish-20261015.json).
 

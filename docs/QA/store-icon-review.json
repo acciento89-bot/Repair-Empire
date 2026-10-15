@@ -1,10 +1,10 @@
 {
   "game": "Repair-Empire",
   "status": "pending",
-  "sourceSha256": "6b3e99469d78583c4ea2ef54c04fa4647fcef57c7da2d8c68efffdb8bbfbd878",
+  "sourceSha256": "a55b78003d5abc5993374bc3bbd532e95e2de9c3669ffbdc77d73e4b28ddf17d",
   "reviewer": "Codex direct source-icon and actual native-frame comparison",
   "reviewedAt": "2026-10-15",
-  "reason": "Original van optical/surface and wheelhouse finish improved. Repair icon assignment/submissions untouched; exported native icon variants and rendering-promise accuracy remain pending.",
+  "reason": "Compact native street/model views improved; Repair icon assignment/export variants/content review remain pending.",
   "decision": "No new upload approval. Complete accurate native icon and variant review before setting passed.",
   "variantConsistencyChecked": false,
   "evidence": {
@@ -16,8 +16,8 @@
     "nativeIcon": null,
     "gameplay": [
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVanFinish-20261015/NativePresentation/showcase-driving-service.png",
-        "sha256": "2aaa805ded906479c31efdad3564093bc30f1b2a7a81f6b03992c2e998f3f624",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetRebuild-20261015/FinalPresentation/showcase-driving-service.png",
+        "sha256": "6070a6c0fd5899c3f8357db09873cca38d85faf79443790cea11c3729c23d496",
         "origin": "Unity-render"
       }
     ]
