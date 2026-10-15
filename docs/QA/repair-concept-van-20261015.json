@@ -1,0 +1,220 @@
+{
+  "game": "Repair Empire",
+  "date": "2026-10-15",
+  "sourceSha256": "6883bc095d9dfe54662cece3f22f6bce08068e687db241677cff3a432264e617",
+  "baseCommit": "141f33e0c86acd67a7f2d7c32f35dac1e718061b",
+  "scope": "Van-only Concept correction following explicit rejection of the previous model; original authored 3D geometry, no whole-game graphics approval.",
+  "userScope": "Repair Empire only. Approved Perfect Drop/Rising Steps, existing workshop menu artwork, jobs, world/UI/commerce and all submissions left unchanged.",
+  "supersedes": {
+    "report": "docs/QA/repair-van-workshop-20261015.json",
+    "sourceSha256": "46969ee368253bec45ec5ff42e4439edf518dafc6fa9d760cac71f51f95e663f",
+    "reason": "User rejected the prior van appearance despite passing technical validation. Those historical tests remain valid for that source and do not establish visual acceptance."
+  },
+  "implemented": [
+    "Longer/slimmer original cargo loft, flatter regular-grid side/roof panels, modest.16m shoulders and restrained compound end curvature.",
+    "Larger quadrilateral cab glazing; authored surface normals shared through the existing mesh compaction mapping. Thin panel rims retain separate normals.",
+    "Road-sized.37m radius tires with plain pressed-steel centres and thinner arches; actual support-plane alignment at local-.10, coordinated sill/step/underbody/bumper stance.",
+    "Flush4.2mm rear gear instead of105mm relief, Concept five-line rear quote and RE-1027 plate; slim tail lamps/projector headlamps, stronger orange lower livery and thinner ladder/rack/case.",
+    "Restrained owned reflection cube and pearl/tyre/lamp material finish; no realtime probe or per-frame geometry."
+  ],
+  "originalAssets": "Own Unity mesh construction in VanCoachworkGeometry/VanArt. No third-party model, logo or new generated bitmap in this bounded pass. The two existing decorative workshop images remain unchanged and are documented in the superseded report.",
+  "authorityPreserved": [
+    "Unchanged ServiceVan BoxCollider2.2x1.8x4.6, centreY.8; VehicleController, GameBootstrap, VehicleCamera and road/collision authority unchanged.",
+    "Four animated wheel roots, original axle Z positions, eight paint variants and existing upgrade scale. Spin now uses the actual.37m base tire radius.",
+    "Original70k unique vertices/32 active renderers/9 materials moving-model ceilings.",
+    "Full native aggregate verifies the original54district BoxColliders and serialized city-height Random state.",
+    "ProjectSettings byte-identical to the saved baseline; no version change, packages, save/catalog/job/payment/commerce mutation.",
+    "User-owned historical docs/concepts/PRIMARY-CONCEPT.png deletion remains unstaged."
+  ],
+  "nativeBuild": {
+    "receipt": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairConceptVan-20261015/source-native-receipt.json",
+      "sha256": "098d134aae37be000b9ca678e9913fc3784347624e1e2e76e7bbe8e80778f8b5",
+      "origin": "exact-source-native-receipt"
+    },
+    "log": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairConceptVan-20261015/unity-concept-final.log",
+      "sha256": "9269c53041be420bbe31052e8463ba3046ab3d685b4d8f4e7fb0119118b7c7cd",
+      "origin": "native-Unity-full-aggregate-and-Mac-build"
+    },
+    "bundleManifest": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairConceptVan-20261015/native-bundle-manifest.json",
+      "sha256": "1578b13892d5f5da2b099c37f448eb34b78731afdfb094be1b8370044ca5d005",
+      "origin": "314-file-native-bundle-binding"
+    },
+    "exitCode": 0,
+    "allBundleFilesReverified": 314
+  },
+  "nativeRuns": {
+    "FinalPresentation": {
+      "checks": 1461,
+      "passed": true,
+      "processExitCode": 0,
+      "passFile": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairConceptVan-20261015/FinalPresentation/PASS.txt",
+        "sha256": "0699584b0bfc1923122a83520443af6d21c5db03e9136ced7377c5b533a4172a",
+        "origin": "native-Mac-result"
+      },
+      "checksFile": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairConceptVan-20261015/FinalPresentation/checks.txt",
+        "sha256": "715634bf747a7a2599cb9a60a71bf208c639b220e8a2352ae566f1b529b5e2f4",
+        "origin": "native-Mac-checks"
+      },
+      "provenance": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairConceptVan-20261015/FinalPresentation/PROVENANCE.json",
+        "sha256": "a4a925050d6bf1eac8360a71c8485ef677a9bfb360db453d7a4695fb8e11b2d7",
+        "origin": "native-source-binding"
+      },
+      "log": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairConceptVan-20261015/FinalPresentation.log",
+        "sha256": "bc8fc9db9bd0e96e3ef972101f37cdc118fb93452ef08668b59144925862a13f",
+        "origin": "native-Mac-log"
+      },
+      "imageManifest": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairConceptVan-20261015/FinalPresentation/IMAGE-HASHES.json",
+        "sha256": "ba158c14c4db597a6cc33444b8d2e2c5e710d91d44b4d0c59866251d78eb11ca",
+        "origin": "actual-Unity-render-file-manifest"
+      },
+      "imageCount": 68
+    },
+    "FinalFull": {
+      "checks": 1377,
+      "passed": true,
+      "processExitCode": 0,
+      "passFile": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairConceptVan-20261015/FinalFull/PASS.txt",
+        "sha256": "c863575bd616b2a7b2287886a6e8ca8bd1af6e0e31f2d02097f50b0bf4c56f0e",
+        "origin": "native-Mac-result"
+      },
+      "checksFile": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairConceptVan-20261015/FinalFull/checks.txt",
+        "sha256": "415ddcc2fbbf6aae6b8f602cfd5f9aa6d8eacac7b1e8b5be57211f71caefa449",
+        "origin": "native-Mac-checks"
+      },
+      "provenance": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairConceptVan-20261015/FinalFull/PROVENANCE.json",
+        "sha256": "32018341f35735ce9fde80ac589ee06725beb18ce1a0e972ab7beb0987b09ae1",
+        "origin": "native-source-binding"
+      },
+      "log": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairConceptVan-20261015/FinalFull.log",
+        "sha256": "18f4923e38f09c3c6724a26372365dffc4a011eea7a98a23d0a44f50cb37d787",
+        "origin": "native-Mac-log"
+      },
+      "imageManifest": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairConceptVan-20261015/FinalFull/IMAGE-HASHES.json",
+        "sha256": "227b70c9ec0e94786a365cfa5e6c2699adbfeaf37b16547da59b3d0963820416",
+        "origin": "actual-Unity-render-file-manifest"
+      },
+      "imageCount": 58
+    },
+    "FinalReload": {
+      "checks": 7,
+      "passed": true,
+      "processExitCode": 0,
+      "passFile": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairConceptVan-20261015/FinalReload/PASS.txt",
+        "sha256": "38213edc12e5ec96959592e87d8dbbd73398b1a84ce00fa19c8bdea92ba590b6",
+        "origin": "native-Mac-result"
+      },
+      "checksFile": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairConceptVan-20261015/FinalReload/checks.txt",
+        "sha256": "a47cdbe2c393a6d3242b1a93b7d3a4c797bf0fcce1aae50ab49f39ff59a87fa3",
+        "origin": "native-Mac-checks"
+      },
+      "provenance": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairConceptVan-20261015/FinalReload/PROVENANCE.json",
+        "sha256": "4dbf0b6cbe9e2035ceabe456a641566726ee646868a96b6da19b034b49038094",
+        "origin": "native-source-binding"
+      },
+      "log": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairConceptVan-20261015/FinalReload.log",
+        "sha256": "d437f3b62a701970eb11530047bb2ecc913f95b27b13faa72443d6c0567958d9",
+        "origin": "native-Mac-log"
+      },
+      "imageManifest": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairConceptVan-20261015/FinalReload/IMAGE-HASHES.json",
+        "sha256": "1811bdac6add37992e166e1422d2e9f97148fbed63ca6eaebc414aba33d21112",
+        "origin": "actual-Unity-render-file-manifest"
+      },
+      "imageCount": 1
+    }
+  },
+  "modelBudget": {
+    "uniqueVertices": 60334,
+    "activeRenderers": 25,
+    "materials": 9,
+    "ceilingsUnchanged": "70000 /32 /9",
+    "previousRejectedVertices": 66136,
+    "workshopVertices": 132543,
+    "workshopRenderers": 28,
+    "workshopMaterials": 21
+  },
+  "regressionEvidence": {
+    "oldOversizedTiresAndRaisedDecal": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairConceptVan-20261015/concept-proportions-red.log",
+      "sha256": "cb82feca4dd22c0c8b6115a55d6cba59e78718deb4b7ed5edf71959e29248f7e",
+      "origin": "native-engine-RED"
+    },
+    "redInterpretation": "Old tire height.96 exceeds.80 limit and rear emblem thickness.105 exceeds.012. The old local tire bottom-.10 was correct for the existing collider; the initial origin-based ground diagnosis was wrong and is explicitly corrected, not claimed as penetration.",
+    "floatingCandidate": {
+      "sourceSha256": "0d7532de98da23ba537a83ef32f062fb693c90c4d42064be244e306bad962136",
+      "receipt": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairConceptVan-20261015/pre-stance-source-native-receipt.json",
+        "sha256": "cfe515ae2488f80421806cd94251baa7c3cc04dc01e5aa15a2f916a6bc958066",
+        "origin": "superseded-native-candidate-binding"
+      },
+      "sideImage": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairConceptVan-20261015/ConceptPresentation/van-side.png",
+        "sha256": "ba54d0d6a770886ea68d0911ca13bb471214fddcf3a1663798d4d9e56e924aad",
+        "origin": "actual-native-image-exposing-floating-tires"
+      },
+      "reason": "Local tire bottoms0 rather than actual collider-.10; this technically passing candidate is excluded from acceptance."
+    },
+    "green": "Final native presentation measures all four real mesh tire bottoms against the actual production BoxCollider and driven ground. Final engine aggregate confirms178compound rear points,1440outward cab triangles,9separated paint rays,57clear windshield rays and18closed cargo rays.",
+    "normalCandidateHistory": "An intermediate derivative cross-product had magnitude below Unity Normalize epsilon, expanded the fallback mesh and failed the unchanged budget. Finite differences are divided by physical sample intervals before crossing; authored normal count/finite magnitude validated before allocation. Failing candidates are not final evidence."
+  },
+  "independentReview": {
+    "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairConceptVan-20261015/source-review.json",
+    "sha256": "12211dfe14526a0522e119837cb5ca8faf365cd6ac49beef54294df757cdb506",
+    "origin": "read-only-source-review"
+  },
+  "concept": {
+    "path": "/Volumes/SSK SSD/Kamilunavo/Artifacts/KamilunavoDelivery-20261009/concepts-20261010/repair-empire-3-ansichten.png",
+    "sha256": "0571d35c40de036f83f86f3b423c234f321586abcfec97d9d259710d816723f1",
+    "origin": "approved-concept"
+  },
+  "comparisons": [
+    {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairConceptVan-20261015/transporter-neu-unity.png",
+      "sha256": "210215fa2e4164b03b316569a17a12b28529862b4ac1feace95351dca3eec4de",
+      "origin": "proportional-contact-sheet-of-actual-native-model-views"
+    },
+    {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairConceptVan-20261015/transporter-vorher-nachher.png",
+      "sha256": "aab7f19a0ee7fb911d4c5059e14f339cb88e77bfc67b14d32e93498c2ddab547",
+      "origin": "labeled-previous-rejected-and-current-native-model-views"
+    },
+    {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairConceptVan-20261015/transporter-konzept-vergleich.png",
+      "sha256": "70e98b293806021d32c7613bbb7f934fdb10faef13f64ac5828bddea15ebfdaa",
+      "origin": "labeled-Concept-crop-and-current-native-driving-comparison"
+    },
+    {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairConceptVan-20261015/final-native-repair-review.png",
+      "sha256": "ba389396d27395e11d758e95c9f9068be4920f81d03a4debbef518e74c31a6ac",
+      "origin": "contact-sheet-of-unchanged-native-repair-scenes"
+    }
+  ],
+  "rootVisualReview": {
+    "inspected": "All4native van views, normal driving camera, portrait/wide DE workshop menu, all4actual repair categories and paid/save proof against the approvedConcept.",
+    "findings": "Smaller road wheels now meet the road, lower sill/bumper stance aligns, cargo sides/rear have restrained shoulders, flat brand livery and clean glazing. Rear plate/quote and orange/navy lower treatment are present in actual native frames. Existing menu artwork is unchanged.",
+    "remaining": "Full scene remains visibly stylized. Town density, lighting/material detail, repair imagery and driving HUD still differ materially from the approvedConcept. This bounded improvement is not a numerical90percent or whole-game graphics approval.",
+    "importantDistinction": "Labeled model views and gameplay are actual Unity3D renders. The unchanged dashboard is a real Unity UI containing explicitly decorative generated workshop artwork, not proof of a corresponding3D room."
+  },
+  "limits": [
+    "macOS native Metal validation only; no physical iOS touch/FPS/thermal acceptance.",
+    "No live paid purchase, actual ad playback or native icon-variant acceptance in this model pass.",
+    "Graphical release gate stays failed and icon review pending. No version bump, upload, submission or ASC action."
+  ]
+}

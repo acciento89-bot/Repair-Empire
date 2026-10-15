@@ -79,7 +79,18 @@ namespace Kamilunavo.RepairEmpire.QA {
   }
   IEnumerator CaptureVanViews()
   {
-   var vehicle=game.Vehicle.GetComponentInChildren<VanArt>();Check(vehicle!=null,"Actual driving van supplies the model inspection");var origin=vehicle.transform.position;var rotation=vehicle.transform.rotation;int cash=game.Profile.Cash;var host=new GameObject("QA actual van inspection camera",typeof(Camera));var cam=host.GetComponent<Camera>();cam.CopyFrom(Camera.main);cam.enabled=false;cam.fieldOfView=37;cam.aspect=4f/3f;var target=new RenderTexture(1024,768,24,RenderTextureFormat.ARGB32){name="Actual van inspection",antiAliasing=2};target.Create();cam.targetTexture=target;var previous=RenderTexture.active;var hashes=new HashSet<int>();
+   // Let the unpaused production Rigidbody settle on the actual road before
+   // measuring. An isolated art-local y=0 is not the driving support plane.
+   yield return new WaitForSecondsRealtime(.35f);
+   var vehicle=game.Vehicle.GetComponentInChildren<VanArt>();Check(vehicle!=null,"Actual driving van supplies the model inspection");var support=game.Vehicle.GetComponent<BoxCollider>();Check(support!=null,"Actual service van retains its driving support collider");int tires=0;
+   foreach(var filter in vehicle.GetComponentsInChildren<MeshFilter>(true))if(filter.name=="Rubber tire")
+   {
+    tires++;float bottom=float.PositiveInfinity;foreach(var point in filter.sharedMesh.vertices)bottom=Mathf.Min(bottom,filter.transform.TransformPoint(point).y);
+    Check(Mathf.Abs(bottom-support.bounds.min.y)<.012f,"Actual road tire aligns with the production collider bottom "+tires);
+    bool grounded=false;foreach(var hit in Physics.RaycastAll(filter.transform.position+Vector3.up,Vector3.down,3))if(hit.collider.name=="Continuous driveable ground")grounded=Mathf.Abs(bottom-hit.point.y)<.035f;
+    Check(grounded,"Actual road tire meets the driven avenue support "+tires);
+   }
+   Check(tires==4,"Actual ground alignment covers all four road tires");var origin=vehicle.transform.position;var rotation=vehicle.transform.rotation;int cash=game.Profile.Cash;var host=new GameObject("QA actual van inspection camera",typeof(Camera));var cam=host.GetComponent<Camera>();cam.CopyFrom(Camera.main);cam.enabled=false;cam.fieldOfView=37;cam.aspect=4f/3f;var target=new RenderTexture(1024,768,24,RenderTextureFormat.ARGB32){name="Actual van inspection",antiAliasing=2};target.Create();cam.targetTexture=target;var previous=RenderTexture.active;var hashes=new HashSet<int>();
    try
    {
     var eyes=new[]{new Vector3(4.4f,2.8f,6.5f),new Vector3(4.2f,2.8f,-6.4f),new Vector3(0,2.3f,-7.2f),new Vector3(7.4f,2.4f,0)};var names=new[]{"van-front-three-quarter","van-rear-three-quarter","van-rear","van-side"};

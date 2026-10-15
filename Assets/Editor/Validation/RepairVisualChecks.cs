@@ -10,7 +10,7 @@ namespace Kamilunavo.RepairEmpire.Validation {
    bool hadWorldText=UnityEngine.Object.FindObjectsByType<WorldTextMaterialBinding>(FindObjectsInactive.Include).Length>0;
    try{
     van.GetComponent<VanArt>().Build();TextMesh rear=null;
-    foreach(var text in van.GetComponentsInChildren<TextMesh>())if(text.text=="REPAIR"&&text.transform.parent==van.transform&&text.transform.localPosition.y>1.5f)rear=text;
+    foreach(var text in van.GetComponentsInChildren<TextMesh>())if(text.text.StartsWith("REPARIEREN\n",StringComparison.Ordinal)&&text.transform.parent==van.transform&&text.transform.localPosition.z< -2)rear=text;
     if(rear==null)throw new Exception("REPAIR_VISUAL_FAIL missing actual rear branding");world=rear.GetComponent<MeshRenderer>().sharedMaterial;
     if(world==original||world.shader.name!="Repair/WorldText"||world.GetFloat("_ZTest")!=(float)UnityEngine.Rendering.CompareFunction.LessEqual||world.GetFloat("_ZWrite")!=0||world.renderQueue!=3000)throw new Exception("REPAIR_VISUAL_FAIL world font does not respect opaque depth");
     string shaderSource=System.IO.File.ReadAllText(UnityEditor.AssetDatabase.GetAssetPath(world.shader));
