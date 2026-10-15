@@ -100,6 +100,6 @@ namespace Kamilunavo.RepairEmpire.UI {
   }
   void RenderPaidResult()=>RenderPaymentReceipt();
   void RenderRepair()=>RenderRepairStudio();
-  void RefreshRepairSequence(JobDefinition job,int phase,int count){var shelf=modal.Find("RepairActionShelf");var label=shelf?.Find("TapProgress")?.GetComponent<Text>();if(label!=null)label.text=game.Interaction.Taps+" / "+count;for(int i=0;i<count;i++){var action=shelf?.Find("RepairTap"+i)?.GetComponent<Image>();if(action!=null)action.color=i==game.Interaction.Taps?Orange:Mist;}var scene=modal.Find("PageBody/ScrollViewport/ScrollContent/ActualRepairScene")?.GetComponent<RawImage>();if(scene!=null)scene.texture=Studio().RepairImage(job.Id,phase,game.Interaction.Taps);}
+  void RefreshRepairSequence(JobDefinition job,int phase,int count){var shelf=modal.Find("RepairActionShelf");var label=shelf?.Find("TapProgress")?.GetComponent<Text>();if(label!=null)label.text=game.Interaction.Taps+" / "+count;for(int i=0;i<count;i++){var action=shelf?.Find("RepairTap"+i)?.GetComponent<Image>();if(action!=null)action.color=i==game.Interaction.Taps?Orange:Mist;}if(liveRepairScene!=null)liveRepairScene.texture=Studio().RepairImage(job.Id,phase,game.Interaction.Taps,repairPhotoAspect,repairPhotoClear);}
  }
 }

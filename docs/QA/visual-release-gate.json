@@ -1,10 +1,10 @@
 {
   "game": "Repair Empire",
   "status": "failed",
-  "sourceSha256": "88e507b97538e333bf76aa46a7fc6e138b6ee85116c7b99e0b6260971e9dec6b",
-  "reviewer": "Codex direct actual native foliage/reflection/approved Concept comparison",
+  "sourceSha256": "398834f49ed03bcc536ccae3279cae981bde4c67c22e2fc64ac16af814ad435b",
+  "reviewer": "Codex actual native lighting/studio/approved Concept comparison",
   "reviewedAt": "2026-10-16",
-  "reason": "Own textured560sprig canopies and true once-captured city window response verified1492/1377/7; overall lighting/materials/repair framing still below approved Concept.",
+  "reason": "Larger true3Drepair/backdrop and responsive framing verified; whole-town/vehicle/fixture fidelity still below the approved Concept.",
   "criteria": {
     "concept_similarity": "failed",
     "character_or_tower": "failed",
@@ -23,68 +23,68 @@
     ],
     "menu": [
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairEnvironmentFinish-20261015/NativePresentation/showcase-de-dashboard.png",
-        "sha256": "a31db78cc86d177c11d82bdcf69daf997727b440fbf99c3ccd85c793ca3961f7",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairLightingStudio-20261016/LayoutPresentation/showcase-de-dashboard.png",
+        "sha256": "7efdd6d165a1e5c23d09ca21bfa115bd3a01717ca4f0003107042d3c8bacd7d7",
         "origin": "Unity-render"
       },
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairEnvironmentFinish-20261015/NativePresentation/landscape-de-section-9.png",
-        "sha256": "15c29061d65467984c13674e06dd8768a1761495517a81702201246c286c29e4",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairLightingStudio-20261016/LayoutPresentation/landscape-de-section-9.png",
+        "sha256": "b1dc898e3d9f310aeeee3fec14dc4ff9f454cce85ccb881e2ff1067ecdadbd91",
         "origin": "Unity-render"
       }
     ],
     "gameplay": [
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairEnvironmentFinish-20261015/NativePresentation/showcase-driving-service.png",
-        "sha256": "fdb6910ffb7bffa37537ec00eda4ec211b56d430e362b24c2a3fc1951bcd328f",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairLightingStudio-20261016/LayoutPresentation/showcase-driving-service.png",
+        "sha256": "cbf0f0f8469db28c5e267534ff27cf87c8651b84e23a838db69c94aca86422c0",
         "origin": "Unity-render"
       },
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairEnvironmentFinish-20261015/NativePresentation/landscape-home.png",
-        "sha256": "807da4ee69cb6e6fe62c1a90640fb3de3ba939d26fee4d7d369b8418f8e14111",
-        "origin": "Unity-render"
-      },
-      {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairEnvironmentFinish-20261015/NativePresentation/street-layout.png",
-        "sha256": "43bea1932f61e4e071de80768d72817e26c4acfa1b88e62bddf06bca3642a1e4",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairLightingStudio-20261016/LayoutPresentation/street-layout.png",
+        "sha256": "d397b3ff9f7dee66a166d19be77ace915511df3afbb824c58ab897841da17761",
         "origin": "Unity-render"
       }
     ],
     "submenus": [
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairEnvironmentFinish-20261015/NativePresentation/portrait-de-section-0.png",
-        "sha256": "10c9c4c031218cfdb1cdbd936a392a972300b738a52a80136dfd5947ca2f8a6e",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairLightingStudio-20261016/LayoutPresentation/portrait-de-section-0.png",
+        "sha256": "d48e8d3571fbc9f608683424c640d054460c526fa8386b9a6dbef52f5f933313",
         "origin": "Unity-render"
       },
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairEnvironmentFinish-20261015/NativeFull/repair-faucet-stage1.png",
-        "sha256": "1d3e2e68bdcc0119d4d995944d269b36c5f63350aa6647b1fe8cf0c3b270c613",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairLightingStudio-20261016/LayoutFull/repair-faucet-stage1.png",
+        "sha256": "5158254c0eff2178ddc4e8b4b1af8299ce18e0ddcb5ee618f7bea7d3066db572",
         "origin": "Unity-render"
       },
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairEnvironmentFinish-20261015/NativeFull/repair-paid-result-0.png",
-        "sha256": "a94229d2671a6e13445ee55d53ba7ca2e94df4ecbb45235a30445f92c81306ba",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairLightingStudio-20261016/LayoutFull/repair-faucet-wide-unusual.png",
+        "sha256": "d4fe43ff475eca79bb9b1f436755f8ff7c7df4989c1c83038157ab23fb824e93",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairLightingStudio-20261016/LayoutFull/repair-faucet-portrait-restored.png",
+        "sha256": "2a81467bedac3b15c558c32bb760c2d5e41b14a505eba3ba3d475ce80f77c815",
         "origin": "Unity-render"
       }
     ],
     "variants": [
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairEnvironmentFinish-20261015/NativePresentation/fixture-call-2-3.png",
-        "sha256": "6345d40665132e8e4e1ed9fff366b319d98903055ae3190c1ef208d1f1461fd0",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairLightingStudio-20261016/LayoutPresentation/fixture-switch.png",
+        "sha256": "f0eac7acec0b6a9d0342e9acf71bb6c8fea90e058e83e4197f3d18da059fe136",
         "origin": "Unity-render"
       },
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairEnvironmentFinish-20261015/NativePresentation/fixture-switch.png",
-        "sha256": "c28c73357b1b0d32c41cdb495199c5223cbb2b3ce18447b0bb96695d57e38561",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairLightingStudio-20261016/LayoutPresentation/fixture-call-2-3.png",
+        "sha256": "4b63bf126e5635cb0e84908a94074892895e18df8a8cbe1a974e09ea7679ee81",
         "origin": "Unity-render"
       }
     ]
   },
   "previousReview": {
-    "sourceSha256": "a55b78003d5abc5993374bc3bbd532e95e2de9c3669ffbdc77d73e4b28ddf17d",
+    "sourceSha256": "88e507b97538e333bf76aa46a7fc6e138b6ee85116c7b99e0b6260971e9dec6b",
     "status": "failed",
-    "archive": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairEnvironmentFinish-20261015/visual-release-gate.json.before"
+    "archive": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairLightingStudio-20261016/visual-release-gate.json.before"
   },
-  "candidateReport": "docs/QA/repair-environment-finish-20261016.json",
+  "candidateReport": "docs/QA/repair-lighting-studio-20261016.json",
   "evidenceNote": "Menus are genuine Unity captures containing decorative generated workshop art; this art is not evidence of3D scene quality."
 }

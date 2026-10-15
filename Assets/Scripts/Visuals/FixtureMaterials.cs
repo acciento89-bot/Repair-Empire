@@ -49,7 +49,10 @@ namespace Kamilunavo.RepairEmpire.Visuals
   }
   public Cubemap Environment()
   {
-   if(_environment!=null)return _environment;const int n=64;var cube=new Cubemap(n,TextureFormat.RGBAHalf,true){name="FixturePBRStudioReflection",filterMode=FilterMode.Trilinear,wrapMode=TextureWrapMode.Clamp};
+   if(_environment!=null)return _environment;
+   var original=Resources.Load<Cubemap>("Art/ServiceRoomReflection-v1");
+   if(original!=null){_environment=UnityEngine.Object.Instantiate(original);_environment.name="FixturePBRStudioReflection";_environment.Apply(false,true);ArtLifetime.Own(gameObject,_environment);return _environment;}
+   const int n=64;var cube=new Cubemap(n,TextureFormat.RGBAHalf,true){name="FixturePBRStudioReflection",filterMode=FilterMode.Trilinear,wrapMode=TextureWrapMode.Clamp};
    for(int face=0;face<6;face++){
     var pixels=new Color[n*n];for(int y=0;y<n;y++)for(int x=0;x<n;x++){
      float u=(x+.5f)/n*2-1,v=(y+.5f)/n*2-1;Vector3 d=face switch {0=>new(1,-v,-u),1=>new(-1,-v,u),2=>new(u,1,v),3=>new(u,-1,-v),4=>new(u,-v,1),_=>new(-u,-v,-1)};d.Normalize();

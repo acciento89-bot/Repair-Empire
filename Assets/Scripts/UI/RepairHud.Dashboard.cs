@@ -25,7 +25,7 @@ namespace Kamilunavo.RepairEmpire.UI {
   void Illustration(Transform parent,int scene,float x,float y,float w,float h){var go=new GameObject("ServiceIllustration",typeof(RectTransform),typeof(CanvasRenderer),typeof(ServiceIllustrationGraphic));go.transform.SetParent(parent,false);At((RectTransform)go.transform,x,y,w,h);var graphic=go.GetComponent<ServiceIllustrationGraphic>();graphic.Scene=scene;graphic.raycastTarget=false;}
   ServiceSceneArt Studio(){if(serviceArt==null){var root=new GameObject("Company service photography");root.transform.SetParent(game.transform,false);serviceArt=root.AddComponent<ServiceSceneArt>();}return serviceArt;}
   void UiIcon(Transform parent,string symbol,float x,float y,float w,float h,Color tint){var go=new GameObject("Icon"+symbol,typeof(RectTransform),typeof(CanvasRenderer),typeof(ServiceUiIcon));go.transform.SetParent(parent,false);At((RectTransform)go.transform,x,y,w,h);var icon=go.GetComponent<ServiceUiIcon>();icon.Symbol=symbol;icon.color=tint;icon.raycastTarget=false;}
-  void ScenePhoto(Transform parent,string name,Texture texture,float x,float y,float w,float h)
+  RawImage ScenePhoto(Transform parent,string name,Texture texture,float x,float y,float w,float h)
   {
    Transform host=parent;
    if(name!="ActualRepairScene")
@@ -33,12 +33,13 @@ namespace Kamilunavo.RepairEmpire.UI {
     var frame=Panel(parent,name+"Frame",x,y,w,h,Color.white);frame.GetComponent<Image>().raycastTarget=false;frame.gameObject.AddComponent<Mask>().showMaskGraphic=false;host=frame;x=y=0;
    }
    var go=new GameObject(name,typeof(RectTransform),typeof(CanvasRenderer),typeof(RawImage));go.transform.SetParent(host,false);At((RectTransform)go.transform,x,y,w,h);var graphic=go.GetComponent<RawImage>();graphic.texture=texture;graphic.raycastTarget=false;
-   if(texture!=null){float ratio=w/h,original=(float)texture.width/texture.height;graphic.uvRect=ratio>=original?new Rect(0,(1-original/ratio)*.5f,1,original/ratio):new Rect((1-ratio/original)*.5f,0,ratio/original,1);}
+   if(texture!=null)graphic.uvRect=RepairSceneFraming.SampleViewport(w/h,(float)texture.width/texture.height);
+   return graphic;
   }
   void ServicePhoto(Transform parent,JobDefinition job,float x,float y,float w,float h){if(Application.isPlaying)ScenePhoto(parent,"ModeledServicePhoto"+job.Id,Studio().Thumbnail(job.Id),x,y,w,h);else Symbol(parent,job,x,y,w,h);}
   void ItemGlyph(Transform parent,string item,float x,float y,float w,float h){var go=new GameObject("ServiceItemGlyph",typeof(RectTransform),typeof(CanvasRenderer),typeof(ServiceItemGlyph));go.transform.SetParent(parent,false);At((RectTransform)go.transform,x,y,w,h);var glyph=go.GetComponent<ServiceItemGlyph>();glyph.Item=item;glyph.raycastTarget=false;}
   void RenderPage(){if(rendering||modal==null)return;rendering=true;try{
-   Clear(modal);repairHold=null;progress=null;ResolveSelected();float pad=12;bool repair=game.RepairOpen,result=game.ResultOpen;var names=PageNames();modal.GetComponent<Image>().color=Paper;modal.GetComponent<Image>().material=null;
+   Clear(modal);repairHold=null;progress=null;liveRepairScene=null;ResolveSelected();float pad=12;bool repair=game.RepairOpen,result=game.ResultOpen;var names=PageNames();modal.GetComponent<Image>().color=Paper;modal.GetComponent<Image>().material=null;
    Panel(modal,"ServiceHeader",0,0,width,size+pad*2,Paper);Panel(modal,"BrandStripe",pad,pad,4,size,Orange);Label(modal,"TabletTitle",result?T("AUFTRAG BEZAHLT","ORDER PAID"):repair?T("REPARATUR","REPAIR"):"REPAIR EMPIRE",pad+14,pad,width-(width<300?size:size*2)-48,size*.55f,22,Ink);
    Label(modal,"TabletSubtitle",repair?T("SERVICE AM KUNDEN","CUSTOMER SERVICE"):page==9?T("WERKSTATT-TABLET","WORKSHOP TABLET"):T("DEINE FIRMA","YOUR COMPANY")+" · $"+game.Cash.ToString("N0"),pad+14,pad+size*.55f,width-(width<300?size:size*2)-48,size*.4f,13,Slate);
    if(!repair&&!result&&width>=300){var shop=Button(modal,"DashboardShop","Shop",width-size*2-pad-6,pad,size,size,()=>ShowPage(7),true,Color.white);At((RectTransform)shop.GetComponentInChildren<Text>().transform,0,size-20,size,18);shop.GetComponentInChildren<Text>().fontSize=shop.GetComponentInChildren<Text>().resizeTextMaxSize=12;UiIcon(shop.transform,"Shop",(size-23)/2,4,23,23,Ink);}

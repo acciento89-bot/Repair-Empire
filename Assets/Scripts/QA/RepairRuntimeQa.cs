@@ -37,7 +37,46 @@ namespace Kamilunavo.RepairEmpire.QA {
   void Press(string name){var go=GameObject.Find(name);Check(go!=null,"Actual UI exists "+name);var button=go.GetComponent<Button>();Check(button!=null&&button.interactable,"Actual UI enabled "+name);var point=UiMetrics.ScreenRect((RectTransform)go.transform).center;var hits=new List<RaycastResult>();EventSystem.current.RaycastAll(new PointerEventData(EventSystem.current){position=point},hits);Check(hits.Count>0&&(hits[0].gameObject==go||hits[0].gameObject.transform.IsChildOf(go.transform)),"Actual touch raycast "+name);ExecuteEvents.Execute(go,new PointerEventData(EventSystem.current){position=point},ExecuteEvents.pointerClickHandler);}
   void Sizes(){Canvas.ForceUpdateCanvases();if(game.JobMeta.gameObject.activeInHierarchy)Check(game.JobMeta.preferredHeight<=((RectTransform)game.JobMeta.transform).rect.height+.5f,"Driving service address and reward lines fit without clipping");float scale=UiMetrics.PointScale;foreach(var b in game.Hud.GetComponentsInChildren<Selectable>()){if(!b.gameObject.activeInHierarchy)continue;var r=UiMetrics.ScreenRect((RectTransform)b.transform);Check(r.width/scale>=47.999f&&r.height/scale>=47.999f,"48 point target "+b.name);}foreach(var photo in game.Hud.GetComponentsInChildren<RawImage>()){if(!photo.gameObject.activeInHierarchy||photo.name!="ServicePhoto")continue;var shape=photo.rectTransform.rect;float sampledAspect=photo.uvRect.width*photo.texture.width/(photo.uvRect.height*photo.texture.height);Check(Mathf.Abs(sampledAspect-shape.width/shape.height)<.001f,"Actual service photo preserves authored proportions "+photo.name);}int driving=0;foreach(var hold in game.Hud.GetComponentsInChildren<HoldButton>()){if(!hold.gameObject.activeInHierarchy)continue;var r=UiMetrics.ScreenRect((RectTransform)hold.transform);Check(r.width/scale>=47.999f&&r.height/scale>=47.999f,"48 point held target "+hold.name);if(hold==game.Vehicle.Left||hold==game.Vehicle.Right||hold==game.Vehicle.Brake||hold==game.Vehicle.Accelerate){driving++;Rect view=UnityEngine.Camera.main.pixelRect;Check(view.Contains(r.min+Vector2.one)&&view.Contains(r.max-Vector2.one),"Hold control inside usable region "+hold.name);}}if(!game.Hud.ModalOpen)Check(driving==4,"Four actual driving controls validated");}
   int RenderedFingerprint(Texture texture){if(scenePixels.TryGetValue(texture,out int cached)&&texture.name!="Live modeled repair scene")return cached;var target=texture as RenderTexture;Check(target!=null&&target.IsCreated(),"Actual modeled image owns a created render texture");var old=RenderTexture.active;var readback=new Texture2D(target.width,target.height,TextureFormat.RGB24,false);try{RenderTexture.active=target;readback.ReadPixels(new Rect(0,0,target.width,target.height),0,0);readback.Apply();var pixels=readback.GetPixels32();int hash=17;int different=0;var first=pixels[0];for(int i=0;i<pixels.Length;i+=79){unchecked{hash=hash*31+pixels[i].r*65536+pixels[i].g*256+pixels[i].b;}if(Math.Abs(pixels[i].r-first.r)+Math.Abs(pixels[i].g-first.g)+Math.Abs(pixels[i].b-first.b)>25)different++;}Check(different>50,"Actual service image contains rendered fixture detail");scenePixels[texture]=hash;return hash;}finally{RenderTexture.active=old;Destroy(readback);}}
-  void RepairSceneChecks(){var image=GameObject.Find("ActualRepairScene")?.GetComponent<RawImage>();Check(image!=null,"Repair shows actual modeled customer fixture");RenderedFingerprint(image.texture);var shelf=GameObject.Find("RepairActionShelf");Check(shelf!=null&&shelf.GetComponentInParent<ScrollRect>()==null,"Repair hold and ordered contacts remain outside scrolling scene");Sizes();}
+  void RepairSceneChecks()
+  {
+   var image=GameObject.Find("ActualRepairScene")?.GetComponent<RawImage>();Check(image!=null,"Repair shows actual modeled customer fixture");RenderedFingerprint(image.texture);var shelf=GameObject.Find("RepairActionShelf");Check(shelf!=null&&shelf.GetComponentInParent<ScrollRect>()==null,"Repair hold and ordered contacts remain outside scrolling scene");Canvas.ForceUpdateCanvases();
+   float sampledAspect=image.uvRect.width*image.texture.width/(image.uvRect.height*image.texture.height);Check(Mathf.Abs(sampledAspect-image.rectTransform.rect.width/image.rectTransform.rect.height)<.001f,"Live scene preserves actual portrait or landscape display proportions");
+   if(image.transform.parent.name=="TabletModal"&&image.transform.GetSiblingIndex()==0)
+   {
+    var viewport=GameObject.Find("ScrollViewport").GetComponent<Image>();Check(viewport.color.a==0&&viewport.raycastTarget&&viewport.GetComponent<ScrollRect>().enabled,"Portrait scene remains visible through touchable scroll viewport");Check(image.transform.GetSiblingIndex()==0&&image.transform.parent.Find("PageBody").GetComponent<Image>().color.a==0,"Actual repair scene is behind transparent body and fixed information cards");
+   }
+   else if(image.transform.parent.name=="TabletModal")
+   {
+    var shown=UiMetrics.ScreenRect(image.rectTransform);var pane=UiMetrics.ScreenRect((RectTransform)image.transform.parent);Check(image.GetComponentInParent<ScrollRect>()==null&&pane.Contains(shown.min+Vector2.one)&&pane.Contains(shown.max-Vector2.one),"Wide service scene uses an independent fixed pane with no scroll clipping");
+   }
+   var studio=game.GetComponentInChildren<ServiceSceneArt>();const System.Reflection.BindingFlags flags=System.Reflection.BindingFlags.NonPublic|System.Reflection.BindingFlags.Instance;var camera=(UnityEngine.Camera)typeof(ServiceSceneArt).GetField("camera",flags).GetValue(studio);var model=(GameObject)typeof(ServiceSceneArt).GetField("repairModel",flags).GetValue(studio);var clear=(Rect)typeof(ServiceSceneArt).GetField("repairViewport",flags).GetValue(studio);int vertices=0;
+   foreach(var renderer in RepairSceneFraming.Components(model.transform.Find("Service fixture")))foreach(var vertex in renderer.GetComponent<MeshFilter>().sharedMesh.vertices){var point=camera.WorldToViewportPoint(renderer.transform.TransformPoint(vertex));if(point.z<=camera.nearClipPlane||!clear.Contains(new Vector2(point.x,point.y)))throw new Exception("REPAIR_QA_COMPONENT_CLIPPED "+renderer.name+" "+point);vertices++;}
+   Check(vertices>0,"Actual live service components fit the uncovered UI area; vertices="+vertices);Check(!camera.enabled&&camera.targetTexture==null,"Repair framing retains no per-frame camera or target");Sizes();
+  }
+  IEnumerator SetRepairPose(int w,int h,string pose)
+  {
+   Screen.orientation=w>h?ScreenOrientation.LandscapeLeft:ScreenOrientation.Portrait;
+#if !UNITY_IOS && !UNITY_ANDROID
+   Screen.SetResolution(w,h,false);
+#endif
+   int stable=0;float until=Time.realtimeSinceStartup+5;
+   while(stable<3&&Time.realtimeSinceStartup<until)
+   {
+    yield return null;Canvas.ForceUpdateCanvases();bool fits=(w>h)==(Screen.width>Screen.height);
+#if !UNITY_IOS && !UNITY_ANDROID
+    // Native Metal rounds odd resized dimensions to even backbuffer pixels.
+    fits&=Mathf.Abs(Screen.width-w)<=1&&Mathf.Abs(Screen.height-h)<=1;
+#endif
+    var modal=GameObject.Find("TabletModal")?.GetComponent<RectTransform>();if(modal==null)fits=false;else foreach(var control in modal.GetComponentsInChildren<Selectable>())if(control.GetComponentInParent<ScrollRect>()==null){var rect=UiMetrics.ScreenRect((RectTransform)control.transform);fits&=rect.xMin>=-.5f&&rect.yMin>=-.5f&&rect.xMax<=Screen.width+.5f&&rect.yMax<=Screen.height+.5f;}
+    stable=fits?stable+1:0;
+   }
+   Check(stable>=3,"Actual "+pose+" repair and fixed controls settle for3frames; requested="+w+"x"+h+" actual="+Screen.width+"x"+Screen.height);RepairLayoutDiagnostic(pose);
+  }
+  void RepairLayoutDiagnostic(string pose)
+  {
+   var canvas=game.Hud.GetComponentInParent<Canvas>();var modal=GameObject.Find("TabletModal").GetComponent<RectTransform>();var safe=modal.parent as RectTransform;Debug.Log("REPAIR_LAYOUT_ACTUAL "+pose+" screen="+Screen.width+"x"+Screen.height+" canvasScale="+canvas.scaleFactor+" safe="+safe.rect+" modalScreen="+UiMetrics.ScreenRect(modal));
+   foreach(var control in modal.GetComponentsInChildren<Selectable>())if(control.GetComponentInParent<ScrollRect>()==null){var rect=UiMetrics.ScreenRect((RectTransform)control.transform);Debug.Log("REPAIR_LAYOUT_CONTROL "+pose+" "+control.name+"="+rect);Check(rect.xMin>=-.5f&&rect.yMin>=-.5f&&rect.xMax<=Screen.width+.5f&&rect.yMax<=Screen.height+.5f,"Fixed repair control stays in actual "+pose+" screen "+control.name+" "+rect);}
+  }
   static float Luminance(Color c){float Channel(float v)=>v<=.04045f?v/12.92f:Mathf.Pow((v+.055f)/1.055f,2.4f);return Channel(c.r)*.2126f+Channel(c.g)*.7152f+Channel(c.b)*.0722f;}
   void PresentationChecks(){
    Canvas.ForceUpdateCanvases();if(!game.Hud.ModalOpen||game.RepairOpen)return;
@@ -65,7 +104,14 @@ namespace Kamilunavo.RepairEmpire.QA {
     for(int stage=0;stage<3;stage++){
      var instruction=job.Presentation.Stages[stage];Check(game.Interaction.Stage==instruction,"active workflow matches job/stage "+job.Id+":"+stage);yield return Capture("repair-"+job.Id+"-stage"+stage);
      if(instruction.Kind==RepairInputKind.Hold){var hold=FindHold("RepairHold");Held(hold,true);yield return new WaitForSecondsRealtime(.15f);Held(hold,false);Check(game.Profile.RepairPhase==stage,"partial hold grants no stage "+job.Id+":"+stage);Held(hold,true);until=Time.realtimeSinceStartup+5;while(game.RepairOpen&&game.Profile.RepairPhase==stage&&Time.realtimeSinceStartup<until)yield return null;}
-     else{Press("RepairTap1");Check(game.Interaction.Taps==0,"out of order action resets "+job.Id+":"+stage);for(int tap=0;tap<instruction.Actions.Length;tap++){Press("RepairTap"+tap);yield return null;}}
+     else{Press("RepairTap1");Check(game.Interaction.Taps==0,"out of order action resets "+job.Id+":"+stage);for(int tap=0;tap<instruction.Actions.Length;tap++)
+     {
+      Press("RepairTap"+tap);yield return null;if(k==0&&stage==1&&tap==0)
+      {
+       int tapsBefore=game.Interaction.Taps;Check(tapsBefore==1,"Orientation control starts with a valid nonzero ordered contact");yield return SetRepairPose(1366,390,"wide");RepairSceneChecks();yield return Capture("repair-faucet-wide-unusual");
+       yield return SetRepairPose(393,852,"portrait");RepairSceneChecks();yield return Capture("repair-faucet-portrait-restored");Check(game.Interaction.Taps==tapsBefore&&game.Profile.RepairPhase==stage,"Changing repair orientation preserves nonzero ordered action progress");
+      }
+     }}
      Check(stage==2?!game.RepairOpen:game.Profile.RepairPhase==stage+1,"actual contextual input completes stage "+job.Id+":"+stage);yield return null;if(stage<2)RepairSceneChecks();
     }
     Check(!game.RepairOpen&&game.Profile.CompletedJobs==completions+1&&game.Profile.CompletedTicket==ticket&&game.Profile.Cash==cash+job.Reward,"Actual tested repair pays once "+job.CategoryIndex);Check(!game.AdvanceRepair(2)&&game.Profile.Cash==cash+job.Reward,"Paid repair rejects duplicate callback "+job.CategoryIndex);Check(!game.SelectJob(job)&&game.Profile.Cash==cash+job.Reward,"Paid contract cannot be spammed at customer "+job.CategoryIndex);var reloaded=JsonUtility.FromJson<RepairProfile>(JsonUtility.ToJson(game.Profile));Check(RepairRules.BeginJob(reloaded,job.Id)==0,"Paid contract guard survives actual JSON reload "+job.CategoryIndex);Check(game.ActiveJob==null&&!GameObject.Find("Distance"),"No false active-job distance after payment "+job.CategoryIndex);Check(Mathf.Abs(game.Vehicle.transform.position.z-job.DestinationZ)<6,"Completed repair remains at customer "+job.CategoryIndex);Check(game.ResultOpen&&game.Paused&&!game.Vehicle.InputEnabled,"Paid result holds parked van "+job.CategoryIndex);yield return Capture("repair-paid-result-"+job.CategoryIndex);Press("ResultResume");Check(!game.ResultOpen&&!game.Paused,"Paid result resumes only on explicit input "+job.CategoryIndex);}

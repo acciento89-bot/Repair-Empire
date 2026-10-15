@@ -68,3 +68,6 @@ Exact prompt, source/project/meta/material hashes, authoring method and native d
 
 
 16October canopy: original built-in imagegen output exec-0a444cf4-dac2-4632-9af5-11e138ed143f.png, archived as Builds/RepairEnvironmentFinish-20261015/StreetCanopy-v1-original.png; macOS sips onlyresizes512to Assets/Resources/Art/StreetCanopy-v1.png. Exact fullprompt/tool/original/projectpaths and no-paint conversion are in that Builds folder generated-asset-provenance.json, hashed in docs/QA/repair-environment-finish-20261016.json. Shared non-readable sRGB/mips/repeat/HQ compression, own CanopySurface shader, original geometry. Actual street cubemap is captured from3Dscene once, not generated imagery.
+
+
+16October2026: Original built-in imagegen ServiceRoomReflection-v1 panorama; exact prompt/original/mechanical1024×512 conversion/Unity imports and64RGBAHalf prototype hashes in docs/QA/repair-lighting-studio-20261016.json and Builds/RepairLightingStudio-20261016/generated-asset-provenance.json. Assets/ArtSources/ServiceRoomReflection-v1.png is reflection input only, not gameplay imagery; Assets/Resources/Art/ServiceRoomReflection-v1.asset is shared HDR data. Scene clone is non-readable and owned, original survives cleanup.

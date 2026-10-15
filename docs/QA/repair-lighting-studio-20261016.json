@@ -1,0 +1,336 @@
+{
+  "game": "Repair Empire",
+  "date": "2026-10-16",
+  "sourceSha256": "398834f49ed03bcc536ccae3279cae981bde4c67c22e2fc64ac16af814ad435b",
+  "baseCommit": "06ee91121c35617a907c6ee13eb667d507de0b62",
+  "scope": "Original HDR room reflections, Linear light, actual portrait repair backdrop and responsive component framing.",
+  "supersedes": "docs/QA/repair-environment-finish-20261016.json",
+  "implemented": [
+    "One explicit settings change Gamma0→Linear1. Every other settings byte remains unchanged; no renderer/package/scene/version migration.",
+    "Original built-in imagegen room panorama→1024×512 non-readable ArtSources input→64RGBAHalf/7mip shared HDR prototype. Deterministic linear conversion and bounded window energy, scene owns its non-readable clone. Existing64px ceiling retained. Artwork is reflection data only, never gameplay imagery.",
+    "Portrait uses an actual modeled service backdrop under summary/procedure/instruction cards and fixed ordered inputs. A transparent but touchable scroll viewport leaves the actual scene visible. Live image references avoid inactive pending-destroy name lookups.",
+    "Camera frames actual service component mesh bounds in the uncovered UI viewport. Faucet focus includes the physical mixer/cap/washer, while the basin/drain can extend behind UI as in Concept. All other fixture components remain included. Default thumbnails and model hierarchy remain unchanged.",
+    "Requested texture dimensions adapt inside768×2048. Shared sample/crop mapping transforms the clear viewport before fitting; cache keys include aspect and mapped frame. Aspect/contact/orientation invalidates only needed images, disposes replaced owned targets and leaves no per-frame camera target.",
+    "Wide repair shows an independent fixed right scene beside scrollable information; four contacts use one row. Short-wide layout no longer clips the scene inside the scroll viewport.",
+    "Actual native contact1 survives1366×390→394×852 orientation round trip, real fixed controls stay in screen bounds and remaining contacts complete once. Resize QA waits for observable stable dimensions and bounds, allowing Metal one-pixel odd-dimension rounding."
+  ],
+  "preserved": [
+    "Original54collisionfields/heightRNG/24customer halts/1728signposes, van68888vertices/27renderers/9materials and existing material/geometry/lifetime ceilings.",
+    "24job workflows/rewards/exact-once payment/departure guard/controller/camera/save/commerce and actual menu Back/input pause/DE-EN/49logicalpoint controls.",
+    "Approved siblings/OMF submission and historical user-owned Concept deletion untouched; no Repair upload."
+  ],
+  "assets": {
+    "provenance": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairLightingStudio-20261016/generated-asset-provenance.json",
+      "sha256": "b1a55c63ee109f886e9f2fbefca6385430123557227708ca02022e370dd37a6d",
+      "origin": "exact-original-prompt-and-paths"
+    },
+    "original": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairLightingStudio-20261016/ServiceRoomReflection-v1-original.png",
+      "sha256": "b4c5f1c889751554ce54b77d1a01cad82aae6b5fd7d81b5e46ca0022c307c268",
+      "origin": "original-built-in-imagegen-output"
+    },
+    "source": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Projects/Repair-Empire/Assets/ArtSources/ServiceRoomReflection-v1.png",
+      "sha256": "fd271e5098c219a82f08201ad0aa3dfcdc5879d76575ffc1554c2738d2e04913",
+      "origin": "mechanically-resized-original"
+    },
+    "importer": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Projects/Repair-Empire/Assets/ArtSources/ServiceRoomReflection-v1.png.meta",
+      "sha256": "1d3d04c1a4c821c2e3fed6a2a667c1c316ae82c9be324b09f07290c23e27a1e8",
+      "origin": "Unity-importer"
+    },
+    "hdr": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Projects/Repair-Empire/Assets/Resources/Art/ServiceRoomReflection-v1.asset",
+      "sha256": "fbaf522ea16373b6fe0014eb365f8ec65998f1593df245c997d7a0cfdb4232f7",
+      "origin": "Unity-authored-HDR64-environment"
+    },
+    "sharedSourceSurvivesOwnerDisposal": true
+  },
+  "validation": {
+    "aggregateAndMacExitCode": 0,
+    "log": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairLightingStudio-20261016/unity-lighting-studio-layout.log",
+      "sha256": "3b9d52554f6a5d5909af14b305d29704bcbdb1b9b562dffbc313a6a537bad216",
+      "origin": "native-Unity-Editor-and-build-log"
+    },
+    "receipt": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairLightingStudio-20261016/source-native-receipt.json",
+      "sha256": "da375942640d95a980001b9215ef775103cd149ae39d3e98cc52ff746e0341b5",
+      "origin": "exact-source-native-build-binding"
+    },
+    "bundleManifest": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairLightingStudio-20261016/native-bundle-manifest.json",
+      "sha256": "eee2dfbb262492eac94433c722488d8818f16f7971007bcfcecff48d3ac85afa",
+      "origin": "all314native-bundle-files"
+    },
+    "settingsDelta": "Only m_ActiveColorSpace0→1; other files and fields identical.",
+    "framingCases": 288,
+    "actualComponentVertices": 413820,
+    "unusualAspectCases": [
+      "805/150",
+      "280/1100"
+    ],
+    "runs": {
+      "LayoutPresentation": {
+        "checks": 1492,
+        "processExitCode": 0,
+        "imageCount": 78,
+        "result": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairLightingStudio-20261016/LayoutPresentation/PASS.txt",
+          "sha256": "029bc6546803317925a1f7aafe08d33ff357e2d3c1dd71650ca203d916e610f1",
+          "origin": "actual-native-result"
+        },
+        "checksFile": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairLightingStudio-20261016/LayoutPresentation/checks.txt",
+          "sha256": "f557493ed5ada424826995fc6ff1be1adc0fe531592919a0168afd29958bbb3e",
+          "origin": "actual-native-checks"
+        },
+        "provenance": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairLightingStudio-20261016/LayoutPresentation/PROVENANCE.json",
+          "sha256": "8174696cce460f984754423c5fe7775a8714e8e98a13c8541f82d2e883a6d065",
+          "origin": "native-source-binding"
+        },
+        "imageManifest": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairLightingStudio-20261016/LayoutPresentation/IMAGE-HASHES.json",
+          "sha256": "d1b96b3ebdddeedd7972aac8dc9bd3ef5c2d9af5661511b73e3dd459d5db98b0",
+          "origin": "actual-Unity-render-manifest"
+        },
+        "log": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairLightingStudio-20261016/LayoutPresentation.log",
+          "sha256": "c0ea0850e75e464177673fee21873db1b1261ff0c3fdca16c5646675d1172243",
+          "origin": "native-Mac-log"
+        }
+      },
+      "LayoutFull": {
+        "checks": 1478,
+        "processExitCode": 0,
+        "imageCount": 60,
+        "result": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairLightingStudio-20261016/LayoutFull/PASS.txt",
+          "sha256": "74f76dd2c1b3afbd734d2ba63ba297be958e3ebccb43ebf5d83795244646d636",
+          "origin": "actual-native-result"
+        },
+        "checksFile": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairLightingStudio-20261016/LayoutFull/checks.txt",
+          "sha256": "48aa9c78dd8aecaed866a1a98f90a88309fce24adef9c88b70e612d390757281",
+          "origin": "actual-native-checks"
+        },
+        "provenance": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairLightingStudio-20261016/LayoutFull/PROVENANCE.json",
+          "sha256": "36f0c39b6cf81f10d5382de04afda0f0af581b889a970d03956058a31b81a32d",
+          "origin": "native-source-binding"
+        },
+        "imageManifest": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairLightingStudio-20261016/LayoutFull/IMAGE-HASHES.json",
+          "sha256": "6b54ea19772266c4a419c394dba2da5d314fd925bdd827265dc765a9311563d2",
+          "origin": "actual-Unity-render-manifest"
+        },
+        "log": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairLightingStudio-20261016/LayoutFull.log",
+          "sha256": "d91c0deec345e983f0972313fbaf35f3590f0a8e84fe627d3f19f1cf17ec6704",
+          "origin": "native-Mac-log"
+        }
+      },
+      "LayoutReload": {
+        "checks": 7,
+        "processExitCode": 0,
+        "imageCount": 1,
+        "result": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairLightingStudio-20261016/LayoutReload/PASS.txt",
+          "sha256": "38213edc12e5ec96959592e87d8dbbd73398b1a84ce00fa19c8bdea92ba590b6",
+          "origin": "actual-native-result"
+        },
+        "checksFile": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairLightingStudio-20261016/LayoutReload/checks.txt",
+          "sha256": "a47cdbe2c393a6d3242b1a93b7d3a4c797bf0fcce1aae50ab49f39ff59a87fa3",
+          "origin": "actual-native-checks"
+        },
+        "provenance": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairLightingStudio-20261016/LayoutReload/PROVENANCE.json",
+          "sha256": "71cec2b31b5cc6ec5f227fb60944c1c7610a9110ccf88f82e5099a65bc224513",
+          "origin": "native-source-binding"
+        },
+        "imageManifest": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairLightingStudio-20261016/LayoutReload/IMAGE-HASHES.json",
+          "sha256": "8de055c47e9c1fba39ac627b98b334f5f2a16064b35bbe79e9fdf9c078ca0843",
+          "origin": "actual-Unity-render-manifest"
+        },
+        "log": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairLightingStudio-20261016/LayoutReload.log",
+          "sha256": "fbc5b24cb3664a4789676e40acbb5269b9711b337da64c618992b52cf349b06a",
+          "origin": "native-Mac-log"
+        }
+      }
+    }
+  },
+  "candidateHistory": [
+    {
+      "stage": "Lighting/backdrop missing RED",
+      "log": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairLightingStudio-20261016/unity-lighting-studio-red.log",
+        "sha256": "f4a3cebcdf05d835e0c6dc2c0d024bc3c0873b09cd589826250728693e0abec0",
+        "origin": "pre-implementation-engine-regression"
+      }
+    },
+    {
+      "stage": "Opaque viewport RED",
+      "log": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairLightingStudio-20261016/unity-backdrop-coverage-red.log",
+        "sha256": "e543d020c460a2fb6739e3eda72c1cc19d00a4affc2308e43923c50ce223f7f2",
+        "origin": "actual-coverage-regression"
+      },
+      "evidence": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairLightingStudio-20261016/InitialFull/repair-faucet-stage1.png",
+        "sha256": "370ca3e20e1ab705e341c601e04d23cbb02499fa525355a5da4c6cecc09b8826",
+        "origin": "rejected-native-render"
+      }
+    },
+    {
+      "stage": "Clamped texture/crop RED",
+      "log": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairLightingStudio-20261016/unity-unusual-aspect-red.log",
+        "sha256": "16ffc3531b93410a4c0e8e7d3864447c54a433e6c6949c79e415136e347e447b",
+        "origin": "actual-camera-regression"
+      }
+    },
+    {
+      "stage": "Short wide scroll clipping RED",
+      "log": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairLightingStudio-20261016/unity-wide-layout-red.log",
+        "sha256": "845e189eba0f46315e25adc102145e8592ca0979c99ee638254bd32bd01f4b52",
+        "origin": "actual-layout-regression"
+      },
+      "evidence": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairLightingStudio-20261016/FinalFull/repair-faucet-wide-unusual.png",
+        "sha256": "763f5b0c0505e880bf97a4bd5395266a3d7cfd00ec4cd08ba620a4f9972f867b",
+        "origin": "superseded-native-render"
+      }
+    },
+    {
+      "stage": "Resize QA corrections",
+      "note": "Initial0.4s resize probe clicked before stable layout; exact393px assertion failed because native Metal restores394px. Production unchanged; final observable3frame bound checks and nonzero contact1 proof supersede these diagnostics.",
+      "receipts": [
+        {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairLightingStudio-20261016/source-native-receipt-initial.json",
+          "sha256": "814e491c22c9fc92fddaa53f5e7d9e53654ea06d16c2c1a8422d0780446c5207",
+          "origin": "superseded-native-binding"
+        },
+        {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairLightingStudio-20261016/source-native-receipt-framed.json",
+          "sha256": "647d79dd3aa19b6c14e01a3a10054fe4087963be3160ca532de6dff0c7af4f60",
+          "origin": "superseded-native-binding"
+        },
+        {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairLightingStudio-20261016/source-native-receipt-focus.json",
+          "sha256": "95102d82ce4ce7420bf2f14ca643f9aebfcba04293281626d864b9662d5088ff",
+          "origin": "superseded-native-binding"
+        },
+        {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairLightingStudio-20261016/source-native-receipt-orientation.json",
+          "sha256": "d574207b89c1e221b7b0b165eef6d774cc4eca8f87569ca1693741fc4e8b72f5",
+          "origin": "superseded-native-binding"
+        },
+        {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairLightingStudio-20261016/source-native-receipt-verified-intermediate.json",
+          "sha256": "53cc37045fda58629a1f47d5e1183fb1b95dcb468af2ffca6ed4621b5603afc9",
+          "origin": "superseded-native-binding"
+        }
+      ]
+    }
+  ],
+  "sourceReview": {
+    "reviewer": "Independent read-only repair_environment_review16",
+    "decision": "No remaining Critical/Important source issue after actual coverage/crop/nonzero progress and final fixed wide-pane corrections.",
+    "scope": "Source correctness/ownership/validation. Root separately inspected native visual evidence; source review does not approve graphics."
+  },
+  "visualEvidence": {
+    "concept": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Artifacts/KamilunavoDelivery-20261009/concepts-20261010/repair-empire-3-ansichten.png",
+      "sha256": "0571d35c40de036f83f86f3b423c234f321586abcfec97d9d259710d816723f1",
+      "origin": "approved-concept"
+    },
+    "menu": [
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairLightingStudio-20261016/LayoutPresentation/showcase-de-dashboard.png",
+        "sha256": "7efdd6d165a1e5c23d09ca21bfa115bd3a01717ca4f0003107042d3c8bacd7d7",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairLightingStudio-20261016/LayoutPresentation/landscape-de-section-9.png",
+        "sha256": "b1dc898e3d9f310aeeee3fec14dc4ff9f454cce85ccb881e2ff1067ecdadbd91",
+        "origin": "Unity-render"
+      }
+    ],
+    "gameplay": [
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairLightingStudio-20261016/LayoutPresentation/showcase-driving-service.png",
+        "sha256": "cbf0f0f8469db28c5e267534ff27cf87c8651b84e23a838db69c94aca86422c0",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairLightingStudio-20261016/LayoutPresentation/street-layout.png",
+        "sha256": "d397b3ff9f7dee66a166d19be77ace915511df3afbb824c58ab897841da17761",
+        "origin": "Unity-render"
+      }
+    ],
+    "submenus": [
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairLightingStudio-20261016/LayoutPresentation/portrait-de-section-0.png",
+        "sha256": "d48e8d3571fbc9f608683424c640d054460c526fa8386b9a6dbef52f5f933313",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairLightingStudio-20261016/LayoutFull/repair-faucet-stage1.png",
+        "sha256": "5158254c0eff2178ddc4e8b4b1af8299ce18e0ddcb5ee618f7bea7d3066db572",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairLightingStudio-20261016/LayoutFull/repair-faucet-wide-unusual.png",
+        "sha256": "d4fe43ff475eca79bb9b1f436755f8ff7c7df4989c1c83038157ab23fb824e93",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairLightingStudio-20261016/LayoutFull/repair-faucet-portrait-restored.png",
+        "sha256": "2a81467bedac3b15c558c32bb760c2d5e41b14a505eba3ba3d475ce80f77c815",
+        "origin": "Unity-render"
+      }
+    ],
+    "variants": [
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairLightingStudio-20261016/LayoutPresentation/fixture-switch.png",
+        "sha256": "f0eac7acec0b6a9d0342e9acf71bb6c8fea90e058e83e4197f3d18da059fe136",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairLightingStudio-20261016/LayoutPresentation/fixture-call-2-3.png",
+        "sha256": "4b63bf126e5635cb0e84908a94074892895e18df8a8cbe1a974e09ea7679ee81",
+        "origin": "Unity-render"
+      }
+    ]
+  },
+  "comparisons": [
+    {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairLightingStudio-20261016/konzept-reparatur-vergleich.png",
+      "sha256": "c29684f45ad1ea3c6ed8f130ed246e2872980f74a20be5c527507de97d628eb7",
+      "origin": "mechanical-layout-of-unretouched-Unity-PNGs-and-labeled-reference"
+    },
+    {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairLightingStudio-20261016/konzept-fahrt-vergleich.png",
+      "sha256": "f2bf1d8177081121f65bd5ad9f40404c34eb1c3ef3b43a09a6b2b58a129f7412",
+      "origin": "mechanical-layout-of-unretouched-Unity-PNGs-and-labeled-reference"
+    }
+  ],
+  "decision": {
+    "boundedLightingStudio": "verified",
+    "fullConceptSimilarity": "failed",
+    "icon": "pending",
+    "uploadPerformed": false
+  },
+  "remaining": [
+    "Town/vehicle surface detail and overall native3D atmosphere remain below Concept; no numerical90percent claim.",
+    "Faucet closed-stage cartridge visibility and cold thumbnail lighting merit the next fixture quality pass.",
+    "Next coherent world pass: original full sky and distant modeled civic landmark/curved lamp geometry.",
+    "Native Mac results do not prove physical-device60FPS/thermal/touch, real paid purchases/ad delivery, exported iOS icon variants or Apple approval. Generated workshop art is decorative menu content, not3Dgameplay evidence."
+  ]
+}

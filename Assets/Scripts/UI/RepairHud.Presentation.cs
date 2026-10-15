@@ -8,6 +8,7 @@ namespace Kamilunavo.RepairEmpire.UI
 {
  public sealed partial class RepairHud
  {
+  float repairPhotoAspect=4f/3f;Rect? repairPhotoClear;RawImage liveRepairScene;
   string RequiredTool(JobDefinition job)=>job.ToolTier==0?T("Basis-Schlüssel","Basic Wrench"):job.ToolTier==1?T("Spannungsprüfer","Voltage Tester"):T("Profi-Werkzeug","Professional Kit");
   string RouteDistance(JobDefinition job)
   {
@@ -57,38 +58,48 @@ namespace Kamilunavo.RepairEmpire.UI
    for(int i=0;i<3;i++)
    {
     var step=job.Presentation.Stages[i];float centre=cell*(i+.5f);
-    if(i<2)Panel(panel,"StageLine"+i,centre+14,22,cell-28,2,i<phase?Orange:Line);
-    var marker=Panel(panel,"StageMarker"+i,centre-13,10,26,26,i<=phase?Orange:Mist);marker.GetComponent<RoundedPanel>().Radius=13;
-    Label(marker,"Number",i<phase?"✓":(i+1).ToString(),0,0,26,26,14,Ink,TextAnchor.MiddleCenter);
-    Label(panel,"ProcedureStep"+i,T(step.TitleDe,step.TitleEn),cell*i+5,41,cell-10,h-46,14,i<=phase?Ink:Slate,TextAnchor.UpperCenter);
+    if(i<2)Panel(panel,"StageLine"+i,centre+12,47,cell-24,2,i<phase?Orange:Line);
+    var marker=Panel(panel,"StageMarker"+i,centre-11,36,22,22,i<=phase?Orange:Mist);marker.GetComponent<RoundedPanel>().Radius=11;
+    Label(marker,"Number",i<phase?"✓":(i+1).ToString(),0,0,22,22,13,Ink,TextAnchor.MiddleCenter);
+    Label(panel,"ProcedureStep"+i,T(step.TitleDe,step.TitleEn),cell*i+5,64,cell-10,h-68,14,i<=phase?Ink:Slate,TextAnchor.UpperCenter);
    }
   }
   void RenderRepairStudio()
   {
    var job=game.ActiveJob;var interaction=game.Interaction;if(job==null||interaction==null)return;
    float w=body.rect.width;int phase=Mathf.Min(2,game.Profile.RepairPhase);var stage=interaction.Stage??job.Presentation?.Stages[phase];if(stage==null)return;
-   bool sequence=interaction.Kind==RepairInputKind.Sequence,wide=w>=600;int count=interaction.ActionCount,rows=sequence?Mathf.CeilToInt(count/2f):1;
-   float summaryW=wide?w*.39f-8:w,sceneX=wide?w*.40f:0,sceneW=wide?w*.60f:w,header=summaryW<260?102:82,steps=summaryW<260?110:88;
+   bool sequence=interaction.Kind==RepairInputKind.Sequence,wide=w>=600;int count=interaction.ActionCount,columns=wide?Mathf.Min(4,Mathf.Max(1,count)):2,rows=sequence?Mathf.CeilToInt((float)count/columns):1;
+   bool backdrop=!wide&&w>=260&&height>=600&&height>width*1.15f;
+   float summaryW=wide?w*.39f-8:w,sceneX=wide?w*.40f:0,sceneW=wide?w*.60f:w,header=summaryW<260?102:wide&&height<350?62:82,steps=summaryW<260?140:wide&&height<350?82:100;
    float shelfHeight=sequence?rows*(size+6)+34:size+30,shelfY=height-shelfHeight-12;
-   float artH=wide?Mathf.Max(150,shelfY-110):Mathf.Clamp(w*.75f,150,340);var content=Scroll(header+steps+artH+140);
-   var summary=Panel(content,"RepairServiceSummary",0,0,summaryW,header,Color.white);float thumbnail=summaryW<260?42:62,left=thumbnail+20;
+   float bodyTop=-body.anchoredPosition.y;body.sizeDelta=new Vector2(w,Mathf.Max(size,shelfY-bodyTop-4));
+   float artH=wide?body.rect.height:Mathf.Clamp(w*.75f,150,340);var content=Scroll(backdrop?body.rect.height:header+steps+artH+100);
+   // Keep the touchable scroll surface, but let the actual scene show through.
+   if(backdrop)content.parent.GetComponent<Image>().color=Color.clear;
+   var summary=Panel(content,"RepairServiceSummary",0,0,summaryW,header,Color.white);float thumbnail=header<80||summaryW<260?42:62,left=thumbnail+20;
    ServicePhoto(summary,job,8,8,thumbnail,thumbnail);Label(summary,"RepairTitle",T(job.TitleDe,job.Title),left,4,summaryW-left-10,header-38,20,Ink);
    Label(summary,"RepairAddress",job.Address+" · $"+job.Reward+" · "+job.Xp+" XP",left,header-31,summaryW-left-10,27,13,Slate,TextAnchor.MiddleLeft,FontStyle.Normal);
    WorkflowTimeline(content,job,phase,summaryW,header+10,steps);
-   float headingY=header+steps+22;
-   Label(content,"Stage",T(stage.TitleDe,stage.TitleEn),8,headingY,summaryW-16,34,21,Ink);
-   float artY=wide?0:headingY+42;
-   if(Application.isPlaying)ScenePhoto(content,"ActualRepairScene",Studio().RepairImage(job.Id,phase,interaction.Taps),sceneX,artY,sceneW,artH);else Symbol(content,job,sceneX,artY,sceneW,artH);
-   float instructionsY=wide?headingY+42:artY+artH+10;
-   Label(content,"Instructions",T(stage.InstructionDe,stage.InstructionEn),8,instructionsY,summaryW-16,52,16,Slate,TextAnchor.MiddleLeft,FontStyle.Normal);
+   float headingY=header+18;Label(content,"Stage",T(stage.TitleDe,stage.TitleEn),8,headingY,summaryW-16,28,20,Ink);
+   float artY=wide?0:header+steps+20;
+   repairPhotoAspect=backdrop?width/height:sceneW/artH;repairPhotoClear=backdrop?new Rect(12/width,(height-shelfY+60)/height,w/width,Mathf.Max(64,shelfY-60-(bodyTop+artY))/height):new Rect(.05f,.05f,.90f,.90f);
+   if(backdrop)
+   {
+    liveRepairScene=ScenePhoto(modal,"ActualRepairScene",Application.isPlaying?Studio().RepairImage(job.Id,phase,interaction.Taps,repairPhotoAspect,repairPhotoClear):null,0,0,width,height);liveRepairScene.transform.SetAsFirstSibling();
+   }
+   else if(wide)liveRepairScene=ScenePhoto(modal,"ActualRepairScene",Application.isPlaying?Studio().RepairImage(job.Id,phase,interaction.Taps,repairPhotoAspect,repairPhotoClear):null,12+sceneX,bodyTop,sceneW,artH);
+   else if(Application.isPlaying)liveRepairScene=ScenePhoto(content,"ActualRepairScene",Studio().RepairImage(job.Id,phase,interaction.Taps,repairPhotoAspect,repairPhotoClear),sceneX,artY,sceneW,artH);else Symbol(content,job,sceneX,artY,sceneW,artH);
+   float instructionsY=backdrop?shelfY-bodyTop-54:wide?header+steps+20:artY+artH+10;
+   if(backdrop)Panel(content,"RepairInstructionsCard",0,instructionsY,w,48,new Color(1,1,1,.94f));
+   Label(content,"Instructions",T(stage.InstructionDe,stage.InstructionEn),8,instructionsY+(backdrop?4:0),summaryW-16,backdrop?40:52,backdrop?14:16,Slate,TextAnchor.MiddleLeft,FontStyle.Normal);
    var shelf=Panel(modal,"RepairActionShelf",12,shelfY,w,shelfHeight,Paper);Panel(shelf,"ActionDivider",0,0,w,1,Line);
-   body.sizeDelta=new Vector2(w,Mathf.Max(size,shelfY-12+body.anchoredPosition.y));var viewport=body.Find("ScrollViewport")as RectTransform;if(viewport!=null)viewport.sizeDelta=body.sizeDelta;
+   var viewport=body.Find("ScrollViewport")as RectTransform;if(viewport!=null)viewport.sizeDelta=new Vector2(wide?summaryW:w,body.rect.height);
    if(sequence)
    {
-    float buttonW=(w-24)/2;
+    float buttonW=(w-16-(columns-1)*8)/columns;
     for(int i=0;i<count;i++)
     {
-     int tap=i;var action=stage.Actions[i];var button=Button(shelf,"RepairTap"+i,(i+1)+"  "+T(action.LabelDe,action.LabelEn),8+(i%2)*(buttonW+8),8+(i/2)*(size+6),buttonW,size,()=>{if(game.ApplicationInterrupted){game.Interaction.ResetInput();return;}if(game.Interaction.Tap(tap))game.AdvanceRepair(phase);else RefreshRepairSequence(job,phase,count);},true,i==interaction.Taps?Orange:Mist);
+     int tap=i;var action=stage.Actions[i];var button=Button(shelf,"RepairTap"+i,(i+1)+"  "+T(action.LabelDe,action.LabelEn),8+(i%columns)*(buttonW+8),8+(i/columns)*(size+6),buttonW,size,()=>{if(game.ApplicationInterrupted){game.Interaction.ResetInput();return;}if(game.Interaction.Tap(tap))game.AdvanceRepair(phase);else RefreshRepairSequence(job,phase,count);},true,i==interaction.Taps?Orange:Mist);
      button.GetComponentInChildren<Text>().fontSize=button.GetComponentInChildren<Text>().resizeTextMaxSize=17;
     }
     Label(shelf,"TapProgress",interaction.Taps+" / "+count,8,8+rows*(size+6),w-16,24,16,Slate);
@@ -98,7 +109,7 @@ namespace Kamilunavo.RepairEmpire.UI
     repairHold=Hold(shelf,"RepairHold",T(stage.ButtonDe,stage.ButtonEn),8,8,w-16,size);repairHold.GetComponent<Image>().color=Orange;repairHold.GetComponent<Image>().material=null;repairHold.GetComponentInChildren<Text>().color=Ink;
     progress=UiFactory.Progress(shelf,Vector2.zero,Vector2.one,Line,Orange);At((RectTransform)progress.transform.parent,8,size+16,w-16,10);
    }
-   content.sizeDelta=new Vector2(w,Mathf.Max(body.rect.height,Mathf.Max(instructionsY+60,artY+artH)));
+   content.sizeDelta=new Vector2(wide?summaryW:w,backdrop?body.rect.height:Mathf.Max(body.rect.height,Mathf.Max(instructionsY+60,artY+artH)));
   }
   void RenderPaymentReceipt()
   {
