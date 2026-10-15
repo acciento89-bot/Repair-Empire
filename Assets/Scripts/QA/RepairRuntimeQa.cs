@@ -138,22 +138,44 @@ namespace Kamilunavo.RepairEmpire.QA {
    finally{RenderTexture.active=previous;cam.targetTexture=null;scenePixels.Remove(target);target.Release();Destroy(target);Destroy(host);}
    yield return null;
   }
+  IEnumerator CheckNativeCityReflection()
+  {
+   var city=FindFirstObjectByType<CitySceneReflections>();Check(city!=null&&city.Captured&&city.CaptureCount==1,"Production district captures the actual built street only once");Check(city.Reflection!=null&&city.Reflection.width==64&&city.Probe!=null&&city.Probe.customBakedTexture==city.Reflection,"Actual64px city cube is bound to production custom probe");Check(city.Probe.importance==10&&city.Probe.bounds.min.y> -100,"City probe stays below van priority and outside isolated service studio");Check(GameObject.Find("One-time district reflection capture")==null,"One-time city camera is disposed before driving");
+   MeshRenderer window=null;foreach(var renderer in FindFirstObjectByType<CityBuilder>().GetComponentsInChildren<MeshRenderer>())if(renderer.name=="Deeply recessed urban glazing"&&renderer.bounds.center.x<0&&renderer.bounds.center.y>4&&renderer.bounds.center.y<6&&renderer.bounds.center.z<35){window=renderer;break;}
+   Check(window!=null,"Actual authored first-floor window is available for native reflection control");
+   var host=new GameObject("QA native actual city window",typeof(Camera));var camera=host.GetComponent<Camera>();camera.CopyFrom(Camera.main);camera.enabled=false;camera.fieldOfView=38;camera.aspect=1;camera.transform.position=window.bounds.center+new Vector3(5.2f,.6f,-3);camera.transform.LookAt(window.bounds.center);
+   var target=new RenderTexture(128,128,24,RenderTextureFormat.ARGB32);var pixels=new Texture2D(128,128,TextureFormat.RGB24,false);var previous=RenderTexture.active;bool enabled=city.Probe.enabled;
+   try
+   {
+    target.Create();camera.targetTexture=target;
+    Color32[] Read(string name){var active=RenderTexture.active;try{var probes=new List<UnityEngine.Rendering.ReflectionProbeBlendInfo>();window.GetClosestReflectionProbes(probes);var info=new System.Text.StringBuilder();foreach(var entry in probes)info.Append(entry.probe.name+":"+entry.weight+" ");Debug.Log("REPAIR_CITY_PROBE_DIAGNOSTIC "+name+" usage="+window.reflectionProbeUsage+" static="+window.isPartOfStaticBatch+" shader="+window.sharedMaterial.shader.name+" gloss="+window.sharedMaterial.GetFloat("_Glossiness")+" probes="+info);camera.Render();RenderTexture.active=target;pixels.ReadPixels(new Rect(0,0,128,128),0,0);pixels.Apply();File.WriteAllBytes(Path.Combine(output,name+".png"),pixels.EncodeToPNG());return pixels.GetPixels32();}finally{RenderTexture.active=active;}}
+    // Probe membership is refreshed by Unity's scene loop, so compare settled
+    // frames, not two toggles in the same render tick.
+    city.Probe.enabled=false;yield return null;yield return new WaitForEndOfFrame();var beforeWithout=RenderTexture.active;var without=Read("street-reflection-without-capture");Check(RenderTexture.active==beforeWithout,"OFF window readback restores active target before the next scene frame");
+    city.Probe.enabled=true;yield return null;yield return new WaitForEndOfFrame();var beforeCaptured=RenderTexture.active;var captured=Read("street-reflection-with-capture");Check(RenderTexture.active==beforeCaptured,"ON window readback restores active target before the next scene frame");int changed=0,samples=0;var bounds=window.bounds;
+    for(int i=0;i<without.Length;i++)if(bounds.IntersectRay(camera.ViewportPointToRay(new Vector3((i%128+.5f)/128,(i/128+.5f)/128,0)))){samples++;if(Math.Abs(without[i].r-captured[i].r)+Math.Abs(without[i].g-captured[i].g)+Math.Abs(without[i].b-captured[i].b)>2)changed++;}
+    Check(samples>64&&changed>32,"Actual native selected window responds to captured street environment in "+changed+" of "+samples+" window pixels");
+   }
+   finally{city.Probe.enabled=enabled;RenderTexture.active=previous;camera.targetTexture=null;target.Release();Destroy(target);Destroy(pixels);Destroy(host);}
+   Check(city.Probe.enabled==enabled&&city.CaptureCount==1,"Native reflection control restores probe and never repeats scene capture");
+  }
   IEnumerator CaptureStreetViews()
   {
    var parked=GameObject.Find("Parked neighbourhood car");Check(parked!=null&&Mathf.Abs(parked.transform.position.x)>6.6f,"Actual original parked cars sit in pockets outside the clear driving lane");var origin=game.Vehicle.transform.position;int cash=game.Profile.Cash;
    var host=new GameObject("QA actual street inspection",typeof(Camera));var camera=host.GetComponent<Camera>();camera.CopyFrom(Camera.main);camera.enabled=false;camera.aspect=4f/3f;var target=new RenderTexture(1024,768,24,RenderTextureFormat.ARGB32){antiAliasing=2};target.Create();camera.targetTexture=target;var previous=RenderTexture.active;var pixels=new Texture2D(1024,768,TextureFormat.RGB24,false);
    try
    {
-    foreach(var name in new[]{"street-parked-car","street-layout"})
+    foreach(var name in new[]{"street-parked-car","street-layout","street-tree-canopy"})
     {
      if(name=="street-parked-car"){camera.transform.position=parked.transform.position+new Vector3(4.3f,2.7f,-6.6f);camera.transform.LookAt(parked.transform.position+Vector3.up*.85f);camera.fieldOfView=37;}
+     else if(name=="street-tree-canopy"){var tree=GameObject.Find("Authored urban street tree").transform;var crown=tree.TransformPoint(new Vector3(0,5.5f,0));camera.transform.position=crown+new Vector3(5.8f,1.1f,-7.4f);camera.transform.LookAt(crown);camera.fieldOfView=37;}
      else{camera.transform.position=new Vector3(-2.2f,3.0f,8);camera.transform.LookAt(new Vector3(1,4,115));camera.fieldOfView=45;}
      camera.Render();scenePixels.Remove(target);RenderedFingerprint(target);RenderTexture.active=target;pixels.ReadPixels(new Rect(0,0,1024,768),0,0);pixels.Apply();File.WriteAllBytes(Path.Combine(output,name+".png"),pixels.EncodeToPNG());
     }
     Check(game.Vehicle.transform.position==origin&&game.Profile.Cash==cash,"Street inspection never moves the driving van or changes company authority");
    }
    finally{RenderTexture.active=previous;camera.targetTexture=null;scenePixels.Remove(target);target.Release();Destroy(target);Destroy(pixels);Destroy(host);}
-   yield return null;
+   yield return CheckNativeCityReflection();
   }
   IEnumerator Showcase(){yield return CaptureVanViews();yield return CaptureStreetViews();yield return CaptureAllFixtures();yield return CaptureWorkshopPhoto();Check(game.Profile.CompletedJobs==0,"Showcase uses isolated unplayed company");Sizes();yield return Capture("showcase-driving-guide");bool wasGuide=game.Tutorial.Active;game.Tutorial.Stop();game.Hud.RefreshProfile();yield return null;Sizes();yield return Capture("showcase-driving-service");if(wasGuide)game.Tutorial.Start(game.Profile,game.Distance);game.Hud.RefreshProfile();game.Hud.ShowDashboard();yield return null;Sizes();PresentationChecks();var fixtureStudio=game.GetComponentInChildren<ServiceSceneArt>();int faucetImage=RenderedFingerprint(fixtureStudio.Thumbnail("faucet")),toiletImage=RenderedFingerprint(fixtureStudio.Thumbnail("toilet")),switchImage=RenderedFingerprint(fixtureStudio.Thumbnail("switch"));Check(faucetImage!=toiletImage&&faucetImage!=switchImage&&toiletImage!=switchImage,"Faucet toilet and switch have distinct actual modeled images");yield return Capture("showcase-dashboard-entry");Press("DashboardShop");yield return null;Check(GameObject.Find("SectionTitle").GetComponent<Text>().text=="Shop"&&game.Paused,"Header Shop directly opens visible storefront and keeps pause");Press("MenuBack");yield return null;Check(GameObject.Find("CompanyHero")!=null&&game.Paused,"Header Shop Back restores company dashboard without resuming driving");long entryTicket=game.Profile.ActiveTicket;Press("DashboardDrive");Check(!game.Paused&&game.Profile.ActiveTicket==entryTicket,"Dashboard drive resumes real ticket without dispatching a duplicate");for(int language=0;language<2;language++){game.Transact(p=>{p.Language=language==0?"de":"en";return true;});game.Hud.ShowDashboard();yield return null;Sizes();PresentationChecks();yield return Capture("showcase-"+game.Profile.Language+"-dashboard");var companyScroll=GameObject.Find("ScrollViewport").GetComponent<ScrollRect>();companyScroll.verticalNormalizedPosition=0;yield return null;PresentationChecks();yield return Capture("showcase-"+game.Profile.Language+"-dashboard-sections");game.Hud.Close();for(int tab=0;tab<8;tab++){game.Hud.ShowPage(tab);yield return null;Sizes();PresentationChecks();yield return Capture("showcase-"+game.Profile.Language+"-"+tab);game.Hud.Close();}}game.Hud.ShowPage(6);yield return null;var settingsScroll=GameObject.Find("ScrollViewport").GetComponent<ScrollRect>();settingsScroll.verticalNormalizedPosition=0;yield return null;yield return Capture("showcase-guide-replay-entry");game.Hud.Close();yield return Poses();}
   IEnumerator Poses(){Screen.orientation=ScreenOrientation.LandscapeLeft;

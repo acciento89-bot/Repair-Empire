@@ -1,0 +1,383 @@
+{
+  "game": "Repair Empire",
+  "date": "2026-10-16",
+  "sourceSha256": "88e507b97538e333bf76aa46a7fc6e138b6ee85116c7b99e0b6260971e9dec6b",
+  "baseCommit": "04f7a0dfc1e78193b9cb541f83d3f13997fe6d46",
+  "scope": "Original textured and denser authored foliage, indexed flat facade buffers, captured actual district reflections and bounded native GPU validation.",
+  "supersedes": "docs/QA/repair-street-rebuild-20261015.json",
+  "implemented": [
+    "Original built-in imagegen dense maple canopy albedo, mechanically512square, imported shared/non-readable/mipmapped/trilinear/repeat/HQcompressed. Smaller textured crown cores and560folded alpha sprigs/10secondary branches per tree replace visible flat green masses.",
+    "Original CanopySurface shader uses the shared leaf texture and authored underside occlusion; natural olive/gold variation remains in existing owned materials. Each complete tree4585vertices, no added collider or random calls.",
+    "Only UrbanArtKit flat rectangular faces now share four corners per face (24instead of36vertices); same oriented12triangles/bounds/sharp normals, original metric masonry UV mapping and rounded profiles. Two-townhouse/tree fixture33637vertices/11materials, unchanged40k/14ceilings. Global MeshArt.Box/van/repair primitives untouched.",
+    "One original64px cubemap captures the actual constructed city once after its sky setup. District-owned custom probe importance10/influence excludes studio and leaves van20/studio100higher priority. Disabled transient camera restores active target and is disposed; no Update/global mutation/renderer toggling. Unsupported false-return capture retains ordinary ambient fallback.",
+    "Actual native production-window OFF/ON control waits across scene frames for Unity probe membership, then limits comparison to rays intersecting the actual selected window.2612of2612windowpixels respond; OFF has no closest probe, ON actual city weight1. Each Read restores active target before yielding, outer cleanup restores probe/targets/cache/camera.",
+    "Actual native tree/car/street/window controls accompany existing model/24fixture/DE/EN menu and gameplay evidence; generated bitmap is a surface texture, not gameplay proof."
+  ],
+  "preserved": [
+    "Compact-street54collision volumes and exact height RNG remain unchanged from04f7a0d;24original full-van customer stop volumes and1728sign poses remain clear.",
+    "Original jobs/rewards/ordered repairs/exact-once payout, controller/camera composition, save/commerce, scenes/packages/version and byte-identical ProjectSettings.",
+    "Moving van68888retained vertices/27active renderers/9materials and workshop150684/29/21; all existing budget/mesh/aperture/normal/GPU/lifetime checks retained.",
+    "Approved sibling games/OMF submission untouched, no Repair upload. Historical user-owned Concept deletion remains unstaged."
+  ],
+  "originalAssets": [
+    {
+      "kind": "original built-in imagegen canopy surface",
+      "generation": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairEnvironmentFinish-20261015/generated-asset-provenance.json",
+        "sha256": "da216687cfdda76d278a2960719d7ed91e5b8b20d94bbbc65d972f559317b595",
+        "origin": "exact-imagegen-prompt-and-paths"
+      },
+      "original": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairEnvironmentFinish-20261015/StreetCanopy-v1-original.png",
+        "sha256": "cac686a6391fac2d925126b4e4bb271e6fe37a924014ac2536fb0adfd893c13c",
+        "origin": "original-imagegen-output"
+      },
+      "asset": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Projects/Repair-Empire/Assets/Resources/Art/StreetCanopy-v1.png",
+        "sha256": "38cfd88266a2e685cd449ed0df645ae94e12e19d9347c103ce6652e76a2ff5fe",
+        "origin": "mechanically-resized-original"
+      },
+      "importer": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Projects/Repair-Empire/Assets/Resources/Art/StreetCanopy-v1.png.meta",
+        "sha256": "aca0ed224d5ca4be0983016a28bc56c71c4c2226ffdc0afee966aeddd695b306",
+        "origin": "Unity-importer"
+      },
+      "shader": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Projects/Repair-Empire/Assets/Resources/CanopySurface.shader",
+        "sha256": "1fea88e596a8e7b4ce2066599be9e504b6303c7d0a94872f8ac55326295877e5",
+        "origin": "original-shader"
+      },
+      "sharedAfterDisposal": true
+    },
+    {
+      "kind": "original authored geometry and scene capture",
+      "sources": [
+        {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Projects/Repair-Empire/Assets/Scripts/Visuals/DistrictArtGeometry.cs",
+          "sha256": "4cc489e1d5edb333815f6e76dd82f1f8fc46fc3021a01c9b995dd8407431b61a",
+          "origin": "original-source"
+        },
+        {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Projects/Repair-Empire/Assets/Scripts/Visuals/CitySceneReflections.cs",
+          "sha256": "dfabe2e6202bf9dea1259151e29954cf8e0801c037d09d9911c3abc7a8edb96a",
+          "origin": "original-source"
+        }
+      ],
+      "externalMeshesShipped": false
+    }
+  ],
+  "unity": {
+    "aggregateAndMacBuildExitCode": 0,
+    "log": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairEnvironmentFinish-20261015/unity-environment-final.log",
+      "sha256": "909481c646367888a72db9169ac4179c583c5a56cfb0c095221d43adb982d58a",
+      "origin": "native-Unity-Editor-and-build-log"
+    },
+    "receipt": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairEnvironmentFinish-20261015/source-native-receipt.json",
+      "sha256": "fbd40ff4c34d26ba401ff42a7d6bcbc39d064aa8416a65286167efbc4a0355a0",
+      "origin": "exact-source-native-build-binding"
+    },
+    "bundleManifest": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairEnvironmentFinish-20261015/native-bundle-manifest.json",
+      "sha256": "962032146b2cc51c9b53e82243190b75ed4e0a6f64b177d65421baf639744858",
+      "origin": "all-native-bundle-files"
+    },
+    "nativeFileCount": 314,
+    "settingsBefore": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairEnvironmentFinish-20261015/settings-before.json",
+      "sha256": "7c88f48c8b782c77a29bb9392f494044a0980b0afec9cb345dfbe09e69ec868a",
+      "origin": "pre-edit-settings-hashes"
+    },
+    "settingsUnchanged": true
+  },
+  "runs": {
+    "NativePresentation": {
+      "checks": 1492,
+      "processExitCode": 0,
+      "result": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairEnvironmentFinish-20261015/NativePresentation/PASS.txt",
+        "sha256": "029bc6546803317925a1f7aafe08d33ff357e2d3c1dd71650ca203d916e610f1",
+        "origin": "actual-native-result"
+      },
+      "checksFile": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairEnvironmentFinish-20261015/NativePresentation/checks.txt",
+        "sha256": "76ae2756d30767ee3afa6ce4572f398e46bc77c8625f1a1e4d448bfc1ac1dfd5",
+        "origin": "actual-native-checks"
+      },
+      "provenance": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairEnvironmentFinish-20261015/NativePresentation/PROVENANCE.json",
+        "sha256": "97688ff5010b9635437f0efdd920eea52ebeff60780c8cc50225979efae53523",
+        "origin": "native-source-binding"
+      },
+      "log": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairEnvironmentFinish-20261015/NativePresentation.log",
+        "sha256": "49c5502610859f31daae321e422ef7d28aecaa57e1ccffd8e6a20e22bfbe798b",
+        "origin": "native-Mac-log"
+      },
+      "imageManifest": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairEnvironmentFinish-20261015/NativePresentation/IMAGE-HASHES.json",
+        "sha256": "fc20daed4c9898485e91d3b27700c8df780b1a34f9c059d4153e7342713769e1",
+        "origin": "actual-Unity-render-manifest"
+      },
+      "imageCount": 78
+    },
+    "NativeFull": {
+      "checks": 1377,
+      "processExitCode": 0,
+      "result": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairEnvironmentFinish-20261015/NativeFull/PASS.txt",
+        "sha256": "c863575bd616b2a7b2287886a6e8ca8bd1af6e0e31f2d02097f50b0bf4c56f0e",
+        "origin": "actual-native-result"
+      },
+      "checksFile": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairEnvironmentFinish-20261015/NativeFull/checks.txt",
+        "sha256": "dffba9320b5e0597c963b27d7519876025de91b24f439684728c48c6b3a808ee",
+        "origin": "actual-native-checks"
+      },
+      "provenance": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairEnvironmentFinish-20261015/NativeFull/PROVENANCE.json",
+        "sha256": "0daa53260b1de349f71510561210e29fbb7db9e605668731a9ce6a3e455c1cf6",
+        "origin": "native-source-binding"
+      },
+      "log": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairEnvironmentFinish-20261015/NativeFull.log",
+        "sha256": "2ecf39e237f4a334946ce6d8765d5cd7b5e0a4ef5079f6f809abd1ad6912392a",
+        "origin": "native-Mac-log"
+      },
+      "imageManifest": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairEnvironmentFinish-20261015/NativeFull/IMAGE-HASHES.json",
+        "sha256": "774115539fc1c76d713ba4e7debcc4653d067461a75d24d056c8b3761e31b213",
+        "origin": "actual-Unity-render-manifest"
+      },
+      "imageCount": 58
+    },
+    "NativeReload": {
+      "checks": 7,
+      "processExitCode": 0,
+      "result": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairEnvironmentFinish-20261015/NativeReload/PASS.txt",
+        "sha256": "38213edc12e5ec96959592e87d8dbbd73398b1a84ce00fa19c8bdea92ba590b6",
+        "origin": "actual-native-result"
+      },
+      "checksFile": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairEnvironmentFinish-20261015/NativeReload/checks.txt",
+        "sha256": "a47cdbe2c393a6d3242b1a93b7d3a4c797bf0fcce1aae50ab49f39ff59a87fa3",
+        "origin": "actual-native-checks"
+      },
+      "provenance": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairEnvironmentFinish-20261015/NativeReload/PROVENANCE.json",
+        "sha256": "678995eeca28598b129fac885e55ab8d5799fae5a51768b02df1ad49d2974c48",
+        "origin": "native-source-binding"
+      },
+      "log": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairEnvironmentFinish-20261015/NativeReload.log",
+        "sha256": "68d89d37ab33addcb73a3bcd89f8e7c91fe55ad20d9122ac912df7891c83b17c",
+        "origin": "native-Mac-log"
+      },
+      "imageManifest": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairEnvironmentFinish-20261015/NativeReload/IMAGE-HASHES.json",
+        "sha256": "a8eaa6dc93574e9c94611b9b23c772747324e3031d2fd8acb526df847ff90f2a",
+        "origin": "actual-Unity-render-manifest"
+      },
+      "imageCount": 1
+    }
+  },
+  "geometryEvidence": {
+    "residentialFixtureVertices": 33637,
+    "residentialMaterials": 11,
+    "residentialTextures": 4,
+    "sharedImports": 3,
+    "treeVertices": 4585,
+    "foldedSprigs": 560,
+    "secondaryBranches": 10,
+    "cubemapResolution": 64,
+    "captureCount": 1,
+    "windowGpuPixelsChanged": 2612,
+    "windowGpuPixelsSampled": 2612,
+    "movingVan": {
+      "retainedVertices": 68888,
+      "activeRenderers": 27,
+      "materials": 9
+    },
+    "workshop": {
+      "retainedVertices": 150684,
+      "activeRenderers": 29,
+      "materials": 21
+    }
+  },
+  "candidateHistory": [
+    {
+      "stage": "Original canopy binding RED",
+      "log": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairEnvironmentFinish-20261015/unity-canopy-red.log",
+        "sha256": "350351907dc508e3ff20f6089ba13c57f2d8597486c98758fff9ab4ae05e30d9",
+        "origin": "pre-implementation-engine-regression"
+      }
+    },
+    {
+      "stage": "Actual foliage GREEN",
+      "log": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairEnvironmentFinish-20261015/unity-canopy-green.log",
+        "sha256": "5622ef8c85c5fbb33f8dc32ceedadf0ac81e8a89692031d9c00cecb9acb73072",
+        "origin": "post-implementation-engine-regression"
+      }
+    },
+    {
+      "stage": "Once-only reflection RED/GREEN",
+      "red": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairEnvironmentFinish-20261015/unity-reflection-red.log",
+        "sha256": "577b624e83a0332b0a67ba8d80a265bce10816720b93e5d47d4354c6d9f5103f",
+        "origin": "pre-implementation-engine-regression"
+      },
+      "green": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairEnvironmentFinish-20261015/unity-reflection-green.log",
+        "sha256": "7818a83d60f67d46eb18317e4765a72b268bf390f4663b48ad9f7de3234e6f3b",
+        "origin": "post-implementation-engine-regression"
+      }
+    },
+    {
+      "stage": "Unchanged40k aggregate ceiling catches excess duplicated flat buffers",
+      "log": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairEnvironmentFinish-20261015/unity-environment-native.log",
+        "sha256": "0612e79fed624fe767c9881e9913043712855ae0e0448027102a7ff2e595f077",
+        "origin": "rejected-aggregate"
+      },
+      "outcome": "Indexed only flat facade surfaces rather than raising limits; intended fourth texture/thirdsharedimport contract updated explicitly."
+    },
+    {
+      "stage": "Same-frame probe-control native RED",
+      "receipt": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairEnvironmentFinish-20261015/source-native-receipt-initial.json",
+        "sha256": "62cd2955226469c815fe9bf4ce2c70fe19e2de63f9436df96e164aab34e23cc3",
+        "origin": "superseded-native-binding"
+      },
+      "log": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairEnvironmentFinish-20261015/InitialPresentation.log",
+        "sha256": "a07b9cfa04781cb25425724a8f87050be404c244dad9631cd7ecff8f38d730bb",
+        "origin": "rejected-native-control"
+      },
+      "outcome": "0pixel difference. Production remained unchanged; Unity membership requires scene-loop refresh. Settled-frame OFF/ON diagnostics prove no probe versus actual city weight1."
+    },
+    {
+      "stage": "Settled-frame diagnostic1490",
+      "receipt": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairEnvironmentFinish-20261015/source-native-receipt-diagnostic.json",
+        "sha256": "ff0f04227ef6c3fb690fb1bfd573ad0b2f8d6df3230efe226058424a2a3dae98",
+        "origin": "superseded-native-binding"
+      },
+      "log": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairEnvironmentFinish-20261015/DiagnosticPresentation.log",
+        "sha256": "6ff999d97a6e4459990d757c0d1f776ceb388a841792937413bf26b3b6d011d5",
+        "origin": "diagnostic-native-pass"
+      },
+      "outcome": "2612masked windowpixels differ. Reviewer then found active target could cross the new yield; local Read finally/2native restore assertions added before final1492run."
+    }
+  ],
+  "sourceReview": {
+    "reviewer": "independent fresh-context read-only repair_environment_review16",
+    "decision": "No remaining Critical/Important source findings; review closed after final Read cleanup.",
+    "scope": "Production ownership/geometry/shader/probe scope and QA lifecycle; no source-only aesthetic/device/release approval."
+  },
+  "visualEvidence": {
+    "concept": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Artifacts/KamilunavoDelivery-20261009/concepts-20261010/repair-empire-3-ansichten.png",
+      "sha256": "0571d35c40de036f83f86f3b423c234f321586abcfec97d9d259710d816723f1",
+      "origin": "approved-concept"
+    },
+    "gameplay": [
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairEnvironmentFinish-20261015/NativePresentation/showcase-driving-service.png",
+        "sha256": "fdb6910ffb7bffa37537ec00eda4ec211b56d430e362b24c2a3fc1951bcd328f",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairEnvironmentFinish-20261015/NativePresentation/landscape-home.png",
+        "sha256": "807da4ee69cb6e6fe62c1a90640fb3de3ba939d26fee4d7d369b8418f8e14111",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairEnvironmentFinish-20261015/NativePresentation/street-layout.png",
+        "sha256": "43bea1932f61e4e071de80768d72817e26c4acfa1b88e62bddf06bca3642a1e4",
+        "origin": "Unity-render"
+      }
+    ],
+    "model": [
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairEnvironmentFinish-20261015/NativePresentation/street-tree-canopy.png",
+        "sha256": "2b52506ac4d45817cb68d73cdc86257d7d62c0976629492327ce898b1392612b",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairEnvironmentFinish-20261015/NativePresentation/street-parked-car.png",
+        "sha256": "37461df00cedd78993e1e9308a29afea4d15baab350926270d95c54794a08cb7",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairEnvironmentFinish-20261015/NativePresentation/van-front-three-quarter.png",
+        "sha256": "1693def963b6dc676831d288b49c27d533018bd8cdec7625d09e6b36d0530c9d",
+        "origin": "Unity-render"
+      }
+    ],
+    "reflectionControls": [
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairEnvironmentFinish-20261015/NativePresentation/street-reflection-without-capture.png",
+        "sha256": "8f88af9126e2826f7e1ab30010b964ce868f8560c7adafb0e8238a7e658dfbcd",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairEnvironmentFinish-20261015/NativePresentation/street-reflection-with-capture.png",
+        "sha256": "9fd5cc631d9b23410de5357e184847e1847b9b6b154b44dc76a3edeb1ea75047",
+        "origin": "Unity-render"
+      }
+    ],
+    "menus": [
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairEnvironmentFinish-20261015/NativePresentation/showcase-de-dashboard.png",
+        "sha256": "a31db78cc86d177c11d82bdcf69daf997727b440fbf99c3ccd85c793ca3961f7",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairEnvironmentFinish-20261015/NativePresentation/landscape-de-section-9.png",
+        "sha256": "15c29061d65467984c13674e06dd8768a1761495517a81702201246c286c29e4",
+        "origin": "Unity-render"
+      }
+    ],
+    "repairs": [
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairEnvironmentFinish-20261015/NativeFull/repair-faucet-stage1.png",
+        "sha256": "1d3e2e68bdcc0119d4d995944d269b36c5f63350aa6647b1fe8cf0c3b270c613",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairEnvironmentFinish-20261015/NativeFull/repair-paid-result-0.png",
+        "sha256": "a94229d2671a6e13445ee55d53ba7ca2e94df4ecbb45235a30445f92c81306ba",
+        "origin": "Unity-render"
+      }
+    ]
+  },
+  "comparisons": [
+    {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairEnvironmentFinish-20261015/konzept-unity-vergleich.png",
+      "sha256": "e65a782e84eda3dad26ea11c2db27437e6b541b29195006a269e6da3a384c5fc",
+      "origin": "mechanical-layout-of-unretouched-native-PNGs-and-labeled-reference"
+    },
+    {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairEnvironmentFinish-20261015/canopy-and-reflections.png",
+      "sha256": "440ed6e0f202d24e6481eb9c02bced0b8052101020bb53ca29ff4b46f83617f5",
+      "origin": "mechanical-layout-of-unretouched-native-PNGs-and-labeled-reference"
+    }
+  ],
+  "decision": {
+    "boundedEnvironmentFinish": "verified",
+    "fullConceptSimilarity": "failed",
+    "storeIconReview": "pending",
+    "uploadPerformed": false
+  },
+  "remaining": [
+    "Native foliage/glazing detail improves the scene, but the stylized overall lighting/materials/parked cars and small repair framing remain below the approved Concept. No90percent claim.",
+    "Next coherent pass: evaluate proper linear lighting/HDR and actual close-up repair composition against native before/after.",
+    "Generated workshop artwork remains decorative UI art, not proof of3Dscene quality.",
+    "Native Mac does not establish physical-device60FPS/thermal/touch,live ads/IAP/exported native icon variants or Apple approval."
+  ]
+}

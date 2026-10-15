@@ -1,5 +1,7 @@
 # Repair Empire
 
+Latest environment finish: original textured560sprig canopies and once-captured actual city reflections, with **1492 /1377 /7** exact-source native checks. The selected real window responds in2612of2612sampledpixels. Indexed flat facade faces preserve the40kfixture limit at33637vertices. [Original assets, real images, Concept comparison and limits](docs/QA/repair-environment-finish-20261016.json). Overall lighting/materials and repair framing remain in progress; no Repair upload.
+
 Current overnight street pass: **13.2m avenue, closer facades,13modeled parking pockets/original curved cars**, aligned street furniture, warmer fill and closer driving view. Native **1481 /1377 /7** checks pass on the exact source, including four real drives and saved-profile reload. Customer signs are checked against actual projecting architecture/lamps through1728poses. Original54collision volumes retain every field except the intended22main-frontage X18→15 move. [Actual Concept comparison, native images and evidence](docs/QA/repair-street-rebuild-20261015.json). Whole Concept review remains failed; next work is canopy/glazing/materials and repair composition.
 
 Native iOS + Android service-business simulator by Kamilunavo.

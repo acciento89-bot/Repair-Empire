@@ -65,3 +65,6 @@ Exact prompt, source/project/meta/material hashes, authoring method and native d
 
 
 15October overnight compact street: ParkedVehicleArt.cs is original authored curved body/glazing/roof/wheel/detail geometry,5228vertices per instance;13parked examples use shared finite district materials and owned meshes. No external base model/image replaces actual street rendering. Native new street/car/comparison evidence is in docs/QA/repair-street-rebuild-20261015.json. Existing imported original brick/sprig textures retained unchanged in this slice.
+
+
+16October canopy: original built-in imagegen output exec-0a444cf4-dac2-4632-9af5-11e138ed143f.png, archived as Builds/RepairEnvironmentFinish-20261015/StreetCanopy-v1-original.png; macOS sips onlyresizes512to Assets/Resources/Art/StreetCanopy-v1.png. Exact fullprompt/tool/original/projectpaths and no-paint conversion are in that Builds folder generated-asset-provenance.json, hashed in docs/QA/repair-environment-finish-20261016.json. Shared non-readable sRGB/mips/repeat/HQ compression, own CanopySurface shader, original geometry. Actual street cubemap is captured from3Dscene once, not generated imagery.

@@ -1,10 +1,10 @@
 {
   "game": "Repair-Empire",
   "status": "pending",
-  "sourceSha256": "a55b78003d5abc5993374bc3bbd532e95e2de9c3669ffbdc77d73e4b28ddf17d",
+  "sourceSha256": "88e507b97538e333bf76aa46a7fc6e138b6ee85116c7b99e0b6260971e9dec6b",
   "reviewer": "Codex direct source-icon and actual native-frame comparison",
-  "reviewedAt": "2026-10-15",
-  "reason": "Compact native street/model views improved; Repair icon assignment/export variants/content review remain pending.",
+  "reviewedAt": "2026-10-16",
+  "reason": "Native foliage/glazing refinements verified. Repair icon/content/export variants remain pending.",
   "decision": "No new upload approval. Complete accurate native icon and variant review before setting passed.",
   "variantConsistencyChecked": false,
   "evidence": {
@@ -16,8 +16,8 @@
     "nativeIcon": null,
     "gameplay": [
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetRebuild-20261015/FinalPresentation/showcase-driving-service.png",
-        "sha256": "6070a6c0fd5899c3f8357db09873cca38d85faf79443790cea11c3729c23d496",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairEnvironmentFinish-20261015/NativePresentation/showcase-driving-service.png",
+        "sha256": "fdb6910ffb7bffa37537ec00eda4ec211b56d430e362b24c2a3fc1951bcd328f",
         "origin": "Unity-render"
       }
     ]

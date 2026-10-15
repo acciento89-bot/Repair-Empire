@@ -58,16 +58,16 @@ namespace Kamilunavo.RepairEmpire.Visuals
   public readonly Material Brick,Plaster,Trim,Glass,Roof,LeafMass,Leaves,Metal;readonly Material paleFacade,goldenCrown,shopTeal,shopCanvas;
   public UrbanArtKit(Transform root,Material stone,Material glass,Material steel)
   {
-   owner=root;Metal=steel;Glass=Own("UrbanResidentialGlazing",new Color(.33f,.43f,.48f));Glass.SetFloat("_Metallic",.18f);Glass.SetFloat("_Glossiness",.73f);
+   owner=root;Metal=steel;Glass=Own("UrbanResidentialGlazing",new Color(.26f,.34f,.37f));Glass.SetFloat("_Metallic",.30f);Glass.SetFloat("_Glossiness",.87f);
    // Imported original surfaces are shared immutable assets, not scene-owned textures.
    Brick=Own("UrbanWarmBrick",Color.white);Brick.shader=Resources.Load<Shader>("RepairResidentialMasonry");Brick.mainTexture=Resources.Load<Texture2D>("Art/StreetBrick-v1");Brick.SetFloat("_Relief",.13f);
    Plaster=Own("UrbanWarmPlaster",new Color(.91f,.84f,.70f));Plaster.mainTexture=PlasterTexture();
    Trim=Own("UrbanLimestoneTrim",new Color(.83f,.79f,.66f));Trim.mainTexture=Plaster.mainTexture;
    paleFacade=Own("UrbanWarmPlasterPale",new Color(.95f,.91f,.82f));paleFacade.mainTexture=Plaster.mainTexture;
-   goldenCrown=Own("UrbanGoldenCrown",new Color(.30f,.39f,.13f));shopTeal=Own("UrbanPaintedShopTeal",new Color(.12f,.26f,.25f));shopCanvas=Own("UrbanCanvasWarmOchre",new Color(.72f,.44f,.22f));
+   goldenCrown=Own("UrbanGoldenCrown",new Color(.98f,.91f,.68f));goldenCrown.shader=Resources.Load<Shader>("CanopySurface");goldenCrown.mainTexture=Resources.Load<Texture2D>("Art/StreetCanopy-v1");goldenCrown.mainTextureScale=new Vector2(2,1);shopTeal=Own("UrbanPaintedShopTeal",new Color(.12f,.26f,.25f));shopCanvas=Own("UrbanCanvasWarmOchre",new Color(.72f,.44f,.22f));
    Roof=Own("UrbanSlateRoof",new Color(.19f,.24f,.27f));
-   LeafMass=Own("UrbanCrownShadow",new Color(.25f,.36f,.12f));
-   Leaves=Own("UrbanLeafDetail",new Color(.86f,.92f,.78f));Leaves.shader=Resources.Load<Shader>("Foliage");Leaves.mainTexture=Resources.Load<Texture2D>("Art/StreetLeafSprigs-v1");Leaves.SetFloat("_Cutoff",.42f);
+   LeafMass=Own("UrbanCrownShadow",new Color(.85f,.90f,.79f));LeafMass.shader=Resources.Load<Shader>("CanopySurface");LeafMass.mainTexture=goldenCrown.mainTexture;LeafMass.mainTextureScale=new Vector2(2,1);
+   Leaves=Own("UrbanLeafDetail",new Color(.79f,.85f,.74f));Leaves.shader=Resources.Load<Shader>("Foliage");Leaves.mainTexture=Resources.Load<Texture2D>("Art/StreetLeafSprigs-v1");Leaves.SetFloat("_Cutoff",.42f);
   }
   Material Own(string name,Color color){var material=new Material(Resources.Load<Material>("Materials/Surface")){name=name,color=color};material.SetFloat("_Glossiness",.12f);ArtLifetime.Own(owner.gameObject,material);return material;}
   Texture2D PlasterTexture()
@@ -79,7 +79,16 @@ namespace Kamilunavo.RepairEmpire.Visuals
    }
    var texture=new Texture2D(size,size,TextureFormat.RGB24,true){name="UrbanPlasterGrain",wrapMode=TextureWrapMode.Repeat,filterMode=FilterMode.Bilinear};texture.SetPixels(pixels);texture.Apply(true,true);ArtLifetime.Own(owner.gameObject,texture);return texture;
   }
-  static GameObject Box(Transform parent,string name,Vector3 at,Vector3 scale,Material mat,float bevel=0){var go=bevel>0?MeshArt.BevelBox(parent,name,at,scale,bevel,mat):MeshArt.Box(parent,name,at,scale,mat);
+  static GameObject QuadBox(Transform parent,string name,Vector3 at,Vector3 scale,Material mat)
+  {
+   // Four shared corners per flat face retain sharp edges while avoiding the
+   // six duplicated triangle vertices of a flat rectangular surface.
+   var corner=new[]{new Vector3(-.5f,-.5f,-.5f),new Vector3(.5f,-.5f,-.5f),new Vector3(.5f,.5f,-.5f),new Vector3(-.5f,.5f,-.5f),new Vector3(-.5f,-.5f,.5f),new Vector3(.5f,-.5f,.5f),new Vector3(.5f,.5f,.5f),new Vector3(-.5f,.5f,.5f)};
+   int[] faces={0,3,2,1,4,5,6,7,0,4,7,3,1,2,6,5,3,7,6,2,0,1,5,4};var v=new Vector3[24];var uv=new Vector2[24];var t=new int[36];Vector2[] coords={Vector2.zero,Vector2.up,Vector2.one,Vector2.right};
+   for(int face=0;face<6;face++){int start=face*4;for(int i=0;i<4;i++){v[start+i]=Vector3.Scale(corner[faces[start+i]],scale);uv[start+i]=coords[i];}int k=face*6;t[k]=start;t[k+1]=start+1;t[k+2]=start+2;t[k+3]=start;t[k+4]=start+2;t[k+5]=start+3;}
+   var go=MeshArt.Mesh(parent,name,v,t,uv,mat);go.transform.localPosition=at;return go;
+  }
+  static GameObject Box(Transform parent,string name,Vector3 at,Vector3 scale,Material mat,float bevel=0){var go=bevel>0?MeshArt.BevelBox(parent,name,at,scale,bevel,mat):QuadBox(parent,name,at,scale,mat);
    // Physical brick courses repeat at masonry scale rather than stretching over a pier.
    if(mat.name.StartsWith("UrbanWarmBrick")||mat.name.StartsWith("UrbanWarmPlaster")){var mesh=go.GetComponent<MeshFilter>().sharedMesh;var points=mesh.vertices;var normals=mesh.normals;var uv=new Vector2[points.Length];for(int i=0;i<points.Length;i++){var point=points[i]+at;var n=normals[i];uv[i]=Mathf.Abs(n.y)>.7f?new Vector2(point.x/.96f,point.z/.72f):Mathf.Abs(n.x)>Mathf.Abs(n.z)?new Vector2(point.z/.96f,point.y/.72f):new Vector2(point.x/.96f,point.y/.72f);}mesh.uv=uv;if(mat.shader.name=="Repair/ResidentialMasonry")mesh.RecalculateTangents();}return go;}
 
@@ -168,20 +177,23 @@ namespace Kamilunavo.RepairEmpire.Visuals
    MeshArt.Tube(root,"Irregular bark trunk",new[]{new Vector3(0,0,0),new Vector3(.04f,1.1f,.02f),new Vector3(-.10f,2.3f,.06f),new Vector3(.06f,5.6f,0)},.12f,wood,9);
    // Five overlapping broad limbs replace the stretched single-blob silhouette.
    // All variation is mathematical so the city's authoritative height RNG is untouched.
-   for(int branch=0;branch<5;branch++){int variation=seed+branch*13;float angle=(branch*137.5f+((int)p.z%37))*Mathf.Deg2Rad;var center=new Vector3(Mathf.Cos(angle)*.85f,5.55f+(branch%3)*.36f,Mathf.Sin(angle)*.80f);MeshArt.Tube(root,"Natural urban branch",new[]{new Vector3(-.08f,3.1f,.03f),center*.78f,center},.045f,wood,7);Crown(root,center,new Vector3(1.60f+(Mathf.Abs(variation)%3)*.07f,1.05f+(Mathf.Abs(variation)%4)*.06f,1.46f),variation);LeafClusters(root,center,variation);}
+   for(int branch=0;branch<5;branch++){int variation=seed+branch*13;float angle=(branch*137.5f+((int)p.z%37))*Mathf.Deg2Rad;var center=new Vector3(Mathf.Cos(angle)*.85f,5.55f+(branch%3)*.36f,Mathf.Sin(angle)*.80f);MeshArt.Tube(root,"Natural urban branch",new[]{new Vector3(-.08f,3.1f,.03f),center*.78f,center},.045f,wood,7);Crown(root,center,new Vector3(1.60f+(Mathf.Abs(variation)%3)*.07f,1.05f+(Mathf.Abs(variation)%4)*.06f,1.46f)*.68f,variation);
+    for(int twig=0;twig<2;twig++){float outward=angle+(twig==0?-.6f:.8f);var tip=center+new Vector3(Mathf.Cos(outward)*1.13f,.10f+twig*.17f,Mathf.Sin(outward)*1.02f);MeshArt.Tube(root,"Fine secondary canopy branch",new[]{center*.86f,Vector3.Lerp(center,tip,.55f),tip},.018f,wood,6);}
+    LeafClusters(root,center,variation);}
   }
   void Crown(Transform root,Vector3 at,Vector3 radii,int seed)
   {
    const int sides=18,rings=9;var v=new List<Vector3>();var t=new List<int>();var uv=new List<Vector2>();
    for(int ring=0;ring<rings;ring++)for(int i=0;i<=sides;i++){float a=i*Mathf.PI*2/sides,e=ring*Mathf.PI/(rings-1),r=Mathf.Max(.035f,Mathf.Sin(e));float shape=1+.15f*Mathf.Sin(a*3+seed*.51f+ring*.6f)+.08f*Mathf.Cos(a*5-seed*.17f);v.Add(at+new Vector3(Mathf.Cos(a)*r*radii.x*shape,-Mathf.Cos(e)*radii.y+Mathf.Sin(a*4+seed)*.08f*r,Mathf.Sin(a)*r*radii.z*shape));uv.Add(new Vector2((float)i/sides,(float)ring/(rings-1)));}
    for(int ring=0;ring<rings-1;ring++)for(int i=0;i<sides;i++){int a=ring*(sides+1)+i,b=a+sides+1;t.AddRange(new[]{a,b,a+1,a+1,b,b+1});}
-   MeshArt.Mesh(root,"Sculpted urban leaf crown",v.ToArray(),t.ToArray(),uv.ToArray(),seed%3==0?goldenCrown:LeafMass);
+   var colors=new Color[v.Count];for(int i=0;i<colors.Length;i++)colors[i]=new Color(1,1,1,Mathf.Lerp(.64f,1,Mathf.InverseLerp(at.y-radii.y,at.y+radii.y,v[i].y)));
+   MeshArt.Mesh(root,"Sculpted urban leaf crown",v.ToArray(),t.ToArray(),uv.ToArray(),seed%3==0?goldenCrown:LeafMass,colors:colors);
   }
   void LeafClusters(Transform root,Vector3 center,int seed)
   {
    var v=new List<Vector3>();var t=new List<int>();var uv=new List<Vector2>();
-   for(int leaf=0;leaf<64;leaf++){
-    float angle=(leaf*137.507f+seed*11)*Mathf.Deg2Rad,elevation=-.88f+1.76f*((leaf%7)/6f),radius=Mathf.Sqrt(Mathf.Max(.08f,1-elevation*elevation));Vector3 at=center+new Vector3(Mathf.Cos(angle)*radius*1.78f,elevation*1.18f,Mathf.Sin(angle)*radius*1.64f);
+   for(int leaf=0;leaf<112;leaf++){
+    float angle=(leaf*137.507f+seed*11)*Mathf.Deg2Rad,elevation=-.88f+1.76f*((leaf%11)/10f),radius=Mathf.Sqrt(Mathf.Max(.08f,1-elevation*elevation));Vector3 at=center+new Vector3(Mathf.Cos(angle)*radius*1.78f,elevation*1.18f,Mathf.Sin(angle)*radius*1.64f);
     Vector3 outward=(at-center).normalized,right=Vector3.Cross(outward,Mathf.Abs(outward.y)>.85f?Vector3.forward:Vector3.up).normalized,up=Vector3.Cross(right,outward).normalized;float roll=(leaf*29+seed%53)*Mathf.Deg2Rad;Vector3 across=right*Mathf.Cos(roll)+up*Mathf.Sin(roll),along=up*Mathf.Cos(roll)-right*Mathf.Sin(roll);float width=.52f+(leaf%3)*.045f,height=.52f+(leaf%4)*.025f;int first=v.Count;
     // A shallow folded card gives the original multi-leaf sprig two lighting planes.
     for(int row=0;row<2;row++)for(int col=0;col<3;col++){v.Add(at+across*((col-1)*width)+along*((row*2-1)*height)+outward*(col==1?.055f:0));uv.Add(new Vector2(col*.5f,row));}
