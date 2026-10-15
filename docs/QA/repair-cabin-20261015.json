@@ -1,0 +1,348 @@
+{
+  "game": "Repair Empire",
+  "date": "2026-10-15",
+  "sourceSha256": "5dc2e67f7952204cadfc43e3635e00557ac13b7fe72210fc507044110bb41277",
+  "baseCommit": "d806505ef3d3f38891ca9623656b2a90669c35d9",
+  "scope": "Original modeled cabin, real windshield/side apertures, transparent production glass, owned street reflection and contrasting surface finishes. Repair only.",
+  "supersedes": "docs/QA/repair-road-van-20261015.json",
+  "implemented": [
+    "Three actual coachwork apertures with an8mm inner metal shell and closed perimeter returns; shared40point curved side outlines match glazing and gasket inner edge.",
+    "Original seats/cushions/headrests/bolsters, dashboard/instruments/console, inner door panels/pulls, steering column/rim/hub/spokes and bulkhead. All real geometry rather than an interior illustration.",
+    "Serialized shared VanCabGlass material prototype retains the Standard premultiplied transparency variant in native builds. Each van owns its runtime clone. Glass casts no opaque shadow; fog recess keeps opaque plastic.",
+    "Smoother paint/livery versus rough rubber/plastic and metallic wheel/rack finish. Existing9owned materials retained. Efficient real hex lugs and oval front-face wheel recesses replace excessive hidden tessellation.",
+    "One disabled temporary camera captures actual already-built street into owned32pxcubemap once for the production motor van, with self/studio/UI excluded. Renderer states and active target restored in finally; camera destroyed. Static/Editor van keeps procedural environment fallback.",
+    "Five genuine native model views include cabin close-up. A native GPU red/blue background transmission check catches stripped opaque glass fallback."
+  ],
+  "preserved": [
+    "Van body silhouette/collider/ground support/4wheel pivots and axles/paint variants/upgrade scale/braking/spin owners.",
+    "Existing70000retained vertices/32active renderers/9materials maximum; original54district colliders and serialized height RNG verified by aggregate.",
+    "ProjectSettings byte-identical; no save/job/commerce/controller/camera/scene/package/version change.",
+    "Approved Perfect Drop/Rising Steps, submissions, decorative workshop menu artwork and historical user-deleted Concept untouched."
+  ],
+  "originalAssets": [
+    {
+      "kind": "original authored3Dgeometry",
+      "sources": [
+        {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Projects/Repair-Empire/Assets/Scripts/Visuals/VanCoachworkGeometry.cs",
+          "sha256": "60675548d092f31ce04f795f65f03efdbf45cb6743a18396ff6f17ceac9387e8",
+          "origin": "original-coachwork-generator"
+        },
+        {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Projects/Repair-Empire/Assets/Scripts/Visuals/VanArt.cs",
+          "sha256": "849b790be0f95d7df8c55c44d709d6677f98b59e43743b5489dae29ab5fa786c",
+          "origin": "original-van-and-cabin-generator"
+        }
+      ],
+      "notAStaticVehicleSprite": true
+    },
+    {
+      "kind": "serialized transparent material",
+      "asset": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Projects/Repair-Empire/Assets/Resources/Materials/VanCabGlass.mat",
+        "sha256": "f4ea6fee6f99a5b0580319098a56c6e43c1d94d3b1924c50f39b3c634d72e2b0",
+        "origin": "original-Unity-Standard-material"
+      },
+      "meta": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Projects/Repair-Empire/Assets/Resources/Materials/VanCabGlass.mat.meta",
+        "sha256": "d866d80bed6c8bd5e972cefaa08399edbd5167cd578b91d06446a6cecfec6243",
+        "origin": "Unity-asset-identity"
+      },
+      "ownership": "Shared imported prototype survives model disposal; runtime clone owned by each van. No newly downloaded external model, texture or package."
+    }
+  ],
+  "nativeBuild": {
+    "receipt": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairCabin-20261015/source-native-receipt.json",
+      "sha256": "b9270d10f03364a8cb3b3ee474d95763b9cfbc8e3636713754a415de458a7a7b",
+      "origin": "exact-source-native-receipt"
+    },
+    "log": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairCabin-20261015/unity-cabin-final-weld.log",
+      "sha256": "d2cd9f52bbf9ed5803ff9a5934e0cf8bde68851aea929dba433bf60fb4405cb1",
+      "origin": "native-Unity-full-aggregate-and-Mac-build"
+    },
+    "bundleManifest": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairCabin-20261015/native-bundle-manifest.json",
+      "sha256": "21d0732419c6650f6597f72bfd8866fa5cf7a56af5466a73a6b7407f973a8fd3",
+      "origin": "314-file-native-bundle-binding"
+    },
+    "exitCode": 0,
+    "allBundleFilesReverified": 314
+  },
+  "nativeRuns": {
+    "FinalPresentation": {
+      "checks": 1466,
+      "passed": true,
+      "processExitCode": 0,
+      "passFile": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairCabin-20261015/FinalPresentation/PASS.txt",
+        "sha256": "877bedd97779496e348b88ceea79ab69d7b0653998379d6760460f7796564122",
+        "origin": "native-Mac-result"
+      },
+      "checksFile": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairCabin-20261015/FinalPresentation/checks.txt",
+        "sha256": "2dc129ed277a61cd99f9cca1861d3e3225f3645affbd11bed47051a50ac7f0ae",
+        "origin": "actual-native-checks"
+      },
+      "provenance": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairCabin-20261015/FinalPresentation/PROVENANCE.json",
+        "sha256": "7ecdd8e0cb316b530b9f802a4d2691a4a48db29229eb066629f3648aa50c600a",
+        "origin": "native-source-binding"
+      },
+      "log": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairCabin-20261015/FinalPresentation.log",
+        "sha256": "68dbcc75fdedaa09bccf6bbe5c9575f8b2038599ed503f536bae5e70829d18c6",
+        "origin": "native-Mac-log"
+      },
+      "imageManifest": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairCabin-20261015/FinalPresentation/IMAGE-HASHES.json",
+        "sha256": "87bfcde6b1f1f1139e8c5f38e7bbdb0acd96696d73013831ab80061fedb15bf1",
+        "origin": "actual-Unity-render-file-manifest"
+      },
+      "imageCount": 69
+    },
+    "FinalFull": {
+      "checks": 1377,
+      "passed": true,
+      "processExitCode": 0,
+      "passFile": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairCabin-20261015/FinalFull/PASS.txt",
+        "sha256": "c863575bd616b2a7b2287886a6e8ca8bd1af6e0e31f2d02097f50b0bf4c56f0e",
+        "origin": "native-Mac-result"
+      },
+      "checksFile": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairCabin-20261015/FinalFull/checks.txt",
+        "sha256": "415ddcc2fbbf6aae6b8f602cfd5f9aa6d8eacac7b1e8b5be57211f71caefa449",
+        "origin": "actual-native-checks"
+      },
+      "provenance": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairCabin-20261015/FinalFull/PROVENANCE.json",
+        "sha256": "439a59b343e0dd81a2d991691a0c99950d0cceb157b3359003b6c8ca451902c0",
+        "origin": "native-source-binding"
+      },
+      "log": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairCabin-20261015/FinalFull.log",
+        "sha256": "6876d05a7861b28cf706c9b7a196658cb430c927d57eea4f5db13baf385415b6",
+        "origin": "native-Mac-log"
+      },
+      "imageManifest": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairCabin-20261015/FinalFull/IMAGE-HASHES.json",
+        "sha256": "ffc3a53e1f22dead4455009549af2d6ba9e1e6262a8b094b106c8647688d0be9",
+        "origin": "actual-Unity-render-file-manifest"
+      },
+      "imageCount": 58
+    },
+    "FinalReload": {
+      "checks": 7,
+      "passed": true,
+      "processExitCode": 0,
+      "passFile": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairCabin-20261015/FinalReload/PASS.txt",
+        "sha256": "38213edc12e5ec96959592e87d8dbbd73398b1a84ce00fa19c8bdea92ba590b6",
+        "origin": "native-Mac-result"
+      },
+      "checksFile": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairCabin-20261015/FinalReload/checks.txt",
+        "sha256": "a47cdbe2c393a6d3242b1a93b7d3a4c797bf0fcce1aae50ab49f39ff59a87fa3",
+        "origin": "actual-native-checks"
+      },
+      "provenance": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairCabin-20261015/FinalReload/PROVENANCE.json",
+        "sha256": "7c99c113e13177cd4d0b73bef52e87e4ac8ffd092d17c64ee0a35f537e9f086b",
+        "origin": "native-source-binding"
+      },
+      "log": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairCabin-20261015/FinalReload.log",
+        "sha256": "5e4ac9f32f452a655f7a5a5302092bea427f542e2ae1f47d2124e981ef32b704",
+        "origin": "native-Mac-log"
+      },
+      "imageManifest": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairCabin-20261015/FinalReload/IMAGE-HASHES.json",
+        "sha256": "ddfb26a5bb24cd71466bb513c1c3913ffac8d966a448e3ff2ebaeb72050deb63",
+        "origin": "actual-Unity-render-file-manifest"
+      },
+      "imageCount": 1
+    }
+  },
+  "geometryEvidence": {
+    "movingModel": {
+      "retainedUniqueVertices": 69778,
+      "activeRenderers": 27,
+      "ownedMaterials": 9
+    },
+    "workshop": {
+      "retainedUniqueVertices": 141568,
+      "activeRenderers": 29,
+      "materials": 21
+    },
+    "coachworkChecks": 123345,
+    "actualApertureRays": 35,
+    "windshieldRays": 57,
+    "cargoSkinRays": 18,
+    "exteriorWindingFaces": 880,
+    "closedManifoldAndPositiveVolume": true,
+    "finiteNormalsAndOwnershipCleanup": true
+  },
+  "candidateHistory": [
+    {
+      "stage": "Before implementation",
+      "outcome": "New actual cabin ray regression failed on existing solid side door at distance2.141229.",
+      "log": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairCabin-20261015/unity-cabin-red.log",
+        "sha256": "fe0fb0453773f0aac6eea7da718ba8c2df07dbcf388941f48576bf85a1953a70",
+        "origin": "pre-fix-native-Editor-RED"
+      }
+    },
+    {
+      "stage": "First modeled cabin",
+      "sourceSha256": "081fe30e0f19e5afbaaf0b2cea24c91551281bbd1a4c4713f23c96208ed341d5",
+      "outcome": "Aggregate passed but native images showed opaque glass and a deformed front body outside the cab sampling range. Superseded.",
+      "receipt": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairCabin-20261015/source-native-receipt-initial.json",
+        "sha256": "1411be557c47e4d507f699faaf8dc23556a2b0a56eb255dcde22f7ab82c62fab",
+        "origin": "superseded-native-receipt"
+      },
+      "images": [
+        {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairCabin-20261015/InitialPresentation/van-cabin.png",
+          "sha256": "f9248ce2f37a8cb3b0b4e5ffe8ed270a4eed1bd49442bb1e5ebafeadebb768c1",
+          "origin": "superseded-Unity-render"
+        }
+      ]
+    },
+    {
+      "stage": "Serialized transparent glass",
+      "sourceSha256": "355533131d0385fe2d934254c6374f848a2f36ae5517abd7c7de2c91e0fabc62",
+      "outcome": "Native1466checks and actual GPU transmission pass; corner aperture alignment and sampling normals then improved. Superseded.",
+      "receipt": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairCabin-20261015/source-native-receipt-glass.json",
+        "sha256": "3171887d15311e20e2511d0f2b3f6820656a647ddc9ebed8547dbb103a7dc095",
+        "origin": "superseded-native-receipt"
+      }
+    },
+    {
+      "stage": "Detailed shared outline",
+      "outcome": "Aggregate caught a zero tiny return-wall normal, then70100vertices at50uniform rings, then two count4inner edges from float-equivalent outer rows straddling quantization cells. None accepted as final. Fixed derivative-scale normalization,46uniform rings, true neighboring-bucket distance weld. Original ceilings/closed-manifold checks retained.",
+      "logs": [
+        {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairCabin-20261015/unity-cabin-final.log",
+          "sha256": "839037412c2ca89cf631723c5e16319c569094da4bd8e22cd568313e94b2524e",
+          "origin": "superseded-Editor-diagnostic"
+        },
+        {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairCabin-20261015/unity-cabin-budget.log",
+          "sha256": "aebb5d63a746f30a1e0f2e3ccb20fd1c1746c13a3d9ed99e7b309123c5295aa1",
+          "origin": "superseded-Editor-diagnostic"
+        },
+        {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairCabin-20261015/unity-cabin-final-budget.log",
+          "sha256": "ced9fd1671a80c43faff35b3c684ad4198f89789613416fad32b268ecabdbec6",
+          "origin": "superseded-Editor-diagnostic"
+        },
+        {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairCabin-20261015/unity-cabin-edge-faces.log",
+          "sha256": "0c4065bdb9946601aa45c599597c16f62be8ecc8d54c9a4912839d7557c843f0",
+          "origin": "superseded-Editor-diagnostic"
+        }
+      ]
+    }
+  ],
+  "sourceReview": {
+    "reviewer": "independent read-only repair_concept_van_review15",
+    "decision": "No remaining Critical/Important issue after focused follow-ups.",
+    "findingsClosed": [
+      "Serialized transparent variant absent in player: confirmed visually then fixed with prototype plus native GPU check.",
+      "Beveled aperture corners did not follow curved glazing: shared outline and edge rays now match.",
+      "Final tolerance-weld follow-up verifies actual distance check across27floor cells."
+    ],
+    "scope": "Source quality and ownership; not aesthetic/device/release approval."
+  },
+  "visualEvidence": {
+    "concept": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Artifacts/KamilunavoDelivery-20261009/concepts-20261010/repair-empire-3-ansichten.png",
+      "sha256": "0571d35c40de036f83f86f3b423c234f321586abcfec97d9d259710d816723f1",
+      "origin": "approved-concept"
+    },
+    "model": [
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairCabin-20261015/FinalPresentation/van-front-three-quarter.png",
+        "sha256": "8b2bf8674c4682657a6c333ddc0f1959494a841dd184245d41e4813f474a657f",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairCabin-20261015/FinalPresentation/van-rear-three-quarter.png",
+        "sha256": "677dc76661dc09291f4fb9b65a3eec7b7bc161b4e6c0be2050dce5f9f70a24ed",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairCabin-20261015/FinalPresentation/van-rear.png",
+        "sha256": "dab936c7d47d751d26b86411a7446a4f7eee72d8a7f43399f3fa6810902e84af",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairCabin-20261015/FinalPresentation/van-side.png",
+        "sha256": "ba4251085a1a5bbc8ba5155c544348edee0ee8d594feddc2c55be60aacb38ffb",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairCabin-20261015/FinalPresentation/van-cabin.png",
+        "sha256": "db9022fe900c93202994cfb1379ce6ecec1f58db1eea2d25d99c5240aedb785b",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairCabin-20261015/FinalPresentation/workshop-native.png",
+        "sha256": "6524693a9df7bb2c746de3eb1ddb71c8aedbf37f29377fb9772e8edfd765c54f",
+        "origin": "Unity-render"
+      }
+    ],
+    "gameplay": [
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairCabin-20261015/FinalPresentation/showcase-driving-service.png",
+        "sha256": "e755a8a9fdaf58cebd1d09e733d979ccd3d3e73f3d7ee2d623bd26733da0d4d1",
+        "origin": "Unity-render"
+      }
+    ],
+    "menus": [
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairCabin-20261015/FinalPresentation/showcase-de-dashboard.png",
+        "sha256": "7b6f86e30dc90d9b51ed2b441931460884f18b71c31abc562af4eaf9bd72e22d",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairCabin-20261015/FinalPresentation/landscape-de-section-9.png",
+        "sha256": "0bfec95ab4a49f7abe7a8fa3b612257a70f84eae1c7c77977418b030e0aee5d9",
+        "origin": "Unity-render"
+      }
+    ]
+  },
+  "comparisons": [
+    {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairCabin-20261015/van-vorher-nachher.png",
+      "sha256": "58226faf356b94f6028d19c9064d091a818bd0da014b189756450537a434fbef",
+      "origin": "mechanical-layout-of-actual-Unity-PNGs-and-labeled-reference-crop"
+    },
+    {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairCabin-20261015/van-kabine-unity.png",
+      "sha256": "250d894abc5276b46a5e656e36f9ce3135d9dea9b4e777725a26a1138a10377b",
+      "origin": "mechanical-layout-of-actual-Unity-PNGs-and-labeled-reference-crop"
+    },
+    {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairCabin-20261015/konzept-unity-vergleich.png",
+      "sha256": "0d4248332361bebfb05de7ae76fef888f6b8ba14a81e8154a0a9025eed5aae12",
+      "origin": "mechanical-layout-of-actual-Unity-PNGs-and-labeled-reference-crop"
+    }
+  ],
+  "decision": {
+    "boundedCabinImplementation": "verified",
+    "fullConceptSimilarity": "failed",
+    "storeIconReview": "pending",
+    "uploadPerformed": false
+  },
+  "remaining": [
+    "Entire render still has simplified geometry/materials and a broad sparsely composed avenue compared with the dense warm approved street. Full Concept finish is not approved.",
+    "Cabin is a bounded original mobile model, with no character/driver, cloth texture or full dashboard simulation.",
+    "Street capture is a one-time32pxenvironment, not physically updated reflections or measured frame-rate/thermal acceptance.",
+    "Mac Metal proof does not establish physical iOS touch/performance, live ads/purchases, exported icon variants or Apple acceptance."
+  ]
+}

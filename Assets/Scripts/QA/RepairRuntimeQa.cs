@@ -77,12 +77,25 @@ namespace Kamilunavo.RepairEmpire.QA {
    try{RenderTexture.active=target;pixels.ReadPixels(new Rect(0,0,target.width,target.height),0,0);pixels.Apply();File.WriteAllBytes(Path.Combine(output,"workshop-native.png"),pixels.EncodeToPNG());}finally{RenderTexture.active=previous;Destroy(pixels);}
    yield return null;
   }
+  void CheckNativeGlass(VanArt vehicle)
+  {
+   // A runtime flag test cannot catch stripped Standard transparency variants.
+   // The actual owned material must reveal two different backgrounds on GPU.
+   var material=vehicle.transform.Find("Swept panoramic windshield").GetComponent<MeshRenderer>().sharedMaterial;var host=new GameObject("QA glass transmission fixture");var cameraHost=new GameObject("QA glass transmission camera",typeof(Camera));var camera=cameraHost.GetComponent<Camera>();camera.enabled=false;camera.cullingMask=1<<ServiceSceneArt.PreviewLayer;camera.clearFlags=CameraClearFlags.SolidColor;camera.orthographic=true;camera.orthographicSize=.4f;camera.nearClipPlane=.1f;camera.farClipPlane=4;camera.transform.position=new Vector3(0,-200,-2);var target=new RenderTexture(32,32,0,RenderTextureFormat.ARGB32);var sample=new Texture2D(1,1,TextureFormat.RGB24,false);var previous=RenderTexture.active;
+   try
+   {
+    host.transform.position=new Vector3(0,-200,0);var pane=MeshArt.Mesh(host.transform,"QA actual glass pane",new[]{new Vector3(-1,-1,0),new Vector3(-1,1,0),new Vector3(1,1,0),new Vector3(1,-1,0)},new[]{0,1,2,0,2,3},null,material);pane.layer=ServiceSceneArt.PreviewLayer;target.Create();camera.targetTexture=target;
+    Color Pixel(Color background){camera.backgroundColor=background;camera.Render();RenderTexture.active=target;sample.ReadPixels(new Rect(16,16,1,1),0,0);sample.Apply();return sample.GetPixel(0,0);}
+    var red=Pixel(Color.red);var blue=Pixel(Color.blue);Check(red.r-blue.r>.20f&&blue.b-red.b>.20f,"Actual native glass transmits red/blue backgrounds; no stripped opaque fallback");
+   }
+   finally{RenderTexture.active=previous;camera.targetTexture=null;target.Release();Destroy(target);Destroy(sample);Destroy(cameraHost);Destroy(host);}
+  }
   IEnumerator CaptureVanViews()
   {
    // Let the unpaused production Rigidbody settle on the actual road before
    // measuring. An isolated art-local y=0 is not the driving support plane.
    yield return new WaitForSecondsRealtime(.35f);
-   var vehicle=game.Vehicle.GetComponentInChildren<VanArt>();Check(vehicle!=null,"Actual driving van supplies the model inspection");var support=game.Vehicle.GetComponent<BoxCollider>();Check(support!=null,"Actual service van retains its driving support collider");int tires=0;
+   var vehicle=game.Vehicle.GetComponentInChildren<VanArt>();Check(vehicle!=null,"Actual driving van supplies the model inspection");CheckNativeGlass(vehicle);var support=game.Vehicle.GetComponent<BoxCollider>();Check(support!=null,"Actual service van retains its driving support collider");int tires=0;
    foreach(var filter in vehicle.GetComponentsInChildren<MeshFilter>(true))if(filter.name=="Rubber tire")
    {
     tires++;float bottom=float.PositiveInfinity;foreach(var point in filter.sharedMesh.vertices)bottom=Mathf.Min(bottom,filter.transform.TransformPoint(point).y);
@@ -90,16 +103,16 @@ namespace Kamilunavo.RepairEmpire.QA {
     bool grounded=false;foreach(var hit in Physics.RaycastAll(filter.transform.position+Vector3.up,Vector3.down,3))if(hit.collider.name=="Continuous driveable ground")grounded=Mathf.Abs(bottom-hit.point.y)<.035f;
     Check(grounded,"Actual road tire meets the driven avenue support "+tires);
    }
-   Check(tires==4,"Actual ground alignment covers all four road tires");var origin=vehicle.transform.position;var rotation=vehicle.transform.rotation;int cash=game.Profile.Cash;var host=new GameObject("QA actual van inspection camera",typeof(Camera));var cam=host.GetComponent<Camera>();cam.CopyFrom(Camera.main);cam.enabled=false;cam.fieldOfView=37;cam.aspect=4f/3f;var target=new RenderTexture(1024,768,24,RenderTextureFormat.ARGB32){name="Actual van inspection",antiAliasing=2};target.Create();cam.targetTexture=target;var previous=RenderTexture.active;var hashes=new HashSet<int>();
+   Check(tires==4,"Actual ground alignment covers all four road tires");Check(vehicle.CapturedStreetReflection,"Production van captures the actual street reflection once");Check(GameObject.Find("One-time van street capture")==null,"One-time reflection camera is disposed before driving");var origin=vehicle.transform.position;var rotation=vehicle.transform.rotation;int cash=game.Profile.Cash;var host=new GameObject("QA actual van inspection camera",typeof(Camera));var cam=host.GetComponent<Camera>();cam.CopyFrom(Camera.main);cam.enabled=false;cam.fieldOfView=37;cam.aspect=4f/3f;var target=new RenderTexture(1024,768,24,RenderTextureFormat.ARGB32){name="Actual van inspection",antiAliasing=2};target.Create();cam.targetTexture=target;var previous=RenderTexture.active;var hashes=new HashSet<int>();
    try
    {
-    var eyes=new[]{new Vector3(4.4f,2.8f,6.5f),new Vector3(4.2f,2.8f,-6.4f),new Vector3(0,2.3f,-7.2f),new Vector3(7.4f,2.4f,0)};var names=new[]{"van-front-three-quarter","van-rear-three-quarter","van-rear","van-side"};
+    var eyes=new[]{new Vector3(4.4f,2.8f,6.5f),new Vector3(4.2f,2.8f,-6.4f),new Vector3(0,2.3f,-7.2f),new Vector3(7.4f,2.4f,0),new Vector3(-2.7f,2.45f,3.7f)};var names=new[]{"van-front-three-quarter","van-rear-three-quarter","van-rear","van-side","van-cabin"};
     for(int view=0;view<eyes.Length;view++)
     {
-     cam.transform.position=vehicle.transform.TransformPoint(eyes[view]);cam.transform.LookAt(vehicle.transform.TransformPoint(new Vector3(0,1.25f,0)));cam.Render();scenePixels.Remove(target);hashes.Add(RenderedFingerprint(target));var pixels=new Texture2D(target.width,target.height,TextureFormat.RGB24,false);
+     cam.transform.position=vehicle.transform.TransformPoint(eyes[view]);cam.transform.LookAt(vehicle.transform.TransformPoint(view==4?new Vector3(-.15f,1.42f,.65f):new Vector3(0,1.25f,0)));cam.fieldOfView=view==4?28:37;cam.Render();scenePixels.Remove(target);hashes.Add(RenderedFingerprint(target));var pixels=new Texture2D(target.width,target.height,TextureFormat.RGB24,false);
      try{RenderTexture.active=target;pixels.ReadPixels(new Rect(0,0,target.width,target.height),0,0);pixels.Apply();File.WriteAllBytes(Path.Combine(output,names[view]+".png"),pixels.EncodeToPNG());}finally{Destroy(pixels);}
     }
-    Check(hashes.Count==4,"Four different actual van inspection views");Check(vehicle.transform.position==origin&&vehicle.transform.rotation==rotation&&game.Profile.Cash==cash,"Inspection camera never moves the van or changes company authority");
+    Check(hashes.Count==5,"Five different actual van and cabin inspection views");Check(vehicle.transform.position==origin&&vehicle.transform.rotation==rotation&&game.Profile.Cash==cash,"Inspection camera never moves the van or changes company authority");
    }
    finally{RenderTexture.active=previous;cam.targetTexture=null;scenePixels.Remove(target);target.Release();Destroy(target);Destroy(host);}
    yield return null;

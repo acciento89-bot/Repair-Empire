@@ -3,21 +3,23 @@ using UnityEngine;
 using Kamilunavo.RepairEmpire.Gameplay;
 namespace Kamilunavo.RepairEmpire.Visuals {
  public sealed class VanArt:MonoBehaviour {
+  public bool CapturedStreetReflection {get;private set;}
   public VehicleController Motor;readonly List<Transform> wheels=new();Material livery,tailLight;Rigidbody body;bool built,braking;int lastStyle=-1,lastVehicle=-1;
   static readonly Color Navy=new(.025f,.075f,.13f),Orange=new(1,.32f,.045f);
-  Material Own(string name,Color color,bool glow=false){var material=new Material(Resources.Load<Material>("Materials/Surface")){name=name,color=color};material.SetFloat("_Glossiness",.32f);if(glow){material.EnableKeyword("_EMISSION");material.SetColor("_EmissionColor",color*.55f);}ArtLifetime.Own(gameObject,material);return material;}
+  Material Own(string name,Color color,bool glow=false,string prototype="Materials/Surface"){var material=new Material(Resources.Load<Material>(prototype)){name=name,color=color};material.SetFloat("_Glossiness",.32f);if(glow){material.EnableKeyword("_EMISSION");material.SetColor("_EmissionColor",color*.55f);}ArtLifetime.Own(gameObject,material);return material;}
   public void Build()
   {
    if(built)return;built=true;
-   var white=Own("VanPearl",new(.84f,.86f,.86f));white.SetFloat("_Glossiness",.54f);white.SetFloat("_Metallic",.025f);
-   var navy=Own("VanNavy",Navy);navy.SetFloat("_Glossiness",.20f);var orange=Own("VanOrange",Orange);livery=Own("VanStyleLivery",Orange);livery.SetFloat("_Glossiness",.48f);
-   var glass=Own("VanGlass",new(.065f,.105f,.145f));glass.SetFloat("_Metallic",.16f);glass.SetFloat("_Glossiness",.94f);
+   var white=Own("VanPearl",new(.84f,.86f,.86f));white.SetFloat("_Glossiness",.74f);white.SetFloat("_Metallic",.025f);
+   var navy=Own("VanNavy",Navy);navy.SetFloat("_Glossiness",.20f);var orange=Own("VanOrange",Orange);livery=Own("VanStyleLivery",Orange);livery.SetFloat("_Glossiness",.64f);
+   var glass=Own("VanGlass",new(.32f,.40f,.45f,.26f),false,"Materials/VanCabGlass");glass.SetFloat("_Metallic",0);glass.SetFloat("_Glossiness",.94f);
+   glass.SetFloat("_Mode",3);glass.SetInt("_SrcBlend",(int)UnityEngine.Rendering.BlendMode.One);glass.SetInt("_DstBlend",(int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);glass.SetInt("_ZWrite",0);glass.DisableKeyword("_ALPHATEST_ON");glass.DisableKeyword("_ALPHABLEND_ON");glass.EnableKeyword("_ALPHAPREMULTIPLY_ON");glass.SetOverrideTag("RenderType","Transparent");glass.renderQueue=3000;
    var metal=Own("VanChrome",new(.48f,.50f,.52f));metal.SetFloat("_Metallic",.74f);metal.SetFloat("_Glossiness",.48f);
    var tyre=Own("VanTyre",new(.018f,.022f,.025f));tyre.SetFloat("_Glossiness",.12f);tailLight=Own("VanTail",new(.46f,.018f,.012f),true);tailLight.SetFloat("_Glossiness",.72f);tailLight.mainTexture=Resources.Load<Texture2D>("Art/VanRedLens-v1");
    var headLight=Own("VanHeadlamp",new(.56f,.64f,.69f));headLight.SetFloat("_Glossiness",.91f);headLight.SetFloat("_Metallic",.20f);headLight.color=Color.white;headLight.mainTexture=Resources.Load<Texture2D>("Art/VanHeadlampOptics-v1");
    VanCoachworkGeometry.Body(transform,white);
    MeshArt.BevelBox(transform,"Underbody",new(0,.255f,0),new(1.52f,.13f,4.21f),.045f,navy);
-   VanCoachworkGeometry.Windshield(transform,navy,true);VanCoachworkGeometry.Windshield(transform,glass);
+   VanCoachworkGeometry.Windshield(transform,navy,true);VanCoachworkGeometry.Windshield(transform,glass).GetComponent<MeshRenderer>().shadowCastingMode=UnityEngine.Rendering.ShadowCastingMode.Off;Cabin(navy,tyre,metal);
    foreach(int side in new[]{-1,1})
    {
     VanCoachworkGeometry.CabGlazing(transform,side,navy,true);VanCoachworkGeometry.CabGlazing(transform,side,glass,false);VanCoachworkGeometry.PressedDoors(transform,side,navy,white);
@@ -70,12 +72,12 @@ namespace Kamilunavo.RepairEmpire.Visuals {
    {
     VanCoachworkGeometry.SculptedPanel(transform,"Headlight surround",new Vector2(side*.625f,.94f),new Vector2(.34f,.18f),.025f,navy,false,.009f,.010f,.10f);
     VanCoachworkGeometry.SculptedPanel(transform,"Headlight",new Vector2(side*.625f,.94f),new Vector2(.315f,.152f),.019f,headLight,false,.019f,.008f,.10f);
-    VanCoachworkGeometry.SculptedPanel(transform,"Fog light recess",new Vector2(side*.60f,.43f),new Vector2(.18f,.105f),.025f,glass,false,.034f,.006f);
+    VanCoachworkGeometry.SculptedPanel(transform,"Fog light recess",new Vector2(side*.60f,.43f),new Vector2(.18f,.105f),.025f,navy,false,.034f,.006f);
     VanCoachworkGeometry.SculptedPanel(transform,"Fog lamp lens",new Vector2(side*.60f,.43f),new Vector2(.083f,.045f),.018f,metal,false,.039f,.006f);
     VanCoachworkGeometry.Wiper(transform,side,navy);
    }
    foreach(int side in new[]{-1,1})foreach(float z in new[]{-1.42f,1.38f})BuildWheel(side,z,metal,tyre,navy);
-   VehicleReflection();DistrictArtGeometry.Combine(transform,true);if(Motor!=null)body=Motor.GetComponent<Rigidbody>();
+   VehicleReflection();DistrictArtGeometry.Combine(transform,true);foreach(var renderer in GetComponentsInChildren<MeshRenderer>(true))if(renderer.sharedMaterial==glass)renderer.shadowCastingMode=UnityEngine.Rendering.ShadowCastingMode.Off;if(Motor!=null)body=Motor.GetComponent<Rigidbody>();
   }
   void BuildWheel(int side,float axle,Material metal,Material tyre,Material navy)
   {
@@ -88,11 +90,34 @@ namespace Kamilunavo.RepairEmpire.Visuals {
    {
     var rim=new GameObject("Pressed steel wheel face").transform;rim.SetParent(wheel,false);rim.localRotation=face<0?Quaternion.Euler(180,0,0):Quaternion.identity;
     MeshArt.Lathe(rim,"Dished steel wheel centre",new[]{.091f,.096f,.102f,.104f,.105f},new[]{.191f,.174f,.125f,.065f,0f},40,metal,Vector3.one);
-    for(int i=0;i<10;i++){float a=i*36*Mathf.Deg2Rad;var vent=MeshArt.Box(rim,"Rim ventilation recess",new(Mathf.Cos(a)*.141f,.105f,Mathf.Sin(a)*.141f),new(.032f,.003f,.017f),navy);vent.transform.localRotation=Quaternion.Euler(0,-i*36,0);}
+    for(int i=0;i<10;i++){float a=i*36*Mathf.Deg2Rad;var center=new Vector3(Mathf.Cos(a)*.141f,.105f,Mathf.Sin(a)*.141f);var v=new Vector3[8];var t=new int[18];for(int k=0;k<8;k++){float angle=k*Mathf.PI/4;var local=new Vector3(Mathf.Cos(angle)*.016f,0,Mathf.Sin(angle)*.0085f);v[k]=center+Quaternion.Euler(0,-i*36,0)*local;}for(int k=0;k<6;k++){t[k*3]=0;t[k*3+1]=k+2;t[k*3+2]=k+1;}MeshArt.Mesh(rim,"Rim ventilation recess",v,t,null,navy);}
     MeshArt.Lathe(rim,"Steel centre cap",new[]{.106f,.111f,.114f},new[]{.043f,.045f,.040f},24,metal,Vector3.one);
-    for(int bolt=0;bolt<5;bolt++){float a=bolt*Mathf.PI*2/5;MeshArt.Oval(rim,"Wheel lug nut",new(Mathf.Cos(a)*.067f,.110f,Mathf.Sin(a)*.067f),new(.017f,.011f,.017f),metal,8);}
+    for(int bolt=0;bolt<5;bolt++){float a=bolt*Mathf.PI*2/5;var nut=MeshArt.Lathe(rim,"Wheel lug nut",new[]{0f,.002f,.010f,.011f},new[]{.0085f,.0085f,.0085f,0f},6,metal,Vector3.one);nut.transform.localPosition=new(Mathf.Cos(a)*.067f,.106f,Mathf.Sin(a)*.067f);}
    }
    wheels.Add(wheel);DistrictArtGeometry.Combine(wheel,false);
+  }
+  void Cabin(Material plastic,Material cloth,Material metal)
+  {
+   MeshArt.BevelBox(transform,"Cabin floor",new(0,.64f,.57f),new(1.57f,.10f,1.35f),.025f,cloth);
+   MeshArt.BevelBox(transform,"Cabin bulkhead",new(0,1.20f,-.125f),new(1.55f,1.33f,.045f),.012f,plastic);
+   foreach(int side in new[]{-1,1})
+   {
+    string seat=side<0?"Driver":"Passenger";float x=side*.39f;
+    MeshArt.BevelBox(transform,seat+" seat cushion",new(x,.98f,.44f),new(.51f,.16f,.53f),.055f,cloth);
+    var back=MeshArt.BevelBox(transform,seat+" seat back",new(x,1.30f,.18f),new(.50f,.60f,.15f),.055f,cloth);back.transform.localRotation=Quaternion.Euler(-8,0,0);
+    MeshArt.BevelBox(transform,seat+" headrest",new(x,1.69f,.15f),new(.29f,.20f,.12f),.040f,cloth);
+    foreach(float dx in new[]{-.20f,.20f})MeshArt.BevelBox(transform,"Seat side bolster",new(x+dx,1.02f,.43f),new(.08f,.16f,.50f),.030f,plastic);
+    MeshArt.BevelBox(transform,"Door inner card",new(side*.797f,1.02f,.56f),new(.025f,.22f,.97f),.008f,plastic);
+    MeshArt.BevelBox(transform,"Cabin door pull",new(side*.760f,1.16f,.42f),new(.055f,.027f,.16f),.009f,metal);
+   }
+   var dash=MeshArt.BevelBox(transform,"Cabin dashboard",new(0,1.11f,1.08f),new(1.50f,.24f,.40f),.055f,plastic);dash.transform.localRotation=Quaternion.Euler(-8,0,0);
+   MeshArt.BevelBox(transform,"Instrument binnacle",new(-.39f,1.26f,1.04f),new(.36f,.10f,.24f),.032f,cloth);
+   MeshArt.BevelBox(transform,"Centre console",new(.05f,1.16f,.856f),new(.23f,.16f,.025f),.008f,cloth);
+   for(int i=0;i<4;i++)MeshArt.Box(transform,"Console vent",new(-.023f+i*.045f,1.195f,.839f),new(.018f,.040f,.004f),metal);
+   var steering=new GameObject("Steering column").transform;steering.SetParent(transform,false);steering.localPosition=new(-.39f,1.25f,.80f);steering.localRotation=Quaternion.Euler(24,0,0);
+   var path=new Vector3[25];for(int i=0;i<path.Length;i++){float a=i*Mathf.PI*2/24;path[i]=new Vector3(Mathf.Cos(a)*.16f,Mathf.Sin(a)*.16f,0);}var rim=MeshArt.Tube(transform,"Steering wheel rim",path,.017f,cloth,8);rim.transform.SetParent(steering,false);
+   MeshArt.BevelBox(steering,"Steering wheel hub",Vector3.zero,new(.09f,.065f,.05f),.014f,plastic);
+   for(int i=0;i<3;i++){float a=(i*120+30)*Mathf.Deg2Rad;MeshArt.Tube(steering,"Steering wheel spoke",new[]{Vector3.zero,new Vector3(Mathf.Cos(a)*.147f,Mathf.Sin(a)*.147f,0)},.010f,plastic,6);}
   }
   void VehicleReflection()
   {
@@ -106,7 +131,17 @@ namespace Kamilunavo.RepairEmpire.Visuals {
     }
     cube.SetPixels(pixels,(CubemapFace)face);
    }
-   cube.Apply(true,true);ArtLifetime.Own(gameObject,cube);var node=new GameObject("Owned van street reflection",typeof(ReflectionProbe));node.transform.SetParent(transform,false);node.transform.localPosition=Vector3.up;var probe=node.GetComponent<ReflectionProbe>();probe.mode=UnityEngine.Rendering.ReflectionProbeMode.Custom;probe.customBakedTexture=cube;probe.size=new Vector3(4,5,7);probe.blendDistance=0;probe.intensity=.85f;probe.importance=20;probe.cullingMask=0;
+   cube.Apply(true,false);ArtLifetime.Own(gameObject,cube);
+   // Capture the already built street once. No realtime reflection rendering,
+   // camera stacking, global environment mutation or vehicle self-reflection.
+   if(Application.isPlaying&&Motor!=null)
+   {
+    var renderers=GetComponentsInChildren<Renderer>(true);var states=new bool[renderers.Length];for(int i=0;i<renderers.Length;i++){states[i]=renderers[i].enabled;renderers[i].enabled=false;}
+    var host=new GameObject("One-time van street capture",typeof(Camera));var camera=host.GetComponent<Camera>();camera.enabled=false;camera.clearFlags=CameraClearFlags.Skybox;camera.nearClipPlane=.12f;camera.farClipPlane=80;camera.cullingMask=~((1<<ServiceSceneArt.PreviewLayer)|(1<<5));camera.allowHDR=false;camera.transform.position=transform.TransformPoint(new Vector3(0,1.20f,0));var previous=RenderTexture.active;
+    try{CapturedStreetReflection=camera.RenderToCubemap(cube);}
+    finally{RenderTexture.active=previous;for(int i=0;i<renderers.Length;i++)if(renderers[i]!=null)renderers[i].enabled=states[i];Destroy(host);}
+   }
+var node=new GameObject("Owned van street reflection",typeof(ReflectionProbe));node.transform.SetParent(transform,false);node.transform.localPosition=Vector3.up;var probe=node.GetComponent<ReflectionProbe>();probe.mode=UnityEngine.Rendering.ReflectionProbeMode.Custom;probe.customBakedTexture=cube;probe.size=new Vector3(4,5,7);probe.blendDistance=0;probe.intensity=.85f;probe.importance=20;probe.cullingMask=0;
   }
   public void Apply(int style,int vehicle){style=Mathf.Clamp(style,0,7);if(lastStyle==style&&lastVehicle==vehicle)return;lastStyle=style;lastVehicle=vehicle;Color[] colors={Orange,new(.08f,.64f,.82f),new(.24f,.75f,.38f),new(.66f,.3f,.94f),new(1,.73f,.1f),new(.16f,.77f,1),new(.35f,.95f,.64f),new(.89f,.30f,.67f)};if(livery!=null)livery.color=colors[style];transform.localScale=new Vector3(1,vehicle==1?1.10f:1,vehicle==1?1.06f:1);}
   void Update(){if(Motor==null)return;if(body==null)body=Motor.GetComponent<Rigidbody>();if(body!=null){float spin=Vector3.Dot(body.linearVelocity,Motor.transform.forward)/.32f*Mathf.Rad2Deg*Time.deltaTime;foreach(var wheel in wheels)wheel.Rotate(Vector3.up,spin,Space.Self);}bool brake=Motor.Brake!=null&&Motor.Brake.Held;if(brake!=braking&&tailLight!=null){braking=brake;var color=brake?new Color(1,.04f,.02f):new Color(.65f,.035f,.025f);tailLight.color=color;tailLight.SetColor("_EmissionColor",color*(brake?1.15f:.55f));}}

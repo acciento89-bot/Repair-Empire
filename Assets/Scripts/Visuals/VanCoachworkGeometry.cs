@@ -56,13 +56,40 @@ namespace Kamilunavo.RepairEmpire.Visuals
    for(int i=Stations.Length-2;i>=0;i--)if(Inside(Stations[i])){float low=Stations[i];for(int n=0;n<14;n++){float mid=(low+high)*.5f;if(Inside(mid))low=mid;else high=mid;}return BendZ(low,x,y);}else high=Stations[i];
    return BendZ(Stations[0],x,y);
   }
+  static List<Vector2> CabOutline()
+  {
+   var outline=new[]{new Vector2(-.04f,1.12f),new Vector2(1.23f,1.12f),new Vector2(.70f,1.84f),new Vector2(-.04f,1.88f)};var loop=new List<Vector2>();
+   for(int corner=0;corner<4;corner++){var at=outline[corner];var before=Vector2.Lerp(at,outline[(corner+3)%4],.12f);var after=Vector2.Lerp(at,outline[(corner+1)%4],.12f);for(int step=0;step<10;step++){float t=step/9f;loop.Add((1-t)*(1-t)*before+2*(1-t)*t*at+t*t*after);}}return loop;
+  }
+  static readonly Vector2[] CabAperture=CabOpening();
+  static Vector2[] CabOpening(){var loop=CabOutline();var center=new Vector2(.47f,1.46f);for(int i=0;i<loop.Count;i++)loop[i]=center+(loop[i]-center)*.97f;return loop.ToArray();}
+  static readonly float CabStart=CabEdge(false),CabEnd=CabEdge(true);
+  static float CabEdge(bool end){float at=end?float.NegativeInfinity:float.PositiveInfinity;foreach(var p in CabAperture)at=end?Mathf.Max(at,p.x):Mathf.Min(at,p.x);return at;}
+  static void CabLimits(float z,out float bottom,out float top)
+  {
+   z=Mathf.Clamp(z,CabStart,CabEnd);bottom=float.PositiveInfinity;top=float.NegativeInfinity;
+   for(int i=0;i<CabAperture.Length;i++){var a=CabAperture[i];var b=CabAperture[(i+1)%CabAperture.Length];if(z<Mathf.Min(a.x,b.x)-.000001f||z>Mathf.Max(a.x,b.x)+.000001f)continue;
+    if(Mathf.Abs(a.x-b.x)<.000001f){bottom=Mathf.Min(bottom,Mathf.Min(a.y,b.y));top=Mathf.Max(top,Mathf.Max(a.y,b.y));}else{float y=Mathf.Lerp(a.y,b.y,(z-a.x)/(b.x-a.x));bottom=Mathf.Min(bottom,y);top=Mathf.Max(top,y);}}
+   if(!float.IsFinite(bottom)){bottom=1.1336f;top=1.20f;}
+   top=Mathf.Min(top,Sample(Stations,Roof,z)-Shoulder-.003f);bottom=Mathf.Min(bottom,top);
+  }
+  static float WindowHalfWidth(float z)=>.96f*Mathf.Lerp(.64f,.70f,Mathf.Clamp01((z-.78f)/.52f));
+  static float WindowCoordinate(float t,float outer,float inner)
+  {
+   if(t<1f/6)return Mathf.Lerp(outer,inner,t*6);if(t>5f/6)return Mathf.Lerp(-inner,-outer,(t-5f/6)*6);return Mathf.Lerp(inner,-inner,(t-1f/6)*1.5f);
+  }
+  static float WindowHeight(float t,float outerBottom,float outerTop,float bottom,float top)
+  {
+   if(t<1f/6)return Mathf.Lerp(outerBottom,bottom,t*6);if(t>5f/6)return Mathf.Lerp(top,outerTop,(t-5f/6)*6);return Mathf.Lerp(bottom,top,(t-1f/6)*1.5f);
+  }
   static List<float> BodyRings()
   {
-   var rings=new List<float>(Stations);rings.Add(-1.42f);rings.Add(1.38f);
-   for(int i=0;i<=60;i++){float z=Mathf.Lerp(Stations[0],Stations[Stations.Length-1],i/60f);bool near=false;foreach(float existing in rings)if(Mathf.Abs(existing-z)<.002f){near=true;break;}if(!near)rings.Add(z);}rings.Sort();return rings;
+   var rings=new List<float>(Stations);rings.Add(-1.42f);rings.Add(1.38f);rings.Add(.79f);rings.Add(1.29f);foreach(var p in CabAperture)if(!rings.Exists(z=>Mathf.Abs(z-p.x)<.000001f))rings.Add(p.x);
+   for(int i=0;i<=46;i++){float z=Mathf.Lerp(Stations[0],Stations[Stations.Length-1],i/46f);bool near=false;foreach(float existing in rings)if(Mathf.Abs(existing-z)<.002f){near=true;break;}if(!near)rings.Add(z);}rings.Sort();return rings;
   }
   public static GameObject Windshield(Transform parent,Material material,bool seal=false)
   {
+   if(seal)return WindshieldFrame(parent,material);
    var v=new List<Vector3>();var uv=new List<Vector2>();var triangles=new List<int>();const int across=8;
    float start=seal?.765f:.78f,end=seal?1.315f:1.30f;var glassRings=BodyRings();glassRings.Add(start);glassRings.Add(end);glassRings.Sort();
    foreach(float z in glassRings)
@@ -73,6 +100,13 @@ namespace Kamilunavo.RepairEmpire.Visuals
    }
    return MeshArt.Mesh(parent,seal?"Windshield perimeter gasket":"Swept panoramic windshield",v.ToArray(),triangles.ToArray(),uv.ToArray(),material);
   }
+  static GameObject WindshieldFrame(Transform parent,Material material)
+  {
+   var v=new List<Vector3>();var uv=new List<Vector2>();var t=new List<int>();
+   void Strip(float z0,float z1,bool cross,bool right){const int n=12;int start=v.Count;for(int i=0;i<=n;i++)for(int edge=0;edge<2;edge++){float a=i/(float)n,z=cross?Mathf.Lerp(z0,z1,edge):Mathf.Lerp(z0,z1,a);float outer=Mathf.Lerp(.65f,.71f,Mathf.Clamp01((z-.765f)/.55f)),inner=WindowHalfWidth(z);float x=cross?Mathf.Lerp(-outer,outer,a):(right?1:-1)*(edge==0?inner:outer);v.Add(RoofSkinPoint(x,z,.007f));uv.Add(new Vector2(a,edge));if(i>0&&edge==1){int p=start+(i-1)*2;var a0=v[p];var b0=v[p+1];var c0=v[p+2];bool reverse=Vector3.Cross(b0-a0,c0-a0).y<0;t.AddRange(reverse?new[]{p,p+2,p+1,p+1,p+2,p+3}:new[]{p,p+1,p+2,p+1,p+3,p+2});}}}
+   Strip(.765f,.79f,true,false);Strip(1.29f,1.315f,true,false);Strip(.79f,1.29f,false,false);Strip(.79f,1.29f,false,true);
+   return MeshArt.Mesh(parent,"Windshield perimeter gasket",v.ToArray(),t.ToArray(),uv.ToArray(),material);
+  }
   public static void Wiper(Transform parent,int side,Material material)
   {
    var path=new Vector3[7];for(int i=0;i<path.Length;i++){float t=i/(float)(path.Length-1),z=Mathf.Lerp(1.285f,1.10f,t),x=side*Mathf.Lerp(.32f,.50f,t);path[i]=RoofSkinPoint(x,z,.024f);}MeshArt.Tube(parent,"Windshield wiper",path,.010f,material,8);
@@ -80,22 +114,26 @@ namespace Kamilunavo.RepairEmpire.Visuals
   static Vector3 SectionPoint(float z,float around)
   {
    around=Mathf.Repeat(around,8);int part=Mathf.FloorToInt(around);float t=around-part,w=Sample(Stations,Widths,z),top=Sample(Stations,Roof,z),x=0,y=0;const float upper=Shoulder,lower=.045f;float uw=UpperWidth(z);
-   float a;
+   float a;CabLimits(z,out float glassBottom,out float glassTop);glassTop=Mathf.Min(glassTop,top-upper-.002f);glassBottom=Mathf.Min(glassBottom,glassTop);
    switch(part)
    {
     case 0:a=t*Mathf.PI*.5f;x=uw-upper+Mathf.Cos(a)*upper;y=top-upper+Mathf.Sin(a)*upper;break;
-    case 1:x=Mathf.Lerp(uw-upper,-uw+upper,t);y=top;break;
+    case 1:x=WindowCoordinate(t,uw-upper,Mathf.Min(WindowHalfWidth(z),uw-upper-.005f));y=top;break;
     case 2:a=(1+t)*Mathf.PI*.5f;x=-uw+upper+Mathf.Cos(a)*upper;y=top-upper+Mathf.Sin(a)*upper;break;
-    case 3:y=Mathf.Lerp(top-upper,Sill+lower,t);x=-SideAt(y,z);break;
+    case 3:y=WindowHeight(1-t,Sill+lower,top-upper,glassBottom,glassTop);x=-SideAt(y,z);break;
     case 4:a=(2+t)*Mathf.PI*.5f;x=-w+lower+Mathf.Cos(a)*lower;y=Sill+lower+Mathf.Sin(a)*lower;break;
     case 5:x=Mathf.Lerp(-w+lower,w-lower,t);y=Sill;break;
     case 6:a=(3+t)*Mathf.PI*.5f;x=w-lower+Mathf.Cos(a)*lower;y=Sill+lower+Mathf.Sin(a)*lower;break;
-    default:y=Mathf.Lerp(Sill+lower,top-upper,t);x=SideAt(y,z);break;
+    default:y=WindowHeight(t,Sill+lower,top-upper,glassBottom,glassTop);x=SideAt(y,z);break;
    }
    float side=Mathf.SmoothStep(0,1,(Mathf.Abs(x)/w-.72f)/.20f);if(y<1.06f)y=Mathf.Max(y,Mathf.Lerp(Sill,Arch(z),side));return new Vector3(x,y,BendZ(z,x,y));
   }
   static Vector3 SectionNormal(float z,float around)
   {
+   int part=Mathf.FloorToInt(Mathf.Repeat(around,8));var position=SectionPoint(z,around);
+   // Aperture-aligned parameter rows can collapse outside the cab. The true
+   // side-surface normal is independent of that sampling parameterization.
+   if((part==3||part==7)&&position.y>Arch(z)+.0001f&&position.y>Sill+.0451f)return CabNormal(position.y,z,part==3?-1:1);
    const float e=.001f;float before=Mathf.Max(Stations[0],z-e),after=Mathf.Min(Stations[Stations.Length-1],z+e);var along=(SectionPoint(after,around)-SectionPoint(before,around))/(after-before);var aroundFace=(SectionPoint(z,around+e)-SectionPoint(z,around-e))/(2*e);var normal=Vector3.Cross(aroundFace,along);
    if(normal.sqrMagnitude<1e-12f){var p=SectionPoint(z,around);normal=new Vector3(p.x,p.y-1.25f,0);}return normal.normalized;
   }
@@ -109,9 +147,11 @@ namespace Kamilunavo.RepairEmpire.Visuals
   }
   public static GameObject Body(Transform parent,Material material)
   {
-   var rings=BodyRings();const int sides=64;var v=new List<Vector3>();var uv=new List<Vector2>();var normals=new List<Vector3>();var triangles=new List<int>();
+   var rings=BodyRings();const int sides=48;var v=new List<Vector3>();var uv=new List<Vector2>();var normals=new List<Vector3>();var triangles=new List<int>();
    foreach(float z in rings)for(int i=0;i<sides;i++){float around=i*8f/sides;v.Add(SectionPoint(z,around));normals.Add(SectionNormal(z,around));uv.Add(new Vector2(i/(float)sides,(z-Stations[0])/(Stations[Stations.Length-1]-Stations[0])));}
-   for(int ring=1;ring<rings.Count;ring++)for(int i=0;i<sides;i++){int a=(ring-1)*sides+i,b=ring*sides+i,next=(i+1)%sides;triangles.AddRange(new[]{a,(ring-1)*sides+next,b,(ring-1)*sides+next,ring*sides+next,b});}
+   for(int ring=1;ring<rings.Count;ring++)for(int i=0;i<sides;i++){
+    int part=i/6,cell=i%6;float z0=rings[ring-1],z1=rings[ring];bool pane=cell>=1&&cell<5&&((part==1&&z0>=.79f-.000001f&&z1<=1.29f+.000001f)||((part==3||part==7)&&z0>=CabStart-.000001f&&z1<=CabEnd+.000001f));if(pane)continue;
+    int a=(ring-1)*sides+i,b=ring*sides+i,next=(i+1)%sides;triangles.AddRange(new[]{a,(ring-1)*sides+next,b,(ring-1)*sides+next,ring*sides+next,b});}
    foreach(int end in new[]{0,rings.Count-1})
    {
     bool rear=end==0;int previous=end*sides;float at=rings[end],cy=(Sample(Stations,Roof,at)+Sill)*.5f;var edge=new Vector3[sides];for(int i=0;i<sides;i++){edge[i]=v[previous+i];normals[previous+i]=(normals[previous+i]+CapNormal(edge[i].x,edge[i].y,rear)).normalized;}
@@ -123,6 +163,29 @@ namespace Kamilunavo.RepairEmpire.Visuals
     }
     int center=v.Count;v.Add(new Vector3(0,cy,BendZ(at,0,cy)));normals.Add(CapNormal(0,cy,rear));uv.Add(new Vector2(.5f,.5f));for(int i=0;i<sides;i++){int a=previous+i,b=previous+(i+1)%sides;triangles.AddRange(rear?new[]{center,b,a}:new[]{center,a,b});}
    }
+   return MetalShell(parent,v,triangles,uv,normals,material);
+  }
+  static GameObject MetalShell(Transform parent,List<Vector3> original,List<int> indices,List<Vector2> originalUv,List<Vector3> originalNormals,Material material)
+  {
+   // Weld collapsed aperture corners before the offset: coincident positions
+   // must share a normal or the inner skin opens microscopic cracks.
+   var v=new List<Vector3>();var uv=new List<Vector2>();var normals=new List<Vector3>();var welded=new Dictionary<Vector3Int,List<int>>();var map=new int[original.Count];
+   for(int i=0;i<original.Count;i++)
+   {
+    var p=original[i];var key=new Vector3Int(Mathf.FloorToInt(p.x*100000),Mathf.FloorToInt(p.y*100000),Mathf.FloorToInt(p.z*100000));int at=-1;
+    // Neighbor cells matter: float-equivalent collapsed rows can straddle a
+    // quantization boundary and otherwise produce duplicate metal returns.
+    for(int x=-1;x<=1&&at<0;x++)for(int y=-1;y<=1&&at<0;y++)for(int z=-1;z<=1&&at<0;z++)if(welded.TryGetValue(key+new Vector3Int(x,y,z),out var candidates))foreach(int candidate in candidates)if((v[candidate]-p).sqrMagnitude<=1e-10f){at=candidate;break;}
+    if(at<0){at=v.Count;if(!welded.TryGetValue(key,out var bucket)){bucket=new List<int>();welded.Add(key,bucket);}bucket.Add(at);v.Add(p);uv.Add(originalUv[i]);normals.Add(Vector3.zero);}map[i]=at;normals[at]+=originalNormals[i];
+   }
+   for(int i=0;i<normals.Count;i++)normals[i]=normals[i].normalized;
+   var triangles=new List<int>();var boundary=new Dictionary<(int,int),(int a,int b,int count)>();
+   for(int i=0;i<indices.Count;i+=3){int a=map[indices[i]],b=map[indices[i+1]],c=map[indices[i+2]];if(a==b||a==c||b==c||Vector3.Cross(v[b]-v[a],v[c]-v[a]).sqrMagnitude<=1e-12f)continue;triangles.AddRange(new[]{a,b,c});
+    foreach(var e in new[]{(a,b),(b,c),(c,a)}){var key=e.Item1<e.Item2?e:(e.Item2,e.Item1);if(boundary.TryGetValue(key,out var edge))boundary[key]=(edge.a,edge.b,edge.count+1);else boundary[key]=(e.Item1,e.Item2,1);}}
+   int count=v.Count,faces=triangles.Count;
+   for(int i=0;i<count;i++){v.Add(v[i]-normals[i]*.008f);normals.Add(-normals[i]);uv.Add(uv[i]);}
+   for(int i=0;i<faces;i+=3)triangles.AddRange(new[]{triangles[i+2]+count,triangles[i+1]+count,triangles[i]+count});
+   foreach(var edge in boundary.Values)if(edge.count==1){int at=v.Count;var a=v[edge.a];var b=v[edge.b];var aa=v[edge.a+count];var bb=v[edge.b+count];var tangent=a-b;var thickness=aa-b;var normal=Vector3.Cross(tangent/tangent.magnitude,thickness/thickness.magnitude).normalized;v.AddRange(new[]{b,a,aa,bb});for(int i=0;i<4;i++){normals.Add(normal);uv.Add(Vector2.zero);}triangles.AddRange(new[]{at,at+1,at+2,at,at+2,at+3});}
    return MeshArt.Mesh(parent,"Bevelled service body",v.ToArray(),triangles.ToArray(),uv.ToArray(),material,normals:normals.ToArray());
   }
   public static GameObject SculptedPanel(Transform parent,string name,Vector2 center,Vector2 size,float radius,Material material,bool rear=true,float offset=.018f,float depth=.014f,float taper=0)
@@ -146,12 +209,11 @@ namespace Kamilunavo.RepairEmpire.Visuals
   }
   public static void CabGlazing(Transform parent,int side,Material material,bool seal)
   {
-   var outline=new[]{new Vector2(-.04f,1.12f),new Vector2(1.23f,1.12f),new Vector2(.70f,1.84f),new Vector2(-.04f,1.88f)};var center=new Vector2(.47f,1.46f);var loop=new List<Vector2>();
-   for(int corner=0;corner<4;corner++){var at=outline[corner];var before=Vector2.Lerp(at,outline[(corner+3)%4],.12f);var after=Vector2.Lerp(at,outline[(corner+1)%4],.12f);for(int step=0;step<10;step++){float t=step/9f;loop.Add((1-t)*(1-t)*before+2*(1-t)*t*at+t*t*after);}}
+   var loop=CabOutline();var center=new Vector2(.47f,1.46f);
    var v=new List<Vector3>();var uv=new List<Vector2>();var normals=new List<Vector3>();var triangles=new List<int>();
-   for(int ring=0;ring<5;ring++)foreach(var point in loop){float r=(1-ring/5f)*(seal?1.018f:1);var p=center+(point-center)*r;v.Add(new Vector3(side*(SideAt(p.y,p.x)+(seal?.005f:.012f)),p.y,p.x));normals.Add(CabNormal(p.y,p.x,side));uv.Add(new Vector2(p.x-.4f,p.y-1.3f));}
-   for(int ring=1;ring<5;ring++)for(int i=0;i<loop.Count;i++){int a=(ring-1)*loop.Count+i,b=(ring-1)*loop.Count+(i+1)%loop.Count,c=ring*loop.Count+i,d=ring*loop.Count+(i+1)%loop.Count;triangles.AddRange(side<0?new[]{a,b,c,b,d,c}:new[]{a,c,b,b,c,d});}
-   int pole=v.Count;v.Add(new Vector3(side*(SideAt(center.y,center.x)+(seal?.005f:.012f)),center.y,center.x));normals.Add(CabNormal(center.y,center.x,side));uv.Add(new Vector2(.5f,.5f));int last=4*loop.Count;for(int i=0;i<loop.Count;i++){int a=last+i,b=last+(i+1)%loop.Count;triangles.AddRange(side<0?new[]{pole,a,b}:new[]{pole,b,a});}
+   int rings=seal?2:5;for(int ring=0;ring<rings;ring++)foreach(var point in loop){float r=seal?(ring==0?1.018f:.97f):(1-ring/5f);var p=center+(point-center)*r;v.Add(new Vector3(side*(SideAt(p.y,p.x)+(seal?.005f:.012f)),p.y,p.x));normals.Add(CabNormal(p.y,p.x,side));uv.Add(new Vector2(p.x-.4f,p.y-1.3f));}
+   for(int ring=1;ring<rings;ring++)for(int i=0;i<loop.Count;i++){int a=(ring-1)*loop.Count+i,b=(ring-1)*loop.Count+(i+1)%loop.Count,c=ring*loop.Count+i,d=ring*loop.Count+(i+1)%loop.Count;triangles.AddRange(side<0?new[]{a,b,c,b,d,c}:new[]{a,c,b,b,c,d});}
+   if(!seal){int pole=v.Count;v.Add(new Vector3(side*(SideAt(center.y,center.x)+(seal?.005f:.012f)),center.y,center.x));normals.Add(CabNormal(center.y,center.x,side));uv.Add(new Vector2(.5f,.5f));int last=4*loop.Count;for(int i=0;i<loop.Count;i++){int a=last+i,b=last+(i+1)%loop.Count;triangles.AddRange(side<0?new[]{pole,a,b}:new[]{pole,b,a});}}
    MeshArt.Mesh(parent,seal?"Cab glass perimeter seal":"Sculpted cab side glazing",v.ToArray(),triangles.ToArray(),uv.ToArray(),material,normals:normals.ToArray());
   }
   public static GameObject RearBand(Transform parent,string name,float bottom,float top,Material material)

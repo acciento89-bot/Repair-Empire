@@ -39,3 +39,12 @@ Built-in `image_gen.imagegen` created the original two optical materials. No CLI
 `/Volumes/SSK SSD/Kamilunavo/Projects/Repair-Empire/Assets/Resources/Art/VanRedLens-v1.png`: 192×512, SHA256 `68ff021d18139c47f1295ca69dfdbcb0bdd8c271caf71bb02d4d4f07ba2573a1`. Original preserved at `/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoadVan-20261015/VanRedLens-v1-original.png`. Only RGB conversion and aspect-preserving Lanczos downsampling were applied.
 
 Headlamp optics bind to the existing owned headlamp material. Red prism detail binds to the existing tail material, preserving dynamic brake tint/emission. Reverse and fog lamps use appropriate separate existing material instances. Imports: max512, NPOTNone, sRGB, mipmaps, clamp/trilinear, aniso2, compressedHQ and no runtime readability. Shared imported textures survive individual vehicle disposal; native geometry, ground and ownership tests remain separate from appearance approval.
+
+
+## Original cabin geometry and glass material — 2026-10-15
+
+The new seats, dashboard/instruments, steering, inner doors, bulkhead and true metal-shell window openings are original authored3Dgeometry in VanArt/VanCoachworkGeometry. No interior picture, purchased/downloaded base model or new external dependency was used. Shared quadratic outlines keep pane, gasket and body cut consistent. The existing original optical textures remain unchanged.
+
+`Assets/Resources/Materials/VanCabGlass.mat` is an original material configuration using Unity's existing built-in Standard shader, with serialized premultiplied transparency. It is a shared Resources prototype; each van owns and disposes its runtime clone. A native GPU background-transmission probe verifies the production variant rather than relying on Editor appearance or material flags. The owned32pxenvironment cube captures the actual street once for the motor van; its disabled temporary camera/state restoration and destruction are verified. Static/Editor models keep the own procedural environment fallback.
+
+Exact source/material/meta hashes, superseded failures, final native1466/1377/7, actual model/street PNGs and mechanical comparison-board provenance: `docs/QA/repair-cabin-20261015.json`, `Builds/RepairCabin-20261015`. These actual renders remain simplified and below full Concept quality; no new release approval.

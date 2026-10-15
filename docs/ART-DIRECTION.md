@@ -94,3 +94,12 @@ The user again rejected the preceding van as toy-like. Replace its fundamental p
 Own photographic headlamp/red-prism material textures are used only on actual3Dlamps. They are bounded512pxshared Resources; originals/prompts and mechanical downsampling are preserved. The removed optical circles/guide meshes are represented by this UV detail. A free external model was separately rendered, rejected as too boxy and never shipped. No illustrative vehicle sprite substitutes for driving geometry.
 
 Native1461/1377/7, source review and moving buffer66444/26/9 verify the implementation. Detailed cabin and full body/scene material/lighting realism remain unfinished; this is not Concept/aesthetic approval. Current evidence and genuine native comparisons: `docs/QA/repair-road-van-20261015.json`. Graphical release gate stays failed.
+
+
+## 2026-10-15 — true cabin and transparent production glazing
+
+Window tint over a solid body is insufficient. The original van now has three real apertures, an8mmmetal inner shell and closed edge returns, matched curved rubber gaskets, and actual modeled seats/dashboard/steering/inner doors/bulkhead. The side cut and pane share the same40point outline. Paint/livery contrast with rough plastic/rubber and steel; four tiny wheel detail families are cheaper geometry within the unchanged moving budget. The production motor van takes a single actual street cube capture; static workshop models retain a bounded fallback. No realtime reflection loop or global lighting mutation.
+
+The first native images exposed opaque glass even though material flags passed. A serialized shared Standard transparent prototype retains the player variant; a genuine GPU transmission test now checks actual rendering. Mesh validation caught front sampling/pinching, tiny return normals, a70100vertex candidate and float-equivalent duplicate returns. Actual-distance neighboring-cell welding and46uniform rings retain the original70k/32/9ceilings and closed-surface guards.
+
+Current final source/native proof: `docs/QA/repair-cabin-20261015.json`,1466/1377/7native,69778/27/9moving. Genuine comparison PNGs show the new cabin and the remaining dense-town/lighting/material gap. This verifies the bounded cabin pass; whole-game Concept approval remains failed, with no numerical similarity or upload claim.

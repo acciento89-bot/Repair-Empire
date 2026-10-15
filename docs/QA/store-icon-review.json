@@ -1,10 +1,10 @@
 {
   "game": "Repair-Empire",
   "status": "pending",
-  "sourceSha256": "46911d0447bd3d468dafd1f8550bdc4f56f5c56717c37f6769d853d61b2f8633",
+  "sourceSha256": "5dc2e67f7952204cadfc43e3635e00557ac13b7fe72210fc507044110bb41277",
   "reviewer": "Codex direct source-icon and actual native-frame comparison",
   "reviewedAt": "2026-10-15",
-  "reason": "Rebuilt road-van anatomy and actual textured lamp surfaces change the current gameplay appearance. Icon assignment/submissions untouched. Exported native icon sizes/variants and rendering-promise accuracy remain pending.",
+  "reason": "Current gameplay includes real cabin/glass and street reflections. Icon assignment/submissions untouched; native icon variants and rendering-promise accuracy remain pending.",
   "decision": "No new upload approval. Complete accurate native icon and variant review before setting passed.",
   "variantConsistencyChecked": false,
   "evidence": {
@@ -16,8 +16,8 @@
     "nativeIcon": null,
     "gameplay": [
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoadVan-20261015/OpticsPresentation/showcase-driving-service.png",
-        "sha256": "ba3e0a8244ec47fc9f7a2d3bbd6cbba4af16175ecf8396b670997c48a450b542",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairCabin-20261015/FinalPresentation/showcase-driving-service.png",
+        "sha256": "e755a8a9fdaf58cebd1d09e733d979ccd3d3e73f3d7ee2d623bd26733da0d4d1",
         "origin": "Unity-render"
       }
     ]

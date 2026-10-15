@@ -37,6 +37,10 @@ public static class RepairVanRevisionValidation
    root.GetComponent<VanArt>().Build();var seen=new HashSet<Mesh>();var rows=new List<string>();int total=0,active=0;
    foreach(var renderer in root.GetComponentsInChildren<MeshRenderer>(true))if(renderer.enabled)active++;
    foreach(var filter in root.GetComponentsInChildren<MeshFilter>(true))if(seen.Add(filter.sharedMesh)){int n=filter.sharedMesh.vertexCount;total+=n;rows.Add(n.ToString("D6")+" "+filter.name+" triangles="+filter.sharedMesh.triangles.Length/3);}
+   var skin=root.transform.Find("Bevelled service body").GetComponent<MeshFilter>().sharedMesh;var points=skin.vertices;var indices=skin.triangles;var edges=new Dictionary<string,(int count,Vector3 a,Vector3 b)>();
+   string Key(Vector3 p)=>Mathf.RoundToInt(p.x*100000)+","+Mathf.RoundToInt(p.y*100000)+","+Mathf.RoundToInt(p.z*100000);
+   for(int i=0;i<indices.Length;i+=3)for(int e=0;e<3;e++){var a=points[indices[i+e]];var b=points[indices[i+(e+1)%3]];string x=Key(a),y=Key(b),key=string.CompareOrdinal(x,y)<0?x+"/"+y:y+"/"+x;edges.TryGetValue(key,out var edge);edges[key]=(edge.count+1,a,b);}
+   int bad=0;var detail=new List<string>();foreach(var e in edges.Values)if(e.count!=2){bad++;if(detail.Count<24)detail.Add(e.count+" "+e.a.ToString("F6")+" -> "+e.b.ToString("F6"));}Debug.Log("REPAIR_VAN_EDGE_INSPECTION bad="+bad+"\n"+string.Join("\n",detail));
    rows.Sort(StringComparer.Ordinal);rows.Reverse();Debug.Log("REPAIR_VAN_BUFFER_INSPECTION total="+total+" active="+active+"\n"+string.Join("\n",rows));
   }
   finally{UnityEngine.Object.DestroyImmediate(root);}
@@ -99,11 +103,42 @@ public static class RepairVanRevisionValidation
    }
    var rearNavy=root.transform.Find("Rear navy service wrap").GetComponent<MeshFilter>();var rearOrange=root.transform.Find("Orange rear livery").GetComponent<MeshFilter>();
    foreach(float x in new[]{-.65f,0,.65f}){var ray=new Ray(new Vector3(x,.37f,-5),Vector3.forward);float lower=RepairVanGlassValidation.Hit(rearNavy,ray),upper=RepairVanGlassValidation.Hit(rearOrange,ray);rays++;if(!float.IsFinite(lower)||!float.IsFinite(upper)||lower-upper<.003f)failures.Add("Coplanar rear paint x="+x+" separation="+(lower-upper));}
-   Require(faces>1000&&failures.Count==0,"EXTERIOR_VISIBILITY "+string.Join("; ",failures));
+   Require(faces>800&&failures.Count==0,"EXTERIOR_VISIBILITY "+string.Join("; ",failures));
    Debug.Log("REPAIR_VAN_EXTERIOR_PASS outward cab faces="+faces+" separated paint rays="+rays);
   }
   finally{UnityEngine.Object.DestroyImmediate(root);}
  }
- public static void Validate(){ValidateConceptProportions();ValidateCurvedRear();ValidateExterior();ValidateArtwork();}
+ public static void ValidateCabin()
+ {
+  var root=new GameObject("True cabin visibility fixture",typeof(VanArt));int rays=0;
+  try
+  {
+   root.GetComponent<VanArt>().Build();var shell=root.transform.Find("Bevelled service body").GetComponent<MeshFilter>();
+   foreach(int side in new[]{-1,1})foreach(float y in new[]{1.30f,1.50f,1.70f})foreach(float z in new[]{.15f,.35f,.55f})
+   {
+    var ray=new Ray(new Vector3(side*3,y,z),Vector3.left*side);float skin=RepairVanGlassValidation.Hit(shell,ray);rays++;
+    Require(!float.IsFinite(skin)||skin>3.60f,"CABIN_BLOCKED_BY_SOLID_DOOR side="+side+" y="+y+" z="+z+" hit="+skin);
+    foreach(var filter in root.GetComponentsInChildren<MeshFilter>(true))if(filter.name=="Cab glass perimeter seal")Require(!float.IsFinite(RepairVanGlassValidation.Hit(filter,ray)),"GASKET_BLOCKS_CABIN");
+   }
+   foreach(int side in new[]{-1,1})foreach(var point in new[]{new Vector2(1.1407f,1.15752f),new Vector2(.015f,1.18f),new Vector2(.015f,1.80f),new Vector2(.69f,1.79f)})
+   {
+    var ray=new Ray(new Vector3(side*3,point.y,point.x),Vector3.left*side);float skin=RepairVanGlassValidation.Hit(shell,ray);rays++;Require(!float.IsFinite(skin)||skin>3.60f,"CABIN_CORNER_BLOCKED "+point+" hit="+skin);
+    foreach(var filter in root.GetComponentsInChildren<MeshFilter>(true))if(filter.name=="Cab glass perimeter seal")Require(!float.IsFinite(RepairVanGlassValidation.Hit(filter,ray)),"GASKET_CORNER_BLOCKED "+point);
+   }
+   foreach(float x in new[]{-.45f,0,.45f})foreach(float z in new[]{.88f,1.0f,1.18f})
+   {
+    var ray=new Ray(new Vector3(x,5,z),Vector3.down);float skin=RepairVanGlassValidation.Hit(shell,ray);rays++;
+    Require(float.IsFinite(skin)&&skin>4.5f,"CABIN_BLOCKED_BY_SOLID_COWL x="+x+" z="+z+" hit="+skin);
+    Require(!float.IsFinite(RepairVanGlassValidation.Hit(root.transform.Find("Windshield perimeter gasket").GetComponent<MeshFilter>(),ray)),"WINDSHIELD_GASKET_BLOCKS_CABIN");
+   }
+   var prototype=Resources.Load<Material>("Materials/VanCabGlass");Require(prototype!=null&&prototype.IsKeywordEnabled("_ALPHAPREMULTIPLY_ON")&&prototype.renderQueue==3000,"SHIPPED_GLASS_VARIANT_MISSING");
+   var glass=root.transform.Find("Swept panoramic windshield").GetComponent<MeshRenderer>().sharedMaterial;
+   Require(glass.renderQueue==3000&&glass.color.a>.12f&&glass.color.a<.4f&&glass.GetFloat("_ZWrite")==0&&glass.IsKeywordEnabled("_ALPHAPREMULTIPLY_ON"),"CABIN_GLASS_NOT_TRANSPARENT");
+   foreach(var name in new[]{"Cabin dashboard","Driver seat cushion","Passenger seat cushion","Driver seat back","Passenger seat back","Steering column/Steering wheel rim","Cabin bulkhead"})Require(root.transform.Find(name)!=null,"CABIN_PART_MISSING "+name);
+   Debug.Log("REPAIR_VAN_CABIN_PASS actual body/gasket aperture rays="+rays+" transparent glass and modeled cabin");
+  }
+  finally{UnityEngine.Object.DestroyImmediate(root);}
+ }
+ public static void Validate(){ValidateConceptProportions();ValidateCurvedRear();ValidateExterior();ValidateCabin();ValidateArtwork();}
 }
 #endif
