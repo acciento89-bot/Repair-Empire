@@ -31,7 +31,7 @@ public static class RepairVanCoachworkValidation
    }
    Check(shoulder>=12,"continuous rolled cargo shoulders have intermediate surface curvature");Check(axle>0,"rear wheel opening belongs to the body mesh");Solid(shell);
    Check(shell.bounds.min.y>=.419f&&shell.bounds.max.y<=2.401f&&shell.bounds.size.x<=2.111f&&shell.bounds.min.z>=-2.181f&&shell.bounds.max.z<=2.111f,"original body/camera envelope retained");
-   foreach(var name in new[]{"Rear bumper","Front bumper","Rear window left","Rear window right"}){var mesh=host.transform.Find(name).GetComponent<MeshFilter>().sharedMesh;Solid(mesh);Check(mesh.vertexCount>=80,"molded coachwork replaces a square slab: "+name);}
+   foreach(var name in new[]{"Rear bumper","Front bumper","Rear lamp housing","Number plate surround"}){var mesh=host.transform.Find(name).GetComponent<MeshFilter>().sharedMesh;Solid(mesh);Check(mesh.vertexCount>=80,"molded coachwork replaces a square slab: "+name);}
    foreach(var filter in host.GetComponentsInChildren<MeshFilter>())if(filter.name=="Raised wheel arch trim")Solid(filter.sharedMesh);
    var livery=new HashSet<Material>();int active=0,vertices=0;var meshes=new HashSet<Mesh>();
    foreach(var filter in host.GetComponentsInChildren<MeshFilter>(true)){var mesh=filter.sharedMesh;assets.Add(mesh);if(meshes.Add(mesh))vertices+=mesh.vertexCount;foreach(var n in mesh.normals)Check(float.IsFinite(n.x)&&float.IsFinite(n.y)&&float.IsFinite(n.z)&&n.sqrMagnitude>.5f,"finite lit coachwork normals");}

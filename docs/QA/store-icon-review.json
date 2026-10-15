@@ -1,10 +1,10 @@
 {
   "game": "Repair-Empire",
   "status": "pending",
-  "sourceSha256": "76d19dd33aceec9623ab69781ca54d1eb2e3df493903d7f7c828d2aa846a32f6",
+  "sourceSha256": "46969ee368253bec45ec5ff42e4439edf518dafc6fa9d760cac71f51f95e663f",
   "reviewer": "Codex direct source-icon and actual native-frame comparison",
   "reviewedAt": "2026-10-15",
-  "reason": "Source icon motifs (service van, ladder, workshop and tool identity) exist in the actual updated game. Full realistic rendering-promise review and exported native small/large variants remain required; current art changes do not approve the icon.",
+  "reason": "Updated rounded service van, ladder, workshop and tool motifs are present in actual native frames. Full icon rendering-promise and exported native small/large variants remain unapproved; decorative menu art does not establish gameplay fidelity.",
   "decision": "No new upload approval. Complete accurate native icon and variant review before setting passed.",
   "variantConsistencyChecked": false,
   "evidence": {
@@ -16,8 +16,8 @@
     "nativeIcon": null,
     "gameplay": [
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairArtComplete-20261015/CheckedPresentation/showcase-driving-service.png",
-        "sha256": "7033e853f6fe5dbf8322a89eb99c1029822b2c64cc4cb1ae0bc7a0fe3e898646",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/showcase-driving-service.png",
+        "sha256": "c86f6bcc2b2c1180ee36fd463c290e6eccd405552a29eaeb1d739f6521504761",
         "origin": "Unity-render"
       }
     ]

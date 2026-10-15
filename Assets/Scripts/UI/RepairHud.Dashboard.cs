@@ -73,10 +73,11 @@ namespace Kamilunavo.RepairEmpire.UI {
   }
   void RenderDashboard()
   {
-   float w=body.rect.width;bool wide=w>=600;float heroH=wide?210:Mathf.Clamp(w*.72f,170,300);var c=Scroll(heroH+600);var hero=Panel(c,"CompanyHero",0,0,w,heroH,Paper);
-   if(Application.isPlaying)ScenePhoto(hero,"ModeledWorkshopPhoto",Studio().WorkshopImage(),0,0,w,heroH-25);else Illustration(hero,3,0,0,w,heroH-25);
-   Label(hero,"WorkshopCaption",T("KLEINE REPARATUREN. GROSSE WIRKUNG.","SMALL REPAIRS. REAL IMPACT."),8,heroH-24,w-16,23,13,Ink);
-   float walletW=Mathf.Min(114,w*.40f),walletX=w-walletW-8;var wallet=Panel(hero,"CompanyWallet",walletX,8,walletW,36,Navy);UiIcon(wallet,"Cash",7,8,22,20,new Color(.43f,.83f,.46f));Label(wallet,"DashboardBalance","$"+game.Cash.ToString("N0"),34,0,walletW-40,36,18,White);
+   float w=body.rect.width;bool wide=w>=600;float imageH=wide?Mathf.Clamp(body.rect.height-24,92,Mathf.Min(210,w*.22f)):Mathf.Clamp(w*.625f,150,300),imageW=wide?imageH*3:w,heroH=wide?imageH:imageH+44;var c=Scroll(heroH+600);var hero=Panel(c,"CompanyHero",0,0,w,heroH,Paper);
+   var artwork=Resources.Load<Texture2D>(wide?"Art/Workshop/ServiceWorkshopHero-wide-v1":"Art/Workshop/ServiceWorkshopHero-v1");
+   if(artwork!=null)ScenePhoto(hero,"WorkshopHeroArtwork",artwork,0,0,imageW,imageH);else if(Application.isPlaying)ScenePhoto(hero,"ModeledWorkshopPhoto",Studio().WorkshopImage(),0,0,imageW,imageH);else Illustration(hero,3,0,0,imageW,imageH);
+   float walletW=Mathf.Min(114,w*.40f),walletX=wide?imageW+16:w-walletW-8,walletY=wide?imageH-38:imageH+6;var wallet=Panel(hero,"CompanyWallet",walletX,walletY,walletW,32,Navy);UiIcon(wallet,"Cash",7,6,22,20,new Color(.43f,.83f,.46f));Label(wallet,"DashboardBalance","$"+game.Cash.ToString("N0"),34,0,walletW-40,32,18,White);
+   Label(hero,"WorkshopCaption",T("KLEINE REPARATUREN. GROSSE WIRKUNG.","SMALL REPAIRS. REAL IMPACT."),wide?imageW+16:8,wide?8:imageH+2,wide?w-imageW-24:Mathf.Max(48,w-walletW-24),40,12,Ink);
    float y=heroH+10;Label(c,"CurrentCallHeading",game.ActiveJob!=null?T("AKTUELLER AUFTRAG","CURRENT SERVICE CALL"):T("DEIN NÄCHSTER AUFTRAG","YOUR NEXT SERVICE CALL"),4,y,w-8,23,15,Ink);y+=29;
    var call=NextCall();if(call!=null){float cardH=Mathf.Max(132,size+64);CallCard(c,call,"DashboardCurrentCall",0,y,w,cardH,()=>{selectedJob=call;ShowPage(0);},false);y+=cardH+10;}else{EmptyCalls(c,8,y,w-16,Mathf.Max(110,size*2));y+=Mathf.Max(110,size*2)+10;}
    bool columns=w>=320;int shown=0;

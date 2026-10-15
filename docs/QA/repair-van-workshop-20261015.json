@@ -1,0 +1,920 @@
+{
+  "game": "Repair Empire",
+  "date": "2026-10-15",
+  "sourceSha256": "46969ee368253bec45ec5ff42e4439edf518dafc6fa9d760cac71f51f95e663f",
+  "baseCommit": "98a7041cac7ffab0e95c6ac0014342970b9b92fe",
+  "scope": "Rounded original commercial van, original decorative workshop menu art and restrained repair material polish; bounded source slice, not whole-game graphical approval.",
+  "userScope": "Repair Empire only; approved Perfect Drop and Rising Steps and their submissions untouched; no App Store Connect operation.",
+  "implemented": [
+    "Continuous cubic-loft coachwork with rolled shoulders and compound curved rear/nose skins; no raised white rear door slabs.",
+    "Closed branded cargo rear doors match the approvedConcept; shaped front grille/headlamps, wrapped bumpers, fitted cab glass/seals, rounded rack/case and preserved wheel animation roots.",
+    "Original portrait and panoramic workshop illustrations integrated in the native dashboard, with real wallet beneath/beside art; wide layout shows the complete3:1 illustration inside the viewport.",
+    "Chrome studio polish reduces harshness while preserving the actual3D fixture style, phases and shared local lighting/environment authority."
+  ],
+  "originalAssets": [
+    {
+      "asset": "/Volumes/SSK SSD/Kamilunavo/Projects/Repair-Empire/Assets/Resources/Art/Workshop/ServiceWorkshopHero-v1.png",
+      "assetSha256": "df2e5ff825746ee10adc5feaab757024692514f696b682e2fc78985792120424",
+      "original": "/Users/piotrkaminski/.codex/generated_images/01a11788-3eb6-7e32-963e-51b37d78e2ed/exec-1cea88b1-fdd8-4f1e-b019-b1c68cc3b5a9.png",
+      "originalSha256": "56cebb677968a775d409ded092ae03bd0261cdb913be37228750286af3294de9",
+      "reference": "/Volumes/SSK SSD/Kamilunavo/Artifacts/KamilunavoDelivery-20261009/concepts-20261010/repair-empire-3-ansichten.png",
+      "referenceSha256": "0571d35c40de036f83f86f3b423c234f321586abcfec97d9d259710d816723f1",
+      "tool": "built-in image_gen image edit",
+      "promptSummary": "Original warm3D workshop illustration, own Repair Empire branding and rounded modern European van, front-left3/4, timber/cream/navy/orange, workbench/plans, no fake UI. Approved three-view board is style/content reference only.",
+      "role": "Decorative workshop menu artwork; not an actual3D workshop or driving screenshot. Actual driving van and repair fixtures remain3D.",
+      "transform": "Mechanical native sips maximum-side resize to1024; original output preserved; no painting or geometric distortion.",
+      "projectImage": {
+        "size": [
+          1024,
+          640
+        ],
+        "mode": "RGB"
+      },
+      "originalImage": {
+        "size": [
+          1586,
+          992
+        ],
+        "mode": "RGB"
+      }
+    },
+    {
+      "asset": "/Volumes/SSK SSD/Kamilunavo/Projects/Repair-Empire/Assets/Resources/Art/Workshop/ServiceWorkshopHero-wide-v1.png",
+      "assetSha256": "ff107803079b77b0b7dd87de4f5fec1e753ed464f64a6aa62a995389436da142",
+      "original": "/Users/piotrkaminski/.codex/generated_images/01a11788-3eb6-7e32-963e-51b37d78e2ed/exec-b1e38010-67ce-4a02-96b2-e3062f3ebf4e.png",
+      "originalSha256": "b16b7200609d2fdeaa81c2957734da7249c1a075ca8b18226927a36900caca7d",
+      "reference": "/Users/piotrkaminski/.codex/generated_images/01a11788-3eb6-7e32-963e-51b37d78e2ed/exec-1cea88b1-fdd8-4f1e-b019-b1c68cc3b5a9.png",
+      "referenceSha256": "56cebb677968a775d409ded092ae03bd0261cdb913be37228750286af3294de9",
+      "tool": "built-in image_gen image edit",
+      "promptSummary": "Recompose the original workshop art into a panoramic responsive version; preserve complete van/ladder/wheels on left and complete company wall sign on right, same style/brand, no UI. Requested4:1; actual generated image is3:1. Kept actual proportions and integrated with proportional UI sampling.",
+      "role": "Decorative workshop menu artwork; not an actual3D workshop or driving screenshot. Actual driving van and repair fixtures remain3D.",
+      "transform": "Mechanical native sips maximum-side resize to1536; original output preserved; no painting or geometric distortion.",
+      "projectImage": {
+        "size": [
+          1536,
+          512
+        ],
+        "mode": "RGB"
+      },
+      "originalImage": {
+        "size": [
+          2172,
+          724
+        ],
+        "mode": "RGB"
+      }
+    }
+  ],
+  "artworkImport": {
+    "textureType": "Default Texture2D",
+    "maxTextureSize": 2048,
+    "npotScale": "None",
+    "mipmaps": false,
+    "isReadable": false,
+    "sRGB": true,
+    "wrapMode": "Clamp",
+    "filterMode": "Bilinear",
+    "compression": "CompressedHQ"
+  },
+  "authorityPreserved": {
+    "projectSettingsSha256": "c5c35febb402b4c6cebdb763fd2c4ecac4c8729ee3f785d453d108a4ff14fc5c",
+    "projectSettingsByteIdenticalToBaseline": true,
+    "collisionBaseline": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Projects/Repair-Empire/docs/QA/repair-street-collision-baseline-20261015.json",
+      "sha256": "11747117d82430eb86c3c5e65dfb0585bd18655d887c7fe4abf2c618a817d13f",
+      "origin": "pre-edit-native-Unity-snapshot"
+    },
+    "boxColliders": 54,
+    "serializedHeightRandomState": "{\"s0\":1903254653,\"s1\":-929997685,\"s2\":-1434215942,\"s3\":-2058391171}",
+    "physicsInputCameraJobsPaymentSavePackagesAndCommerceChanged": false,
+    "all8PaintsAnd4WheelPivotsRetained": true
+  },
+  "nativeBuild": {
+    "sourceSha256": "46969ee368253bec45ec5ff42e4439edf518dafc6fa9d760cac71f51f95e663f",
+    "executable": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/RepairVanCargo.app/Contents/MacOS/Repair Empire",
+    "executableSha256": "ed52356c01656e567640422ec35b063830c894423ec0ebb61f145b24c56650d1",
+    "unityBuildExitCode": 0,
+    "unityLog": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/unity-van-cargo.log",
+    "platform": "macOS native Metal preview; not iOS or physical-device proof",
+    "log": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/unity-van-cargo.log",
+      "sha256": "dcb27273b45d4af3386b4c88e294e1ed5c233552ae3e048add8d1a817d50b43c",
+      "origin": "native-Unity-build-and-aggregate-log"
+    },
+    "aggregatePassMarkers": [
+      "REPAIR_RULE_PASS 152",
+      "REPAIR_EDITOR_RULE_PASS 152",
+      "REPAIR_INTERACTION_PASS 21",
+      "REPAIR_INTERACTION_EDITOR_PASS 21",
+      "REPAIR_INPUT_PASS held reset and stationary pause",
+      "REPAIR_BOUNDARY_PASS lateral/speed/ordered stages/modal",
+      "REPAIR_HUD_PASS actual minimum controls/modal/scroll binding",
+      "REPAIR_SWITCH_CONTACTS_PASS four exposed contacts inside actual camera and ordered progress",
+      "REPAIR_WORLD_TEXT_PASS actual front/rear occlusion, depth-tested shader, shared atlas and bounded material lifetime",
+      "REPAIR_VISUAL_EDITOR_PASS modeled service identity, detail, replacement and collision isolation",
+      "REPAIR_ART_PASS loaded Texture2D, bounded van branding and actual textured avenues",
+      "REPAIR_JOB_PRESENTATION_PASS calls=24 fixtures=24 phases=3 workflowPatterns=11",
+      "REPAIR_FIXTURE_CONTEXT_PASS keys=24 contexts=9 structuralSignatures=17 maxVertices=4983",
+      "REPAIR_FIXTURE_STUDIO_PASS localReflection=true globalEnvironmentUntouched=true",
+      "REPAIR_HUD_REGRESSION_PASS checks=4260",
+      "REPAIR_PRESENTATION_PEDALS_PASS brake and accelerator have different actual meshes",
+      "REPAIR_PRESENTATION_CALL_INFO_PASS localized tools, customer/pay and three job-specific steps; preview never accepts a job",
+      "REPAIR_PRESENTATION_GUIDED_ARRIVAL_PASS actual Route/Start and Later targets remain separate",
+      "REPAIR_PRESENTATION_CUSTOMER_SIGN_PASS actual TextMesh glyph bounds remain inside the modeled plate",
+      "REPAIR_DRIVING_DENSITY_PASS (750.00, 1334.00) pointScale=2 information and action separated",
+      "REPAIR_DRIVING_DENSITY_PASS (1136.00, 640.00) pointScale=2 information and action separated",
+      "REPAIR_CONCEPT_UI_PASS rounded actual card geometry preserves solid centre and transparent corners",
+      "REPAIR_CONCEPT_POLISH_PASS checks=178626",
+      "REPAIR_RESIDENTIAL_MODELS_PASS actualConceptRender=PENDING",
+      "REPAIR_STREET_COMPOSITION_PASS exact collider/random authority, broad canopy, original shared textures and owned cleanup",
+      "REPAIR_VAN_COACHWORK_PASS checks=99298 uniqueVertices=66136 renderers=26 materials=9 actualConceptReview=PENDING",
+      "REPAIR_VAN_REVISION_CURVATURE_PASS actual rear skin has continuous compound curvature points=214 depth=0.03072762",
+      "REPAIR_VAN_EXTERIOR_PASS outward cab faces=1440 separated paint rays=9",
+      "REPAIR_WORKSHOP_ARTWORK_PASS original responsive assets bound, shared non-readable imports and unobscured art",
+      "REPAIR_VAN_GLASS_PASS actual windshield mesh rays=57 shell never obscures glazing; closed cargo skin rays=18",
+      "REPAIR_WORKSHOP_PASS vertices=140405 activeRenderers=29 materials=21 actualVisualReview=PENDING",
+      "REPAIR_INTERSTITIAL_PASS 54",
+      "REPAIR_MONETIZATION_PASS 623",
+      "REPAIR_LIVE_EFFECT_MASTER_MUTE_PASS",
+      "REPAIR_COMMERCE_PASS 25",
+      "REPAIR_COMMERCE_EDITOR_PASS 25",
+      "REPAIR_COMMERCE_PASS 25"
+    ],
+    "bundleManifest": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/native-bundle-manifest.json",
+      "sha256": "a851ac1bd75c4b12abd63c717fd0d66f42c666312ac9dd824274ced3471d93e8",
+      "origin": "native-bundle-hashes"
+    },
+    "nativeBundleFilesReverifiedAfterRuns": 314
+  },
+  "nativeRuns": {
+    "CargoPresentation": {
+      "checks": 1451,
+      "passed": true,
+      "processExitCode": 0,
+      "passFile": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/PASS.txt",
+        "sha256": "819aad98b49719f4e70cf1532ce489f9607e9303740e03e0dd68b22c12c7e514",
+        "origin": "native-Mac-result"
+      },
+      "provenance": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/PROVENANCE.json",
+        "sha256": "891b3967648688f3af7d3aa17696ff27a4fe329f6fdb9de6aad5e02f975ef87f",
+        "origin": "native-source-binding"
+      },
+      "log": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation.log",
+        "sha256": "887d16da575d515feff2ba478f658e6daccb13bdae07c8e12c6f8905b1fee556",
+        "origin": "native-Mac-log"
+      },
+      "images": {
+        "fixture-call-0-0.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/fixture-call-0-0.png",
+          "sha256": "e68f5a9cdc2cb247d693b2c3286b70eb888faf918707e3f84d98c11463e46668",
+          "origin": "Unity-render"
+        },
+        "fixture-call-0-1.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/fixture-call-0-1.png",
+          "sha256": "2fe7bb4b219dc913b49de8736a62bf19b62050fe4639a415dafa169fc7b79a1a",
+          "origin": "Unity-render"
+        },
+        "fixture-call-0-2.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/fixture-call-0-2.png",
+          "sha256": "072062fb8c189e2aadbf792399a095fd99b9321bf3b10811598a70ede54eb784",
+          "origin": "Unity-render"
+        },
+        "fixture-call-1-0.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/fixture-call-1-0.png",
+          "sha256": "d83f932452e4c42d24b1faa7c5b6b0450b24344c74fa62bc5176ff4dd9b3a62b",
+          "origin": "Unity-render"
+        },
+        "fixture-call-1-1.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/fixture-call-1-1.png",
+          "sha256": "51c9dd4df239680f96ef352e1d9c24dc346fddb4eee16cae72e4afdfa224b6ee",
+          "origin": "Unity-render"
+        },
+        "fixture-call-1-2.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/fixture-call-1-2.png",
+          "sha256": "b295e53bd6f0be8139575a79ec7f9a4e3366617b7d7d32fe674936f7a7f79f97",
+          "origin": "Unity-render"
+        },
+        "fixture-call-1-3.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/fixture-call-1-3.png",
+          "sha256": "1e59c6a75b8974027474add10354530e1f928ac9c7271d0b82f1aaec32a961fb",
+          "origin": "Unity-render"
+        },
+        "fixture-call-1-4.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/fixture-call-1-4.png",
+          "sha256": "0656e093e979b63d2b5e10bcf2fdafcc53a8dbaeb46b0baaa568a906f86f6692",
+          "origin": "Unity-render"
+        },
+        "fixture-call-2-0.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/fixture-call-2-0.png",
+          "sha256": "2cb15f0ebae88915b5b5a7925efe0a6bf3f7996063b49a24b2185127a4746269",
+          "origin": "Unity-render"
+        },
+        "fixture-call-2-1.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/fixture-call-2-1.png",
+          "sha256": "b7ad746783c3ccf912b7231e78eb1cd7d97a9f4ff59044ce0617e503c6b6b250",
+          "origin": "Unity-render"
+        },
+        "fixture-call-2-2.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/fixture-call-2-2.png",
+          "sha256": "172a84f68efca23dd489f9c4a297dd134c471bb1b08060d419dba91b26a0f70e",
+          "origin": "Unity-render"
+        },
+        "fixture-call-2-3.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/fixture-call-2-3.png",
+          "sha256": "46af7ee7c01258e0681b7a8e2abe74cd0560a594fdf7880f1ac120c2cb376461",
+          "origin": "Unity-render"
+        },
+        "fixture-call-2-4.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/fixture-call-2-4.png",
+          "sha256": "c22ae7f4a035ab418a4382b352256b1afeb1081ab84d51f602387af39cc75df5",
+          "origin": "Unity-render"
+        },
+        "fixture-call-2-5.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/fixture-call-2-5.png",
+          "sha256": "d499265545702bd55a1b9177e5e60834c2a820742aabd76f5ef267bf988fddab",
+          "origin": "Unity-render"
+        },
+        "fixture-call-3-0.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/fixture-call-3-0.png",
+          "sha256": "734805f4034538f753638755f2f3457f8ba93343b666f4e1828476a89ab1d86f",
+          "origin": "Unity-render"
+        },
+        "fixture-call-3-1.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/fixture-call-3-1.png",
+          "sha256": "b8286c87d236e1f5824ae57c92bd0e91a0a71a7121277ddcb5058e835e8c50dd",
+          "origin": "Unity-render"
+        },
+        "fixture-call-3-2.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/fixture-call-3-2.png",
+          "sha256": "55a71bf8ee38a7ac6920cd7511602ea1049cab9cb5640bd8c0fa21c7a264d164",
+          "origin": "Unity-render"
+        },
+        "fixture-call-3-3.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/fixture-call-3-3.png",
+          "sha256": "e66b9549df0df003eccc936cdf47052683d17b253d84f45ae5744e85a911ca61",
+          "origin": "Unity-render"
+        },
+        "fixture-call-3-4.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/fixture-call-3-4.png",
+          "sha256": "3f2b630b16e564e07e22bd2bbeda67a873668afa0185a20c16ea97106ef1e13b",
+          "origin": "Unity-render"
+        },
+        "fixture-call-3-5.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/fixture-call-3-5.png",
+          "sha256": "d5518f2cb8b00f3db4bbf52f2652ced1a9e8b9d2e70271ea625113b9ee5b3060",
+          "origin": "Unity-render"
+        },
+        "fixture-faucet.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/fixture-faucet.png",
+          "sha256": "0a5a035dbe6aa4dea5309a7c565599400264c98f95e6f1b79a65c5c2d5365b72",
+          "origin": "Unity-render"
+        },
+        "fixture-sink.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/fixture-sink.png",
+          "sha256": "fb53f6faf617a677c80f3077395d4e8fff90664d61746617c71db153d4555da3",
+          "origin": "Unity-render"
+        },
+        "fixture-switch.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/fixture-switch.png",
+          "sha256": "47d2d25fb90d99c1a3fe2f5473249088516763a5c90d11d8962a920e96fba05f",
+          "origin": "Unity-render"
+        },
+        "fixture-toilet.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/fixture-toilet.png",
+          "sha256": "ffaa1e57802a85013d4fda864acc3eb62339b50c553b1465cfbd21b679ebc8f3",
+          "origin": "Unity-render"
+        },
+        "landscape-de-section-0.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/landscape-de-section-0.png",
+          "sha256": "68e41a2c572c8b584741fb3fe89ba0a8b950ffceb8027d04ab7271f95af89ec7",
+          "origin": "Unity-render"
+        },
+        "landscape-de-section-6.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/landscape-de-section-6.png",
+          "sha256": "fefa47a06710c9b096aea64f73fb80a8c2adaba3cc4a17a5e855578786041599",
+          "origin": "Unity-render"
+        },
+        "landscape-de-section-9.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/landscape-de-section-9.png",
+          "sha256": "15c29061d65467984c13674e06dd8768a1761495517a81702201246c286c29e4",
+          "origin": "Unity-render"
+        },
+        "landscape-en-section-0.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/landscape-en-section-0.png",
+          "sha256": "2fa30975f0ace5036bbcadf829bed1905a2073f8f7d3dd61fb7c1da5f644a796",
+          "origin": "Unity-render"
+        },
+        "landscape-en-section-6.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/landscape-en-section-6.png",
+          "sha256": "d0da2d6e2744809869bf58b3abbf302e4f4d89d70106c9d590e790643c2d5bcb",
+          "origin": "Unity-render"
+        },
+        "landscape-en-section-9.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/landscape-en-section-9.png",
+          "sha256": "f0fc6223f496b576e781322a5ca3fc918d9782ad7e28657fcbc62ee1ec5feab8",
+          "origin": "Unity-render"
+        },
+        "landscape-home.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/landscape-home.png",
+          "sha256": "203bc90e710fd3fc6f9a94f13ee4ca0eeedfb1a222e7a299e5e4d9225af1e0e3",
+          "origin": "Unity-render"
+        },
+        "landscape-tablet.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/landscape-tablet.png",
+          "sha256": "2fa30975f0ace5036bbcadf829bed1905a2073f8f7d3dd61fb7c1da5f644a796",
+          "origin": "Unity-render"
+        },
+        "portrait-de-section-0.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/portrait-de-section-0.png",
+          "sha256": "ae8489c641fd8c1178b4595e78b1b5aab019ca7bbd6329518428ebd4f1901443",
+          "origin": "Unity-render"
+        },
+        "portrait-de-section-6.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/portrait-de-section-6.png",
+          "sha256": "82d7899c0dd37a4db214ce2e502ad264b9b7ad3cb816e7c09a689146c4652688",
+          "origin": "Unity-render"
+        },
+        "portrait-de-section-9.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/portrait-de-section-9.png",
+          "sha256": "7a57a9a0330bd7edfe267b533ea55816b23569dcae444bb685e1c4892d678184",
+          "origin": "Unity-render"
+        },
+        "portrait-en-section-0.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/portrait-en-section-0.png",
+          "sha256": "d1328ba089a97e03e2c5956ee5d085229fa55ba6483c54142a3d13e9ac46d3db",
+          "origin": "Unity-render"
+        },
+        "portrait-en-section-6.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/portrait-en-section-6.png",
+          "sha256": "5bbad6d9213a89d985999697c9c2beb50030c09341ef85a6cdfec7254f07a303",
+          "origin": "Unity-render"
+        },
+        "portrait-en-section-9.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/portrait-en-section-9.png",
+          "sha256": "64a905dcacfed840b382a047055f222a857abed192300250adc3c98ee9bdb620",
+          "origin": "Unity-render"
+        },
+        "reserved-pane.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/reserved-pane.png",
+          "sha256": "b267ad1079362df5f3fc5bbf5d4d12eeb55f59a869d9d982d52ef5d49c764972",
+          "origin": "Unity-render"
+        },
+        "showcase-dashboard-entry.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/showcase-dashboard-entry.png",
+          "sha256": "7b6f86e30dc90d9b51ed2b441931460884f18b71c31abc562af4eaf9bd72e22d",
+          "origin": "Unity-render"
+        },
+        "showcase-de-0.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/showcase-de-0.png",
+          "sha256": "77e8693d133d08f73892bca32cf3add7ba73c38d34da5f7ec247f6bc06c90ca6",
+          "origin": "Unity-render"
+        },
+        "showcase-de-1.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/showcase-de-1.png",
+          "sha256": "6fcaa463b4c589cc499aa585beb7f5a7e4f1ff4f0219bd321313b675e20980ee",
+          "origin": "Unity-render"
+        },
+        "showcase-de-2.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/showcase-de-2.png",
+          "sha256": "7736ed27ce293a4dfc53b2dc7cdd5af7d7fda356a13c7f9694fd7855e6f82d3b",
+          "origin": "Unity-render"
+        },
+        "showcase-de-3.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/showcase-de-3.png",
+          "sha256": "04f4a16ad636432c8b1647949c7868b9d3d9ce63bf517ad2c73ff814a55b0e9a",
+          "origin": "Unity-render"
+        },
+        "showcase-de-4.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/showcase-de-4.png",
+          "sha256": "056979a35756d92ad4a3269ea209192b1f67dfb3fdca7622531555505b48d44d",
+          "origin": "Unity-render"
+        },
+        "showcase-de-5.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/showcase-de-5.png",
+          "sha256": "4b323227359ca60020419f6b24f0d5f58cea4f7cdd591d140e10d20fed50ab75",
+          "origin": "Unity-render"
+        },
+        "showcase-de-6.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/showcase-de-6.png",
+          "sha256": "8c8b473eb5fffcd738df7f1cf773372103a6f5a20afa3d6ac001eb9e77125547",
+          "origin": "Unity-render"
+        },
+        "showcase-de-7.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/showcase-de-7.png",
+          "sha256": "e94a402ce354e2d9f8a56e4d1ddcb47576fc6b4a0c098ff9de3dff81984697c7",
+          "origin": "Unity-render"
+        },
+        "showcase-de-dashboard-sections.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/showcase-de-dashboard-sections.png",
+          "sha256": "85a17ff6fb7f1cbdc8df9a1e2bd7f7be7101d076559b21d6c9b0b96816d9ad6d",
+          "origin": "Unity-render"
+        },
+        "showcase-de-dashboard.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/showcase-de-dashboard.png",
+          "sha256": "7b6f86e30dc90d9b51ed2b441931460884f18b71c31abc562af4eaf9bd72e22d",
+          "origin": "Unity-render"
+        },
+        "showcase-driving-guide.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/showcase-driving-guide.png",
+          "sha256": "d8baa6abee8c98b2993cd2d6d58793607324b4791a622a955d50585fe6d34bb0",
+          "origin": "Unity-render"
+        },
+        "showcase-driving-service.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/showcase-driving-service.png",
+          "sha256": "c86f6bcc2b2c1180ee36fd463c290e6eccd405552a29eaeb1d739f6521504761",
+          "origin": "Unity-render"
+        },
+        "showcase-en-0.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/showcase-en-0.png",
+          "sha256": "eb06ce4399049dc3ad83446275d6016e9a134a29eeb20442a0789e2dc5623bd1",
+          "origin": "Unity-render"
+        },
+        "showcase-en-1.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/showcase-en-1.png",
+          "sha256": "308a2f30d1366f5a0468290cc99fbb80fd037f5a924a3f70e2bff66a5016bf18",
+          "origin": "Unity-render"
+        },
+        "showcase-en-2.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/showcase-en-2.png",
+          "sha256": "df7f9353240643b04db27fba40eaf8b0b4f744f5fea1e535ac97bbf75b7ae66c",
+          "origin": "Unity-render"
+        },
+        "showcase-en-3.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/showcase-en-3.png",
+          "sha256": "bc0775c53a81352239d00e11c80d93cb8d691df2343ea2a279cdefe721acad5e",
+          "origin": "Unity-render"
+        },
+        "showcase-en-4.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/showcase-en-4.png",
+          "sha256": "ed8e1912003ea67de8d7bc77298d828b69d35874e0d522999812bbc105bc37e1",
+          "origin": "Unity-render"
+        },
+        "showcase-en-5.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/showcase-en-5.png",
+          "sha256": "3c707a6db03482385ed66df485dee33a0253d0e29ba8ebf18f799f78157bcf4b",
+          "origin": "Unity-render"
+        },
+        "showcase-en-6.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/showcase-en-6.png",
+          "sha256": "b4ecc97ed3b5fa1ff4eab61d1efbf5a78f2a28adbf2464d021f307ce75d77595",
+          "origin": "Unity-render"
+        },
+        "showcase-en-7.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/showcase-en-7.png",
+          "sha256": "e17f8332b14a7a9b195fb84bc2451a8ad8a7b6174d8bb73f2a4d4729fba4e67f",
+          "origin": "Unity-render"
+        },
+        "showcase-en-dashboard-sections.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/showcase-en-dashboard-sections.png",
+          "sha256": "1300114052052a0e96ea0b620e49cbafaba099ed59b7f7712e80b126a7b7c7a4",
+          "origin": "Unity-render"
+        },
+        "showcase-en-dashboard.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/showcase-en-dashboard.png",
+          "sha256": "9c65998c7875ab323e6f8de7a267c487be5cce96617adf0b518fb47c71846a09",
+          "origin": "Unity-render"
+        },
+        "showcase-guide-replay-entry.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/showcase-guide-replay-entry.png",
+          "sha256": "90ac16c617eca96124b67f9fcf0b5f2c88847b4385a7dfa40ac3ddf3bc865440",
+          "origin": "Unity-render"
+        },
+        "van-front-three-quarter.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/van-front-three-quarter.png",
+          "sha256": "c970ecc9137736ccc483c19703fe4c6bdc5eb9c4f2163d6b7cf99bc99f49be10",
+          "origin": "Unity-render"
+        },
+        "van-rear-three-quarter.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/van-rear-three-quarter.png",
+          "sha256": "bfad19271fb4cddc1fd161b6000f2a096a0afe875e4f808528069d8b48eba679",
+          "origin": "Unity-render"
+        },
+        "van-rear.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/van-rear.png",
+          "sha256": "aca75163555cdf319899efe2e6cda17fe454c22e5190dc4f1c6c6bb449840de2",
+          "origin": "Unity-render"
+        },
+        "van-side.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/van-side.png",
+          "sha256": "54197ca5da76ee94214db94a39a49b09d63be13f905f4855d87d8bf98a3122ed",
+          "origin": "Unity-render"
+        },
+        "workshop-native.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoPresentation/workshop-native.png",
+          "sha256": "4f06e9481d1428c827ef1d508ba9954cebb02af8213b93c04b4f167bf2518acb",
+          "origin": "Unity-render"
+        }
+      }
+    },
+    "CargoFull": {
+      "checks": 1377,
+      "passed": true,
+      "processExitCode": 0,
+      "passFile": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoFull/PASS.txt",
+        "sha256": "c863575bd616b2a7b2287886a6e8ca8bd1af6e0e31f2d02097f50b0bf4c56f0e",
+        "origin": "native-Mac-result"
+      },
+      "provenance": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoFull/PROVENANCE.json",
+        "sha256": "a782b5494ac11689d5ca72358edb7284c47ce3c54ab021482e95ed1f1512636d",
+        "origin": "native-source-binding"
+      },
+      "log": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoFull.log",
+        "sha256": "42fb501b231cba262826ef6ed8e6d85651f4b343323e00bfd7b0ef8ab31057b1",
+        "origin": "native-Mac-log"
+      },
+      "images": {
+        "arrival-address-0.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoFull/arrival-address-0.png",
+          "sha256": "6c4ae6b18fa910632eba6d7123395a883eedc38b3f14dd342ed73bf834314587",
+          "origin": "Unity-render"
+        },
+        "arrival-address-1.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoFull/arrival-address-1.png",
+          "sha256": "94f1e7ebe216b260cc5c4551726a82971413a991a423150451bd7082e2fc9c79",
+          "origin": "Unity-render"
+        },
+        "arrival-address-2.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoFull/arrival-address-2.png",
+          "sha256": "efa4ae0602d900ecb6c9db58c452f81f65c948b1806d72daddf2127532bcc7c9",
+          "origin": "Unity-render"
+        },
+        "arrival-address-3.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoFull/arrival-address-3.png",
+          "sha256": "94ee713c107db66743bf014b91f1ce8a71fa37540fa8557bc2815e6ed2c0087b",
+          "origin": "Unity-render"
+        },
+        "finished.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoFull/finished.png",
+          "sha256": "8777b41d15c8ff89864bd8f2b88f829c6742798f0346aaaf16a03e78f408d317",
+          "origin": "Unity-render"
+        },
+        "home.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoFull/home.png",
+          "sha256": "11775d0eaddc0b2c28c0a4069202f08e294abfde6c0e8754fbf967dd807d3038",
+          "origin": "Unity-render"
+        },
+        "jobs-bottom.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoFull/jobs-bottom.png",
+          "sha256": "55ba01317cd1923397c2f1e362f12cd5991e5f88e01ba278ae5af376b95c51cf",
+          "origin": "Unity-render"
+        },
+        "landscape-de-section-0.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoFull/landscape-de-section-0.png",
+          "sha256": "8e1e6843b5215330df4145c6785956ffd580a48368144acd30414dd568478d5a",
+          "origin": "Unity-render"
+        },
+        "landscape-de-section-6.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoFull/landscape-de-section-6.png",
+          "sha256": "17a0396bd7e914ad422dde6e33108c05a53a2c52269692d30d15a271547b3f66",
+          "origin": "Unity-render"
+        },
+        "landscape-de-section-9.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoFull/landscape-de-section-9.png",
+          "sha256": "4004233dd17a6475abfddc0caa89b9ab62d6f1430c80acfa1987027955771472",
+          "origin": "Unity-render"
+        },
+        "landscape-en-section-0.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoFull/landscape-en-section-0.png",
+          "sha256": "379910f584bdd7da4387d46c024f76d97ad5cf15a326374cacbe932c2da01aa5",
+          "origin": "Unity-render"
+        },
+        "landscape-en-section-6.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoFull/landscape-en-section-6.png",
+          "sha256": "9399563e3c2db94ce3cc7cd2ab32a7c2f9cdb53de067e63087a52a62a6a9df01",
+          "origin": "Unity-render"
+        },
+        "landscape-en-section-9.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoFull/landscape-en-section-9.png",
+          "sha256": "c553e23a2a133e07d8e996cf73fab27f515f7600a5ecde23a0c632c30a7843c0",
+          "origin": "Unity-render"
+        },
+        "landscape-home.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoFull/landscape-home.png",
+          "sha256": "e4ab2c2bb7378a90fc2ed283cd6ff98af4127e3b76e6246ea409d75a9b05f4ad",
+          "origin": "Unity-render"
+        },
+        "landscape-tablet.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoFull/landscape-tablet.png",
+          "sha256": "8e1e6843b5215330df4145c6785956ffd580a48368144acd30414dd568478d5a",
+          "origin": "Unity-render"
+        },
+        "portrait-de-section-0.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoFull/portrait-de-section-0.png",
+          "sha256": "6ee42b33c3f7c46994803540d842101fb16746873d5bbcb835e4c96cf3ce4d06",
+          "origin": "Unity-render"
+        },
+        "portrait-de-section-6.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoFull/portrait-de-section-6.png",
+          "sha256": "f8e8b6c348197f6d01c3b75e5e16b595cbb482e0e44a21e407e0dfb819cb0e56",
+          "origin": "Unity-render"
+        },
+        "portrait-de-section-9.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoFull/portrait-de-section-9.png",
+          "sha256": "967e9e0218f323e5e57babe30da540d724710927597e4a22b17c86a5c8c9e592",
+          "origin": "Unity-render"
+        },
+        "portrait-en-section-0.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoFull/portrait-en-section-0.png",
+          "sha256": "cf840e6428d6b9a5e458f9e110db1ac069fa30edf91c01e88c92ad3adc80ac67",
+          "origin": "Unity-render"
+        },
+        "portrait-en-section-6.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoFull/portrait-en-section-6.png",
+          "sha256": "283908140dac56049c19c537e7a8eaa02b61401221d1468a8576f8ebe45c5fbd",
+          "origin": "Unity-render"
+        },
+        "portrait-en-section-9.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoFull/portrait-en-section-9.png",
+          "sha256": "ecda7f7ce60b8eb9edb965f293657012b60a43a954f6e274f88b7439cd36712e",
+          "origin": "Unity-render"
+        },
+        "repair-call-2-0-stage0.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoFull/repair-call-2-0-stage0.png",
+          "sha256": "113a55262e58a57e35ffba9993cbf88e851363002d65748f7a650ac3f6d43e84",
+          "origin": "Unity-render"
+        },
+        "repair-call-2-0-stage1.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoFull/repair-call-2-0-stage1.png",
+          "sha256": "97197d64c9c143695822ecdee4bebc4d1d76c8f858d2bcb88546d9c9b0882292",
+          "origin": "Unity-render"
+        },
+        "repair-call-2-0-stage2.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoFull/repair-call-2-0-stage2.png",
+          "sha256": "c51b079a06901b2b1640f88362f2eed312515b89e7c0b0842df982a53d4f273f",
+          "origin": "Unity-render"
+        },
+        "repair-call-3-0-stage0.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoFull/repair-call-3-0-stage0.png",
+          "sha256": "8dabffd0a77ba08dc599da43ca92cfcfb8af1cb2cb22268ce5e309ff327b1baf",
+          "origin": "Unity-render"
+        },
+        "repair-call-3-0-stage1.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoFull/repair-call-3-0-stage1.png",
+          "sha256": "df04c19b1c9a22ae32991f85098e63543e361dc2e3ff3bd5f27e41f7700b95c3",
+          "origin": "Unity-render"
+        },
+        "repair-call-3-0-stage2.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoFull/repair-call-3-0-stage2.png",
+          "sha256": "4188814f643864b725525d1762bbd507f60276d12c261b35d8086b0f3ed0c3b1",
+          "origin": "Unity-render"
+        },
+        "repair-faucet-stage0.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoFull/repair-faucet-stage0.png",
+          "sha256": "bbcfe1cf99503731754afd82d16363a8b4741c7aae9fa2a83f50f88e08b4c14b",
+          "origin": "Unity-render"
+        },
+        "repair-faucet-stage1.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoFull/repair-faucet-stage1.png",
+          "sha256": "fc59bfb333760a9d861f88171d873f0196b79d0cedcf2919b45d2ccd853264d0",
+          "origin": "Unity-render"
+        },
+        "repair-faucet-stage2.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoFull/repair-faucet-stage2.png",
+          "sha256": "3a8b4e7965d65230ef3acfde3109fb7af218be33dd29c897a1592437d3268ba1",
+          "origin": "Unity-render"
+        },
+        "repair-inspect-category-0.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoFull/repair-inspect-category-0.png",
+          "sha256": "bbcfe1cf99503731754afd82d16363a8b4741c7aae9fa2a83f50f88e08b4c14b",
+          "origin": "Unity-render"
+        },
+        "repair-inspect-category-1.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoFull/repair-inspect-category-1.png",
+          "sha256": "ed266a7191d7f604e41a7e224652c4b5917bd749a8346c0ec2fd6b9908a259af",
+          "origin": "Unity-render"
+        },
+        "repair-inspect-category-2.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoFull/repair-inspect-category-2.png",
+          "sha256": "113a55262e58a57e35ffba9993cbf88e851363002d65748f7a650ac3f6d43e84",
+          "origin": "Unity-render"
+        },
+        "repair-inspect-category-3.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoFull/repair-inspect-category-3.png",
+          "sha256": "8dabffd0a77ba08dc599da43ca92cfcfb8af1cb2cb22268ce5e309ff327b1baf",
+          "origin": "Unity-render"
+        },
+        "repair-paid-result-0.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoFull/repair-paid-result-0.png",
+          "sha256": "a94229d2671a6e13445ee55d53ba7ca2e94df4ecbb45235a30445f92c81306ba",
+          "origin": "Unity-render"
+        },
+        "repair-paid-result-1.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoFull/repair-paid-result-1.png",
+          "sha256": "5838a1f9d8bb61d9a8616d8ae915d388b6543823fdd3daa44ab17110a443fc38",
+          "origin": "Unity-render"
+        },
+        "repair-paid-result-2.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoFull/repair-paid-result-2.png",
+          "sha256": "624c9ed971d30b1239dade4ceacfc2cffb0f5b9668f5a73f3a13b4a389607a3d",
+          "origin": "Unity-render"
+        },
+        "repair-paid-result-3.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoFull/repair-paid-result-3.png",
+          "sha256": "07cf2fa0520f261cb2e6920b27b5496153180ba9963ec4777b71900dfd3ed06c",
+          "origin": "Unity-render"
+        },
+        "repair-switch-stage0.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoFull/repair-switch-stage0.png",
+          "sha256": "ed266a7191d7f604e41a7e224652c4b5917bd749a8346c0ec2fd6b9908a259af",
+          "origin": "Unity-render"
+        },
+        "repair-switch-stage1.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoFull/repair-switch-stage1.png",
+          "sha256": "bd30ce2113c326ac0f6859075711af1399bbd3c11a117ae4942a70d07b35e7b7",
+          "origin": "Unity-render"
+        },
+        "repair-switch-stage2.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoFull/repair-switch-stage2.png",
+          "sha256": "76a1d6ff78e6b27046ff42f1c8a621a964e29bf18809874fe49c480c152ae22d",
+          "origin": "Unity-render"
+        },
+        "reserved-pane.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoFull/reserved-pane.png",
+          "sha256": "9a82fb1b4823d93eb994278bab56329cef53d6032f06dda9d5f467194acfdd75",
+          "origin": "Unity-render"
+        },
+        "tablet-de-0.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoFull/tablet-de-0.png",
+          "sha256": "19b431b5a03bbc237269514aede254b862cd037bf0db6a3c14724e7c37a205a3",
+          "origin": "Unity-render"
+        },
+        "tablet-de-1.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoFull/tablet-de-1.png",
+          "sha256": "6fcaa463b4c589cc499aa585beb7f5a7e4f1ff4f0219bd321313b675e20980ee",
+          "origin": "Unity-render"
+        },
+        "tablet-de-2.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoFull/tablet-de-2.png",
+          "sha256": "7736ed27ce293a4dfc53b2dc7cdd5af7d7fda356a13c7f9694fd7855e6f82d3b",
+          "origin": "Unity-render"
+        },
+        "tablet-de-3.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoFull/tablet-de-3.png",
+          "sha256": "04f4a16ad636432c8b1647949c7868b9d3d9ce63bf517ad2c73ff814a55b0e9a",
+          "origin": "Unity-render"
+        },
+        "tablet-de-4.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoFull/tablet-de-4.png",
+          "sha256": "056979a35756d92ad4a3269ea209192b1f67dfb3fdca7622531555505b48d44d",
+          "origin": "Unity-render"
+        },
+        "tablet-de-5.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoFull/tablet-de-5.png",
+          "sha256": "4b323227359ca60020419f6b24f0d5f58cea4f7cdd591d140e10d20fed50ab75",
+          "origin": "Unity-render"
+        },
+        "tablet-de-6.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoFull/tablet-de-6.png",
+          "sha256": "8c8b473eb5fffcd738df7f1cf773372103a6f5a20afa3d6ac001eb9e77125547",
+          "origin": "Unity-render"
+        },
+        "tablet-de-7.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoFull/tablet-de-7.png",
+          "sha256": "c010840affa434a6eb74c556c48f11062df9d329080625c04809eb26698a40a9",
+          "origin": "Unity-render"
+        },
+        "tablet-en-0.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoFull/tablet-en-0.png",
+          "sha256": "62d9f9b0af70b26424b8cda7c06f66c44a52a0eaca5f86a7332a49535258815b",
+          "origin": "Unity-render"
+        },
+        "tablet-en-1.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoFull/tablet-en-1.png",
+          "sha256": "308a2f30d1366f5a0468290cc99fbb80fd037f5a924a3f70e2bff66a5016bf18",
+          "origin": "Unity-render"
+        },
+        "tablet-en-2.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoFull/tablet-en-2.png",
+          "sha256": "df7f9353240643b04db27fba40eaf8b0b4f744f5fea1e535ac97bbf75b7ae66c",
+          "origin": "Unity-render"
+        },
+        "tablet-en-3.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoFull/tablet-en-3.png",
+          "sha256": "bc0775c53a81352239d00e11c80d93cb8d691df2343ea2a279cdefe721acad5e",
+          "origin": "Unity-render"
+        },
+        "tablet-en-4.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoFull/tablet-en-4.png",
+          "sha256": "ed8e1912003ea67de8d7bc77298d828b69d35874e0d522999812bbc105bc37e1",
+          "origin": "Unity-render"
+        },
+        "tablet-en-5.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoFull/tablet-en-5.png",
+          "sha256": "3c707a6db03482385ed66df485dee33a0253d0e29ba8ebf18f799f78157bcf4b",
+          "origin": "Unity-render"
+        },
+        "tablet-en-6.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoFull/tablet-en-6.png",
+          "sha256": "b4ecc97ed3b5fa1ff4eab61d1efbf5a78f2a28adbf2464d021f307ce75d77595",
+          "origin": "Unity-render"
+        },
+        "tablet-en-7.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoFull/tablet-en-7.png",
+          "sha256": "4e3a1a4f57c3a21b7aeb8f59398916f5a8170b3e3257310c3daae6cb315362e2",
+          "origin": "Unity-render"
+        }
+      }
+    },
+    "CargoReload": {
+      "checks": 7,
+      "passed": true,
+      "processExitCode": 0,
+      "passFile": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoReload/PASS.txt",
+        "sha256": "38213edc12e5ec96959592e87d8dbbd73398b1a84ce00fa19c8bdea92ba590b6",
+        "origin": "native-Mac-result"
+      },
+      "provenance": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoReload/PROVENANCE.json",
+        "sha256": "00dc69ee0b4c743c3786fa030119ab4bfed33cd3fd0060d5ad11bb0def537e75",
+        "origin": "native-source-binding"
+      },
+      "log": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoReload.log",
+        "sha256": "16406a9a87babbf0b8f730e639fe491a7251fce303b230fc62f70c090b3c9dc7",
+        "origin": "native-Mac-log"
+      },
+      "images": {
+        "reload.png": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/CargoReload/reload.png",
+          "sha256": "6af6392b6af462ea6b159a4bc39e68b3726e54c088e00193a5c43c1e3a94b101",
+          "origin": "Unity-render"
+        }
+      }
+    }
+  },
+  "modelBudget": {
+    "uniqueVertices": 66136,
+    "activeRenderers": 26,
+    "materials": 9,
+    "ceilingsUnchanged": "70000 vertices /32 renderers /9 materials",
+    "workshopVertices": 140405,
+    "workshopRenderers": 29,
+    "workshopMaterials": 21
+  },
+  "regressionEvidence": {
+    "oldFlatRear": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/van-curvature-red.log",
+      "sha256": "f88a34d903207fa0149b2bb281264353ada774a6dd3d562e2e30470d269783b2",
+      "origin": "native-engine-RED"
+    },
+    "inwardCabAndCoplanarPaint": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/van-exterior-red.log",
+      "sha256": "2caf552ad0cff95a801456fe0c60e36357cc2702c65dde0981bc523912615aa9",
+      "origin": "native-engine-RED"
+    },
+    "green": "Final native aggregate reports214compound rear points,1440outward cab triangles,9separated paint rays,57unoccluded windshield rays and18closed-cargo skin rays.",
+    "history": "Initial old-panel reference, budget and shoulder-return candidates failed and are excluded from final acceptance. Removed rear panes retained an X-shaped reflection artifact despite rim/shadow hypotheses; exact cause was never confirmed, dense source sampling ruled out body/seal overlap, and the ineffective shadow override was reverted. Final solid cargo doors follow the approvedConcept, not a claim to have diagnosed the old shader artifact.",
+    "supersededCandidateSources": [
+      "c4a27f1a79efdce5301cfa5d6b83a039daf465cd57036d311da2a60369bcc37b",
+      "635189613dacdc58bfee85f3c29aa52648705da8c0c5ac3ce56033c5092a58df",
+      "2c18de677cce2223e0a6ff58f673afd7fc6e1d2f42bc741de6c6a2bf1f1c5cad"
+    ]
+  },
+  "independentReview": {
+    "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/source-review.json",
+    "sha256": "a752010e10a852173c49bc9e766ff9890f9032f8fffa1ed19d9bd929953bf815",
+    "origin": "read-only-source-review"
+  },
+  "concept": {
+    "path": "/Volumes/SSK SSD/Kamilunavo/Artifacts/KamilunavoDelivery-20261009/concepts-20261010/repair-empire-3-ansichten.png",
+    "sha256": "0571d35c40de036f83f86f3b423c234f321586abcfec97d9d259710d816723f1",
+    "origin": "approved-concept"
+  },
+  "comparisons": [
+    {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/neuer-transporter-unity.png",
+      "sha256": "690baf4d8140d3894c545707cf289108fadde3180c5a039bff8c52a0d59cdcf7",
+      "origin": "proportional-contact-sheet-of-actual-native-model-views"
+    },
+    {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/werkstatt-konzept-vergleich.png",
+      "sha256": "67a5efab0d0926347c780b62d280bca3be0c3d84521f52984e3ee0970a08d7c3",
+      "origin": "labeled-concept-and-native-UI-comparison"
+    },
+    {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairVan-20261015/transporter-konzept-vergleich.png",
+      "sha256": "a58698aac44fbbfbfb86078bd21d0926514d0ff161b5906fddce9dbf18df03fd",
+      "origin": "labeled-concept-and-native-driving-comparison"
+    }
+  ],
+  "rootVisualReview": {
+    "inspected": "All4actual production van views, normal driving view, DE/EN portrait and landscape workshop menus, reserved pane, fixture gallery and actual repair-stage images.",
+    "findings": "Closed rounded rear cargo body/branding, outward cab panes and smooth paint boundaries present in actual frames. Panoramic menu art shows complete van/sign; real wallet remains separate. Actual fixtures retain their3D style.",
+    "importantDistinction": "The dashboard is an actual Unity UI capture containing explicitly decorative generated artwork. The illustration does not establish3D workshop or driving quality. Actual driving van/city/repair photos are native3D renders.",
+    "remaining": "Town composition/detail/lighting and full rendering finish still differ substantially from the approvedConcept. No numerical90percent or photorealistic equivalence claim."
+  },
+  "limits": [
+    "macOS native Metal proof only; not iOS hardware touch/FPS/thermal acceptance.",
+    "No new paid transaction, live ad playback or native icon-variant acceptance.",
+    "Whole-game graphical release gate remains FAILED and store-icon review pending. No Repair build-number increment, upload or submission.",
+    "Historical user-deleted docs/concepts/PRIMARY-CONCEPT.png remains unstaged."
+  ]
+}

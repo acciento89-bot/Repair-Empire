@@ -17,8 +17,8 @@ public static class RepairCityVisualValidation
   var van=new GameObject("HeroVanArtFixture",typeof(VanArt));try{
    van.GetComponent<VanArt>().Build();var shell=van.transform.Find("Bevelled service body").GetComponent<MeshFilter>().sharedMesh;
    Check(shell.vertexCount>=200,"hero van has densely sampled rounded roof/body cross sections");
-   float cargoRoof=0,hoodRoof=0;foreach(var point in shell.vertices){if(Mathf.Abs(point.z+1.72f)<.001f)cargoRoof=Mathf.Max(cargoRoof,point.y);if(Mathf.Abs(point.z-1.92f)<.001f)hoodRoof=Mathf.Max(hoodRoof,point.y);}
-   Check(cargoRoof>2.35f&&hoodRoof<1.25f,"cargo roof flows into a visibly lower hood");
+   var skin=van.transform.Find("Bevelled service body").GetComponent<MeshFilter>();float cargoRoof=5-RepairVanGlassValidation.Hit(skin,new Ray(new Vector3(0,5,-1.72f),Vector3.down)),hoodRoof=5-RepairVanGlassValidation.Hit(skin,new Ray(new Vector3(0,5,1.92f),Vector3.down));
+   Check(float.IsFinite(cargoRoof)&&float.IsFinite(hoodRoof)&&cargoRoof>2.35f&&hoodRoof>.9f&&cargoRoof-hoodRoof>1,"actual mesh rays show the cargo roof flowing into a visibly lower hood");
    int originalFilters=van.GetComponentsInChildren<MeshFilter>().Length;van.GetComponent<VanArt>().Build();Check(originalFilters==van.GetComponentsInChildren<MeshFilter>().Length,"repeated Build does not duplicate geometry or resources");
    var ownedMaterials=new HashSet<Material>();foreach(var renderer in van.GetComponentsInChildren<MeshRenderer>())if(renderer.sharedMaterial!=null&&renderer.sharedMaterial.name.StartsWith("Van",StringComparison.Ordinal))ownedMaterials.Add(renderer.sharedMaterial);
    Check(van.GetComponentsInChildren<Collider>(true).Length==0,"van art never changes vehicle collision");

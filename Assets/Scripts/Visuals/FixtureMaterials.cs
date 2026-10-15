@@ -36,7 +36,7 @@ namespace Kamilunavo.RepairEmpire.Visuals
     FixtureFinish.Navy=>new(.035f,.06f,.08f),FixtureFinish.Orange=>new(.96f,.31f,.055f),FixtureFinish.Blue=>new(.13f,.25f,.30f),FixtureFinish.Green=>new(.22f,.47f,.29f),FixtureFinish.Dirt=>new(.34f,.29f,.22f),
     FixtureFinish.Stone=>Color.white,FixtureFinish.Grout=>new(.62f,.58f,.50f),FixtureFinish.Plaster=>new(.80f,.79f,.72f),FixtureFinish.Wood=>new(.48f,.34f,.20f),FixtureFinish.Concrete=>new(.52f,.54f,.51f),
     FixtureFinish.Cloth=>Color.white,FixtureFinish.Lamp=>new(1,.90f,.68f),_=>new(.37f,.48f,.51f)};
-   if(finish==FixtureFinish.Chrome||finish==FixtureFinish.Steel||finish==FixtureFinish.Copper||finish==FixtureFinish.Brass){metal=finish==FixtureFinish.Chrome?1f:.82f;gloss=finish==FixtureFinish.Chrome?.95f:finish==FixtureFinish.Steel?.61f:.67f;mat.mainTexture=Texture(1);}
+   if(finish==FixtureFinish.Chrome||finish==FixtureFinish.Steel||finish==FixtureFinish.Copper||finish==FixtureFinish.Brass){metal=finish==FixtureFinish.Chrome?1f:.82f;gloss=finish==FixtureFinish.Chrome?.90f:finish==FixtureFinish.Steel?.61f:.67f;mat.mainTexture=Texture(1);}
    else if(finish==FixtureFinish.Ceramic)gloss=.73f;
    else if(finish==FixtureFinish.Stone){mat.mainTexture=Resources.Load<Texture2D>("Art/ServiceStone-v1");gloss=.34f;}
    else if(finish==FixtureFinish.Plaster||finish==FixtureFinish.Concrete){mat.mainTexture=Texture(0);gloss=.10f;}
@@ -60,7 +60,7 @@ namespace Kamilunavo.RepairEmpire.Visuals
      float strip=Panel(d,new Vector3(.64f,.10f,-.72f),.12f,.80f);
      color=Color.Lerp(color,new Color(3.1f,3.0f,2.78f),panel);
      color=Color.Lerp(color,new Color(2.25f,2.40f,2.55f),strip);
-     if(Mathf.Abs(d.y)<.09f&&d.z>.45f)color*=.42f;color.a=1;pixels[y*n+x]=color;
+     if(Mathf.Abs(d.y)<.09f&&d.z>.45f)color*=.72f;color.a=1;pixels[y*n+x]=color;
     }cube.SetPixels(pixels,(CubemapFace)face);
    }
    cube.Apply(true,true);ArtLifetime.Own(gameObject,cube);_environment=cube;return cube;
