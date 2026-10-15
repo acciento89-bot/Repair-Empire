@@ -6,8 +6,11 @@ Shader "Repair/ResidentialMasonry" {
  #pragma target 3.0
  sampler2D _MainTex;fixed4 _Color;half _Relief,_Glossiness,_Metallic;
  struct Input {float2 uv_MainTex;};
- float BrickHeight(float2 uv){float row=floor(uv.y*8),x=uv.x*4+fmod(abs(row),2)*.5;float2 f=frac(float2(x,uv.y*8));float edge=min(min(f.x,1-f.x),min(f.y,1-f.y));return smoothstep(.03,.12,edge);}
- void surf(Input i,inout SurfaceOutputStandard o){float2 uv=i.uv_MainTex;float dx=BrickHeight(uv+float2(.002,0))-BrickHeight(uv-float2(.002,0));float dy=BrickHeight(uv+float2(0,.001))-BrickHeight(uv-float2(0,.001));o.Albedo=tex2D(_MainTex,uv).rgb*_Color.rgb;o.Normal=normalize(float3(-dx*_Relief*5,-dy*_Relief*5,1));o.Metallic=_Metallic;o.Smoothness=_Glossiness;o.Occlusion=.91+.09*BrickHeight(uv);o.Alpha=1;}
+ // Desaturated limestone mortar follows the actual original texture, including
+ // its irregular brick edges, instead of a second misaligned procedural grid.
+ float HeightFromColor(float3 c){float high=max(c.r,max(c.g,c.b)),low=min(c.r,min(c.g,c.b));return smoothstep(.24,.48,(high-low)/max(high,.001));}
+ float BrickHeight(float2 uv){return HeightFromColor(tex2D(_MainTex,uv).rgb);}
+ void surf(Input i,inout SurfaceOutputStandard o){float2 uv=i.uv_MainTex;float3 color=tex2D(_MainTex,uv).rgb;float dx=BrickHeight(uv+float2(.002,0))-BrickHeight(uv-float2(.002,0));float dy=BrickHeight(uv+float2(0,.002))-BrickHeight(uv-float2(0,.002));o.Albedo=color*_Color.rgb;o.Normal=normalize(float3(-dx*_Relief*5,-dy*_Relief*5,1));o.Metallic=_Metallic;o.Smoothness=_Glossiness;o.Occlusion=.91+.09*HeightFromColor(color);o.Alpha=1;}
  ENDCG
  } Fallback "Diffuse"
 }
