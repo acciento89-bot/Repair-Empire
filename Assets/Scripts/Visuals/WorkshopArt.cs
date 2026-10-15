@@ -76,7 +76,7 @@ namespace Kamilunavo.RepairEmpire.Visuals
    foreach(float y in new[]{1.45f,2.55f,3.67f})B(root,"Window cross rail",new(-5.84f,y,-.6f),new(.09f,.08f,2.8f),s.Paper);
    B(root,"Van service rubber floor mat",new(-2,.005f,.15f),new(3.1f,.025f,5.3f),s.Rubber);
    for(int i=0;i<2;i++)B(root,"Service bay orange guide",new(-3.45f+i*2.9f,.022f,.15f),new(.055f,.008f,5.3f),s.Orange,.002f);
-   var van=new GameObject("Workshop branded service van");van.transform.SetParent(root,false);van.transform.localPosition=new(-2.1f,0,.3f);van.transform.localRotation=Quaternion.Euler(0,143,0);van.AddComponent<VanArt>().Build();
+   var van=new GameObject("Workshop branded service van");van.transform.SetParent(root,false);van.transform.localPosition=new(-2.1f,.10f,.3f);van.transform.localRotation=Quaternion.Euler(0,143,0);van.AddComponent<VanArt>().Build();
    // The photo has no animated motor; merge its static props and parked van by material.
    DistrictArtGeometry.Combine(root,false);
    return model;

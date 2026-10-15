@@ -9,72 +9,88 @@ namespace Kamilunavo.RepairEmpire.Visuals {
   public void Build()
   {
    if(built)return;built=true;
-   var white=Own("VanPearl",new(.925f,.94f,.925f));white.SetFloat("_Glossiness",.62f);white.SetFloat("_Metallic",.08f);
-   var navy=Own("VanNavy",Navy);var orange=Own("VanOrange",Orange);livery=Own("VanStyleLivery",Orange);livery.SetFloat("_Glossiness",.55f);
-   var glass=Own("VanGlass",new(.055f,.12f,.16f));glass.SetFloat("_Metallic",.30f);glass.SetFloat("_Glossiness",.90f);
-   var metal=Own("VanChrome",new(.64f,.7f,.74f));metal.SetFloat("_Metallic",.8f);metal.SetFloat("_Glossiness",.8f);
-   var tyre=Own("VanTyre",new(.025f,.030f,.033f));tyre.SetFloat("_Glossiness",.18f);tailLight=Own("VanTail",new(.54f,.025f,.018f),true);tailLight.SetFloat("_Glossiness",.75f);var headLight=Own("VanHeadlamp",new(.55f,.67f,.72f));headLight.SetFloat("_Glossiness",.86f);headLight.SetFloat("_Metallic",.30f);
-   VanCoachworkGeometry.Body(transform,white);MeshArt.BevelBox(transform,"Underbody",new(0,.26f,0),new(1.85f,.17f,4.35f),.09f,navy);VanCoachworkGeometry.Windshield(transform,glass);
+   var white=Own("VanPearl",new(.84f,.86f,.86f));white.SetFloat("_Glossiness",.54f);white.SetFloat("_Metallic",.025f);
+   var navy=Own("VanNavy",Navy);navy.SetFloat("_Glossiness",.20f);var orange=Own("VanOrange",Orange);livery=Own("VanStyleLivery",Orange);livery.SetFloat("_Glossiness",.48f);
+   var glass=Own("VanGlass",new(.065f,.105f,.145f));glass.SetFloat("_Metallic",.16f);glass.SetFloat("_Glossiness",.94f);
+   var metal=Own("VanChrome",new(.48f,.50f,.52f));metal.SetFloat("_Metallic",.74f);metal.SetFloat("_Glossiness",.48f);
+   var tyre=Own("VanTyre",new(.018f,.022f,.025f));tyre.SetFloat("_Glossiness",.12f);tailLight=Own("VanTail",new(.46f,.018f,.012f),true);tailLight.SetFloat("_Glossiness",.72f);tailLight.mainTexture=Resources.Load<Texture2D>("Art/VanRedLens-v1");
+   var headLight=Own("VanHeadlamp",new(.56f,.64f,.69f));headLight.SetFloat("_Glossiness",.91f);headLight.SetFloat("_Metallic",.20f);headLight.color=Color.white;headLight.mainTexture=Resources.Load<Texture2D>("Art/VanHeadlampOptics-v1");
+   VanCoachworkGeometry.Body(transform,white);
+   MeshArt.BevelBox(transform,"Underbody",new(0,.255f,0),new(1.52f,.13f,4.21f),.045f,navy);
+   VanCoachworkGeometry.Windshield(transform,navy,true);VanCoachworkGeometry.Windshield(transform,glass);
    foreach(int side in new[]{-1,1})
    {
-    VanCoachworkGeometry.CabGlazing(transform,side,navy,true);VanCoachworkGeometry.CabGlazing(transform,side,glass,false);
-    MeshArt.BevelBox(transform,"Sliding door rail",new(side*.997f,1.17f,-.83f),new(.010f,.018f,2.10f),.007f,metal);
-    MeshArt.Tube(transform,"Cargo door shut line",new[]{new Vector3(side*.997f,.98f,.03f),new Vector3(side*.997f,2.22f,.03f),new Vector3(side*.984f,2.30f,.03f)},.005f,navy,6);
-    MeshArt.BevelBox(transform,"Door handle",new(side*1.006f,1.25f,.20f),new(.022f,.045f,.19f),.020f,navy);
-    MeshArt.Tube(transform,"Mirror arm",new[]{new Vector3(side*.94f,1.52f,1.49f),new Vector3(side*1.11f,1.55f,1.53f)},.027f,navy,10);
-    MeshArt.BevelBox(transform,"Mirror housing",new(side*1.15f,1.61f,1.51f),new(.12f,.23f,.20f),.035f,navy);MeshArt.BevelBox(transform,"Mirror lens",new(side*1.15f,1.61f,1.402f),new(.085f,.185f,.010f),.035f,metal);
-    VanCoachworkGeometry.SideBand(transform,"Navy lower service wrap",side,.28f,.42f,navy);VanCoachworkGeometry.SideBand(transform,"Orange service band",side,.39f,1.10f,livery);
-    MeshArt.Tube(transform,"Ladder rail",new[]{new Vector3(side*.32f,2.56f,-2.0f),new Vector3(side*.32f,2.56f,.46f)},.032f,metal,12);
-    MeshArt.Tube(transform,"Roof rack curved rail",new[]{new Vector3(side*.77f,2.42f,-1.97f),new Vector3(side*.77f,2.50f,-1.93f),new Vector3(side*.77f,2.54f,-1.80f),new Vector3(side*.77f,2.54f,.45f),new Vector3(side*.77f,2.49f,.56f)},.029f,metal,12);
-    for(int i=0;i<4;i++)MeshArt.BevelBox(transform,"Ladder fastening bracket",new(side*.35f,2.585f,-1.8f+i*.66f),new(.07f,.016f,.045f),.01f,navy);
-    var emblem=new GameObject("Side service emblem").transform;emblem.SetParent(transform,false);emblem.localPosition=new(side*1.000f,1.62f,-.67f);emblem.localRotation=Quaternion.Euler(0,side>0?-90:90,0);emblem.localScale=new Vector3(1,1,.04f);Gear(emblem,.24f,orange,navy,white);
-    var lettering=new GameObject("Side brand lettering").transform;lettering.SetParent(transform,false);lettering.localPosition=new(side*1.006f,1.60f,-1.33f);lettering.localRotation=Quaternion.Euler(0,side>0?-90:90,0);Text(lettering,"REPAIR\nEMPIRE",Vector3.zero,.11f,Navy,Quaternion.identity);
-    MeshArt.BevelBox(transform,"Side step tread",new(side*1.00f,.22f,.75f),new(.15f,.065f,.82f),.025f,metal);for(int i=0;i<4;i++)MeshArt.Box(transform,"Step anti-slip groove",new(side*1.015f,.258f,.44f+i*.19f),new(.10f,.006f,.016f),navy);
-    foreach(float axle in new[]{-1.42f,1.38f})VanCoachworkGeometry.WheelArch(transform,side,axle,navy);
-    MeshArt.BevelBox(transform,"Mud flap",new(side*1.01f,.12f,-1.86f),new(.11f,.24f,.030f),.015f,navy);
+    VanCoachworkGeometry.CabGlazing(transform,side,navy,true);VanCoachworkGeometry.CabGlazing(transform,side,glass,false);VanCoachworkGeometry.PressedDoors(transform,side,navy,white);
+    var rail=new Vector3[23];for(int n=0;n<rail.Length;n++)rail[n]=VanCoachworkGeometry.SideSkinPoint(side,1.035f,Mathf.Lerp(-1.90f,-.21f,n/22f),.007f);MeshArt.Tube(transform,"Sliding door rail",rail,.007f,metal,6);
+    var handleAt=VanCoachworkGeometry.SideSkinPoint(side,1.045f,.05f,.013f);MeshArt.BevelBox(transform,"Cab door handle",handleAt,new(.017f,.028f,.14f),.010f,navy);
+    MeshArt.BevelBox(transform,"Cargo sliding handle",VanCoachworkGeometry.SideSkinPoint(side,1.045f,-.26f,.013f),new(.017f,.028f,.14f),.010f,navy);
+    MeshArt.Tube(transform,"Mirror arm",new[]{VanCoachworkGeometry.SideSkinPoint(side,1.30f,1.16f),new Vector3(side*.99f,1.32f,1.20f)},.015f,navy,8);
+    MeshArt.BevelBox(transform,"Mirror housing",new(side*1.00f,1.38f,1.18f),new(.10f,.20f,.12f),.025f,navy);MeshArt.BevelBox(transform,"Mirror lens",new(side*1.00f,1.38f,1.113f),new(.072f,.166f,.008f),.018f,metal);
+    VanCoachworkGeometry.SideBand(transform,"Navy lower service wrap",side,.24f,.38f,navy);VanCoachworkGeometry.SideBand(transform,"Orange service band",side,.36f,.96f,livery);
+    var emblem=new GameObject("Side service emblem").transform;emblem.SetParent(transform,false);emblem.localPosition=VanCoachworkGeometry.SideSkinPoint(side,1.40f,-.64f,.006f);emblem.localRotation=Quaternion.Euler(0,side>0?-90:90,0);emblem.localScale=new Vector3(1,1,.025f);Gear(emblem,.20f,orange,navy,white);VanCoachworkGeometry.FitPrintedGear(emblem,transform,side);
+    var lettering=new GameObject("Side brand lettering").transform;lettering.SetParent(transform,false);lettering.localPosition=VanCoachworkGeometry.SideSkinPoint(side,1.40f,-1.29f,.009f);lettering.localRotation=Quaternion.Euler(0,side>0?-90:90,0);Text(lettering,"REPAIR\nEMPIRE",Vector3.zero,.10f,Navy,Quaternion.identity);
+    MeshArt.BevelBox(transform,"Side step tread",new(side*.86f,.20f,.65f),new(.12f,.045f,.66f),.013f,navy);for(int i=0;i<5;i++)MeshArt.Box(transform,"Step anti-slip groove",new(side*.872f,.225f,.41f+i*.12f),new(.08f,.003f,.012f),metal);
+    foreach(float axle in new[]{-1.42f,1.38f})VanCoachworkGeometry.WheelArch(transform,side,axle,white);
+    MeshArt.BevelBox(transform,"Mud flap",new(side*.81f,.10f,-1.79f),new(.14f,.17f,.018f),.006f,navy);
+    MeshArt.Tube(transform,"Ladder rail",new[]{new Vector3(side*.26f,2.14f,-2.0f),new Vector3(side*.26f,2.14f,.40f)},.020f,metal,10);
+    for(int i=0;i<3;i++){float z=-1.70f+i*.83f;MeshArt.BevelBox(transform,"Rack mounting foot",new(side*.60f,2.035f,z),new(.10f,.06f,.10f),.012f,navy);}
    }
-   for(int i=0;i<10;i++)MeshArt.Tube(transform,"Ladder rung",new[]{new Vector3(-.32f,2.56f,-1.92f+i*.26f),new Vector3(.32f,2.56f,-1.92f+i*.26f)},.024f,metal,10);
-   for(int i=0;i<3;i++)MeshArt.BevelBox(transform,"Rack clamp",new(0,2.43f,-1.70f+i*.9f),new(1.50f,.08f,.09f),.025f,navy);
-   MeshArt.BevelBox(transform,"Roof tool case",new(.55f,2.57f,-1.11f),new(.23f,.13f,.65f),.055f,orange);MeshArt.BevelBox(transform,"Tool case lid",new(.55f,2.66f,-1.11f),new(.25f,.025f,.67f),.016f,navy);
-   var carrier=MeshArt.Lathe(transform,"Service pipe carrier",new[]{-1.16f,-1.15f,1.15f,1.16f},new[]{0f,.065f,.065f,0f},20,navy,Vector3.one);carrier.transform.localPosition=new(-.60f,2.56f,-.74f);carrier.transform.localRotation=Quaternion.Euler(90,0,0);foreach(float z in new[]{-1.90f,.42f})MeshArt.Oval(transform,"Carrier orange endcap",new(-.60f,2.56f,z),new(.135f,.135f,.025f),orange,12);
-   // Rear details are shaped on the same compound surface as the body, not raised slabs.
-   VanCoachworkGeometry.RearBand(transform,"Rear navy service wrap",.28f,.43f,navy);VanCoachworkGeometry.RearBand(transform,"Orange rear livery",.41f,1.10f,livery);
-   var seam=new Vector3[17];for(int i=0;i<seam.Length;i++){float y=Mathf.Lerp(.67f,2.23f,i/(float)(seam.Length-1));seam[i]=new Vector3(0,y,VanCoachworkGeometry.RearSkinZ(0,y)-.006f);}MeshArt.Tube(transform,"Rear split seam",seam,.006f,navy,6);
+   for(int i=0;i<10;i++)MeshArt.Tube(transform,"Ladder rung",new[]{new Vector3(-.26f,2.14f,-1.92f+i*.25f),new Vector3(.26f,2.14f,-1.92f+i*.25f)},.017f,metal,8);
+   for(int i=0;i<3;i++)MeshArt.BevelBox(transform,"Roof rack crossbar",new(0,2.08f,-1.70f+i*.83f),new(1.40f,.043f,.065f),.014f,metal);
+   MeshArt.BevelBox(transform,"Roof tool case",new(.46f,2.15f,-1.12f),new(.20f,.10f,.61f),.025f,orange);MeshArt.BevelBox(transform,"Tool case lid",new(.46f,2.21f,-1.12f),new(.21f,.018f,.62f),.008f,navy);
+   var carrier=MeshArt.Lathe(transform,"Service pipe carrier",new[]{-1.12f,-1.115f,1.115f,1.12f},new[]{0f,.047f,.047f,0f},16,navy,Vector3.one);carrier.transform.localPosition=new(-.51f,2.14f,-.74f);carrier.transform.localRotation=Quaternion.Euler(90,0,0);foreach(float z in new[]{-1.86f,.38f})MeshArt.Oval(transform,"Carrier orange endcap",new(-.51f,2.14f,z),new(.098f,.098f,.014f),orange,10);
+   VanCoachworkGeometry.RearBand(transform,"Rear navy service wrap",.24f,.38f,navy);VanCoachworkGeometry.RearBand(transform,"Orange rear livery",.36f,.96f,livery);
+   var seam=new Vector3[21];for(int i=0;i<seam.Length;i++){float y=Mathf.Lerp(.36f,1.86f,i/20f);seam[i]=new Vector3(0,y,VanCoachworkGeometry.RearSkinZ(0,y)-.004f);}MeshArt.Tube(transform,"Rear split seam",seam,.0034f,navy,6);
    foreach(int side in new[]{-1,1})
    {
-    VanCoachworkGeometry.SculptedPanel(transform,"Rear lamp housing",new Vector2(side*.865f,1.10f),new Vector2(.14f,.82f),.045f,navy,true,.021f,.025f);
-    VanCoachworkGeometry.SculptedPanel(transform,"Rear tail lamp",new Vector2(side*.865f,1.28f),new Vector2(.095f,.38f),.032f,tailLight,true,.040f,.012f);
-    VanCoachworkGeometry.SculptedPanel(transform,"Rear indicator",new Vector2(side*.865f,.98f),new Vector2(.095f,.12f),.024f,orange,true,.040f,.012f);
-    VanCoachworkGeometry.SculptedPanel(transform,"Rear reverse lamp",new Vector2(side*.865f,.80f),new Vector2(.095f,.12f),.024f,white,true,.040f,.012f);
-    foreach(float y in new[]{.91f,1.69f})VanCoachworkGeometry.SculptedPanel(transform,"Cargo door hinge",new Vector2(side*.88f,y),new Vector2(.045f,.105f),.018f,metal,true,.022f,.018f);
+    var gap=new Vector3[25];for(int i=0;i<gap.Length;i++){float y=Mathf.Lerp(.40f,1.82f,i/24f);gap[i]=new Vector3(side*.716f,y,VanCoachworkGeometry.RearSkinZ(side*.716f,y)-.004f);}MeshArt.Tube(transform,"Rear door outer seam",gap,.0025f,navy,6);
+    VanCoachworkGeometry.SculptedPanel(transform,"Rear lamp housing",new Vector2(side*.747f,.84f),new Vector2(.115f,.66f),.026f,navy,true,.010f,.012f);
+    VanCoachworkGeometry.SculptedPanel(transform,"Rear tail lamp",new Vector2(side*.747f,.98f),new Vector2(.083f,.32f),.020f,tailLight,true,.020f,.010f);
+    VanCoachworkGeometry.SculptedPanel(transform,"Rear indicator",new Vector2(side*.747f,.75f),new Vector2(.083f,.095f),.015f,orange,true,.020f,.010f);
+    VanCoachworkGeometry.SculptedPanel(transform,"Rear reverse lamp",new Vector2(side*.747f,.63f),new Vector2(.083f,.090f),.015f,white,true,.020f,.010f);
+    foreach(float y in new[]{.65f,1.42f})VanCoachworkGeometry.SculptedPanel(transform,"Cargo door hinge",new Vector2(side*.751f,y),new Vector2(.027f,.078f),.009f,metal,true,.009f,.010f);
+    MeshArt.BevelBox(transform,"Rear bumper reflector",new(side*.64f,.265f,-2.368f),new(.13f,.023f,.010f),.006f,tailLight);
    }
-   VanCoachworkGeometry.SculptedPanel(transform,"Cargo door handle",new Vector2(-.105f,1.12f),new Vector2(.18f,.040f),.022f,navy,true,.022f,.025f);
-   VanCoachworkGeometry.SculptedPanel(transform,"Roof brake lamp",new Vector2(0,2.245f),new Vector2(.34f,.035f),.018f,tailLight,true,.022f,.012f);
-   VanCoachworkGeometry.SculptedPanel(transform,"Number plate surround",new Vector2(0,.47f),new Vector2(.72f,.18f),.04f,navy,true,.022f,.018f);
-   VanCoachworkGeometry.SculptedPanel(transform,"Rear number plate",new Vector2(0,.47f),new Vector2(.65f,.135f),.024f,white,true,.037f,.012f);
-   Text(transform,"RE-1027",new(0,.48f,VanCoachworkGeometry.RearSkinZ(0,.48f)-.050f),.066f,Navy,Quaternion.identity);
-   var logo=new GameObject("Repair gear and wrench").transform;logo.SetParent(transform,false);logo.localPosition=new(-.38f,1.64f,VanCoachworkGeometry.RearSkinZ(-.38f,1.64f)-.008f);logo.localScale=new Vector3(1,1,.04f);Gear(logo,.29f,orange,navy,white);
-   Text(transform,"REPARIEREN\nVERBESSERN\nMENSCHEN\nGLÜCKLICHER\nMACHEN",new(.36f,1.65f,VanCoachworkGeometry.RearSkinZ(.36f,1.65f)-.010f),.085f,Navy,Quaternion.identity);
-   Text(transform,"KAMILUNAVO",new(0,.83f,VanCoachworkGeometry.RearSkinZ(0,.83f)-.025f),.060f,Color.white,Quaternion.identity);
+   VanCoachworkGeometry.SculptedPanel(transform,"Cargo door handle",new Vector2(.075f,.98f),new Vector2(.14f,.028f),.012f,navy,true,.011f,.012f);
+   VanCoachworkGeometry.SculptedPanel(transform,"Roof brake lamp",new Vector2(0,1.875f),new Vector2(.28f,.022f),.010f,tailLight,true,.010f,.008f);
+   VanCoachworkGeometry.SculptedPanel(transform,"Number plate surround",new Vector2(-.34f,.49f),new Vector2(.56f,.145f),.020f,navy,true,.012f,.010f);
+   VanCoachworkGeometry.SculptedPanel(transform,"Rear number plate",new Vector2(-.34f,.49f),new Vector2(.51f,.105f),.010f,white,true,.024f,.008f);
+   Text(transform,"RE-1027",new(-.34f,.49f,VanCoachworkGeometry.RearSkinZ(-.34f,.49f)-.034f),.054f,Navy,Quaternion.identity);
+   var logo=new GameObject("Repair gear and wrench").transform;logo.SetParent(transform,false);logo.localPosition=new(-.31f,1.39f,VanCoachworkGeometry.RearSkinZ(-.31f,1.39f)-.006f);logo.localScale=new Vector3(1,1,.025f);Gear(logo,.235f,orange,navy,white);VanCoachworkGeometry.FitPrintedGear(logo,transform);
+   Text(transform,"REPARIEREN\nVERBESSERN\nMENSCHEN\nGLÜCKLICHER\nMACHEN",new(.30f,1.40f,VanCoachworkGeometry.RearSkinZ(.30f,1.40f)-.008f),.069f,Navy,Quaternion.identity);
+   Text(transform,"KAMILUNAVO",new(.32f,.57f,VanCoachworkGeometry.RearSkinZ(.32f,.57f)-.028f),.039f,Color.white,Quaternion.identity);
    VanCoachworkGeometry.Bumper(transform,"Rear bumper",new(0,.26f,-2.27f),navy);VanCoachworkGeometry.Bumper(transform,"Front bumper",new(0,.26f,2.24f),navy);
-   VanCoachworkGeometry.SculptedPanel(transform,"Grille",new Vector2(0,.92f),new Vector2(1.04f,.32f),.10f,navy,false,.023f,.020f);
-   for(int i=0;i<4;i++){var path=new Vector3[17];float y=.82f+i*.065f;for(int j=0;j<path.Length;j++){float x=Mathf.Lerp(-.43f,.43f,j/(float)(path.Length-1));path[j]=new Vector3(x,y,VanCoachworkGeometry.FrontSkinZ(x,y)+.039f);}MeshArt.Tube(transform,"Grille slat",path,.008f,metal,6);}
-   foreach(int side in new[]{-1,1}){VanCoachworkGeometry.SculptedPanel(transform,"Headlight surround",new Vector2(side*.72f,1.07f),new Vector2(.34f,.20f),.045f,navy,false,.022f,.020f);VanCoachworkGeometry.SculptedPanel(transform,"Headlight",new Vector2(side*.72f,1.07f),new Vector2(.30f,.145f),.032f,headLight,false,.039f,.012f);VanCoachworkGeometry.SculptedPanel(transform,"Headlamp reflector",new Vector2(side*.72f,1.07f),new Vector2(.085f,.085f),.040f,metal,false,.050f,.006f);VanCoachworkGeometry.Wiper(transform,side,navy);}
+   VanCoachworkGeometry.SculptedPanel(transform,"Front lower bumper fascia",new Vector2(0,.46f),new Vector2(1.55f,.29f),.055f,navy,false,.018f,.020f);
+   VanCoachworkGeometry.SculptedPanel(transform,"Grille",new Vector2(0,.81f),new Vector2(1.02f,.29f),.045f,navy,false,.014f,.012f,-.17f);
+   for(int i=0;i<4;i++){var path=new Vector3[17];float y=.705f+i*.068f,w=Mathf.Lerp(.47f,.37f,i/3f);for(int j=0;j<path.Length;j++){float x=Mathf.Lerp(-w,w,j/16f);path[j]=new Vector3(x,y,VanCoachworkGeometry.FrontSkinZ(x,y)+.028f);}MeshArt.Tube(transform,"Grille slat",path,.005f,metal,6);}
+   VanCoachworkGeometry.SculptedPanel(transform,"Front fleet badge",new Vector2(0,1.025f),new Vector2(.12f,.045f),.020f,metal,false,.014f,.006f);
+   VanCoachworkGeometry.SculptedPanel(transform,"Front number plate",new Vector2(0,.51f),new Vector2(.48f,.10f),.009f,white,false,.036f,.006f);
+   Text(transform,"RE-1027",new(0,.51f,VanCoachworkGeometry.FrontSkinZ(0,.51f)+.043f),.050f,Navy,Quaternion.Euler(0,180,0));
+   foreach(int side in new[]{-1,1})
+   {
+    VanCoachworkGeometry.SculptedPanel(transform,"Headlight surround",new Vector2(side*.625f,.94f),new Vector2(.34f,.18f),.025f,navy,false,.009f,.010f,.10f);
+    VanCoachworkGeometry.SculptedPanel(transform,"Headlight",new Vector2(side*.625f,.94f),new Vector2(.315f,.152f),.019f,headLight,false,.019f,.008f,.10f);
+    VanCoachworkGeometry.SculptedPanel(transform,"Fog light recess",new Vector2(side*.60f,.43f),new Vector2(.18f,.105f),.025f,glass,false,.034f,.006f);
+    VanCoachworkGeometry.SculptedPanel(transform,"Fog lamp lens",new Vector2(side*.60f,.43f),new Vector2(.083f,.045f),.018f,metal,false,.039f,.006f);
+    VanCoachworkGeometry.Wiper(transform,side,navy);
+   }
    foreach(int side in new[]{-1,1})foreach(float z in new[]{-1.42f,1.38f})BuildWheel(side,z,metal,tyre,navy);
    VehicleReflection();DistrictArtGeometry.Combine(transform,true);if(Motor!=null)body=Motor.GetComponent<Rigidbody>();
   }
   void BuildWheel(int side,float axle,Material metal,Material tyre,Material navy)
   {
-   // Match the unchanged driving collider support plane at local y=-.10.
-   var wheel=new GameObject("Wheel").transform;wheel.SetParent(transform,false);wheel.localPosition=new Vector3(side*.99f,.27f,axle);wheel.localRotation=Quaternion.Euler(0,0,90);
-   MeshArt.Lathe(wheel,"Rubber tire",new[]{-.115f,-.110f,-.080f,0,.080f,.110f,.115f},new[]{.285f,.335f,.365f,.370f,.365f,.335f,.285f},48,tyre,Vector3.one);
-   MeshArt.Lathe(wheel,"Alloy rim",new[]{-.118f,-.118f,.118f,.118f},new[]{0f,.235f,.235f,0f},32,metal,Vector3.one);
+   // Full-size road-van proportions in the existing physics envelope; preserve
+   // the actual collider support at local-.10 rather than art-local zero.
+   var wheel=new GameObject("Wheel").transform;wheel.SetParent(transform,false);wheel.localPosition=new Vector3(side*.785f,.22f,axle);wheel.localRotation=Quaternion.Euler(0,0,90);
+   MeshArt.Lathe(wheel,"Rubber tire",new[]{-.080f,-.093f,-.090f,-.065f,-.032f,0,.032f,.065f,.090f,.093f,.080f},new[]{.188f,.230f,.273f,.309f,.320f,.320f,.320f,.309f,.273f,.230f,.188f},48,tyre,Vector3.one);
+   MeshArt.Lathe(wheel,"Steel wheel barrel",new[]{-.090f,-.091f,.091f,.090f},new[]{.184f,.195f,.195f,.184f},40,metal,Vector3.one);
    foreach(int face in new[]{-1,1})
    {
     var rim=new GameObject("Pressed steel wheel face").transform;rim.SetParent(wheel,false);rim.localRotation=face<0?Quaternion.Euler(180,0,0):Quaternion.identity;
-    for(int i=0;i<8;i++){float a=i*45*Mathf.Deg2Rad;var vent=MeshArt.Box(rim,"Rim ventilation recess",new(Mathf.Cos(a)*.173f,.121f,Mathf.Sin(a)*.173f),new(.065f,.004f,.024f),navy);vent.transform.localRotation=Quaternion.Euler(0,-i*45,0);}
-    MeshArt.Lathe(rim,"Alloy center cap",new[]{.123f,.132f,.136f},new[]{.068f,.073f,.060f},24,metal,Vector3.one);
-    for(int bolt=0;bolt<5;bolt++){float a=bolt*Mathf.PI*2/5;MeshArt.Oval(rim,"Wheel lug nut",new(Mathf.Cos(a)*.094f,.135f,Mathf.Sin(a)*.094f),new(.020f,.012f,.020f),metal,8);}
+    MeshArt.Lathe(rim,"Dished steel wheel centre",new[]{.091f,.096f,.102f,.104f,.105f},new[]{.191f,.174f,.125f,.065f,0f},40,metal,Vector3.one);
+    for(int i=0;i<10;i++){float a=i*36*Mathf.Deg2Rad;var vent=MeshArt.Box(rim,"Rim ventilation recess",new(Mathf.Cos(a)*.141f,.105f,Mathf.Sin(a)*.141f),new(.032f,.003f,.017f),navy);vent.transform.localRotation=Quaternion.Euler(0,-i*36,0);}
+    MeshArt.Lathe(rim,"Steel centre cap",new[]{.106f,.111f,.114f},new[]{.043f,.045f,.040f},24,metal,Vector3.one);
+    for(int bolt=0;bolt<5;bolt++){float a=bolt*Mathf.PI*2/5;MeshArt.Oval(rim,"Wheel lug nut",new(Mathf.Cos(a)*.067f,.110f,Mathf.Sin(a)*.067f),new(.017f,.011f,.017f),metal,8);}
    }
    wheels.Add(wheel);DistrictArtGeometry.Combine(wheel,false);
   }
@@ -93,7 +109,7 @@ namespace Kamilunavo.RepairEmpire.Visuals {
    cube.Apply(true,true);ArtLifetime.Own(gameObject,cube);var node=new GameObject("Owned van street reflection",typeof(ReflectionProbe));node.transform.SetParent(transform,false);node.transform.localPosition=Vector3.up;var probe=node.GetComponent<ReflectionProbe>();probe.mode=UnityEngine.Rendering.ReflectionProbeMode.Custom;probe.customBakedTexture=cube;probe.size=new Vector3(4,5,7);probe.blendDistance=0;probe.intensity=.85f;probe.importance=20;probe.cullingMask=0;
   }
   public void Apply(int style,int vehicle){style=Mathf.Clamp(style,0,7);if(lastStyle==style&&lastVehicle==vehicle)return;lastStyle=style;lastVehicle=vehicle;Color[] colors={Orange,new(.08f,.64f,.82f),new(.24f,.75f,.38f),new(.66f,.3f,.94f),new(1,.73f,.1f),new(.16f,.77f,1),new(.35f,.95f,.64f),new(.89f,.30f,.67f)};if(livery!=null)livery.color=colors[style];transform.localScale=new Vector3(1,vehicle==1?1.10f:1,vehicle==1?1.06f:1);}
-  void Update(){if(Motor==null)return;if(body==null)body=Motor.GetComponent<Rigidbody>();if(body!=null){float spin=Vector3.Dot(body.linearVelocity,Motor.transform.forward)/.37f*Mathf.Rad2Deg*Time.deltaTime;foreach(var wheel in wheels)wheel.Rotate(Vector3.up,spin,Space.Self);}bool brake=Motor.Brake!=null&&Motor.Brake.Held;if(brake!=braking&&tailLight!=null){braking=brake;var color=brake?new Color(1,.04f,.02f):new Color(.65f,.035f,.025f);tailLight.color=color;tailLight.SetColor("_EmissionColor",color*(brake?1.15f:.55f));}}
+  void Update(){if(Motor==null)return;if(body==null)body=Motor.GetComponent<Rigidbody>();if(body!=null){float spin=Vector3.Dot(body.linearVelocity,Motor.transform.forward)/.32f*Mathf.Rad2Deg*Time.deltaTime;foreach(var wheel in wheels)wheel.Rotate(Vector3.up,spin,Space.Self);}bool brake=Motor.Brake!=null&&Motor.Brake.Held;if(brake!=braking&&tailLight!=null){braking=brake;var color=brake?new Color(1,.04f,.02f):new Color(.65f,.035f,.025f);tailLight.color=color;tailLight.SetColor("_EmissionColor",color*(brake?1.15f:.55f));}}
   public static void Text(Transform parent,string words,Vector3 position,float size,Color color,Quaternion rotation){var go=new GameObject(words,typeof(TextMesh));go.transform.SetParent(parent,false);go.transform.localPosition=position;go.transform.localRotation=rotation;var text=go.GetComponent<TextMesh>();text.text=words;text.characterSize=size/5f;text.fontSize=64;text.anchor=TextAnchor.MiddleCenter;text.alignment=TextAlignment.Center;text.color=color;text.font=Resources.Load<Font>("Fonts/Barlow-Bold");WorldTextMaterialBinding.Bind(text);}
   static void Gear(Transform root,float radius,Material orange,Material navy,Material white){var ring=MeshArt.Ring(root,"Gear",radius,.10f,0,navy,32);ring.transform.localRotation=Quaternion.Euler(-90,0,0);for(int i=0;i<12;i++){float a=i*30*Mathf.Deg2Rad;var tooth=MeshArt.Box(root,"Gear tooth",new(Mathf.Cos(a)*radius,Mathf.Sin(a)*radius,0),new(radius*.32f,radius*.32f,.035f),navy);tooth.transform.localRotation=Quaternion.Euler(0,0,i*30);}var wrench=new GameObject("Wrench").transform;wrench.SetParent(root,false);wrench.localRotation=Quaternion.Euler(0,0,-34);MeshArt.Box(wrench,"Handle",new(0,-.02f,-.035f),new(.07f,.43f,.055f),orange);MeshArt.Oval(wrench,"Wrench head",new(0,.19f,-.035f),new(.18f,.18f,.055f),orange);MeshArt.Box(wrench,"Open jaw",new(0,.26f,-.08f),new(.075f,.09f,.015f),white);}
  }

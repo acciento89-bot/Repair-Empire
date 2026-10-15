@@ -1,10 +1,10 @@
 {
   "game": "Repair Empire",
   "status": "failed",
-  "sourceSha256": "6883bc095d9dfe54662cece3f22f6bce08068e687db241677cff3a432264e617",
-  "reviewer": "Codex direct final native model/gameplay/repair comparison",
+  "sourceSha256": "46911d0447bd3d468dafd1f8550bdc4f56f5c56717c37f6769d853d61b2f8633",
+  "reviewer": "Codex direct final native road-van/Concept comparison",
   "reviewedAt": "2026-10-15",
-  "reason": "User-rejected van superseded by own flatter coachwork, smaller grounded road wheels and flush livery. Native1461/1377/7 passes. Remaining whole-game scene/render/UI/detail gaps prevent graphical approval.",
+  "reason": "Original lower/narrower road-van body, bonnet/cowl/pressed details and generated optical materials verified on native1461/1377/7. Actual output remains simplified and below full Concept rendering quality; no graphical approval.",
   "criteria": {
     "concept_similarity": "failed",
     "character_or_tower": "failed",
@@ -23,63 +23,63 @@
     ],
     "menu": [
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairConceptVan-20261015/FinalPresentation/showcase-de-dashboard.png",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoadVan-20261015/OpticsPresentation/showcase-de-dashboard.png",
         "sha256": "7b6f86e30dc90d9b51ed2b441931460884f18b71c31abc562af4eaf9bd72e22d",
         "origin": "Unity-render"
       },
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairConceptVan-20261015/FinalPresentation/landscape-de-section-9.png",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoadVan-20261015/OpticsPresentation/landscape-de-section-9.png",
         "sha256": "15c29061d65467984c13674e06dd8768a1761495517a81702201246c286c29e4",
         "origin": "Unity-render"
       }
     ],
     "gameplay": [
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairConceptVan-20261015/FinalPresentation/showcase-driving-service.png",
-        "sha256": "8b1131e21a2ab8be3a8bda581c84ea9f384bb22daac1caf764bb8d6336328dee",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoadVan-20261015/OpticsPresentation/showcase-driving-service.png",
+        "sha256": "ba3e0a8244ec47fc9f7a2d3bbd6cbba4af16175ecf8396b670997c48a450b542",
         "origin": "Unity-render"
       },
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairConceptVan-20261015/FinalPresentation/van-rear-three-quarter.png",
-        "sha256": "651e5ac464167f401a695fc7b23506688a5bc795b6e9e53a8e62c637700b3505",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoadVan-20261015/OpticsPresentation/van-front-three-quarter.png",
+        "sha256": "b372bba01b9135fcc3f0d6b7f6657efc66bf159e57788e451d36b40f493f137c",
         "origin": "Unity-render"
       }
     ],
     "submenus": [
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairConceptVan-20261015/FinalPresentation/portrait-de-section-0.png",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoadVan-20261015/OpticsPresentation/portrait-de-section-0.png",
         "sha256": "ae8489c641fd8c1178b4595e78b1b5aab019ca7bbd6329518428ebd4f1901443",
         "origin": "Unity-render"
       },
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairConceptVan-20261015/FinalFull/repair-faucet-stage1.png",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoadVan-20261015/RoadFull/repair-faucet-stage1.png",
         "sha256": "fc59bfb333760a9d861f88171d873f0196b79d0cedcf2919b45d2ccd853264d0",
         "origin": "Unity-render"
       },
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairConceptVan-20261015/FinalFull/repair-paid-result-0.png",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoadVan-20261015/RoadFull/repair-paid-result-0.png",
         "sha256": "a94229d2671a6e13445ee55d53ba7ca2e94df4ecbb45235a30445f92c81306ba",
         "origin": "Unity-render"
       }
     ],
     "variants": [
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairConceptVan-20261015/FinalPresentation/fixture-call-2-3.png",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoadVan-20261015/OpticsPresentation/fixture-call-2-3.png",
         "sha256": "edaa9005ee132b1ab241071a0f248e837941d6b31bb7530acece6a6bc56b6bf5",
         "origin": "Unity-render"
       },
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairConceptVan-20261015/FinalPresentation/fixture-switch.png",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoadVan-20261015/OpticsPresentation/fixture-switch.png",
         "sha256": "47d2d25fb90d99c1a3fe2f5473249088516763a5c90d11d8962a920e96fba05f",
         "origin": "Unity-render"
       }
     ]
   },
   "previousReview": {
-    "sourceSha256": "46969ee368253bec45ec5ff42e4439edf518dafc6fa9d760cac71f51f95e663f",
+    "sourceSha256": "6883bc095d9dfe54662cece3f22f6bce08068e687db241677cff3a432264e617",
     "status": "failed",
-    "archive": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairConceptVan-20261015/before-concept-visual-release-gate.json"
+    "archive": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoadVan-20261015/before-road-visual-release-gate.json"
   },
-  "candidateReport": "docs/QA/repair-concept-van-20261015.json",
+  "candidateReport": "docs/QA/repair-road-van-20261015.json",
   "evidenceNote": "Menus are genuine Unity captures containing decorative generated workshop art; this art is not evidence of3D scene quality."
 }

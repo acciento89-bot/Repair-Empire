@@ -26,11 +26,11 @@ public static class RepairVanCoachworkValidation
   try{
    var art=host.GetComponent<VanArt>();art.Build();var shell=host.transform.Find("Bevelled service body").GetComponent<MeshFilter>().sharedMesh;
    int shoulder=0,axle=0;foreach(var p in shell.vertices){
-    if(Mathf.Abs(p.z+1.72f)<.001f&&Mathf.Abs(p.x)>.82f&&Mathf.Abs(p.x)<.991f&&p.y>2.23f&&p.y<2.395f)shoulder++;
-    if(Mathf.Abs(p.z+1.42f)<.001f&&Mathf.Abs(p.x)>.94f){axle++;Check(p.y>=.65f,"side skin actually rises around the rear wheel opening");}
+    if(Mathf.Abs(p.z+1.72f)<.001f&&Mathf.Abs(p.x)>.745f&&Mathf.Abs(p.x)<.841f&&p.y>1.93f&&p.y<2.005f)shoulder++;
+    if(Mathf.Abs(p.z+1.42f)<.001f&&Mathf.Abs(p.x)>.83f){axle++;Check(p.y>=.57f,"side skin actually rises around the rear wheel opening");}
    }
    Check(shoulder>=12,"continuous rolled cargo shoulders have intermediate surface curvature");Check(axle>0,"rear wheel opening belongs to the body mesh");Solid(shell);
-   Check(shell.bounds.min.y>=.279f&&shell.bounds.max.y<=2.401f&&shell.bounds.size.x<=2.111f&&shell.bounds.min.z>=-2.301f&&shell.bounds.max.z<=2.301f,"authored body remains within the unchanged driving collision length/width");
+   Check(shell.bounds.min.y>=.239f&&shell.bounds.max.y<=2.011f&&shell.bounds.size.x<=1.751f&&shell.bounds.min.z>=-2.301f&&shell.bounds.max.z<=2.301f,"authored body remains within the unchanged driving collision length/width");
    foreach(var name in new[]{"Rear bumper","Front bumper","Rear lamp housing","Number plate surround"}){var mesh=host.transform.Find(name).GetComponent<MeshFilter>().sharedMesh;Solid(mesh);Check(mesh.vertexCount>=80,"molded coachwork replaces a square slab: "+name);}
    foreach(var filter in host.GetComponentsInChildren<MeshFilter>())if(filter.name=="Raised wheel arch trim")Solid(filter.sharedMesh);
    var livery=new HashSet<Material>();int active=0,vertices=0;var meshes=new HashSet<Mesh>();
@@ -40,7 +40,7 @@ public static class RepairVanCoachworkValidation
    Check(livery.Count==1,"one owned actual paint material drives all coachwork bands");var paint=new List<Material>(livery)[0];var colors=new[]{new Color(1,.32f,.045f),new Color(.08f,.64f,.82f),new Color(.24f,.75f,.38f),new Color(.66f,.3f,.94f),new Color(1,.73f,.1f),new Color(.16f,.77f,1),new Color(.35f,.95f,.64f),new Color(.89f,.30f,.67f)};
    for(int style=0;style<8;style++){art.Apply(style,0);Check(paint.color==colors[style],"actual livery variant "+style);}
    art.Apply(0,1);Check(host.transform.localScale==new Vector3(1,1.10f,1.06f),"upgrade visual scale remains exact");art.Apply(0,0);
-   int wheels=0;foreach(var t in host.GetComponentsInChildren<Transform>())if(t.name=="Wheel"){wheels++;Check(Mathf.Abs(t.localPosition.x)==.99f&&t.localPosition.y==.27f&&(t.localPosition.z==-1.42f||t.localPosition.z==1.38f),"four grounded road-wheel animation origins");}Check(wheels==4&&host.GetComponentsInChildren<Collider>(true).Length==0,"four original pivots and no decorative collision");
+   int wheels=0;foreach(var t in host.GetComponentsInChildren<Transform>())if(t.name=="Wheel"){wheels++;Check(Mathf.Abs(t.localPosition.x)==.785f&&t.localPosition.y==.22f&&(t.localPosition.z==-1.42f||t.localPosition.z==1.38f),"four grounded road-wheel animation origins");}Check(wheels==4&&host.GetComponentsInChildren<Collider>(true).Length==0,"four original pivots and no decorative collision");
    foreach(var probe in host.GetComponentsInChildren<ReflectionProbe>()){assets.Add(probe.customBakedTexture);Check(probe.customBakedTexture.width==32&&probe.mode==UnityEngine.Rendering.ReflectionProbeMode.Custom,"existing finite owned vehicle reflection");}
    int filters=host.GetComponentsInChildren<MeshFilter>(true).Length;art.Build();Check(filters==host.GetComponentsInChildren<MeshFilter>(true).Length,"idempotent model creation");
    UnityEngine.Object.DestroyImmediate(host);foreach(var asset in assets)Check(asset==null,"coachwork/material/reflection buffer disposed with model");Check(errors.Count==0,"zero generation/disposal errors: "+string.Join(" | ",errors));

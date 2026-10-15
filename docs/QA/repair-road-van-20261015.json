@@ -1,0 +1,277 @@
+{
+  "game": "Repair Empire",
+  "date": "2026-10-15",
+  "sourceSha256": "46911d0447bd3d468dafd1f8550bdc4f56f5c56717c37f6769d853d61b2f8633",
+  "baseCommit": "1ae08f56ed095f0a2fe88d17c0822b25f9c4a678",
+  "scope": "Original commercial road-van rebuild after user rejects previous source as toy-like; authored body/fittings/wheels and two original optical material assets.",
+  "userScope": "Repair only. Approved Perfect Drop/Rising Steps, workshop decorative menu artwork, gameplay/physics/world/UI/commerce and all submissions remain unchanged.",
+  "supersedes": {
+    "report": "docs/QA/repair-concept-van-20261015.json",
+    "sourceSha256": "6883bc095d9dfe54662cece3f22f6bce08068e687db241677cff3a432264e617",
+    "reason": "User again rejected the model as toy-like. Technical passes do not establish appearance approval."
+  },
+  "implemented": [
+    "Replaced original body stations/upper taper/shoulders with lower2.01mroof,1.75mbodywidth and4.46mlength; distinct roof/cowl/short bonnet regions instead of the tall continuous capsule.",
+    "Smaller fitted cab glass with thin perimeter gasket, matching wipers and actual pressed door/bonnet/reinforcement paths; roof and side details share body surface mapping.",
+    "Integrated trapezoidal grille, lower bumper fascia, fog units and own generated headlamp/red-lens materials, plate/reflector/hinge details and Concept curved rear orange livery edge.",
+    "Smaller.32mroad tires with proper bead/sidewall/tread, matched dished steel rims and fitted ventilation/cap/nuts. Four wheel roots, existing axle positions, upgrade scale and8paints preserved.",
+    "Printed Gear vertices fitted onto the actual side/rear surfaces before batching. Existing decal owners, materials and dynamic brake feedback retained.",
+    "Parked3Dworkshop van raised.10mso its existing support bottom-.10 meets the room floor. Decorative menu images remain unchanged."
+  ],
+  "originalAssets": [
+    {
+      "name": "VanHeadlampOptics-v1",
+      "tool": "built-in image_gen.imagegen; no CLI/API fallback",
+      "prompt": "Use case: product-mockup. Asset type: production diffuse/base-color texture for the front headlight lenses of a realistic mobile Unity service-van 3D model. Create ONE original generic automotive headlamp optical interior texture, horizontal 2.1:1 aspect ratio, straight-on orthographic macro photograph, filling the entire rectangular image edge to edge with headlamp optics. Two physically convincing small clear glass projector reflectors, nuanced silver reflector bowls, fine prismatic ribs and a restrained thin white lower LED guide inside a narrow charcoal surround. Neutral studio illumination, no blown highlights, subtle blue-grey clear glass tint, crisp industrial manufacture and real optical depth. This is a UV texture, not a scene, not a screenshot or concept sheet. No car body, no background environment, no margins, no text, no logos, no orange indicator, no dramatic bloom, no cartoon, no illustrated buttons. Lens and silver optics should occupy almost the entire frame. Edge pixels should be dark charcoal so the texture fits inside a modeled rounded rectangular lamp. High-quality realistic automotive material, front-facing, no perspective.",
+      "original": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoadVan-20261015/VanHeadlampOptics-v1-original.png",
+        "sha256": "e442d46372d9d21129052d61b3630b7d31ea99017c63255f8047b1e5afd7cf6f",
+        "origin": "original-generated-UV-material"
+      },
+      "project": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Projects/Repair-Empire/Assets/Resources/Art/VanHeadlampOptics-v1.png",
+        "sha256": "6351e90bbf25859a33776761a4d15b109c69d991aecead3f5f32c8ce1f9c0640",
+        "origin": "mechanically-downsampled-original-material"
+      },
+      "originalSize": [
+        1817,
+        866
+      ],
+      "projectSize": [
+        512,
+        244
+      ],
+      "transformation": "RGB conversion and aspect-preserving512pxdownsample only; no creative post-edit",
+      "importSettings": "max512 /NPOTNone /sRGB /mips /trilinear clamp /aniso2 /compressedHQ /non-readable",
+      "ownership": "Shared imported Resources; only per-van material instances are owned. No imported texture destruction."
+    },
+    {
+      "name": "VanRedLens-v1",
+      "tool": "built-in image_gen.imagegen; no CLI/API fallback",
+      "prompt": "Use case: product-mockup. Asset type: production base-color UV texture for a realistic Unity commercial van RED TAIL-LAMP lens. Create one original vertical rectangular red automotive rear light lens, about 1:3.8 width:height aspect ratio, orthographic head-on macro photograph. The red translucent polycarbonate lens must fill the complete image edge to edge, with dark crimson narrow edge pixels, fine engineered prismatic grids, small realistic internal reflector facets and subtle highlights. Only red lens material: no amber, no clear white section, no car body, no environment, no frame margins, no text/logos/watermarks, no circular buttons, no cartoon style, no bloom or luminous red wash. Neutral photographic illumination showing realistic depth and manufactured automotive plastic. Production material texture, not a vehicle concept picture.",
+      "original": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoadVan-20261015/VanRedLens-v1-original.png",
+        "sha256": "bec1b9b2941a040edab1b300626c7ab5a034d6468dee4a652fb69cf62d684839",
+        "origin": "original-generated-UV-material"
+      },
+      "project": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Projects/Repair-Empire/Assets/Resources/Art/VanRedLens-v1.png",
+        "sha256": "68ff021d18139c47f1295ca69dfdbcb0bdd8c271caf71bb02d4d4f07ba2573a1",
+        "origin": "mechanically-downsampled-original-material"
+      },
+      "originalSize": [
+        768,
+        2048
+      ],
+      "projectSize": [
+        192,
+        512
+      ],
+      "transformation": "RGB conversion and aspect-preserving512pxdownsample only; no creative post-edit",
+      "importSettings": "max512 /NPOTNone /sRGB /mips /trilinear clamp /aniso2 /compressedHQ /non-readable",
+      "ownership": "Shared imported Resources; only per-van material instances are owned. No imported texture destruction."
+    }
+  ],
+  "authorityPreserved": [
+    "Unchanged BoxCollider2.2x1.8x4.6,centreY.8, GameBootstrap, VehicleController, VehicleCamera and CityBuilder.",
+    "Actual driving tire bottom.22-.32=-.10 retains original collider support. Runtime production-hierarchy ground checks unchanged and pass for all4tires.",
+    "Existing moving limits70000unique vertices/32active renderers/9materials unchanged; original54district colliders and serialized height Random verified by aggregate.",
+    "ProjectSettings byte-identical; no package/save/catalog/job/payment/commerce/version change.",
+    "User-owned historical docs/concepts/PRIMARY-CONCEPT.png deletion remains unstaged."
+  ],
+  "nativeBuild": {
+    "receipt": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoadVan-20261015/source-native-receipt.json",
+      "sha256": "8a70d4f67bc749eb4ffa1b11f70f22086bf296a16b6d3c09d8ddd9ee7b81c877",
+      "origin": "exact-source-native-receipt"
+    },
+    "log": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoadVan-20261015/unity-road-van-optics.log",
+      "sha256": "2b0c717b8cd7960304833ee1005efe704af298f859cb06369d68dd2493c4c8e6",
+      "origin": "native-Unity-full-aggregate-and-Mac-build"
+    },
+    "bundleManifest": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoadVan-20261015/native-bundle-manifest.json",
+      "sha256": "6d21b6d43234b877aba43e14cda4a12db5b94c45f1de9a64e00cd777e2d4ff49",
+      "origin": "314-file-native-bundle-binding"
+    },
+    "exitCode": 0,
+    "allBundleFilesReverified": 314
+  },
+  "nativeRuns": {
+    "OpticsPresentation": {
+      "checks": 1461,
+      "passed": true,
+      "processExitCode": 0,
+      "passFile": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoadVan-20261015/OpticsPresentation/PASS.txt",
+        "sha256": "0699584b0bfc1923122a83520443af6d21c5db03e9136ced7377c5b533a4172a",
+        "origin": "native-Mac-result"
+      },
+      "checksFile": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoadVan-20261015/OpticsPresentation/checks.txt",
+        "sha256": "715634bf747a7a2599cb9a60a71bf208c639b220e8a2352ae566f1b529b5e2f4",
+        "origin": "actual-native-checks"
+      },
+      "provenance": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoadVan-20261015/OpticsPresentation/PROVENANCE.json",
+        "sha256": "35cada84235fd6328c2b14b4a071a1abb9bfc7915ecf4f9a9677ec607bf19c40",
+        "origin": "native-source-binding"
+      },
+      "log": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoadVan-20261015/OpticsPresentation.log",
+        "sha256": "28158c4f5e847cc994b513c9b89fb96f7a755b85bab95858668d00d67f484326",
+        "origin": "native-Mac-log"
+      },
+      "imageManifest": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoadVan-20261015/OpticsPresentation/IMAGE-HASHES.json",
+        "sha256": "7775c27943fe9138f1241737be98c464a4c23dd853e87a4d37f3a16849f24659",
+        "origin": "actual-Unity-render-file-manifest"
+      },
+      "imageCount": 68
+    },
+    "RoadFull": {
+      "checks": 1377,
+      "passed": true,
+      "processExitCode": 0,
+      "passFile": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoadVan-20261015/RoadFull/PASS.txt",
+        "sha256": "c863575bd616b2a7b2287886a6e8ca8bd1af6e0e31f2d02097f50b0bf4c56f0e",
+        "origin": "native-Mac-result"
+      },
+      "checksFile": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoadVan-20261015/RoadFull/checks.txt",
+        "sha256": "415ddcc2fbbf6aae6b8f602cfd5f9aa6d8eacac7b1e8b5be57211f71caefa449",
+        "origin": "actual-native-checks"
+      },
+      "provenance": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoadVan-20261015/RoadFull/PROVENANCE.json",
+        "sha256": "10147c55686735c1e9c9c661c519e4af921c315c39aa7b0bc2764f03750c2c79",
+        "origin": "native-source-binding"
+      },
+      "log": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoadVan-20261015/RoadFull.log",
+        "sha256": "1c7b6acf62b64faa82d42040cd87cf6e0c5dae0d54796a1e3422ea008bce9c27",
+        "origin": "native-Mac-log"
+      },
+      "imageManifest": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoadVan-20261015/RoadFull/IMAGE-HASHES.json",
+        "sha256": "ec2fe215bcd1432ab6b7303c012c96ab07e2a6994fc77ed6b70a0c76f0ec768d",
+        "origin": "actual-Unity-render-file-manifest"
+      },
+      "imageCount": 58
+    },
+    "RoadReload": {
+      "checks": 7,
+      "passed": true,
+      "processExitCode": 0,
+      "passFile": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoadVan-20261015/RoadReload/PASS.txt",
+        "sha256": "38213edc12e5ec96959592e87d8dbbd73398b1a84ce00fa19c8bdea92ba590b6",
+        "origin": "native-Mac-result"
+      },
+      "checksFile": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoadVan-20261015/RoadReload/checks.txt",
+        "sha256": "a47cdbe2c393a6d3242b1a93b7d3a4c797bf0fcce1aae50ab49f39ff59a87fa3",
+        "origin": "actual-native-checks"
+      },
+      "provenance": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoadVan-20261015/RoadReload/PROVENANCE.json",
+        "sha256": "d07a5d4395aa7d3d17d2c8bb9ca82054b7ac0c068769546117645e846213d826",
+        "origin": "native-source-binding"
+      },
+      "log": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoadVan-20261015/RoadReload.log",
+        "sha256": "fd241b33ee2c415afd4c2996c66506eecb197db801f385a3a189f92bb4bdd1da",
+        "origin": "native-Mac-log"
+      },
+      "imageManifest": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoadVan-20261015/RoadReload/IMAGE-HASHES.json",
+        "sha256": "47097d594905778d80b04d2e0c53d039100b7bf8b1fef1af583ff335c4f91fed",
+        "origin": "actual-Unity-render-file-manifest"
+      },
+      "imageCount": 1
+    }
+  },
+  "modelBudget": {
+    "uniqueVertices": 66444,
+    "activeRenderers": 26,
+    "materials": 9,
+    "ceilingsUnchanged": "70000 /32 /9",
+    "workshopVertices": 141631,
+    "workshopRenderers": 29,
+    "workshopMaterials": 21
+  },
+  "validationHistory": {
+    "firstBudgetFailure": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoadVan-20261015/unity-road-van.log",
+      "sha256": "52fafc694cabef7c991aecd80b31dff3388538af90183828826a257e8e72557b",
+      "origin": "native-engine-failing-candidate"
+    },
+    "measuredBudget": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoadVan-20261015/inspect-road-budget.log",
+      "sha256": "16c1e3c0ea0b43b823844cb71809cf32c6d9119c9a7180eaa9937ccd2e2d7d13",
+      "origin": "native-buffer-inspection"
+    },
+    "resolution": "77460vertices/26active exposed oversized topology on tiny lamp/hinge inserts. Adaptive16/28point outlines and3insets preserve closed solids/normals and reduce buffers. No budget relaxation.",
+    "preOpticsReceipt": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoadVan-20261015/pre-optics-source-native-receipt.json",
+      "sha256": "a12ddb321dde5c6f13048832a8a12da0eb1a066bb62649adbde0f9cef9ea1f22",
+      "origin": "superseded-native-source-binding"
+    },
+    "final": "Exact-source aggregate confirms closed/wound coachwork and resource cleanup,1440outward cab triangles/9paint rays/57unoccluded windshield rays/18closed cargo rays. Native1461/1377/7 is separate from aesthetic approval."
+  },
+  "independentReview": {
+    "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoadVan-20261015/source-review.json",
+    "sha256": "f453a541db8a4f873464ef91f2b286c016882b4a1839ef1a8a978e53634ade8f",
+    "origin": "read-only-source-review"
+  },
+  "externalProbe": {
+    "page": "https://www.innerscene.com/tools/library/3d-parts/delivery-van-131990b3",
+    "license": "Public page states CC0; original downloaded solely for evaluation.",
+    "file": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoadVan-20261015/reference-delivery-van.glb",
+      "sha256": "8ecedda478019b1919070798e4ac010dd176be1b4454d8d07dee80151f88cbc6",
+      "origin": "unused-licensed-model-evaluation"
+    },
+    "renderLog": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoadVan-20261015/external-model-probe.log",
+      "sha256": "bbe4769a3903a279a6f898c79fc8199bc33ade15cde5e4f190c8b8995aea00b9",
+      "origin": "editor-only-model-evaluation"
+    },
+    "decision": "Not integrated. Root rejected its boxy anatomy as no improvement. No external geometry/material shipped. Temporary editor probe and meta moved out of Assets before final source fingerprint."
+  },
+  "concept": {
+    "path": "/Volumes/SSK SSD/Kamilunavo/Artifacts/KamilunavoDelivery-20261009/concepts-20261010/repair-empire-3-ansichten.png",
+    "sha256": "0571d35c40de036f83f86f3b423c234f321586abcfec97d9d259710d816723f1",
+    "origin": "approved-concept"
+  },
+  "comparisons": [
+    {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoadVan-20261015/transporter-vorher-neu.png",
+      "sha256": "6ada64ec9636faca82e8e8dc47756ec328624a2db48f9a02bd1bc5aebaa21d72",
+      "origin": "same-camera-native-before-after-crops-without-retouching"
+    },
+    {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoadVan-20261015/transporter-neu-unity.png",
+      "sha256": "5cb45689037d9c219aa70b50bc2f3a683b5af72eaedb8180a5041459cd20dade",
+      "origin": "proportional-contact-sheet-of-real-native-model-views"
+    },
+    {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoadVan-20261015/transporter-konzept-vergleich.png",
+      "sha256": "be2e35b5dfca2be3b88a3f123b4b822acd83af586b5f1d49caf728192b96055d",
+      "origin": "labeled-Concept-crop-and-actual-native-driving"
+    }
+  ],
+  "rootVisualReview": {
+    "inspected": "All4native model views, normal driving view, portrait/wide unchanged artwork menu and native four-category repair/payment/save captures.",
+    "findings": "Lower/narrower proportions and clear bonnet/cowl, pressed panel gaps, smaller steel wheels, integrated fascia/grille and textured optics visibly differ from the rejected rounded model. Rear smile wrap/quote/plate and actual road contact present.",
+    "remaining": "Still a simplified mobile3Drender. No detailed cabin behind the dark reflective glazing. Vehicle surface/lighting, city composition/material depth and full Concept photorealism remain below target. No aesthetic user approval or90percent claim.",
+    "importantDistinction": "Only generated UV material assets are used on actual3Dlamps. Final model/gameplay frames are genuine Unity renders. Decorative workshop hero remains a separate illustration and is not proof of a corresponding3Dscene."
+  },
+  "limits": [
+    "macOS native Metal proof only; no physical iOS touch/FPS/thermal acceptance.",
+    "No live paid transaction, actual ad delivery or native icon-variant acceptance.",
+    "Whole-game visual gate stays FAILED, icon review pending. No version bump, upload, submission or ASC action."
+  ]
+}

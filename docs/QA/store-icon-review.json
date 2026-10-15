@@ -1,10 +1,10 @@
 {
   "game": "Repair-Empire",
   "status": "pending",
-  "sourceSha256": "6883bc095d9dfe54662cece3f22f6bce08068e687db241677cff3a432264e617",
+  "sourceSha256": "46911d0447bd3d468dafd1f8550bdc4f56f5c56717c37f6769d853d61b2f8633",
   "reviewer": "Codex direct source-icon and actual native-frame comparison",
   "reviewedAt": "2026-10-15",
-  "reason": "Original service van now uses slimmer commercial proportions, smaller grounded tires and flush rear livery. Source icon and submissions unchanged; exported native small/large icon variants and rendering-promise review remain pending. Decorative workshop artwork is not gameplay proof.",
+  "reason": "Rebuilt road-van anatomy and actual textured lamp surfaces change the current gameplay appearance. Icon assignment/submissions untouched. Exported native icon sizes/variants and rendering-promise accuracy remain pending.",
   "decision": "No new upload approval. Complete accurate native icon and variant review before setting passed.",
   "variantConsistencyChecked": false,
   "evidence": {
@@ -16,8 +16,8 @@
     "nativeIcon": null,
     "gameplay": [
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairConceptVan-20261015/FinalPresentation/showcase-driving-service.png",
-        "sha256": "8b1131e21a2ab8be3a8bda581c84ea9f384bb22daac1caf764bb8d6336328dee",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoadVan-20261015/OpticsPresentation/showcase-driving-service.png",
+        "sha256": "ba3e0a8244ec47fc9f7a2d3bbd6cbba4af16175ecf8396b670997c48a450b542",
         "origin": "Unity-render"
       }
     ]

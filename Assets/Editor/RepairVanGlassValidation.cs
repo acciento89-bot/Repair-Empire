@@ -25,7 +25,7 @@ public static class RepairVanGlassValidation
   {
    foreach(float dx in new[]{-.20f,0,.20f})foreach(float dy in new[]{-.10f,0,.10f})
    {
-    float x=side*.47f+dx,y=1.99f+dy;var ray=new Ray(new Vector3(x,y,-5),Vector3.forward);float skin=Hit(body,ray);checks++;
+    float x=side*.40f+dx,y=1.64f+dy;var ray=new Ray(new Vector3(x,y,-5),Vector3.forward);float skin=Hit(body,ray);checks++;
     if(!float.IsFinite(skin)||Mathf.Abs(skin-(VanCoachworkGeometry.RearSkinZ(x,y)+5))>.02f)throw new InvalidOperationException("VAN_CONTINUOUS_CARGO_SKIN side="+side+" body="+skin);
    }
   }
@@ -39,7 +39,7 @@ public static class RepairVanGlassValidation
    host.GetComponent<VanArt>().Build();var body=host.transform.Find("Bevelled service body").GetComponent<MeshFilter>();var glass=host.transform.Find("Swept panoramic windshield").GetComponent<MeshFilter>();
    for(int row=0;row<=18;row++)foreach(float x in new[]{-.60f,0,.60f})
    {
-    float z=Mathf.Lerp(.965f,1.59f,row/18f);var ray=new Ray(new Vector3(x,5,z),Vector3.down);float skin=Hit(body,ray),pane=Hit(glass,ray);checks++;
+    float z=Mathf.Lerp(.79f,1.29f,row/18f);var ray=new Ray(new Vector3(x,5,z),Vector3.down);float skin=Hit(body,ray),pane=Hit(glass,ray);checks++;
     if(!float.IsFinite(skin)||!float.IsFinite(pane)||pane>=skin-.007f)throw new InvalidOperationException("VAN_GLASS_OCCLUDED x="+x+" z="+z+" bodyDistance="+skin+" glassDistance="+pane);
    }
    int cargoChecks=ValidateCargoSkin(host);

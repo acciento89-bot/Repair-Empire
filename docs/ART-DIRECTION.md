@@ -86,3 +86,11 @@ The user rejected the preceding bulbous model. Passing geometry/function checks 
 Ground is a production-hierarchy constraint: the original collider bottom is local-.10. New tire centre.27 with radius.37 aligns with that support; local0 incorrectly floated the intermediate candidate. Actual native QA checks all four mesh tire bottoms against the collider and driven ground. Supplied smooth surface normals preserve the regular body/glazing fields while thin panel rims retain separate normals. No realtime reflection capture or per-frame mesh generation.
 
 Final exact-source native1461/1377/7 and60334vertices/25renderers/9materials verify the bounded change. Actual views/Concept comparisons: `docs/QA/repair-concept-van-20261015.json`. City composition, lighting/material depth, repairs and driving HUD still differ from the approved Concept. Whole-game graphical approval remains failed; no percentage-match claim or upload.
+
+## 2026-10-15 — original road-van anatomy and optical materials
+
+The user again rejected the preceding van as toy-like. Replace its fundamental proportions: the original road van has a lower/narrower upper body, shorter glass height, a distinct cowl/bonnet, pressed panel gaps, smaller steel wheels and integrated grille/bumper/light shapes. The rear orange wrap rises at its edges like the Concept. Gear vertices conform to the actual sheet rather than float on a tapered panel.
+
+Own photographic headlamp/red-prism material textures are used only on actual3Dlamps. They are bounded512pxshared Resources; originals/prompts and mechanical downsampling are preserved. The removed optical circles/guide meshes are represented by this UV detail. A free external model was separately rendered, rejected as too boxy and never shipped. No illustrative vehicle sprite substitutes for driving geometry.
+
+Native1461/1377/7, source review and moving buffer66444/26/9 verify the implementation. Detailed cabin and full body/scene material/lighting realism remain unfinished; this is not Concept/aesthetic approval. Current evidence and genuine native comparisons: `docs/QA/repair-road-van-20261015.json`. Graphical release gate stays failed.

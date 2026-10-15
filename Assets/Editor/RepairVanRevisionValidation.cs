@@ -20,11 +20,11 @@ public static class RepairVanRevisionValidation
    foreach(var filter in root.GetComponentsInChildren<MeshFilter>(true))if(filter.name=="Rubber tire")
    {
     float bottom=float.PositiveInfinity,top=float.NegativeInfinity;foreach(var point in filter.sharedMesh.vertices){float y=root.transform.InverseTransformPoint(filter.transform.TransformPoint(point)).y;bottom=Mathf.Min(bottom,y);top=Mathf.Max(top,y);}tires++;
-    if(top-bottom>.80f||top-bottom<.66f||Mathf.Abs(bottom-(-.10f))>.012f)failures.Add("road tire height="+(top-bottom)+" collider support plane="+bottom);
+    if(top-bottom>.70f||top-bottom<.60f||Mathf.Abs(bottom-(-.10f))>.012f)failures.Add("road tire height="+(top-bottom)+" collider support plane="+bottom);
    }
    var decal=root.transform.Find("Repair gear and wrench");Require(decal!=null,"REAR_IDENTITY_MISSING");float near=float.PositiveInfinity,far=float.NegativeInfinity;
-   foreach(var filter in decal.GetComponentsInChildren<MeshFilter>(true))foreach(var point in filter.sharedMesh.vertices){float z=root.transform.InverseTransformPoint(filter.transform.TransformPoint(point)).z;near=Mathf.Min(near,z);far=Mathf.Max(far,z);}
-   if(far-near>.012f)failures.Add("raised rear emblem thickness="+(far-near));
+   foreach(var filter in decal.GetComponentsInChildren<MeshFilter>(true))foreach(var point in filter.sharedMesh.vertices){var p=root.transform.InverseTransformPoint(filter.transform.TransformPoint(point));float gap=VanCoachworkGeometry.RearSkinZ(p.x,p.y)-p.z;near=Mathf.Min(near,gap);far=Mathf.Max(far,gap);}
+   if(far>.012f||near<.0005f)failures.Add("rear emblem stand-off="+near+".."+far);
    Require(tires==4&&failures.Count==0,"CONCEPT_PROPORTIONS "+string.Join("; ",failures));Debug.Log("REPAIR_VAN_CONCEPT_PROPORTIONS_PASS four road-sized tires aligned with the existing collider support plane and flush rear livery depth="+(far-near));
   }
   finally{UnityEngine.Object.DestroyImmediate(root);}
@@ -93,12 +93,12 @@ public static class RepairVanRevisionValidation
     Require(navy!=null&&orange!=null,"SIDE_PAINT_MISSING");
     foreach(float z in new[]{-.70f,-.30f,.10f})
     {
-     var ray=new Ray(new Vector3(side*5,.405f,z),Vector3.left*side);float lower=RepairVanGlassValidation.Hit(navy,ray),upper=RepairVanGlassValidation.Hit(orange,ray);rays++;
+     var ray=new Ray(new Vector3(side*5,.37f,z),Vector3.left*side);float lower=RepairVanGlassValidation.Hit(navy,ray),upper=RepairVanGlassValidation.Hit(orange,ray);rays++;
      if(!float.IsFinite(lower)||!float.IsFinite(upper)||lower-upper<.003f)failures.Add("Coplanar side paint side="+side+" z="+z+" separation="+(lower-upper));
     }
    }
    var rearNavy=root.transform.Find("Rear navy service wrap").GetComponent<MeshFilter>();var rearOrange=root.transform.Find("Orange rear livery").GetComponent<MeshFilter>();
-   foreach(float x in new[]{-.65f,0,.65f}){var ray=new Ray(new Vector3(x,.425f,-5),Vector3.forward);float lower=RepairVanGlassValidation.Hit(rearNavy,ray),upper=RepairVanGlassValidation.Hit(rearOrange,ray);rays++;if(!float.IsFinite(lower)||!float.IsFinite(upper)||lower-upper<.003f)failures.Add("Coplanar rear paint x="+x+" separation="+(lower-upper));}
+   foreach(float x in new[]{-.65f,0,.65f}){var ray=new Ray(new Vector3(x,.37f,-5),Vector3.forward);float lower=RepairVanGlassValidation.Hit(rearNavy,ray),upper=RepairVanGlassValidation.Hit(rearOrange,ray);rays++;if(!float.IsFinite(lower)||!float.IsFinite(upper)||lower-upper<.003f)failures.Add("Coplanar rear paint x="+x+" separation="+(lower-upper));}
    Require(faces>1000&&failures.Count==0,"EXTERIOR_VISIBILITY "+string.Join("; ",failures));
    Debug.Log("REPAIR_VAN_EXTERIOR_PASS outward cab faces="+faces+" separated paint rays="+rays);
   }
