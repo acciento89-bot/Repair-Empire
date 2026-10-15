@@ -8,7 +8,7 @@ namespace Kamilunavo.RepairEmpire.Visuals
  {
   static readonly float[] Stations={-2.24f,-2.18f,-1.72f,-.06f,.30f,.60f,.76f,1.16f,1.32f,1.44f,1.82f,2.14f,2.22f};
   static readonly float[] Widths={.80f,.86f,.875f,.875f,.870f,.870f,.865f,.860f,.855f,.850f,.830f,.790f,.770f};
-  static readonly float[] Roof={1.92f,1.99f,2.01f,2.01f,2.00f,1.98f,1.91f,1.50f,1.27f,1.19f,1.12f,1.08f,1.055f};
+  static readonly float[] Roof={1.92f,1.99f,2.01f,2.01f,2.00f,1.98f,1.91f,1.50f,1.27f,1.19f,1.16f,1.12f,1.095f};
   const float Sill=.24f,WheelCentre=.22f,Shoulder=.07f;
   static float Arch(float z)
   {
@@ -27,19 +27,19 @@ namespace Kamilunavo.RepairEmpire.Visuals
   {
    bool rear=z<0;float end=rear?Stations[0]:Stations[Stations.Length-1],w=rear?Widths[0]:Widths[Widths.Length-1],top=rear?Roof[0]:Roof[Roof.Length-1];
    float blend=rear?1-Mathf.SmoothStep(0,1,(z-end)/.42f):Mathf.SmoothStep(0,1,(z-(end-.50f))/.50f);
-   float returnDepth=(rear?.045f:.075f)*Mathf.Pow(Mathf.Clamp01(Mathf.Abs(x)/w),4)+.045f*Mathf.Pow(Mathf.Clamp01(Mathf.Abs((y-(top+Sill)*.5f)/((top-Sill)*.5f))),6);
+   float returnDepth=(rear?.075f:.105f)*Mathf.Pow(Mathf.Clamp01(Mathf.Abs(x)/w),4)+.045f*Mathf.Pow(Mathf.Clamp01(Mathf.Abs((y-(top+Sill)*.5f)/((top-Sill)*.5f))),6);
    return z+(rear?1:-1)*blend*returnDepth;
   }
   public static float RearSkinZ(float x,float y)=>BendZ(Stations[0],x,y);
   static float UpperWidth(float z)=>Sample(Stations,Widths,z)-.035f*Mathf.Clamp01((Sample(Stations,Roof,z)-1.1f)/.6f);
   static float TopAt(float x,float z)
   {
-   float w=UpperWidth(z),top=Sample(Stations,Roof,z),t=Mathf.Clamp01((Mathf.Abs(x)-(w-Shoulder))/Shoulder);return top-Shoulder+Shoulder*Mathf.Sqrt(1-t*t);
+   float w=UpperWidth(z),top=Sample(Stations,Roof,z),t=Mathf.Clamp01((Mathf.Abs(x)-(w-Shoulder))/Shoulder);float baseY=top-Shoulder+Shoulder*Mathf.Sqrt(1-t*t);float hood=Mathf.SmoothStep(0,1,(z-1.32f)/.15f)*(1-Mathf.SmoothStep(0,1,(z-2.10f)/.12f));float across=Mathf.Clamp01(1-Mathf.Abs(x)/(w-Shoulder));return baseY+hood*(.025f*Mathf.Sin(across*Mathf.PI*.5f)+.012f*Mathf.Exp(-Mathf.Pow((Mathf.Abs(x)-.41f)/.09f,2))*Mathf.Sin(across*Mathf.PI*.5f));
   }
   static float SideAt(float y,float z)
   {
    float top=Sample(Stations,Roof,z),w=UpperWidth(z);if(y>top-Shoulder){float d=Mathf.Clamp01((y-(top-Shoulder))/Shoulder);return w-Shoulder+Shoulder*Mathf.Sqrt(1-d*d);}
-   return Mathf.Lerp(Sample(Stations,Widths,z),w,Mathf.SmoothStep(0,1,(y-.85f)/Mathf.Max(.12f,top-Shoulder-.85f)));
+   float width=Mathf.Lerp(Sample(Stations,Widths,z),w,Mathf.SmoothStep(0,1,(y-.85f)/Mathf.Max(.12f,top-Shoulder-.85f)));float pressing=Mathf.Max(Mathf.Abs((z+1.14f)/.88f),Mathf.Abs((y-1.47f)/.40f));width-=.026f*Mathf.SmoothStep(0,1,(1-pressing)/.18f);return width;
   }
   public static Vector3 SideSkinPoint(int side,float y,float z,float offset=.004f)
   {
@@ -49,6 +49,7 @@ namespace Kamilunavo.RepairEmpire.Visuals
   {
    float y=TopAt(x,z);return new Vector3(x,y+offset,BendZ(z,x,y));
   }
+  public static Vector3 RoofPoint(float x,float z,float offset=.004f)=>RoofSkinPoint(x,z,offset);
   public static float FrontSkinZ(float x,float y)
   {
    float high=Stations[Stations.Length-1];bool Inside(float z)=>Mathf.Abs(x)<=Sample(Stations,Widths,z)&&y<=TopAt(x,z)&&y>=Sill;
@@ -118,7 +119,7 @@ namespace Kamilunavo.RepairEmpire.Visuals
    switch(part)
    {
     case 0:a=t*Mathf.PI*.5f;x=uw-upper+Mathf.Cos(a)*upper;y=top-upper+Mathf.Sin(a)*upper;break;
-    case 1:x=WindowCoordinate(t,uw-upper,Mathf.Min(WindowHalfWidth(z),uw-upper-.005f));y=top;break;
+    case 1:x=WindowCoordinate(t,uw-upper,Mathf.Min(WindowHalfWidth(z),uw-upper-.005f));y=TopAt(x,z);break;
     case 2:a=(1+t)*Mathf.PI*.5f;x=-uw+upper+Mathf.Cos(a)*upper;y=top-upper+Mathf.Sin(a)*upper;break;
     case 3:y=WindowHeight(1-t,Sill+lower,top-upper,glassBottom,glassTop);x=-SideAt(y,z);break;
     case 4:a=(2+t)*Mathf.PI*.5f;x=-w+lower+Mathf.Cos(a)*lower;y=Sill+lower+Mathf.Sin(a)*lower;break;
@@ -225,13 +226,11 @@ namespace Kamilunavo.RepairEmpire.Visuals
   }
   public static GameObject SideBand(Transform parent,string name,int side,float bottom,float top,Material material)
   {
-   const int samples=70;var v=new List<Vector3>();var t=new List<int>();var uv=new List<Vector2>();float standOff=name=="Orange service band"?.018f:.009f;
+   const int samples=70,rows=4;var v=new List<Vector3>();var t=new List<int>();var uv=new List<Vector2>();float standOff=name=="Orange service band"?.018f:.009f;
    for(int i=0;i<samples;i++){
-    float z0=Mathf.Lerp(-2.10f,1.44f,i/(float)samples),z1=Mathf.Lerp(-2.10f,1.44f,(i+1)/(float)samples);
-    float lower0=Mathf.Max(bottom,Arch(z0)+.017f),lower1=Mathf.Max(bottom,Arch(z1)+.017f);if(lower0>=top&&lower1>=top)continue;
-    lower0=Mathf.Min(lower0,top);lower1=Mathf.Min(lower1,top);int k=v.Count;float x0=side*(SideAt(top,z0)+standOff),x1=side*(SideAt(top,z1)+standOff);
-    v.AddRange(new[]{new Vector3(x0,lower0,BendZ(z0,x0,lower0)),new Vector3(x0,top,BendZ(z0,x0,top)),new Vector3(x1,top,BendZ(z1,x1,top)),new Vector3(x1,lower1,BendZ(z1,x1,lower1))});
-    uv.AddRange(new[]{new Vector2(0,0),new Vector2(0,1),new Vector2(1,1),new Vector2(1,0)});t.AddRange(side>0?new[]{k,k+1,k+2,k,k+2,k+3}:new[]{k,k+2,k+1,k,k+3,k+2});
+    float z0=Mathf.Lerp(-2.10f,1.44f,i/(float)samples),z1=Mathf.Lerp(-2.10f,1.44f,(i+1)/(float)samples);float lower0=Mathf.Min(top,Mathf.Max(bottom,Arch(z0)+.017f)),lower1=Mathf.Min(top,Mathf.Max(bottom,Arch(z1)+.017f));if(lower0>=top&&lower1>=top)continue;int start=v.Count;
+    for(int row=0;row<=rows;row++)for(int end=0;end<2;end++){float y=Mathf.Lerp(end==0?lower0:lower1,top,row/(float)rows),z=end==0?z0:z1;v.Add(SideSkinPoint(side,y,z,standOff));uv.Add(new Vector2(end,row/(float)rows));}
+    for(int row=0;row<rows;row++){int k=start+row*2;t.AddRange(side>0?new[]{k,k+2,k+3,k,k+3,k+1}:new[]{k,k+3,k+2,k,k+1,k+3});}
    }
    return MeshArt.Mesh(parent,name,v.ToArray(),t.ToArray(),uv.ToArray(),material);
   }

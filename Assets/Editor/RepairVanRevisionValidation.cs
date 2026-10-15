@@ -139,6 +139,19 @@ public static class RepairVanRevisionValidation
   }
   finally{UnityEngine.Object.DestroyImmediate(root);}
  }
- public static void Validate(){ValidateConceptProportions();ValidateCurvedRear();ValidateExterior();ValidateCabin();ValidateArtwork();}
+ public static void ValidateWheelOpenings()
+ {
+  var root=new GameObject("Actual steel wheel vent fixture",typeof(VanArt));int faces=0,rays=0;
+  try
+  {
+   root.GetComponent<VanArt>().Build();foreach(var filter in root.GetComponentsInChildren<MeshFilter>(true))if(filter.name=="Dished steel wheel centre")
+   {
+    faces++;for(int i=0;i<10;i++){float a=(i*36+18)*Mathf.Deg2Rad;var at=new Vector3(Mathf.Cos(a)*.145f,.4f,Mathf.Sin(a)*.145f);var ray=new Ray(filter.transform.TransformPoint(at),filter.transform.TransformDirection(Vector3.down));rays++;Require(!float.IsFinite(RepairVanGlassValidation.Hit(filter,ray)),"WHEEL_VENT_IS_PAINTED_SOLID face="+faces+" vent="+i);}
+   }
+   Require(faces==4&&rays==40,"ROAD_WHEEL_OPENING_COUNT");Debug.Log("REPAIR_STEEL_WHEEL_OPENINGS_PASS actual40aperture rays across4outward faces");
+  }
+  finally{UnityEngine.Object.DestroyImmediate(root);}
+ }
+ public static void Validate(){ValidateConceptProportions();ValidateCurvedRear();ValidateExterior();ValidateCabin();ValidateWheelOpenings();ValidateArtwork();}
 }
 #endif

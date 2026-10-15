@@ -1,10 +1,10 @@
 {
   "game": "Repair-Empire",
   "status": "pending",
-  "sourceSha256": "5dc2e67f7952204cadfc43e3635e00557ac13b7fe72210fc507044110bb41277",
+  "sourceSha256": "da5426fd53524800207d90f5711f09af8ffb0d54f1bff7dfee033fff74e89fde",
   "reviewer": "Codex direct source-icon and actual native-frame comparison",
   "reviewedAt": "2026-10-15",
-  "reason": "Current gameplay includes real cabin/glass and street reflections. Icon assignment/submissions untouched; native icon variants and rendering-promise accuracy remain pending.",
+  "reason": "Current gameplay includes new original commercial-van details. Repair icon assignment/submissions untouched; exported native icon variants and rendering-promise accuracy remain pending.",
   "decision": "No new upload approval. Complete accurate native icon and variant review before setting passed.",
   "variantConsistencyChecked": false,
   "evidence": {
@@ -16,8 +16,8 @@
     "nativeIcon": null,
     "gameplay": [
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairCabin-20261015/FinalPresentation/showcase-driving-service.png",
-        "sha256": "e755a8a9fdaf58cebd1d09e733d979ccd3d3e73f3d7ee2d623bd26733da0d4d1",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTransitDetail-20261015/TreadPresentation/showcase-driving-service.png",
+        "sha256": "b023e87cdcf96a698570d5a244bce80100848e68713e91fd0eba21addb6deba7",
         "origin": "Unity-render"
       }
     ]

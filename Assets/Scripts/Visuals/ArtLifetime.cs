@@ -7,6 +7,7 @@ namespace Kamilunavo.RepairEmpire.Visuals
  {
   private readonly HashSet<Object> _owned=new();
   public static void Own(GameObject owner,Object asset){if(asset==null)return;var lifetime=owner.GetComponent<ArtLifetime>()??owner.AddComponent<ArtLifetime>();lifetime._owned.Add(asset);}
+  public static void Release(GameObject owner,Object asset){if(asset==null)return;var lifetime=owner.GetComponent<ArtLifetime>();if(lifetime==null||!lifetime._owned.Remove(asset))throw new System.InvalidOperationException("Releasing unowned art buffer");if(Application.isPlaying)Destroy(asset);else DestroyImmediate(asset);}
   private void OnDestroy(){foreach(var asset in _owned)if(asset!=null){if(Application.isPlaying)Destroy(asset);else DestroyImmediate(asset);}_owned.Clear();}
  }
 }

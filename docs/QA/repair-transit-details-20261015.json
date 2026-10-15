@@ -1,0 +1,348 @@
+{
+  "game": "Repair Empire",
+  "date": "2026-10-15",
+  "sourceSha256": "da5426fd53524800207d90f5711f09af8ffb0d54f1bff7dfee033fff74e89fde",
+  "baseCommit": "7dbb7c0b357105dcb6ff48aac0264834367be784",
+  "scope": "Original Transit-inspired commercial van detail and coachwork revision after explicit appearance rejection; actual Unity geometry.",
+  "supersedes": "docs/QA/repair-cabin-20261015.json",
+  "implemented": [
+    "Actual pressed side-panel surface, crowned/ribbed bonnet, rounder front/rear corners, fitted four-row livery; no physics envelope or controller change.",
+    "Sculpted front/rear fender shoulders, deeper wheelhouse liners, side-impact moldings, door-handle surround plates, filler seam, amber fender repeaters and lower sliding runner.",
+    "Swept mapped optical headlamps, larger nine-blade grille, split mirror/blind-spot panes and repeaters, scuttle tray/vents and roof rain channels.",
+    "Four original steel wheel dishes have40actual openings with folded lips and recessed dark brake drums; five real hex lugs per outward wheel face.",
+    "Shared nine-ring64-sided tire surface and fitted tread faces split at actual angular facets; axial rows avoid profile kinks. Tread relief .3mm, not floating7.6mm shoulder cards.",
+    "Hinge knuckles, plate lights, parking sensors, reversing-camera housing and rear molded step/traction ribs.",
+    "Owned disabled copied-detail buffers/components are released after material batching; semantic meshes/active batches/transforms remain. Runtime verifies no dangling MeshFilters after deferred destruction.",
+    "Seven native model/close-up views plus unchanged actual driving/menu/24fixture evidence."
+  ],
+  "preserved": [
+    "Original tire radius.32/centre.22/support-.10, four wheel roots/axles, wheel spin, brake/paint authority and eight livery variants.",
+    "Strict70000retained vertices/32active renderers/9materials ceilings. Existing closed coachwork, finite normals/ownership and collider/RNG regressions remain.",
+    "ProjectSettings byte-identical. No source change to district, controller, follow camera, job/save/commerce, scene/package/version.",
+    "Approved Perfect Drop/Rising Steps untouched. Separate explicitly requested One More Floor icon resubmission documented in that repo; no Repair upload. Historical user-deleted Concept preserved unstaged."
+  ],
+  "originalAssets": [
+    {
+      "kind": "original authored 3Dgeometry and owned material finish",
+      "sources": [
+        {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Projects/Repair-Empire/Assets/Scripts/Visuals/VanProductionDetails.cs",
+          "sha256": "e9c70687b85e2f04b7f580c21d7a6efe02815259201ff7bfbdf3e3449b116d1f",
+          "origin": "original-source"
+        },
+        {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Projects/Repair-Empire/Assets/Scripts/Visuals/VanProductionDetails.cs.meta",
+          "sha256": "faa3f08e98bc3d01fb3f2fd39c70b9170f5ea00ce959373d56d054f829dd09e0",
+          "origin": "original-source"
+        },
+        {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Projects/Repair-Empire/Assets/Scripts/Visuals/VanArt.cs",
+          "sha256": "7142d6bdcdbc9056545c8a7240560876823b2f13cb1e530ace1f35ab519aca92",
+          "origin": "original-source"
+        },
+        {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Projects/Repair-Empire/Assets/Scripts/Visuals/VanCoachworkGeometry.cs",
+          "sha256": "0a98ba0fed286be5f7a98b54b771605955e352ab212a003cc3c60e24b87f2769",
+          "origin": "original-source"
+        },
+        {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Projects/Repair-Empire/Assets/Scripts/Visuals/ArtLifetime.cs",
+          "sha256": "4da5777e03693c54190884751245c5b0bf59ced395c8428694dbae4bdd67b82a",
+          "origin": "original-source"
+        }
+      ],
+      "externalMeshShipped": false,
+      "newBitmapGenerated": false,
+      "existingOpticalTexturesUnchanged": true
+    }
+  ],
+  "reference": {
+    "url": "https://www.ford.co.uk/content/dam/guxeu/uk/documents/brochures/cars/BRO-transit_van_25.5MY.pdf",
+    "purpose": "Manufacturer vehicle/form reference only; no manufacturer badge, copied mesh or exact licensed replica claim."
+  },
+  "unity": {
+    "aggregateAndMacBuildExitCode": 0,
+    "log": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTransitDetail-20261015/unity-transit-tread.log",
+      "sha256": "e10bac42e62073c4a1c2479cd6ac9bae2ebae41413ac0d07e8b6656226e7510e",
+      "origin": "native-Unity-Editor-and-build-log"
+    },
+    "receipt": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTransitDetail-20261015/source-native-receipt.json",
+      "sha256": "a6d1ff79e0b78e4fb327317f97a6dbe8ef988da6ede9bce1bd623a75bb66a03b",
+      "origin": "exact-source-native-build-binding"
+    },
+    "bundleManifest": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTransitDetail-20261015/native-bundle-manifest.json",
+      "sha256": "6664aa637c0bb580453b19817acfe49cb7144e534ae94ecdd676615f037c0b4d",
+      "origin": "all-native-bundle-files"
+    },
+    "nativeFileCount": 314,
+    "settingsBefore": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTransitDetail-20261015/settings-before.json",
+      "sha256": "8ba5a3853486195eae6f27d73e84b7100c6d4bc9202ca5775d46edff7e8b9fb0",
+      "origin": "pre-edit-ProjectSettings-hashes"
+    },
+    "settingsUnchanged": true
+  },
+  "runs": {
+    "TreadPresentation": {
+      "checks": 1472,
+      "passed": true,
+      "processExitCode": 0,
+      "passFile": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTransitDetail-20261015/TreadPresentation/PASS.txt",
+        "sha256": "a9f62495f163d42651c8c432e02198a971538bcbbc590e9e55e4b661429d3f8d",
+        "origin": "native-Mac-result"
+      },
+      "checksFile": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTransitDetail-20261015/TreadPresentation/checks.txt",
+        "sha256": "00906eb170ef0d0dcf5599d341a892b51ef270d26ed22389c0ad35791a767c80",
+        "origin": "actual-native-checks"
+      },
+      "provenance": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTransitDetail-20261015/TreadPresentation/PROVENANCE.json",
+        "sha256": "b2c701614f59bbb5092c41ddc0886dc52234a55064bfc1caa19df63db56979ce",
+        "origin": "native-source-binding"
+      },
+      "log": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTransitDetail-20261015/TreadPresentation.log",
+        "sha256": "eff886f2e30e9af2a32012a8eafcc87d92c75caddbf04cfbe1e7656c50c125be",
+        "origin": "native-Mac-log"
+      },
+      "imageManifest": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTransitDetail-20261015/TreadPresentation/IMAGE-HASHES.json",
+        "sha256": "ec7df96c4548f7fc65cc5d48691e03131b4f029870ae5300e11887883b93181a",
+        "origin": "actual-Unity-render-file-manifest"
+      },
+      "imageCount": 71
+    },
+    "TreadFull": {
+      "checks": 1377,
+      "passed": true,
+      "processExitCode": 0,
+      "passFile": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTransitDetail-20261015/TreadFull/PASS.txt",
+        "sha256": "c863575bd616b2a7b2287886a6e8ca8bd1af6e0e31f2d02097f50b0bf4c56f0e",
+        "origin": "native-Mac-result"
+      },
+      "checksFile": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTransitDetail-20261015/TreadFull/checks.txt",
+        "sha256": "415ddcc2fbbf6aae6b8f602cfd5f9aa6d8eacac7b1e8b5be57211f71caefa449",
+        "origin": "actual-native-checks"
+      },
+      "provenance": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTransitDetail-20261015/TreadFull/PROVENANCE.json",
+        "sha256": "91d24f3f5bd4848f084c4ae3c9fcb248ea6cf58e1f8ed2ea27ae80ec7c8c8e00",
+        "origin": "native-source-binding"
+      },
+      "log": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTransitDetail-20261015/TreadFull.log",
+        "sha256": "b1eb6e3813995f69573f5b175ede48b47cf462c5ba8bd8ee5513df5fab5f514d",
+        "origin": "native-Mac-log"
+      },
+      "imageManifest": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTransitDetail-20261015/TreadFull/IMAGE-HASHES.json",
+        "sha256": "ba81b2dc48355fa44842a82832305aaa7f31b11289dd894a7e06e1f705c4e515",
+        "origin": "actual-Unity-render-file-manifest"
+      },
+      "imageCount": 58
+    },
+    "TreadReload": {
+      "checks": 7,
+      "passed": true,
+      "processExitCode": 0,
+      "passFile": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTransitDetail-20261015/TreadReload/PASS.txt",
+        "sha256": "38213edc12e5ec96959592e87d8dbbd73398b1a84ce00fa19c8bdea92ba590b6",
+        "origin": "native-Mac-result"
+      },
+      "checksFile": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTransitDetail-20261015/TreadReload/checks.txt",
+        "sha256": "a47cdbe2c393a6d3242b1a93b7d3a4c797bf0fcce1aae50ab49f39ff59a87fa3",
+        "origin": "actual-native-checks"
+      },
+      "provenance": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTransitDetail-20261015/TreadReload/PROVENANCE.json",
+        "sha256": "ce67a0ae01d610c669b01c20f9d0f9ab99644782023f5dfed50e12be21b5028d",
+        "origin": "native-source-binding"
+      },
+      "log": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTransitDetail-20261015/TreadReload.log",
+        "sha256": "7534d9f1d0db9c5e28db2c6818dc9783a35341678a92ad2525cd7bb5c12ece37",
+        "origin": "native-Mac-log"
+      },
+      "imageManifest": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTransitDetail-20261015/TreadReload/IMAGE-HASHES.json",
+        "sha256": "bf7d03445c1cfa2479c893409d25d97b3331e040d0b62f8efeb1a0bc3872ce6d",
+        "origin": "actual-Unity-render-file-manifest"
+      },
+      "imageCount": 1
+    }
+  },
+  "geometryEvidence": {
+    "coachworkChecks": 122980,
+    "movingModel": {
+      "retainedUniqueVertices": 69720,
+      "activeRenderers": 27,
+      "ownedMaterials": 9
+    },
+    "workshop": {
+      "retainedUniqueVertices": 150684,
+      "activeRenderers": 29,
+      "materials": 21
+    },
+    "realWheelOpeningRays": 40,
+    "actualCabinApertureRays": 35,
+    "windshieldRays": 57,
+    "cargoSkinRays": 18,
+    "exteriorWindingFaces": 880,
+    "closedManifoldAndPositiveVolume": true,
+    "finiteNormalsAndOwnershipCleanup": true
+  },
+  "candidateHistory": [
+    {
+      "stage": "New wheel regression against prior solid dish",
+      "outcome": "Expected RED: WHEEL_VENT_IS_PAINTED_SOLID face=1 vent=0.",
+      "log": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTransitDetail-20261015/unity-wheel-red.log",
+        "sha256": "38e34cc4cd4d2e4fdc05757de693e89862308209882720bb48f2fbce6512d009",
+        "origin": "pre-fix-Editor-RED"
+      }
+    },
+    {
+      "stage": "First detail pass",
+      "outcome": "Aggregate rejected70332retained vertices. Removed hidden inward duplicate wheel faces and explicitly disposed safe copied detail buffers; strict ceiling unchanged.",
+      "log": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTransitDetail-20261015/unity-transit-detail-initial.log",
+        "sha256": "0bc44d2ee81858df4487985418b1ff534bb076224e77c8209a312b2ee1cc7f38",
+        "origin": "superseded-Editor-diagnostic"
+      }
+    },
+    {
+      "stage": "First native views",
+      "outcome": "Corrected oversized high lamp mapping, a raised scuttle/rain fit, then differentiated actual brake backing from steel dish. Initial source/receipt retained.",
+      "receipt": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTransitDetail-20261015/source-native-receipt-initial.json",
+        "sha256": "fb568f02766d05556fac86b9a9010afd33d22e3752e95fe88a8601d85fe5cd1d",
+        "origin": "superseded-native-receipt"
+      }
+    },
+    {
+      "stage": "Fitted tire corners",
+      "outcome": "Source review and native close-up found floating shoulder cards, then numerical face sampling found buried interiors despite fitted corners. Final shared profile plus facet-split/kink-avoiding patches corrects both. Same576treadvertices per wheel; current evidence supersedes all previous native candidates.",
+      "priorReceipt": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTransitDetail-20261015/source-native-receipt.json.polished",
+        "sha256": "35208ef3c9acfb3005540fd27fc4d409b96a1aa04b22b3103795ff3a0d54974e",
+        "origin": "superseded-native-receipt"
+      }
+    }
+  ],
+  "sourceReview": {
+    "reviewer": "independent read-only repair_concept_van_review15",
+    "decision": "No remaining Critical or Important source finding. P2 tread-fit correction closed.",
+    "findingsClosed": [
+      "Actual wheel apertures and folded lip winding reviewed.",
+      "Copied-buffer ownership/lifecycle verified; active batches, pivot authority and semantic validation originals retained.",
+      "Tread shoulder/card interior fit corrected: reviewer reconstructed88704points over384triangles; clearance .29982–.30000mm, no buried samples, outward winding,576vertices per wheel."
+    ],
+    "scope": "Source quality and ownership; root owns actual native image/budget/release assessment."
+  },
+  "visualEvidence": {
+    "concept": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Artifacts/KamilunavoDelivery-20261009/concepts-20261010/repair-empire-3-ansichten.png",
+      "sha256": "0571d35c40de036f83f86f3b423c234f321586abcfec97d9d259710d816723f1",
+      "origin": "approved-concept"
+    },
+    "model": [
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTransitDetail-20261015/TreadPresentation/van-front-three-quarter.png",
+        "sha256": "b5fbd8909d46635ee46e9f50fb342c176db7646b84e13152efa5f0563ee432fa",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTransitDetail-20261015/TreadPresentation/van-rear-three-quarter.png",
+        "sha256": "eabe5e4e7fa672a73010cfaf898189a7b310204ed6304c8f092bb5dd594517b0",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTransitDetail-20261015/TreadPresentation/van-rear.png",
+        "sha256": "431ce7dcc077f12baee4112d8ec59de98a36e815e0591d075eb0c272f2297095",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTransitDetail-20261015/TreadPresentation/van-side.png",
+        "sha256": "bdd50d220e36f99086232ce5f17480e39ae88cea4f37b2c043b3c906906347a0",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTransitDetail-20261015/TreadPresentation/van-cabin.png",
+        "sha256": "4d5fb1a4267b2727291ecbef5b9d163e42bb0b60e2ff3c7935131de32e886693",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTransitDetail-20261015/TreadPresentation/van-front-detail.png",
+        "sha256": "417c80cff5e4198fe8a3d49f0509d7869787650144cf5454dfa8802aac472b41",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTransitDetail-20261015/TreadPresentation/van-wheel-detail.png",
+        "sha256": "e8c39a0cb5fa7346a6536ef0be2ed58acf859c97ad6aabca613e9cd4f8fd7808",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTransitDetail-20261015/TreadPresentation/workshop-native.png",
+        "sha256": "4ae67cc96b0575370aa708846b81bcc679d1a61af80a296c1d9920c3441eba96",
+        "origin": "Unity-render"
+      }
+    ],
+    "gameplay": [
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTransitDetail-20261015/TreadPresentation/showcase-driving-service.png",
+        "sha256": "b023e87cdcf96a698570d5a244bce80100848e68713e91fd0eba21addb6deba7",
+        "origin": "Unity-render"
+      }
+    ],
+    "menus": [
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTransitDetail-20261015/TreadPresentation/showcase-de-dashboard.png",
+        "sha256": "7b6f86e30dc90d9b51ed2b441931460884f18b71c31abc562af4eaf9bd72e22d",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTransitDetail-20261015/TreadPresentation/landscape-de-section-9.png",
+        "sha256": "15c29061d65467984c13674e06dd8768a1761495517a81702201246c286c29e4",
+        "origin": "Unity-render"
+      }
+    ]
+  },
+  "comparisons": [
+    {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTransitDetail-20261015/van-vorher-nachher.png",
+      "sha256": "1d9e6771ed0cb359f79d76fae95bd66cf353b9291d10db2105bcb6c9ff04db4e",
+      "origin": "mechanical-layout-of-actual-Unity-PNGs-and-labeled-reference-crop"
+    },
+    {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTransitDetail-20261015/van-details-unity.png",
+      "sha256": "3c6ff3139f2299ec5bdda4f6b6ac9bb1558efeaa71a27f3274aeb77adc41b68c",
+      "origin": "mechanical-layout-of-actual-Unity-PNGs-and-labeled-reference-crop"
+    },
+    {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTransitDetail-20261015/konzept-unity-vergleich.png",
+      "sha256": "b59a007b05f070153db985aa6e6dc99ee3d984f63c4fcddb39c524a86d5400af",
+      "origin": "mechanical-layout-of-actual-Unity-PNGs-and-labeled-reference-crop"
+    }
+  ],
+  "decision": {
+    "boundedVanDetailImplementation": "verified",
+    "fullConceptSimilarity": "failed",
+    "storeIconReview": "pending",
+    "uploadPerformed": false
+  },
+  "remaining": [
+    "Original mobile van remains stylized with simplified large surfaces and wheelhouse/interior finish; not a manufacturer-exact asset or full Concept-quality approval.",
+    "Broad sparse avenue, scene lighting/materials and repair composition still differ materially from the dense warm approved board.",
+    "Decorative generated workshop-menu illustration is not proof of actual3Dvehicle or city fidelity.",
+    "Mac Metal evidence is not physical iOS/Android touch,60FPS/thermal, live ad/purchase, exported icon-variant or Apple acceptance."
+  ]
+}
