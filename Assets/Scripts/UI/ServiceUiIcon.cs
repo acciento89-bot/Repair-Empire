@@ -27,15 +27,24 @@ namespace Kamilunavo.RepairEmpire.UI
     case "Shop":
      Outline(4,3,16,15);Line(8,17,8,20,1.7f);Line(8,20,16,20,1.7f);Line(16,20,16,17,1.7f);break;
     case "Pause":Box(6,4,4,16);Box(14,4,4,16);break;
+    case "Route":
+     Poly(new(12,23),new(2,8),new(9,10),new(9,2),new(15,2),new(15,10),new(22,8));break;
     case "Left":Line(15,4,7,12,2.3f);Line(7,12,15,20,2.3f);break;
     case "Right":Line(9,4,17,12,2.3f);Line(17,12,9,20,2.3f);break;
-    case "Brake":case "Gas":
-     Outline(6,2,12,20);for(int i=0;i<4;i++)Line(9,6+i*4,15,6+i*4,1.4f);break;
+    case "Brake":
+     PolyTint(new Color(.45f,.53f,.56f,color.a),new(2,7),new(4,5),new(21,5),new(23,7),new(23,17),new(21,19),new(4,19),new(2,17));
+     Poly(new(2,8),new(4,6),new(20,6),new(22,8),new(22,17),new(20,19),new(4,19),new(2,17));
+     for(int row=0;row<3;row++)PolyTint(new Color(.10f,.17f,.20f,color.a),new(6,8+row*3),new(18,8+row*3),new(18,9.5f+row*3),new(6,9.5f+row*3));break;
+    case "Gas":
+     PolyTint(new Color(.45f,.53f,.56f,color.a),new(6,2),new(15,2),new(19,21),new(17,23),new(9,23),new(7,21));
+     Poly(new(6,3),new(14,3),new(18,21),new(16,23),new(9,23),new(7,21));
+     for(int groove=0;groove<3;groove++){float x=8.1f+groove*2.2f;PolyTint(new Color(.10f,.17f,.20f,color.a),new(x,6),new(x+1,6),new(x+3,20),new(x+2,20));}break;
     default:Circle(12,12,7);Line(12,8,12,16,1.7f);break;
    }
   }
   Vector2 P(Vector2 p)=>origin+p*scale;
-  void Poly(params Vector2[] points){int first=mesh.currentVertCount;foreach(var p in points)mesh.AddVert(P(p),color,Vector2.zero);for(int i=1;i<points.Length-1;i++)mesh.AddTriangle(first,first+i,first+i+1);}
+  void Poly(params Vector2[] points)=>PolyTint(color,points);
+  void PolyTint(Color tint,params Vector2[] points){int first=mesh.currentVertCount;foreach(var p in points)mesh.AddVert(P(p),tint,Vector2.zero);for(int i=1;i<points.Length-1;i++)mesh.AddTriangle(first,first+i,first+i+1);}
   void Box(float x,float y,float w,float h)=>Poly(new(x,y),new(x+w,y),new(x+w,y+h),new(x,y+h));
   void Line(float ax,float ay,float bx,float by,float width){Vector2 a=new(ax,ay),b=new(bx,by),n=new Vector2(-(b-a).y,(b-a).x).normalized*width*.5f;Poly(a-n,b-n,b+n,a+n);}
   void Outline(float x,float y,float w,float h){Line(x,y,x+w,y,1.7f);Line(x+w,y,x+w,y+h,1.7f);Line(x+w,y+h,x,y+h,1.7f);Line(x,y+h,x,y,1.7f);}

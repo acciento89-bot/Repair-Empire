@@ -4,6 +4,14 @@ Native iOS + Android service-business simulator by Kamilunavo.
 
 ## Current work — 2026-10-15
 
+Latest scope: the user reports Perfect Drop and Rising Steps approved. Leave both apps and their submissions untouched; current work is Repair Empire only.
+
+The service presentation now has its own job-information board with actual customer/distance, pay, required tool, level and three job-specific stages. Ordered repair actions stay on a fixed shelf; a dedicated paid receipt exposes resume and Shop. A smaller driving card, separate Route/Start action and distinct modeled pedal icons clear more of the road. Two original stone/cloth material textures, folded towel and vanity props improve the real service photos, now rendered through an isolated cached HDR/filmic finish. Original clock/bridge geometry and a fitted two-row customer sign add district identity.
+
+Fresh final-source native Mac presentation / four-driven-job / reload runs pass **1,422 / 1,371 / 7** checks. Actual image review caught tutorial-control overlap and customer-sign mirroring/overflow; native regressions reproduce and verify the corrections. All 314 bundle files were reverified; ProjectSettings, the 54 district colliders and height RNG remain unchanged. [Current art/UI evidence, original assets and actual Concept comparisons](docs/QA/repair-art-complete-20261015.json). The complete graphical gate remains **FAILED** for town/van/lighting/detail and full Concept finish; no new Repair upload or build-number change.
+
+Earlier verified slices:
+
 The street now uses two original brick/leaf material assets, broader layered trees, visible foreground brick terraces and mansards, finer asphalt and warmer daylight with amber route chevrons. All 54 district BoxColliders and the serialized height Random state match the pre-edit native baseline. Fresh native Mac presentation / four-driven-job / reload runs pass 1,422 / 1,311 / 7 checks. [Street evidence and actual Concept comparison](docs/QA/repair-street-concept-20261015.json). The overall graphical gate remains **FAILED**; the road composition, vehicle/fixture finish and driving UI still differ materially from the reference.
 
 The workshop tablet now uses warm ivory surfaces, real rounded card/photo geometry, four original navigation icons and a direct header Shop with parent Back. The driving overlay has a smaller matching 3D call preview and retains vehicle controls; short reserved panes keep the van clear. Fresh exact-source native presentation / four-driven-job / reload runs pass 1,422 / 1,311 / 7 checks. [Current UI evidence](docs/QA/repair-ui-concept-20261015.json).

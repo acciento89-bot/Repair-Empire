@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 using Kamilunavo.RepairEmpire.Gameplay;
 using Kamilunavo.RepairEmpire.Visuals;
 
@@ -13,7 +14,8 @@ public static class RepairFixtureContextValidation
  public static void RunStudio()
  {
   var sky=RenderSettings.skybox;var ambient=RenderSettings.ambientMode;float intensity=RenderSettings.ambientIntensity;var skyColor=RenderSettings.ambientSkyColor;var groundColor=RenderSettings.ambientGroundColor;var equatorColor=RenderSettings.ambientEquatorColor;
-  var host=new GameObject("IsolatedFixtureStudioProbe");var owned=new HashSet<UnityEngine.Object>();
+  var host=new GameObject("IsolatedFixtureStudioProbe");var owned=new HashSet<UnityEngine.Object>();var activeTarget=RenderTexture.active;
+  var finish=Resources.Load<Shader>("ServicePhotoFinish");var existingFinishes=new HashSet<Material>();foreach(var material in Resources.FindObjectsOfTypeAll<Material>())if(material.shader==finish)existingFinishes.Add(material);
   try{
    var art=host.AddComponent<ServiceSceneArt>();owned.Add(art.Thumbnail("faucet"));owned.Add(art.RepairImage("call-2-3",1));
    var probes=host.GetComponentsInChildren<ReflectionProbe>(true);Check(probes.Length==1,"metal uses one isolated local studio reflection environment");
@@ -21,10 +23,13 @@ public static class RepairFixtureContextValidation
    Check(probe.customBakedTexture.width<=64,"reflection cubemap remains small and bounded");owned.Add(probe.customBakedTexture);
    Check(RenderSettings.skybox==sky&&RenderSettings.ambientMode==ambient&&RenderSettings.ambientIntensity==intensity&&RenderSettings.ambientSkyColor==skyColor&&RenderSettings.ambientGroundColor==groundColor&&RenderSettings.ambientEquatorColor==equatorColor,"isolated photo materials never mutate global render environment");
    var camera=host.GetComponentInChildren<Camera>(true);var pumpPosition=camera.transform.localPosition;art.RepairImage("call-1-1",1);Check((camera.transform.localPosition-pumpPosition).sqrMagnitude>.05f,"camera meaningfully frames a wall outlet differently from a mechanical pump");
+   int finishes=0;foreach(var material in Resources.FindObjectsOfTypeAll<Material>())if(material.shader==finish&&!existingFinishes.Contains(material)){owned.Add(material);finishes++;}Check(finish!=null&&finishes==1,"one scene-owned original photographic finish material");
+   Check(RenderTexture.active==activeTarget&&camera.targetTexture==null,"HDR photograph restores caller render targets");
    foreach(var f in host.GetComponentsInChildren<MeshFilter>(true))owned.Add(f.sharedMesh);
-   foreach(var r in host.GetComponentsInChildren<Renderer>(true))if(r.sharedMaterial.name.StartsWith("FixturePBR")){owned.Add(r.sharedMaterial);if(r.sharedMaterial.mainTexture!=null)owned.Add(r.sharedMaterial.mainTexture);}
+   foreach(var r in host.GetComponentsInChildren<Renderer>(true))if(r.sharedMaterial.name.StartsWith("FixturePBR")){owned.Add(r.sharedMaterial);if(r.sharedMaterial.mainTexture!=null&&!AssetDatabase.Contains(r.sharedMaterial.mainTexture))owned.Add(r.sharedMaterial.mainTexture);}
   }finally{UnityEngine.Object.DestroyImmediate(host);}
   foreach(var asset in owned)Check(asset==null,"studio render targets/cube/materials/textures and meshes release with owner");
+  Check(Resources.Load<Texture2D>("Art/ServiceStone-v1")!=null&&Resources.Load<Texture2D>("Art/ServiceCloth-v1")!=null,"original shared service textures survive studio teardown");
   Debug.Log("REPAIR_FIXTURE_STUDIO_PASS localReflection=true globalEnvironmentUntouched=true");
  }
  public static void Run()
@@ -48,7 +53,7 @@ public static class RepairFixtureContextValidation
     Check(model.GetComponentsInChildren<Collider>().Length==0,"room/detail art never changes gameplay collisions");
     var mats=new HashSet<Material>();var textures=new HashSet<Texture>();bool metal=false;
     foreach(var r in model.GetComponentsInChildren<Renderer>())if(r.sharedMaterial.name.StartsWith("FixturePBR")){
-     var mat=r.sharedMaterial;mats.Add(mat);assets.Add(mat);if(mat.mainTexture!=null){textures.Add(mat.mainTexture);assets.Add(mat.mainTexture);}
+     var mat=r.sharedMaterial;mats.Add(mat);assets.Add(mat);if(mat.mainTexture!=null){textures.Add(mat.mainTexture);if(!AssetDatabase.Contains(mat.mainTexture))assets.Add(mat.mainTexture);}
      if(mat.HasProperty("_Metallic")&&mat.GetFloat("_Metallic")>=.7f)metal=true;
     }
     Check(mats.Count<=20&&textures.Count<=5,"finite shared physical material kit");

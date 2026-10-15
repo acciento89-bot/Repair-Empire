@@ -32,15 +32,16 @@ namespace Kamilunavo.RepairEmpire.Visuals
   {
    if(_materials.TryGetValue(finish,out var existing))return existing;var mat=new Material(Resources.Load<Material>("Materials/Surface")){name="FixturePBR"+finish};float metal=0,gloss=.25f;
    mat.color=finish switch {
-    FixtureFinish.Ceramic=>new(.94f,.94f,.90f),FixtureFinish.Chrome=>new(.84f,.86f,.88f),FixtureFinish.Steel=>new(.55f,.60f,.61f),FixtureFinish.Copper=>new(.72f,.40f,.23f),FixtureFinish.Brass=>new(.69f,.51f,.23f),
+    FixtureFinish.Ceramic=>new(.96f,.95f,.91f),FixtureFinish.Chrome=>new(.96f,.97f,.98f),FixtureFinish.Steel=>new(.55f,.60f,.61f),FixtureFinish.Copper=>new(.72f,.40f,.23f),FixtureFinish.Brass=>new(.69f,.51f,.23f),
     FixtureFinish.Navy=>new(.035f,.06f,.08f),FixtureFinish.Orange=>new(.96f,.31f,.055f),FixtureFinish.Blue=>new(.13f,.25f,.30f),FixtureFinish.Green=>new(.22f,.47f,.29f),FixtureFinish.Dirt=>new(.34f,.29f,.22f),
-    FixtureFinish.Stone=>new(.74f,.70f,.62f),FixtureFinish.Grout=>new(.54f,.52f,.47f),FixtureFinish.Plaster=>new(.80f,.79f,.72f),FixtureFinish.Wood=>new(.48f,.34f,.20f),FixtureFinish.Concrete=>new(.52f,.54f,.51f),
-    FixtureFinish.Cloth=>new(.15f,.29f,.36f),FixtureFinish.Lamp=>new(1,.90f,.68f),_=>new(.37f,.48f,.51f)};
-   if(finish==FixtureFinish.Chrome||finish==FixtureFinish.Steel||finish==FixtureFinish.Copper||finish==FixtureFinish.Brass){metal=finish==FixtureFinish.Chrome?1f:.82f;gloss=finish==FixtureFinish.Chrome?.90f:finish==FixtureFinish.Steel?.61f:.67f;mat.mainTexture=Texture(1);}
+    FixtureFinish.Stone=>Color.white,FixtureFinish.Grout=>new(.62f,.58f,.50f),FixtureFinish.Plaster=>new(.80f,.79f,.72f),FixtureFinish.Wood=>new(.48f,.34f,.20f),FixtureFinish.Concrete=>new(.52f,.54f,.51f),
+    FixtureFinish.Cloth=>Color.white,FixtureFinish.Lamp=>new(1,.90f,.68f),_=>new(.37f,.48f,.51f)};
+   if(finish==FixtureFinish.Chrome||finish==FixtureFinish.Steel||finish==FixtureFinish.Copper||finish==FixtureFinish.Brass){metal=finish==FixtureFinish.Chrome?1f:.82f;gloss=finish==FixtureFinish.Chrome?.95f:finish==FixtureFinish.Steel?.61f:.67f;mat.mainTexture=Texture(1);}
    else if(finish==FixtureFinish.Ceramic)gloss=.73f;
-   else if(finish==FixtureFinish.Stone||finish==FixtureFinish.Plaster||finish==FixtureFinish.Concrete){mat.mainTexture=Texture(0);gloss=finish==FixtureFinish.Stone?.31f:.10f;}
+   else if(finish==FixtureFinish.Stone){mat.mainTexture=Resources.Load<Texture2D>("Art/ServiceStone-v1");gloss=.34f;}
+   else if(finish==FixtureFinish.Plaster||finish==FixtureFinish.Concrete){mat.mainTexture=Texture(0);gloss=.10f;}
    else if(finish==FixtureFinish.Wood){mat.mainTexture=Texture(2);gloss=.27f;}
-   else if(finish==FixtureFinish.Cloth){mat.mainTexture=Texture(3);gloss=.08f;}
+   else if(finish==FixtureFinish.Cloth){mat.mainTexture=Resources.Load<Texture2D>("Art/ServiceCloth-v1");gloss=.08f;}
    else if(finish==FixtureFinish.Blue){metal=.30f;gloss=.43f;}
    else if(finish==FixtureFinish.Glass){metal=.30f;gloss=.78f;}
    if(finish==FixtureFinish.Lamp){mat.EnableKeyword("_EMISSION");mat.SetColor("_EmissionColor",mat.color*.45f);}
@@ -55,8 +56,8 @@ namespace Kamilunavo.RepairEmpire.Visuals
      var color=Color.Lerp(new Color(.20f,.18f,.14f),new Color(.80f,.79f,.73f),Mathf.Clamp01(d.y*.65f+.52f));
      // Broad window and narrow softbox reflected on physical metal. HDR stores
      // real bright specular energy; no emission or scene-global environment changes.
-     float panel=Panel(d,new Vector3(-.62f,.42f,-.66f),.58f,.55f);
-     float strip=Panel(d,new Vector3(.64f,.25f,-.72f),.09f,.67f);
+     float panel=Panel(d,new Vector3(-.50f,.05f,-.86f),.22f,.90f);
+     float strip=Panel(d,new Vector3(.64f,.10f,-.72f),.12f,.80f);
      color=Color.Lerp(color,new Color(3.1f,3.0f,2.78f),panel);
      color=Color.Lerp(color,new Color(2.25f,2.40f,2.55f),strip);
      if(Mathf.Abs(d.y)<.09f&&d.z>.45f)color*=.42f;color.a=1;pixels[y*n+x]=color;

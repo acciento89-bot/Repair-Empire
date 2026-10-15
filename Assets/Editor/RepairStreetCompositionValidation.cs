@@ -15,7 +15,7 @@ public static class RepairStreetCompositionValidation
  static string Baseline=>Path.GetFullPath(Path.Combine(Application.dataPath,"../docs/QA/repair-street-collision-baseline-20261015.json"));
  static void Require(bool value,string reason){if(!value)throw new InvalidOperationException("REPAIR_STREET_"+reason);}
  static string V(Vector3 value)=>value.x.ToString("R",CultureInfo.InvariantCulture)+","+value.y.ToString("R",CultureInfo.InvariantCulture)+","+value.z.ToString("R",CultureInfo.InvariantCulture);
- sealed class EnvironmentState
+ internal sealed class EnvironmentState
  {
   readonly Material sky=RenderSettings.skybox;readonly AmbientMode mode=RenderSettings.ambientMode;
   readonly Color top=RenderSettings.ambientSkyColor,middle=RenderSettings.ambientEquatorColor,bottom=RenderSettings.ambientGroundColor,fogColor=RenderSettings.fogColor;

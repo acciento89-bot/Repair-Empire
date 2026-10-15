@@ -23,8 +23,8 @@ namespace Kamilunavo.RepairEmpire.UI
      var centre=new Vector2(corner==0||corner==3?bounds.xMax-r:bounds.xMin+r,corner<2?bounds.yMax-r:bounds.yMin+r);
      var point=centre+new Vector2(Mathf.Cos(angle),Mathf.Sin(angle))*r;var tint=color;
      if(ring==0)tint.a=0;
-     else if(ring==1){var edge=Color.Lerp(color,new Color(.43f,.39f,.32f,color.a),.15f);tint=edge;}
-     else{float light=Mathf.Lerp(.982f,1.012f,Mathf.InverseLerp(rect.yMin,rect.yMax,point.y));tint.r=Mathf.Clamp01(tint.r*light);tint.g=Mathf.Clamp01(tint.g*light);tint.b=Mathf.Clamp01(tint.b*light);}
+     else if(ring==1){var edge=Color.Lerp(color,new Color(.35f,.30f,.24f,color.a),.22f);tint=edge;}
+     else{float y=Mathf.InverseLerp(rect.yMin,rect.yMax,point.y);var low=new Color(color.r*.955f,color.g*.955f,color.b*.955f,color.a);var high=Color.Lerp(color,new Color(1,1,1,color.a),.08f);tint=Color.Lerp(low,high,y);}
      vh.AddVert(point,tint,Vector2.one*.5f);
     }
    }

@@ -1,16 +1,16 @@
 {
   "game": "Repair Empire",
   "status": "failed",
-  "sourceSha256": "c4d802e83a2b20bbd7a69c95c0fdc948d3b502d3ebd25fd78f979b3e1e3eb427",
-  "reviewer": "Codex actual native street/menu/repair review against unchanged approved Concept",
+  "sourceSha256": "76d19dd33aceec9623ab69781ca54d1eb2e3df493903d7f7c828d2aa846a32f6",
+  "reviewer": "Codex actual native service/street/menu comparison against unchanged approved Concept",
   "reviewedAt": "2026-10-15",
-  "reason": "Original broad foliage, foreground brick composition, finer asphalt and warmer light are verified in actual native Mac renders with1422presentation/1311four-driven-repair/7reload checks. Road scale/repetition, van/fixture rendering, architecture and driving HUD still fall short of the Concept. No whole-game or numerical similarity approval; native icon variant check remains pending.",
+  "reason": "Original material/prop/landmark art, job board, compact driving HUD and actual repair/receipt presentation validated in native Mac1422/1371/7 checks. Overall architecture, van/world rendering and scene density remain below Concept; no graphical release approval.",
   "criteria": {
     "concept_similarity": "failed",
     "character_or_tower": "failed",
     "world_variants": "pending",
     "menu_identity": "pending",
-    "submenu_navigation": "pending",
+    "submenu_navigation": "passed",
     "readability": "pending"
   },
   "evidence": {
@@ -23,47 +23,57 @@
     ],
     "menu": [
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreet-20261015/VerifiedPresentation/showcase-de-dashboard.png",
-        "sha256": "01e54cc9a9b07d53a5859cd1cb920d2317848d02b7911c8b073d519b649bc076",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairArtComplete-20261015/CheckedPresentation/showcase-de-dashboard.png",
+        "sha256": "b3b07c5ac665754efcf41b668500843a59a3fd8fb4b21347be355125bb249311",
         "origin": "Unity-render"
       },
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreet-20261015/VerifiedPresentation/showcase-en-dashboard.png",
-        "sha256": "166c52c1dddd9a78448da734446667abece273db7f0a1320fdf286819b9fa964",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairArtComplete-20261015/CheckedPresentation/showcase-en-dashboard.png",
+        "sha256": "50b38382572fb8c53a4f6f57f7f58bc8c3e030bee031c64ff3419abfe18525ad",
         "origin": "Unity-render"
       }
     ],
     "gameplay": [
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreet-20261015/VerifiedPresentation/showcase-driving-service.png",
-        "sha256": "99f0e4e2ade2d5fbe2f4781ed6b70c122aaa356ff9db2685ef813e21d6d0d804",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairArtComplete-20261015/CheckedPresentation/showcase-driving-service.png",
+        "sha256": "7033e853f6fe5dbf8322a89eb99c1029822b2c64cc4cb1ae0bc7a0fe3e898646",
         "origin": "Unity-render"
       }
     ],
     "submenus": [
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreet-20261015/VerifiedFull/repair-faucet-stage1.png",
-        "sha256": "6c6dc417972522dc4762fdced4f8ee04932e01ce20a0203d078c20915b0754fe",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairArtComplete-20261015/CheckedPresentation/portrait-de-section-0.png",
+        "sha256": "19025d439841a66fe8927c9b14e3547853ab4f925f8110a9bc8dbb671ec0b297",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairArtComplete-20261015/CheckedFull/repair-faucet-stage1.png",
+        "sha256": "5f2cebe175d06256fd738922e87d148e2e54fc833b6d5ef9117233cb32da4b41",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairArtComplete-20261015/CheckedFull/repair-paid-result-0.png",
+        "sha256": "a94229d2671a6e13445ee55d53ba7ca2e94df4ecbb45235a30445f92c81306ba",
         "origin": "Unity-render"
       }
     ],
     "variants": [
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreet-20261015/VerifiedPresentation/fixture-call-3-0.png",
-        "sha256": "b38c3698adf940877692e36212942bcacfc7bcee8b10d964f2ef29d5adc73d87",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairArtComplete-20261015/CheckedPresentation/fixture-call-2-3.png",
+        "sha256": "f8a661ed8da0fb12213be4b58254251d5141ff4a809126d54c209e8ba50d2ead",
         "origin": "Unity-render"
       },
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreet-20261015/VerifiedPresentation/fixture-switch.png",
-        "sha256": "39ec9f941921e953d5df0ef364cba08cb6412810432d1ca10fadb5435fd80065",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairArtComplete-20261015/CheckedPresentation/fixture-switch.png",
+        "sha256": "d71f4becaef388271b663d1805ffc1ff2781ccfc69a9c96e5fe07dbde6df3325",
         "origin": "Unity-render"
       }
     ]
   },
   "previousReview": {
-    "sourceSha256": "974646e3271e7db4366c0d72324a76cbd457886a56342f1dd34f5dedfcaa3a5c",
+    "sourceSha256": "c4d802e83a2b20bbd7a69c95c0fdc948d3b502d3ebd25fd78f979b3e1e3eb427",
     "status": "failed",
-    "archive": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreet-20261015/visual-release-gate-before-street.json"
+    "archive": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairArtComplete-20261015/visual-release-gate-before-art.json"
   },
-  "candidateReport": "docs/QA/repair-street-concept-20261015.json"
+  "candidateReport": "docs/QA/repair-art-complete-20261015.json"
 }

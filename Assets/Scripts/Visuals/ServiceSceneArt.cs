@@ -5,32 +5,51 @@ namespace Kamilunavo.RepairEmpire.Visuals {
  // These are actual scene models, photographed by one scene-owned camera. No bitmap stands in for gameplay.
  public sealed class ServiceSceneArt:MonoBehaviour {
   public const int PreviewLayer=30;
-  readonly Dictionary<string,RenderTexture> images=new();Camera camera;Transform studio;RenderTexture repairImage;string repairKey;int repairPhase=-1,repairContacts=-1;GameObject repairModel;
+  readonly Dictionary<string,RenderTexture> images=new();Camera camera;Transform studio;RenderTexture repairImage;string repairKey;int repairPhase=-1,repairContacts=-1;GameObject repairModel;Material photoFinish;
   static Material Ceramic=>MeshArt.Mat("FixturePorcelain",new(.92f,.93f,.89f));
   static Material Navy=>MeshArt.Mat("FixtureNavy",new(.025f,.065f,.11f));
   static Material Orange=>MeshArt.Mat("FixtureOrange",new(1,.34f,.055f));
   static Material Metal{get{var m=MeshArt.Mat("FixtureChrome",new(.68f,.76f,.79f));m.SetFloat("_Metallic",.82f);m.SetFloat("_Glossiness",.86f);return m;}}
   public static string VisualKey(string id){var job=JobCatalog.Find(id);if(job?.Presentation!=null)return job.Presentation.FixtureKey;foreach(var item in JobCatalog.All)if(item.Presentation?.FixtureKey==id)return id;return "faucet";}
 
-  void Ensure(){if(camera!=null)return;studio=new GameObject("Isolated service photo studio").transform;studio.SetParent(transform,false);studio.localPosition=new(0,-1000,0);var go=new GameObject("Service photography camera",typeof(Camera));go.transform.SetParent(studio,false);camera=go.GetComponent<Camera>();camera.enabled=false;camera.clearFlags=CameraClearFlags.SolidColor;camera.backgroundColor=new(.69f,.65f,.58f);camera.cullingMask=1<<PreviewLayer;camera.nearClipPlane=.05f;camera.farClipPlane=40;camera.fieldOfView=35;camera.allowHDR=false;camera.allowMSAA=true;
-   var key=new GameObject("Service softbox",typeof(Light));key.transform.SetParent(studio,false);key.transform.localPosition=new(-2,4,-2);key.transform.LookAt(studio.position+Vector3.up*.5f);var light=key.GetComponent<Light>();light.type=LightType.Spot;light.range=12;light.spotAngle=90;light.intensity=2.1f;light.color=new(.94f,.97f,1);light.cullingMask=1<<PreviewLayer;light.shadows=LightShadows.Soft;
-   var fill=new GameObject("Service warm fill",typeof(Light));fill.transform.SetParent(studio,false);fill.transform.localPosition=new Vector3(2,1.8f,-1.3f);var fillLight=fill.GetComponent<Light>();fillLight.type=LightType.Point;fillLight.range=8;fillLight.intensity=.9f;fillLight.color=new Color(1,.86f,.70f);fillLight.cullingMask=1<<PreviewLayer;fillLight.shadows=LightShadows.None;
+  void Ensure(){if(camera!=null)return;studio=new GameObject("Isolated service photo studio").transform;studio.SetParent(transform,false);studio.localPosition=new(0,-1000,0);var go=new GameObject("Service photography camera",typeof(Camera));go.transform.SetParent(studio,false);camera=go.GetComponent<Camera>();camera.enabled=false;camera.clearFlags=CameraClearFlags.SolidColor;camera.backgroundColor=new(.69f,.65f,.58f);camera.cullingMask=1<<PreviewLayer;camera.nearClipPlane=.05f;camera.farClipPlane=40;camera.fieldOfView=35;camera.allowHDR=true;camera.allowMSAA=true;var finish=Resources.Load<Shader>("ServicePhotoFinish");if(finish==null)throw new System.InvalidOperationException("Original service photo shader missing");photoFinish=new Material(finish){name="ServicePhotoFinish"};ArtLifetime.Own(gameObject,photoFinish);
+   var key=new GameObject("Service softbox",typeof(Light));key.transform.SetParent(studio,false);key.transform.localPosition=new(-2,4,-2);key.transform.LookAt(studio.position+Vector3.up*.5f);var light=key.GetComponent<Light>();light.type=LightType.Spot;light.range=12;light.spotAngle=90;light.intensity=3.0f;light.color=new(1,.96f,.88f);light.cullingMask=1<<PreviewLayer;light.shadows=LightShadows.Soft;
+   var fill=new GameObject("Service warm fill",typeof(Light));fill.transform.SetParent(studio,false);fill.transform.localPosition=new Vector3(2,1.8f,-1.3f);var fillLight=fill.GetComponent<Light>();fillLight.type=LightType.Point;fillLight.range=8;fillLight.intensity=1.1f;fillLight.color=new Color(1,.86f,.70f);fillLight.cullingMask=1<<PreviewLayer;fillLight.shadows=LightShadows.None;
    var reflection=new GameObject("Isolated service metal reflection",typeof(ReflectionProbe));reflection.transform.SetParent(studio,false);reflection.transform.localPosition=Vector3.up*.7f;var probe=reflection.GetComponent<ReflectionProbe>();probe.mode=UnityEngine.Rendering.ReflectionProbeMode.Custom;probe.customBakedTexture=FixtureMaterials.Kit(studio).Environment();probe.size=new Vector3(12,8,10);probe.center=Vector3.zero;probe.boxProjection=true;probe.blendDistance=0;probe.intensity=1.25f;probe.importance=100;probe.cullingMask=1<<PreviewLayer;
   }
   RenderTexture Target(string name,int w,int h,int depth=16){var target=new RenderTexture(w,h,depth,RenderTextureFormat.ARGB32){name=name,antiAliasing=2};target.Create();ArtLifetime.Own(gameObject,target);return target;}
-  void Photograph(GameObject model,RenderTexture target,bool workshop=false){SetLayer(model.transform);OwnStudioMaterials(model);FixtureMaterials.PrepareRenderers(model);var previousTarget=camera.targetTexture;camera.targetTexture=target;camera.aspect=(float)target.width/target.height;camera.transform.localPosition=workshop?new Vector3(5,2.8f,-7):new Vector3(1.55f,1.50f,-2.55f);camera.transform.LookAt(studio.position+(workshop?new Vector3(0,1.65f,.7f):new Vector3(0,.48f,0)));camera.fieldOfView=workshop?40:35;var pose=model.GetComponent<FixturePhotoPose>();if(pose!=null&&!workshop){camera.transform.localPosition=pose.Eye;camera.transform.LookAt(studio.TransformPoint(pose.Target));camera.fieldOfView=pose.FieldOfView;}var previousActive=RenderTexture.active;try{camera.Render();}finally{camera.targetTexture=previousTarget;RenderTexture.active=previousActive;model.SetActive(false);}}
+  void Photograph(GameObject model,RenderTexture target,bool workshop=false)
+  {
+   SetLayer(model.transform);OwnStudioMaterials(model);FixtureMaterials.PrepareRenderers(model);
+   var previousTarget=camera.targetTexture;var previousActive=RenderTexture.active;RenderTexture hdr=null;
+   camera.aspect=(float)target.width/target.height;camera.transform.localPosition=workshop?new Vector3(5,2.8f,-7):new Vector3(1.55f,1.50f,-2.55f);
+   camera.transform.LookAt(studio.position+(workshop?new Vector3(0,1.65f,.7f):new Vector3(0,.48f,0)));camera.fieldOfView=workshop?40:35;
+   var pose=model.GetComponent<FixturePhotoPose>();if(pose!=null&&!workshop){camera.transform.localPosition=pose.Eye;camera.transform.LookAt(studio.TransformPoint(pose.Target));camera.fieldOfView=pose.FieldOfView;}
+   try
+   {
+    if(SystemInfo.SupportsRenderTextureFormat(RenderTextureFormat.ARGBHalf)&&photoFinish.shader.isSupported)
+    {
+     // Capture highlight energy before the final eight-bit cached photograph.
+     // The HDR target is temporary; there is no extra camera or per-frame effect.
+     hdr=RenderTexture.GetTemporary(target.width,target.height,24,RenderTextureFormat.ARGBHalf,RenderTextureReadWrite.Default,2);
+     camera.targetTexture=hdr;camera.Render();Graphics.Blit(hdr,target,photoFinish);
+    }
+    else{camera.targetTexture=target;camera.Render();}
+   }
+   finally{camera.targetTexture=previousTarget;RenderTexture.active=previousActive;if(hdr!=null)RenderTexture.ReleaseTemporary(hdr);model.SetActive(false);}
+  }
   void OwnStudioMaterials(GameObject model){foreach(var renderer in model.GetComponentsInChildren<MeshRenderer>()){var material=renderer.sharedMaterial;if(material==null)continue;string name=material.name;if(name.StartsWith("Fixture")||name.StartsWith("Bathroom")||name=="ServiceCloth"||name=="WaterHighlight"||name=="ValveBrass"||name=="SoapAmber"||name=="SwitchRocker"||name=="WorkshopPlywood"||name=="WorkshopPlaster")ArtLifetime.Own(gameObject,material);}}
   static void SetLayer(Transform root){root.gameObject.layer=PreviewLayer;foreach(Transform child in root)SetLayer(child);}
   public Texture Thumbnail(string id){Ensure();string key=VisualKey(id);if(images.TryGetValue(key,out var image))return image;image=Target("Service image "+key,192,192);var model=BuildFixture(studio,key,-1);Photograph(model,image);images.Add(key,image);DestroyModel(model);return image;}
   public Texture WorkshopImage(){Ensure();if(images.TryGetValue("workshop",out var image))return image;image=Target("Workshop hero image",960,600,24);var model=BuildWorkshop(studio);Photograph(model,image,true);images.Add("workshop",image);DestroyModel(model);return image;}
-  public Texture RepairImage(string id,int phase,int contacts=0){Ensure();string key=VisualKey(id);if(repairImage==null)repairImage=Target("Live modeled repair scene",640,640);if(repairKey==key&&repairPhase==phase&&repairContacts==contacts)return repairImage;if(repairModel!=null)DestroyModel(repairModel);repairModel=BuildFixture(studio,key,phase,contacts);Photograph(repairModel,repairImage);repairKey=key;repairPhase=phase;repairContacts=contacts;return repairImage;}
+  public Texture RepairImage(string id,int phase,int contacts=0){Ensure();string key=VisualKey(id);if(repairImage==null)repairImage=Target("Live modeled repair scene",768,576,24);if(repairKey==key&&repairPhase==phase&&repairContacts==contacts)return repairImage;if(repairModel!=null)DestroyModel(repairModel);repairModel=BuildFixture(studio,key,phase,contacts);Photograph(repairModel,repairImage);repairKey=key;repairPhase=phase;repairContacts=contacts;return repairImage;}
   void OnDestroy(){if(camera!=null)camera.targetTexture=null;foreach(var target in images.Values)if(target!=null)target.Release();if(repairImage!=null)repairImage.Release();}
   static void DestroyModel(GameObject model){if(Application.isPlaying)Destroy(model);else DestroyImmediate(model);}
   public static GameObject BuildFixture(Transform parent,string id,int phase,int contacts=0){string key=VisualKey(id);var root=new GameObject("Modeled "+key+" service scene");root.transform.SetParent(parent,false);FixtureContextArt.Build(root.transform,key,phase);
    var fixture=new GameObject("Service fixture").transform;fixture.SetParent(root.transform,false);
    if(key=="faucet")Faucet(fixture,phase,false,contacts);else if(key=="toilet")Toilet(fixture,phase);else if(key=="switch")Switch(fixture,phase,contacts);else if(key=="heating")Radiator(fixture,phase);else if(key=="climate")Climate(fixture,phase);else JobFixtureArt.Build(fixture,key,phase,contacts);
    if(FixtureContextArt.Tabletop(key)){
-    Wrench(root.transform,new(.81f,.035f,-.30f));MeshArt.BevelBox(root.transform,"Folded service cloth",new(-.84f,.035f,.25f),new(.23f,.045f,.27f),.017f,FixtureMaterials.Get(root.transform,FixtureFinish.Cloth));
+    Wrench(root.transform,new(.81f,.035f,-.30f));ServicePropGeometry.Cloth(root.transform,new(-.86f,.035f,-.43f));ServicePropGeometry.VanityAccents(root.transform);
     MeshArt.Lathe(root.transform,"Soap bottle",new[]{0f,.22f,.32f,.36f},new[]{.07f,.07f,.055f,.035f},20,FixtureMaterials.Get(root.transform,FixtureFinish.Stone),Vector3.one).transform.localPosition=new(.83f,0,.38f);MeshArt.BevelBox(root.transform,"Soap dispenser",new(.83f,.40f,.34f),new(.16f,.035f,.05f),.01f,FixtureMaterials.Get(root.transform,FixtureFinish.Chrome));
    }
    if(key=="faucet"&&phase==1){var pose=root.GetComponent<FixturePhotoPose>();pose.Eye=new(.88f,.93f,-1.72f);pose.Target=new(-.07f,.39f,-.015f);}
