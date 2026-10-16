@@ -1,10 +1,10 @@
 {
   "game": "Repair-Empire",
   "status": "pending",
-  "sourceSha256": "8787086e25c4c0b4d2bce9323506b3687e233fe9cc75db887bb015a60022baa7",
+  "sourceSha256": "fe60fda329ffe3b0b16c9ac14e64906634cd58b3a2b3535a5a8929273e67c635",
   "reviewer": "Codex direct source-icon and actual native-frame comparison",
   "reviewedAt": "2026-10-16",
-  "reason": "Native tablet/photo pass verified; Repair icon/native export review remains pending.",
+  "reason": "Actual neutral room/stone pass verified; native Repair icon export review remains pending.",
   "decision": "No new upload approval. Complete accurate native icon and variant review before setting passed.",
   "variantConsistencyChecked": false,
   "evidence": {
@@ -16,8 +16,8 @@
     "nativeIcon": null,
     "gameplay": [
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTabletFinish-20261016/TabletPresentation/showcase-driving-service.png",
-        "sha256": "3eaf7cc0ff7a1a424343eefa9e74d712b4f310754419777842d1ad45fdd7231a",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoomAtmosphere-20261016/NeutralPresentation/showcase-driving-service.png",
+        "sha256": "275a7d37f9d67d3879caafc594503b187ebf9b23d21184f3224f79a9b77901c5",
         "origin": "Unity-render"
       }
     ]

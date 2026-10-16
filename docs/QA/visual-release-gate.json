@@ -1,10 +1,10 @@
 {
   "game": "Repair Empire",
   "status": "failed",
-  "sourceSha256": "8787086e25c4c0b4d2bce9323506b3687e233fe9cc75db887bb015a60022baa7",
-  "reviewer": "Codex actual native tablet/photo and approved Concept comparison",
+  "sourceSha256": "fe60fda329ffe3b0b16c9ac14e64906634cd58b3a2b3535a5a8929273e67c635",
+  "reviewer": "Codex actual neutral chrome/stone native and approved Concept comparison",
   "reviewedAt": "2026-10-16",
-  "reason": "Actual24subject framing and tablet hierarchy improved/verified; whole real-time graphical fidelity remains below Concept. No numerical similarity claim.",
+  "reason": "Own neutral reflection and original stone verified on actual modeled fixtures; whole real-time graphical fidelity remains below Concept. No numerical similarity claim.",
   "criteria": {
     "concept_similarity": "failed",
     "character_or_tower": "failed",
@@ -23,73 +23,68 @@
     ],
     "menu": [
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTabletFinish-20261016/TabletPresentation/showcase-de-dashboard.png",
-        "sha256": "1f36789a0079eaf7d77f3b7b0241679df33501f5b288e041db7a10d1cd5b61b4",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoomAtmosphere-20261016/NeutralPresentation/showcase-de-dashboard.png",
+        "sha256": "f89f51caa08ce886d477b286356aae22ec5f7fe3fd1d403e7ad0648aad6b254e",
         "origin": "Unity-render"
       },
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTabletFinish-20261016/TabletPresentation/landscape-de-section-9.png",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoomAtmosphere-20261016/NeutralPresentation/landscape-de-section-9.png",
         "sha256": "4ae3289724b3a5f7065eacdddee0b85afb40acc8c1f50675b2d1cd9f1f53592e",
         "origin": "Unity-render"
       }
     ],
     "gameplay": [
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTabletFinish-20261016/TabletPresentation/showcase-driving-service.png",
-        "sha256": "3eaf7cc0ff7a1a424343eefa9e74d712b4f310754419777842d1ad45fdd7231a",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoomAtmosphere-20261016/NeutralPresentation/showcase-driving-service.png",
+        "sha256": "275a7d37f9d67d3879caafc594503b187ebf9b23d21184f3224f79a9b77901c5",
         "origin": "Unity-render"
       },
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTabletFinish-20261016/TabletPresentation/street-layout.png",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoomAtmosphere-20261016/NeutralPresentation/street-layout.png",
         "sha256": "e6dcc224217d6a00ffca3d7ff50ca419a0bcc76efbc86655b5eca810d0977540",
         "origin": "Unity-render"
       }
     ],
     "submenus": [
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTabletFinish-20261016/TabletPresentation/portrait-de-section-0.png",
-        "sha256": "b4a4fa2fd9a59531be4660888bccf485ae8978f76ded77c999cd657194369597",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoomAtmosphere-20261016/NeutralPresentation/portrait-de-section-0.png",
+        "sha256": "1a99e45fbd6bcfde0c6465a7fccf55b99f1ee7d3a472f8d2cd2363e7a190996d",
         "origin": "Unity-render"
       },
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTabletFinish-20261016/TabletFull/repair-faucet-stage1.png",
-        "sha256": "857feec412bf7a019091bd9b126e7afbfde901c9987fc3dadcba77f70ffb0822",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoomAtmosphere-20261016/NeutralFull/repair-faucet-stage1.png",
+        "sha256": "c7a4e921c558de412660e1cbfa81bebcf66bc5be2c8409a4766519262632411f",
         "origin": "Unity-render"
       }
     ],
     "variants": [
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTabletFinish-20261016/TabletPresentation/fixture-faucet.png",
-        "sha256": "5466b5ad44cee525f593e19fcd8af2cdb6e121da88c129095a9ebe23f750eb21",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoomAtmosphere-20261016/NeutralPresentation/fixture-faucet.png",
+        "sha256": "411e661dac930b54e76a0b354b10dffa154807746f2dfa914362a017b7856b64",
         "origin": "Unity-render"
       },
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTabletFinish-20261016/TabletPresentation/fixture-switch.png",
-        "sha256": "15220a05ebb245de3ee160baa0f46e60b465d2a20e38a722d49a59f5f73465be",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoomAtmosphere-20261016/NeutralPresentation/bathroom-wrench.png",
+        "sha256": "bea168d994727317fe9bb9eb577d449ab620218f72c49fea7db452bf1914741d",
         "origin": "Unity-render"
       },
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTabletFinish-20261016/TabletPresentation/fixture-call-2-3.png",
-        "sha256": "df249c04afe1a3b0d3a94dbc72875404d91fd287e837d23def61a3db86dad41d",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoomAtmosphere-20261016/NeutralPresentation/kitchen-accessories.png",
+        "sha256": "c0586c6701cdc552db3c69b1425fc2e0ae7be79ccaa4e5b7593181c7db71b88c",
         "origin": "Unity-render"
       },
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTabletFinish-20261016/TabletPresentation/fixture-call-2-5.png",
-        "sha256": "71b1ba851c5396b26a55da63abbdace14f06c4c8f44308271f91f1f2492164ae",
-        "origin": "Unity-render"
-      },
-      {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTabletFinish-20261016/TabletPresentation/photo-cold.png",
-        "sha256": "5466b5ad44cee525f593e19fcd8af2cdb6e121da88c129095a9ebe23f750eb21",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoomAtmosphere-20261016/NeutralPresentation/photo-cold.png",
+        "sha256": "411e661dac930b54e76a0b354b10dffa154807746f2dfa914362a017b7856b64",
         "origin": "Unity-render"
       }
     ]
   },
   "previousReview": {
-    "sourceSha256": "f37580d3b8699ce8c07da33a856217f0b25bb04e48d029e6c80f4165477e611c",
+    "sourceSha256": "8787086e25c4c0b4d2bce9323506b3687e233fe9cc75db887bb015a60022baa7",
     "status": "failed",
-    "archive": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTabletFinish-20261016/visual-release-gate.json.before"
+    "archive": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoomAtmosphere-20261016/visual-release-gate.json.before"
   },
-  "candidateReport": "docs/QA/repair-tablet-finish-20261016.json",
+  "candidateReport": "docs/QA/repair-room-atmosphere-20261016.json",
   "evidenceNote": "Menus are genuine Unity captures containing decorative generated workshop art; this art is not evidence of3D scene quality."
 }

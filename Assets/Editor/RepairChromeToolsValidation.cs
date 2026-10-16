@@ -71,9 +71,9 @@ public static class RepairChromeToolsValidation
  }
  public static void ValidateReflection()
  {
-  var before=Resources.Load<Cubemap>("Art/ServiceRoomReflection-v1");var now=Resources.Load<Cubemap>("Art/ServiceRoomReflection-v2");Require(before!=null&&now!=null&&before!=now,"NEUTRAL_REFLECTION_ASSET_MISSING");
+  var before=Resources.Load<Cubemap>("Art/ServiceRoomReflection-v1");var now=Resources.Load<Cubemap>("Art/ServiceRoomReflection-v4");Require(before!=null&&now!=null&&before!=now,"NEUTRAL_REFLECTION_ASSET_MISSING");
   double Warmth(Cubemap cube){double red=0,blue=0;for(int face=0;face<6;face++)foreach(var p in cube.GetPixels((CubemapFace)face)){red+=p.r;blue+=p.b;}return red/blue;}
-  double old=Warmth(before),current=Warmth(now);Require(double.IsFinite(old)&&double.IsFinite(current)&&current<old*.97,"REFLECTION_STILL_GOLDEN old="+old+" current="+current);Debug.Log("REPAIR_NEUTRAL_CHROME_ENVIRONMENT_PASS HDR red/blue warmth "+old+" -> "+current+";actual64pxsource;v1preserved");
+  double old=Warmth(before),current=Warmth(now);Require(double.IsFinite(old)&&double.IsFinite(current)&&current<old*.97,"REFLECTION_STILL_GOLDEN old="+old+" current="+current);Debug.Log("REPAIR_ACTIVE_NEUTRAL_CHROME_ENVIRONMENT_PASS HDR red/blue warmth "+old+" -> "+current+";activev4actual64pxsource;v1-v2preserved");
  }
  public static void Validate(){ValidateContacts();ValidateWrench();ValidateReflection();}
 }

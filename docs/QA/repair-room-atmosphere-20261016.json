@@ -1,0 +1,322 @@
+{
+  "game": "Repair Empire",
+  "date": "2026-10-16",
+  "sourceSha256": "fe60fda329ffe3b0b16c9ac14e64906634cd58b3a2b3535a5a8929273e67c635",
+  "baseCommit": "8011defb6e2fe045fc39db67824e7b8b00006d7c",
+  "scope": "Original actual room limestone and neutral high-contrast reflection environment.",
+  "supersedes": "docs/QA/repair-tablet-finish-20261016.json",
+  "implemented": [
+    "Own built-in-imagegen warm medium greige limestone albedo replaces the ivory stone on real modeled walls/counters. Final256square/mips/nonreadable/repeat retains original65536texel ceiling; initial512selection was rejected by unchanged aggregate guard and reduced mechanically. Previous stone/cloth and v1/v2reflection source/assets/metas remain byte-identical.",
+    "Own generated darker room panorama v3 was visually rejected after native1848: brown/gold chrome. The final built-in-imagegen neutral gray lighting editv4 retains contrast/window source with R/B1.021789 and base luminance.35282038 (v2.63412207). It supplies only reflection lighting, never replaces modeled gameplay. Original1024x512source→deterministic64RGBAHalf/7mips prototype→scene-owned nonreadableclone.",
+    "Existing production lights/probe intensity/cameras/geometry/UI/controllers/economy untouched. Current active reflection warmth test explicitlyv4; all32766texels/7mips finite/opaque, range.0001186..4, unchanged262128bytecube. Existing owned material/cube teardown preserves shared source."
+  ],
+  "assets": {
+    "Assets/Resources/Art/ServiceStone-v2.png": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Projects/Repair-Empire/Assets/Resources/Art/ServiceStone-v2.png",
+      "sha256": "3a7b5d0d584ca89ba657c42f557889a549f61a03cd8a872551d688c2d8d6b181",
+      "origin": "built-in-imagegen-original-mechanical256resize"
+    },
+    "Assets/Resources/Art/ServiceStone-v2.png.meta": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Projects/Repair-Empire/Assets/Resources/Art/ServiceStone-v2.png.meta",
+      "sha256": "6f3a410a286996599f7215a37c8070ed1ea5262cdb46800db91b41b944a42c96",
+      "origin": "Unity-importer"
+    },
+    "Assets/ArtSources/ServiceRoomReflection-v4.png": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Projects/Repair-Empire/Assets/ArtSources/ServiceRoomReflection-v4.png",
+      "sha256": "58803e9da0fd09736535376f736ae96ca46781d75d62052de5eeb0c25f16c351",
+      "origin": "built-in-imagegen-original-neutral-lighting-edit"
+    },
+    "Assets/ArtSources/ServiceRoomReflection-v4.png.meta": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Projects/Repair-Empire/Assets/ArtSources/ServiceRoomReflection-v4.png.meta",
+      "sha256": "65b291b84998c08247c0f60d43d51dfd07534087078de31ca1513aa1a38b56da",
+      "origin": "Unity-importer"
+    },
+    "Assets/Resources/Art/ServiceRoomReflection-v4.asset": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Projects/Repair-Empire/Assets/Resources/Art/ServiceRoomReflection-v4.asset",
+      "sha256": "c483505c53258d7b07f2e543caed1cf6f914cb5951493017e71c7bb9ef746e54",
+      "origin": "deterministic-original-HDR"
+    },
+    "Assets/Resources/Art/ServiceRoomReflection-v4.asset.meta": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Projects/Repair-Empire/Assets/Resources/Art/ServiceRoomReflection-v4.asset.meta",
+      "sha256": "12731a99939e9be0ddbf945c6f9636a35e291bf42ed04092a709bb44d37f1e11",
+      "origin": "Unity-importer"
+    },
+    "provenance": [
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoomAtmosphere-20261016/generated-asset-provenance.json",
+        "sha256": "575073a079eea93330469b4bbea83cb6afabd8176f3975649783ba6b6004a3b1",
+        "origin": "exact-generation-prompt-and-source-hashes"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoomAtmosphere-20261016/neutral-v4-prompt.json",
+        "sha256": "1a4c2905bde67495c4505357318327f390c5bec81ca7ac08013b1952f7b36ce3",
+        "origin": "exact-generation-prompt-and-source-hashes"
+      }
+    ]
+  },
+  "validation": {
+    "aggregateAndMacExitCode": 0,
+    "log": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoomAtmosphere-20261016/unity-room-neutral-v4-final.log",
+      "sha256": "590b47935cb73d9f359e5122075f661a199cccfcbeb8c7959acc565630b0c9b2",
+      "origin": "Unity-aggregate-and-Mac-build"
+    },
+    "receipt": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoomAtmosphere-20261016/source-native-receipt.json",
+      "sha256": "9f518c4585c25835389f4c885dfd0f130a1811f47bbc6ad65d228b40107abf65",
+      "origin": "exact-source-native-binding"
+    },
+    "bundleManifest": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoomAtmosphere-20261016/native-bundle-manifest.json",
+      "sha256": "15993199d4edb7fb15cdb8557e58fe600adabaea484a2ace57a6e8a5fc7e3ff7",
+      "origin": "all314native-bundle-files"
+    },
+    "settingsDelta": "None",
+    "unchangedAuthorityFiles": 80,
+    "runs": {
+      "NeutralPresentation": {
+        "checks": 1848,
+        "processExitCode": 0,
+        "imageCount": 89,
+        "result": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoomAtmosphere-20261016/NeutralPresentation/PASS.txt",
+          "sha256": "9f128e631795e1b7f034d0c71f73028452d4feffdd7f560d70e2bb73d23ca240",
+          "origin": "actual-native-result"
+        },
+        "checksFile": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoomAtmosphere-20261016/NeutralPresentation/checks.txt",
+          "sha256": "e2772d20a90dd9624079dd6e6002637e3a55fd25d9736924b4aba4f3d5efc6e5",
+          "origin": "actual-native-checks"
+        },
+        "provenance": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoomAtmosphere-20261016/NeutralPresentation/PROVENANCE.json",
+          "sha256": "62e00235d6df69566eb6ba7cb0c4e9fb58fd901599759ec7bcbdbff51a5d833a",
+          "origin": "native-source-binding"
+        },
+        "imageManifest": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoomAtmosphere-20261016/NeutralPresentation/IMAGE-HASHES.json",
+          "sha256": "134e1b3c470da6615f4c0f3eb0d3a46d1c7b0b28cf7dc41bbb50f0cfc9a511cb",
+          "origin": "actual-Unity-render-manifest"
+        },
+        "log": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoomAtmosphere-20261016/NeutralPresentation.log",
+          "sha256": "8510dff341dce3805e5fdff60335547a087252d23a84a952b3abfc37acc9d5a7",
+          "origin": "native-Mac-log"
+        }
+      },
+      "NeutralFull": {
+        "checks": 1569,
+        "processExitCode": 0,
+        "imageCount": 60,
+        "result": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoomAtmosphere-20261016/NeutralFull/PASS.txt",
+          "sha256": "c4d6d619f6ebb03482107a381735ab7bc774a0cbeea7e3b790c159909e24e576",
+          "origin": "actual-native-result"
+        },
+        "checksFile": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoomAtmosphere-20261016/NeutralFull/checks.txt",
+          "sha256": "fe30d5b6dcee8b5523379a64847f4e5fc62da02fb0029e39a1913a6fc918b7d0",
+          "origin": "actual-native-checks"
+        },
+        "provenance": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoomAtmosphere-20261016/NeutralFull/PROVENANCE.json",
+          "sha256": "d7cd179c057c6c040810581825edb2b34f98a8ff3596cf3bf4bbb39553be5515",
+          "origin": "native-source-binding"
+        },
+        "imageManifest": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoomAtmosphere-20261016/NeutralFull/IMAGE-HASHES.json",
+          "sha256": "df88e6012d0fcd993b5fe0fdb28c1acc71e827787b5c4ec0dbe2b73581e84a3d",
+          "origin": "actual-Unity-render-manifest"
+        },
+        "log": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoomAtmosphere-20261016/NeutralFull.log",
+          "sha256": "1b519aaa5c46e8bcfb72bf7f1773082a9322725c46485c8c5cf547794d4ce456",
+          "origin": "native-Mac-log"
+        }
+      },
+      "NeutralReload": {
+        "checks": 7,
+        "processExitCode": 0,
+        "imageCount": 1,
+        "result": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoomAtmosphere-20261016/NeutralReload/PASS.txt",
+          "sha256": "38213edc12e5ec96959592e87d8dbbd73398b1a84ce00fa19c8bdea92ba590b6",
+          "origin": "actual-native-result"
+        },
+        "checksFile": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoomAtmosphere-20261016/NeutralReload/checks.txt",
+          "sha256": "a47cdbe2c393a6d3242b1a93b7d3a4c797bf0fcce1aae50ab49f39ff59a87fa3",
+          "origin": "actual-native-checks"
+        },
+        "provenance": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoomAtmosphere-20261016/NeutralReload/PROVENANCE.json",
+          "sha256": "01d1933952c5efa6f2a8293d187a5c65fe6088f514332f29339113e70baa4ee7",
+          "origin": "native-source-binding"
+        },
+        "imageManifest": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoomAtmosphere-20261016/NeutralReload/IMAGE-HASHES.json",
+          "sha256": "8f27b59c9af0df241328d0827b0cfa60cf1a6f658bc0bea431649c8c3f04b23e",
+          "origin": "actual-Unity-render-manifest"
+        },
+        "log": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoomAtmosphere-20261016/NeutralReload.log",
+          "sha256": "ab7c79f9e8f320d4a366b8630e2283eccbe16dcac1e1493237567309889fae2a",
+          "origin": "native-Mac-log"
+        }
+      }
+    },
+    "lighting": {
+      "previousBaseLuminance": 0.63412207,
+      "currentBaseLuminance": 0.35282038,
+      "currentRedBlue": 1.021789,
+      "allMipTexels": 32766,
+      "payloadBytes": 262128,
+      "allFiniteOpaque": true
+    },
+    "originalAssetsPreserved": true,
+    "coldReflection": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoomAtmosphere-20261016/NeutralPresentation/photo-probe-diagnostic.txt",
+      "sha256": "96e6f1958151e2294f985b216eae62e087f8b33b3e1e23366b1f24b112857f52",
+      "origin": "actual-same-phase-cold-settled-OFF-ON-control"
+    }
+  },
+  "candidateHistory": [
+    {
+      "stage": "Missing active original assets RED",
+      "log": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoomAtmosphere-20261016/unity-room-red.log",
+        "sha256": "d3012410e611254e6e288fc741f423a0bc9dd411620a2565cc8f6a3221927fee",
+        "origin": "actual-engine-failure-before-binding"
+      }
+    },
+    {
+      "stage": "Initial512stone rejected by unchanged256ceiling",
+      "log": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoomAtmosphere-20261016/unity-room-atmosphere.log",
+        "sha256": "d11ac9d29fc450146a41ebd88a4139ee810bbb866d331c9ccc51ebc3b1a73836",
+        "origin": "retained-original-budget-guard-failure"
+      }
+    },
+    {
+      "stage": "Warmv3actual1848functionallypassed but brownchrome visuallyrejected",
+      "log": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoomAtmosphere-20261016/RoomPresentation.log",
+        "sha256": "1cc65a6702d758b959bc67c8bed23649162713c7c9d9c7ec9f3e779571bcc183",
+        "origin": "retained-rejected-native-candidate"
+      },
+      "binding": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoomAtmosphere-20261016/source-native-receipt-rejected-warm-v3.json",
+        "sha256": "40a7fc31ae97291b575cf8d6a3b212ed564cd16f3c34523e6ca3d0e4ff5c78a5",
+        "origin": "retained-actual-source-binding"
+      },
+      "app": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoomAtmosphere-20261016/RepairRoomAtmosphere.app"
+    },
+    {
+      "stage": "Neutralv4allmips/configuration",
+      "log": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoomAtmosphere-20261016/unity-room-neutral-v4-configure.log",
+        "sha256": "a98928dde9be0c47a0f0c2ac6ae89382f7bf3b1d24ec61838f0d648ad4994388",
+        "origin": "actual-engine-success"
+      }
+    }
+  ],
+  "sourceReview": {
+    "reviewer": "Independent read-only repair_room_atmosphere_review16",
+    "decision": "No outstanding Critical/Important/Minor. Independently decodedall32766texels, exactoldassetpreservation/settings; finalsource/executable/314files/aggregate0/presentation1848 andrawneutralchromenativeinspected.",
+    "resolved": "Activev4warmthtest andall7mipfinitevalidation replace historicalonlydata. Rejectedwarmv3notproduction.",
+    "declined": "WholeConcept/mobile/iconacceptance; Full/Reload rootowns."
+  },
+  "visualEvidence": {
+    "concept": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Artifacts/KamilunavoDelivery-20261009/concepts-20261010/repair-empire-3-ansichten.png",
+      "sha256": "0571d35c40de036f83f86f3b423c234f321586abcfec97d9d259710d816723f1",
+      "origin": "approved-concept"
+    },
+    "menu": [
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoomAtmosphere-20261016/NeutralPresentation/showcase-de-dashboard.png",
+        "sha256": "f89f51caa08ce886d477b286356aae22ec5f7fe3fd1d403e7ad0648aad6b254e",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoomAtmosphere-20261016/NeutralPresentation/landscape-de-section-9.png",
+        "sha256": "4ae3289724b3a5f7065eacdddee0b85afb40acc8c1f50675b2d1cd9f1f53592e",
+        "origin": "Unity-render"
+      }
+    ],
+    "gameplay": [
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoomAtmosphere-20261016/NeutralPresentation/showcase-driving-service.png",
+        "sha256": "275a7d37f9d67d3879caafc594503b187ebf9b23d21184f3224f79a9b77901c5",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoomAtmosphere-20261016/NeutralPresentation/street-layout.png",
+        "sha256": "e6dcc224217d6a00ffca3d7ff50ca419a0bcc76efbc86655b5eca810d0977540",
+        "origin": "Unity-render"
+      }
+    ],
+    "submenus": [
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoomAtmosphere-20261016/NeutralPresentation/portrait-de-section-0.png",
+        "sha256": "1a99e45fbd6bcfde0c6465a7fccf55b99f1ee7d3a472f8d2cd2363e7a190996d",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoomAtmosphere-20261016/NeutralFull/repair-faucet-stage1.png",
+        "sha256": "c7a4e921c558de412660e1cbfa81bebcf66bc5be2c8409a4766519262632411f",
+        "origin": "Unity-render"
+      }
+    ],
+    "variants": [
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoomAtmosphere-20261016/NeutralPresentation/fixture-faucet.png",
+        "sha256": "411e661dac930b54e76a0b354b10dffa154807746f2dfa914362a017b7856b64",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoomAtmosphere-20261016/NeutralPresentation/bathroom-wrench.png",
+        "sha256": "bea168d994727317fe9bb9eb577d449ab620218f72c49fea7db452bf1914741d",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoomAtmosphere-20261016/NeutralPresentation/kitchen-accessories.png",
+        "sha256": "c0586c6701cdc552db3c69b1425fc2e0ae7be79ccaa4e5b7593181c7db71b88c",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoomAtmosphere-20261016/NeutralPresentation/photo-cold.png",
+        "sha256": "411e661dac930b54e76a0b354b10dffa154807746f2dfa914362a017b7856b64",
+        "origin": "Unity-render"
+      }
+    ]
+  },
+  "comparisons": [
+    {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoomAtmosphere-20261016/konzept-raum-vergleich.png",
+      "sha256": "bc53c1ce41896ecfe98045818598baa1d74dc651bb9aff387ae179129b89a995",
+      "origin": "mechanical-layout-of-unretouched-Unity-PNGs-and-labeled-reference"
+    },
+    {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoomAtmosphere-20261016/chrom-kontrollvergleich.png",
+      "sha256": "7c0835337aa33154a4bf1aafcfe8611b9ca4e737e8958e548db407f206f2b5df",
+      "origin": "mechanical-layout-of-unretouched-Unity-PNGs-and-labeled-reference"
+    },
+    {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoomAtmosphere-20261016/werkzeug-chrom-aktuell.png",
+      "sha256": "09a4f89e1550a8ea32c581c81631a0ceda22d8463f3221c74be34bb29deb9954",
+      "origin": "mechanical-layout-of-unretouched-Unity-PNGs-and-labeled-reference"
+    }
+  ],
+  "decision": {
+    "boundedRoomAtmosphere": "verified",
+    "fullConceptSimilarity": "failed",
+    "icon": "pending",
+    "uploadPerformed": false
+  },
+  "remaining": [
+    "Metal nowreadsneutral silver with stronger contrast; stone retainswarmmineral texture butremainslightunderexistinglights. Actual world/vehicle/fixture render remainsstylized; no90percentclaim.",
+    "Macnativeproofdoesnotestablishphysical-deviceFPS/thermal/touch/realpaidcommerce/ads/nativeiOSicons/Appleapproval.",
+    "Approvedsiblings/OMFsubmission/user-ownedhistoricalConceptdeletionuntouched; decorativemenuartnot3Dgameplayproof."
+  ]
+}

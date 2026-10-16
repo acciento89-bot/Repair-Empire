@@ -14,6 +14,10 @@ public static class RepairLightingStudioValidation
  {
   AuthorReflection("Assets/ArtSources/ServiceRoomReflection-v1.png","Assets/Resources/Art/ServiceRoomReflection-v1.asset");PlayerSettings.colorSpace=ColorSpace.Linear;AssetDatabase.SaveAssets();ValidateLighting();
  }
+ public static void ConfigureConceptRoomLighting()
+ {
+  AuthorReflection("Assets/ArtSources/ServiceRoomReflection-v4.png","Assets/Resources/Art/ServiceRoomReflection-v4.asset");RepairArtImports.Ensure();ValidateLighting();RepairRoomAtmosphereValidation.Validate();
+ }
  public static void ConfigureNeutralLighting()
  {
   AuthorReflection("Assets/ArtSources/ServiceRoomReflection-v2.png","Assets/Resources/Art/ServiceRoomReflection-v2.asset");ValidateLighting();RepairChromeToolsValidation.Validate();
@@ -46,7 +50,7 @@ public static class RepairLightingStudioValidation
  static void Require(bool valid,string reason){if(!valid)throw new InvalidOperationException("REPAIR_LIGHTING_STUDIO_"+reason);}
  public static void ValidateLighting()
  {
-  Require(PlayerSettings.colorSpace==ColorSpace.Linear,"NEEDS_LINEAR_LIGHTING");var source=Resources.Load<Cubemap>("Art/ServiceRoomReflection-v2");Require(source!=null&&source.width==64&&source.mipmapCount==7&&source.format==TextureFormat.RGBAHalf,"ORIGINAL_HDR_ENVIRONMENT_MISSING");
+  Require(PlayerSettings.colorSpace==ColorSpace.Linear,"NEEDS_LINEAR_LIGHTING");var source=Resources.Load<Cubemap>("Art/ServiceRoomReflection-v4");Require(source!=null&&source.width==64&&source.mipmapCount==7&&source.format==TextureFormat.RGBAHalf,"ORIGINAL_HDR_ENVIRONMENT_MISSING");
   float low=float.PositiveInfinity,high=0;for(int face=0;face<6;face++)foreach(var color in source.GetPixels((CubemapFace)face)){Require(float.IsFinite(color.r)&&float.IsFinite(color.g)&&float.IsFinite(color.b),"HDR_DATA_NOT_FINITE");low=Mathf.Min(low,color.r,color.g,color.b);high=Mathf.Max(high,color.r,color.g,color.b);}Require(low<.2f&&high>1,"ROOM_ENVIRONMENT_NEEDS_REAL_LINEAR_HDR_RANGE "+low+".."+high);
   var root=new GameObject("Original HDR reflection owner fixture");Cubemap owned=null;
   try{owned=FixtureMaterials.Kit(root.transform).Environment();Require(owned!=null&&owned!=source&&owned.width==64&&!owned.isReadable,"SCENE_MUST_OWN_NONREADABLE_HDR_CLONE");}

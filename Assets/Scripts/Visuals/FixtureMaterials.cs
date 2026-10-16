@@ -38,7 +38,7 @@ namespace Kamilunavo.RepairEmpire.Visuals
     FixtureFinish.Cloth=>Color.white,FixtureFinish.Lamp=>new(1,.90f,.68f),FixtureFinish.Glass=>new(.72f,.87f,.92f,.22f),_=>new(.37f,.48f,.51f)};
    if(finish==FixtureFinish.Chrome||finish==FixtureFinish.Steel||finish==FixtureFinish.Copper||finish==FixtureFinish.Brass){metal=finish==FixtureFinish.Chrome?1f:.82f;gloss=finish==FixtureFinish.Chrome?.90f:finish==FixtureFinish.Steel?.61f:.67f;mat.mainTexture=Texture(1);}
    else if(finish==FixtureFinish.Ceramic)gloss=.73f;
-   else if(finish==FixtureFinish.Stone){mat.mainTexture=Resources.Load<Texture2D>("Art/ServiceStone-v1");gloss=.34f;}
+   else if(finish==FixtureFinish.Stone){mat.mainTexture=Resources.Load<Texture2D>("Art/ServiceStone-v2");gloss=.34f;}
    else if(finish==FixtureFinish.Plaster||finish==FixtureFinish.Concrete){mat.mainTexture=Texture(0);gloss=.10f;}
    else if(finish==FixtureFinish.Wood){mat.mainTexture=Texture(2);gloss=.27f;}
    else if(finish==FixtureFinish.Cloth){mat.mainTexture=Resources.Load<Texture2D>("Art/ServiceCloth-v1");gloss=.08f;}
@@ -50,7 +50,7 @@ namespace Kamilunavo.RepairEmpire.Visuals
   public Cubemap Environment()
   {
    if(_environment!=null)return _environment;
-   var original=Resources.Load<Cubemap>("Art/ServiceRoomReflection-v2");
+   var original=Resources.Load<Cubemap>("Art/ServiceRoomReflection-v4");
    if(original!=null){_environment=UnityEngine.Object.Instantiate(original);_environment.name="FixturePBRStudioReflection";_environment.Apply(false,true);ArtLifetime.Own(gameObject,_environment);return _environment;}
    const int n=64;var cube=new Cubemap(n,TextureFormat.RGBAHalf,true){name="FixturePBRStudioReflection",filterMode=FilterMode.Trilinear,wrapMode=TextureWrapMode.Clamp};
    for(int face=0;face<6;face++){
