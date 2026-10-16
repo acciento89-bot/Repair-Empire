@@ -81,12 +81,16 @@ namespace Kamilunavo.RepairEmpire.Visuals
   }
   static GameObject QuadBox(Transform parent,string name,Vector3 at,Vector3 scale,Material mat)
   {
+   var v=new List<Vector3>();var uv=new List<Vector2>();var t=new List<int>();AppendFlatBox(v,uv,t,Vector3.zero,scale);
+   var go=MeshArt.Mesh(parent,name,v.ToArray(),t.ToArray(),uv.ToArray(),mat);go.transform.localPosition=at;return go;
+  }
+  static void AppendFlatBox(List<Vector3> v,List<Vector2> uv,List<int> t,Vector3 at,Vector3 scale)
+  {
    // Four shared corners per flat face retain sharp edges while avoiding the
    // six duplicated triangle vertices of a flat rectangular surface.
    var corner=new[]{new Vector3(-.5f,-.5f,-.5f),new Vector3(.5f,-.5f,-.5f),new Vector3(.5f,.5f,-.5f),new Vector3(-.5f,.5f,-.5f),new Vector3(-.5f,-.5f,.5f),new Vector3(.5f,-.5f,.5f),new Vector3(.5f,.5f,.5f),new Vector3(-.5f,.5f,.5f)};
-   int[] faces={0,3,2,1,4,5,6,7,0,4,7,3,1,2,6,5,3,7,6,2,0,1,5,4};var v=new Vector3[24];var uv=new Vector2[24];var t=new int[36];Vector2[] coords={Vector2.zero,Vector2.up,Vector2.one,Vector2.right};
-   for(int face=0;face<6;face++){int start=face*4;for(int i=0;i<4;i++){v[start+i]=Vector3.Scale(corner[faces[start+i]],scale);uv[start+i]=coords[i];}int k=face*6;t[k]=start;t[k+1]=start+1;t[k+2]=start+2;t[k+3]=start;t[k+4]=start+2;t[k+5]=start+3;}
-   var go=MeshArt.Mesh(parent,name,v,t,uv,mat);go.transform.localPosition=at;return go;
+   int[] faces={0,3,2,1,4,5,6,7,0,4,7,3,1,2,6,5,3,7,6,2,0,1,5,4};Vector2[] coords={Vector2.zero,Vector2.up,Vector2.one,Vector2.right};
+   for(int face=0;face<6;face++){int start=v.Count;for(int i=0;i<4;i++){v.Add(at+Vector3.Scale(corner[faces[face*4+i]],scale));uv.Add(coords[i]);}t.AddRange(new[]{start,start+1,start+2,start,start+2,start+3});}
   }
   static GameObject Box(Transform parent,string name,Vector3 at,Vector3 scale,Material mat,float bevel=0){var go=bevel>0?MeshArt.BevelBox(parent,name,at,scale,bevel,mat):QuadBox(parent,name,at,scale,mat);
    // Physical brick courses repeat at masonry scale rather than stretching over a pier.
@@ -149,7 +153,18 @@ namespace Kamilunavo.RepairEmpire.Visuals
    }
    if(residential){float xx=-span*.5f+cell*.5f;Box(root,"Recessed townhouse entrance",new Vector3(xx,1.30f,front-.08f),new Vector3(1.23f,2.20f,.12f),Roof,.035f);foreach(int side in new[]{-1,1})Box(root,"Townhouse entrance stone jamb",new Vector3(xx+side*.70f,1.32f,front+.06f),new Vector3(.17f,2.35f,.23f),Trim,.025f);WindowArch(root,xx,2.47f,front+.15f,.73f);Box(root,"Brass townhouse door pull",new Vector3(xx+.43f,1.28f,front+.018f),new Vector3(.035f,.31f,.025f),Metal);}
    // Return windows matter in the chase-camera's long street perspective.
-   foreach(int side in new[]{-1,1})for(int floor=1;floor<floors;floor++)for(int bay=0;bay<2;bay++){float zz=(bay==0?-1:1)*depth*.24f;Box(root,"Return elevation window",new Vector3(side*(span*.5f+.006f),floor*3.05f+1.7f,zz),new Vector3(.04f,2.0f,depth*.32f),Glass);}
+   var sashVertices=new List<Vector3>();var sashUv=new List<Vector2>();var sashTriangles=new List<int>();float returnWidth=residential?1.45f:Mathf.Min(2.4f,depth*.32f);
+   foreach(int side in new[]{-1,1})for(int floor=1;floor<floors;floor++)for(int bay=0;bay<2;bay++)
+   {
+    float zz=(bay==0?-1:1)*depth*.24f,y=floor*3.05f+1.7f,x=side*(span*.5f+.065f);
+    Box(root,"Return elevation window",new Vector3(side*(span*.5f+.006f),y,zz),new Vector3(.04f,2.0f,returnWidth),Glass);
+    foreach(int edge in new[]{-1,1})AppendFlatBox(sashVertices,sashUv,sashTriangles,new Vector3(x,y,zz+edge*(returnWidth*.5f+.035f)),new Vector3(.13f,2.14f,.07f));
+    AppendFlatBox(sashVertices,sashUv,sashTriangles,new Vector3(x,y+1.045f,zz),new Vector3(.13f,.09f,returnWidth+.14f));
+    AppendFlatBox(sashVertices,sashUv,sashTriangles,new Vector3(x+side*.035f,y-1.045f,zz),new Vector3(.20f,.09f,returnWidth+.14f));
+    AppendFlatBox(sashVertices,sashUv,sashTriangles,new Vector3(side*(span*.5f+.075f),y,zz),new Vector3(.10f,2f,.05f));
+    AppendFlatBox(sashVertices,sashUv,sashTriangles,new Vector3(side*(span*.5f+.075f),y-.04f,zz),new Vector3(.10f,.05f,returnWidth));
+   }
+   if(sashVertices.Count>0)MeshArt.Mesh(root,"Return elevation sash surrounds",sashVertices.ToArray(),sashTriangles.ToArray(),sashUv.ToArray(),Trim);
   }
   void WindowArch(Transform parent,float x,float y,float z,float radius){const int count=9;for(int i=0;i<count;i++){float a=i*Mathf.PI/count+.012f,b=(i+1)*Mathf.PI/count-.012f;var points=new Vector3[8];for(int layer=0;layer<2;layer++)for(int side=0;side<4;side++){float angle=side<2?a:b,r=(side==0||side==3)?radius:radius+.12f;points[layer*4+side]=new Vector3(x+Mathf.Cos(angle)*r,y+Mathf.Sin(angle)*r,z+layer*.16f);}MeshArt.Mesh(parent,"Residential arch voussoir",points,new[]{0,2,1,0,3,2,4,5,6,4,6,7,0,1,5,0,5,4,1,2,6,1,6,5,2,3,7,2,7,6,3,0,4,3,4,7},null,Trim);}}
   void FlatRoof(Transform root,float span,float depth,float height)

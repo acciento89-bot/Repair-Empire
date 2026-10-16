@@ -500,3 +500,14 @@ The geometry RED tests reproduced three protruding closed cartridges,4,255escapi
 Source `4e3c8d4e6eb4db6efae71f89d37b1b385a233e055198b0a292c136b817278750`: aggregate/Mac0, AssemblyPresentation1,504/AssemblyFull1,478/AssemblyReload7, all0. Four real Rigidbody journeys and ordered/exact-once repairs; all314bundle files and unchanged settings bytes verified. Actual screenshots, immutable Concept comparison, failures and controls: [fixture evidence](QA/repair-fixture-finish-20261016.json), Builds/RepairFixtureFinish-20261016.
 
 Whole Concept graphics remains FAILED, native icon pending, no Repair upload or numerical similarity claim. Vehicle front optics and broad unframed return windows remain next. Approved siblings/OMF submission and historical user-owned Concept deletion are untouched. Continue until05:30Berlin, heavy jobs serially.
+
+
+## 2026-10-16 — verified physical van optics and return sashes
+
+Larger fitted headlamps have real closed annular housings, formed silver backings, four concave projector bowls/hollow retaining cups and the existing transparent optical surface. Lower daylight guides, five formed grille blades and larger fog optics retain all nine finishes. Narrow return panes have modeled jambs/lintel/sill/mullion/meeting rail, combined once per envelope into an owned mesh. No new collider/random call.
+
+Meaningful RED exposed original tiny/hidden lamps and36overbroad unframed panes. Independent integration review then caught the production grille crossing the new lamp cover: actual complete VanArt rays reproduced1.01to1.95mm lens penetration and opaque backing occlusion. Inboard main grille width.95/taper-.22 and blade halfwidths.52to.35 correct it; full batched12ray regression and independent2987point5mmgrid pass. Six closed housings have welded oriented edges/positive volume; actual reflector vertices clear backing and lens; both window center-sash and clear-pane first-visible rays pass. Final source review has no remaining actionable issue.
+
+Source `719870c67f190cbee6b4623efdaf079910d669bf5416db6ba5862a16f3810e0b`: aggregate/Mac0, FinalPresentation1504/FinalFull1478/FinalReload7 all0. Four real drives/ordered/exact-once repairs and saved-profile reload. Moving van69372vertices/27active/9materials under70k/32/9; residential38821/11/4 under40k/14/4. Workshop151442/29/21. All314bundle/settings and78authority files unchanged/reverified. Actual raw models/street/menu/repair views and labeled immutable Concept comparisons: [optics/facade evidence](QA/repair-optics-facades-20261016.json), Builds/RepairOpticsFacade-20261016.
+
+This bounded pass is verified. Whole Concept graphics remains FAILED/iconpending/no Repair upload or numerical90percent claim. Chrome is still too golden, and small repair props require better seating/model detail. Approved siblings/OMF submission and user-owned historical Concept deletion remain untouched. Continue until05:30Berlin, heavy jobs serially.

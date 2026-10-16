@@ -16,7 +16,7 @@ namespace Kamilunavo.RepairEmpire.Visuals {
    glass.SetFloat("_Mode",3);glass.SetInt("_SrcBlend",(int)UnityEngine.Rendering.BlendMode.One);glass.SetInt("_DstBlend",(int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);glass.SetInt("_ZWrite",0);glass.DisableKeyword("_ALPHATEST_ON");glass.DisableKeyword("_ALPHABLEND_ON");glass.EnableKeyword("_ALPHAPREMULTIPLY_ON");glass.SetOverrideTag("RenderType","Transparent");glass.renderQueue=3000;
    var metal=Own("VanChrome",new(.48f,.50f,.52f));metal.SetFloat("_Metallic",.74f);metal.SetFloat("_Glossiness",.48f);
    var tyre=Own("VanTyre",new(.023f,.025f,.026f),false,"Materials/VanMoldedSurface");tyre.SetFloat("_Glossiness",.12f);tyre.SetFloat("_BumpScale",.12f);tailLight=Own("VanTail",new(.46f,.018f,.012f),true);tailLight.SetFloat("_Glossiness",.72f);tailLight.mainTexture=Resources.Load<Texture2D>("Art/VanRedLens-v1");
-   var headLight=Own("VanHeadlamp",new(.78f,.83f,.86f,.16f),false,"Materials/VanCabGlass");headLight.SetFloat("_Glossiness",.94f);headLight.SetFloat("_Metallic",.04f);headLight.mainTexture=Resources.Load<Texture2D>("Art/VanHeadlampOptics-v1");
+   var headLight=Own("VanHeadlamp",new(.78f,.83f,.86f,.42f),false,"Materials/VanCabGlass");headLight.SetFloat("_Glossiness",.94f);headLight.SetFloat("_Metallic",.04f);headLight.mainTexture=Resources.Load<Texture2D>("Art/VanHeadlampOptics-v1");
    VanCoachworkGeometry.Body(transform,white);
    MeshArt.BevelBox(transform,"Underbody",new(0,.255f,0),new(1.52f,.13f,4.21f),.045f,navy);
    VanCoachworkGeometry.Windshield(transform,navy,true);VanCoachworkGeometry.Windshield(transform,glass).GetComponent<MeshRenderer>().shadowCastingMode=UnityEngine.Rendering.ShadowCastingMode.Off;Cabin(navy,tyre,metal);
@@ -63,14 +63,14 @@ namespace Kamilunavo.RepairEmpire.Visuals {
    Text(transform,"KAMILUNAVO",new(.32f,.57f,VanCoachworkGeometry.RearSkinZ(.32f,.57f)-.028f),.039f,Color.white,Quaternion.identity);
    VanCoachworkGeometry.Bumper(transform,"Rear bumper",new(0,.26f,-2.27f),navy);VanCoachworkGeometry.Bumper(transform,"Front bumper",new(0,.33f,2.19f),navy);
    VanCoachworkGeometry.SculptedPanel(transform,"Front lower bumper fascia",new Vector2(0,.46f),new Vector2(1.55f,.29f),.055f,navy,false,.018f,.020f);
-   VanCoachworkGeometry.SculptedPanel(transform,"Grille",new Vector2(0,.81f),new Vector2(1.10f,.43f),.055f,navy,false,.014f,.012f,.22f);
+   VanCoachworkGeometry.SculptedPanel(transform,"Grille",new Vector2(0,.81f),new Vector2(.95f,.43f),.055f,navy,false,.014f,.012f,-.22f);
    VanCoachworkGeometry.SculptedPanel(transform,"Front fleet badge",new Vector2(0,1.025f),new Vector2(.12f,.045f),.020f,metal,false,.014f,.006f);
    VanCoachworkGeometry.SculptedPanel(transform,"Front number plate",new Vector2(0,.51f),new Vector2(.48f,.10f),.009f,white,false,.036f,.006f);
    Text(transform,"RE-1027",new(0,.51f,VanCoachworkGeometry.FrontSkinZ(0,.51f)+.043f),.050f,Navy,Quaternion.Euler(0,180,0));
    foreach(int side in new[]{-1,1})
    {
     VanCoachworkGeometry.SculptedPanel(transform,"Fog light recess",new Vector2(side*.60f,.46f),new Vector2(.18f,.105f),.025f,navy,false,.034f,.006f);
-    VanCoachworkGeometry.SculptedPanel(transform,"Fog lamp lens",new Vector2(side*.60f,.46f),new Vector2(.083f,.045f),.018f,metal,false,.047f,.006f);
+    VanCoachworkGeometry.SculptedPanel(transform,"Fog lamp lens",new Vector2(side*.60f,.46f),new Vector2(.115f,.065f),.026f,metal,false,.047f,.006f);
     VanCoachworkGeometry.Wiper(transform,side,navy);
    }
    VanProductionDetails.Build(transform,white,livery,navy,tyre,metal,orange,headLight);

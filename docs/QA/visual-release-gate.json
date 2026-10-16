@@ -1,10 +1,10 @@
 {
   "game": "Repair Empire",
   "status": "failed",
-  "sourceSha256": "4e3c8d4e6eb4db6efae71f89d37b1b385a233e055198b0a292c136b817278750",
-  "reviewer": "Codex actual native fixture and approved Concept comparison",
+  "sourceSha256": "719870c67f190cbee6b4623efdaf079910d669bf5416db6ba5862a16f3810e0b",
+  "reviewer": "Codex actual native vehicle/facade and approved Concept comparison",
   "reviewedAt": "2026-10-16",
-  "reason": "Actual complete repair rooms, deterministic first-photo chrome, closed armature and transparent water verified; whole vehicle/town fidelity remains below Concept.",
+  "reason": "Actual larger physical optics and return sash windows verified. Overall native vehicle/town/fixture fidelity still below Concept; no numerical similarity claim.",
   "criteria": {
     "concept_similarity": "failed",
     "character_or_tower": "failed",
@@ -23,78 +23,103 @@
     ],
     "menu": [
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairFixtureFinish-20261016/AssemblyPresentation/showcase-de-dashboard.png",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairOpticsFacade-20261016/FinalPresentation/showcase-de-dashboard.png",
         "sha256": "f83fa3f027ea6b1c0a9eb954783258e037569c624f03310b8884ba3c433c99d1",
         "origin": "Unity-render"
       },
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairFixtureFinish-20261016/AssemblyPresentation/landscape-de-section-9.png",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairOpticsFacade-20261016/FinalPresentation/landscape-de-section-9.png",
         "sha256": "b1dc898e3d9f310aeeee3fec14dc4ff9f454cce85ccb881e2ff1067ecdadbd91",
         "origin": "Unity-render"
       }
     ],
     "gameplay": [
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairFixtureFinish-20261016/AssemblyPresentation/showcase-driving-service.png",
-        "sha256": "2357fd8ce2caedef46d080582d73181bbd7bd1f581bc541a8cb93c9e76ee90a6",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairOpticsFacade-20261016/FinalPresentation/showcase-driving-service.png",
+        "sha256": "2383b0b06e5972633b8338ad1beb5af447226711a3b3b3ef2208917b82f8598a",
         "origin": "Unity-render"
       },
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairFixtureFinish-20261016/AssemblyPresentation/street-layout.png",
-        "sha256": "38037a2f4bca04870d3b564bd5e78b454ce887c5679f0558692a0d0814b3a911",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairOpticsFacade-20261016/FinalPresentation/street-layout.png",
+        "sha256": "cf36fbc533b81182905c0e04ad4006bf1434ff0c2d4e9b342450201fc4958bd3",
         "origin": "Unity-render"
       }
     ],
     "submenus": [
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairFixtureFinish-20261016/AssemblyPresentation/portrait-de-section-0.png",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairOpticsFacade-20261016/FinalPresentation/portrait-de-section-0.png",
         "sha256": "86ef98b7047d21f47700aff05939ddfad9548759eda8d7c8354e7d587261f095",
         "origin": "Unity-render"
       },
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairFixtureFinish-20261016/AssemblyFull/repair-faucet-stage0.png",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairOpticsFacade-20261016/FinalFull/repair-faucet-stage0.png",
         "sha256": "9f6d84378590ccb705603e2706739cda760c1eec838c3bed12435d2ae2c7b7f0",
         "origin": "Unity-render"
       },
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairFixtureFinish-20261016/AssemblyFull/repair-faucet-stage1.png",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairOpticsFacade-20261016/FinalFull/repair-faucet-stage1.png",
         "sha256": "b86a9f3abe93b1c0b6ee89d6c8a9b348128fef1138643014e15579741970c001",
         "origin": "Unity-render"
       },
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairFixtureFinish-20261016/AssemblyFull/repair-faucet-stage2.png",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairOpticsFacade-20261016/FinalFull/repair-faucet-stage2.png",
         "sha256": "a509c30fd89a6209f5a3e98ff3e1fe22f94bebf9e646c69162344b15d2309ad9",
-        "origin": "Unity-render"
-      },
-      {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairFixtureFinish-20261016/AssemblyFull/repair-faucet-wide-unusual.png",
-        "sha256": "c7d3b3e4dfd635d8a956ac3857768ca44a7db702de1a77b4fd7fc6a8b4bbb048",
         "origin": "Unity-render"
       }
     ],
     "variants": [
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairFixtureFinish-20261016/AssemblyPresentation/fixture-faucet.png",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairOpticsFacade-20261016/FinalPresentation/van-front-detail.png",
+        "sha256": "1c20e552414b061ea08bff81455062b5c4b9267b3d7a1bb5d4d703c21e93a7e0",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairOpticsFacade-20261016/FinalPresentation/van-front-three-quarter.png",
+        "sha256": "8ed8acdd48234adc53601e425c98c66081ba85c15c2074f798d4a7e8368e1ae8",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairOpticsFacade-20261016/FinalPresentation/van-rear.png",
+        "sha256": "3f3c75dcf500c2a0220b6000ac52c2aaa1f24e3c3fceeb4befa5d8ed15613e59",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairOpticsFacade-20261016/FinalPresentation/van-side.png",
+        "sha256": "3801c0e9cc619794154cdf6ef5e1db070c7bfffad53aaef43187ba9eafd9c79a",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairOpticsFacade-20261016/FinalPresentation/van-cabin.png",
+        "sha256": "eddb57a5fe01ddc32e2ff0db90f102a59a26bba342149d6a18d0e919be7fb21a",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairOpticsFacade-20261016/FinalPresentation/van-wheel-detail.png",
+        "sha256": "559bedec3f60601b66fbbfe7d20263e74fd6a93918306f3ffb889705827be5f0",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairOpticsFacade-20261016/FinalPresentation/street-curved-lamp.png",
+        "sha256": "55539f4081f261705dd38eea3c1e846367c06c48b39c3a0bb05d86254e1f6f3d",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairOpticsFacade-20261016/FinalPresentation/fixture-faucet.png",
         "sha256": "d5db797fe8db7226b8b2d1b44361b3ae4174505b273f01659a9d4ad6b4696522",
         "origin": "Unity-render"
       },
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairFixtureFinish-20261016/AssemblyPresentation/fixture-switch.png",
-        "sha256": "8c4586697958e5e7d55cd0c366e9ba4fdfdd6b3f9748b8f110fd6b7ac86d585e",
-        "origin": "Unity-render"
-      },
-      {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairFixtureFinish-20261016/AssemblyPresentation/fixture-call-2-3.png",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairOpticsFacade-20261016/FinalPresentation/fixture-call-2-3.png",
         "sha256": "736d35ac652f00c5836ee7ceccdb280af8348fe449d8b6e13fb27da4a6c47e25",
         "origin": "Unity-render"
       }
     ]
   },
   "previousReview": {
-    "sourceSha256": "49127a1196f0bf022aadfe2bd62d55b22813ec2c0b69eb43fdd2c818c049bca2",
+    "sourceSha256": "4e3c8d4e6eb4db6efae71f89d37b1b385a233e055198b0a292c136b817278750",
     "status": "failed",
-    "archive": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairFixtureFinish-20261016/visual-release-gate.json.before"
+    "archive": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairOpticsFacade-20261016/visual-release-gate.json.before"
   },
-  "candidateReport": "docs/QA/repair-fixture-finish-20261016.json",
+  "candidateReport": "docs/QA/repair-optics-facades-20261016.json",
   "evidenceNote": "Menus are genuine Unity captures containing decorative generated workshop art; this art is not evidence of3D scene quality."
 }

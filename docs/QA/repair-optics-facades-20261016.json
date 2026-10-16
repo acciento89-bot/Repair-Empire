@@ -1,0 +1,316 @@
+{
+  "game": "Repair Empire",
+  "date": "2026-10-16",
+  "sourceSha256": "719870c67f190cbee6b4623efdaf079910d669bf5416db6ba5862a16f3810e0b",
+  "baseCommit": "ddc1b567e562b9c45d3793cfef81a812e6dbeb95",
+  "scope": "Actual modeled van front optics and narrow return-elevation sash windows.",
+  "supersedes": "docs/QA/repair-fixture-finish-20261016.json",
+  "implemented": [
+    "Larger fitted six-corner swept headlamps use closed annular molded housings, actual formed silver backings, four concave physical reflector bowls and hollow retaining cups beneath the original transparent optical texture. Texture and real projector centers align. Only headlamp alpha changes; windshield prototype unchanged.",
+    "Physical daylight guides follow the new lower lips. Five shaped grille blades replace nine thin strips; larger fog optics remain inside original recesses. All use the existing nine finishes.",
+    "Residential return panes are narrower and have actual jambs, lintel, sill, vertical mullion and meeting rail. Six sharp-faced boxes per pane are combined into one owned trim mesh per envelope, with the existing trim material. No extra colliders or random calls."
+  ],
+  "validation": {
+    "aggregateAndMacExitCode": 0,
+    "log": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairOpticsFacade-20261016/unity-optics-final.log",
+      "sha256": "33784b443289d70a508223e1add2e2badfb65c67c69f384db24bff86c5ad9978",
+      "origin": "Unity-aggregate-and-Mac-build"
+    },
+    "receipt": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairOpticsFacade-20261016/source-native-receipt.json",
+      "sha256": "61459c655c27d7de77c1a8293ee257bfd950780833a6ea7b213ec7ecd1cd1790",
+      "origin": "exact-source-native-binding"
+    },
+    "bundleManifest": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairOpticsFacade-20261016/native-bundle-manifest.json",
+      "sha256": "26a35f152f42a556d6c7ffeaaac750a7beecdde5b4332e9427c84156d5437fb7",
+      "origin": "all314native-bundle-files"
+    },
+    "settingsDelta": "None",
+    "unchangedAuthorityFiles": 78,
+    "runs": {
+      "FinalPresentation": {
+        "checks": 1504,
+        "processExitCode": 0,
+        "imageCount": 84,
+        "result": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairOpticsFacade-20261016/FinalPresentation/PASS.txt",
+          "sha256": "ba13a0e29a489eb596da1385717cff2a737448d48ac779d7698ed80baa0aad5a",
+          "origin": "actual-native-result"
+        },
+        "checksFile": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairOpticsFacade-20261016/FinalPresentation/checks.txt",
+          "sha256": "3172d76675f91ef9c4c4539b5818c5cc2d24d6da857e0fa01f350a609871f799",
+          "origin": "actual-native-checks"
+        },
+        "provenance": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairOpticsFacade-20261016/FinalPresentation/PROVENANCE.json",
+          "sha256": "724476b4246dd06615580b416b47ff75e6412e1321b89d9092fefe4024620371",
+          "origin": "native-source-binding"
+        },
+        "imageManifest": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairOpticsFacade-20261016/FinalPresentation/IMAGE-HASHES.json",
+          "sha256": "7f07144d88a370fc0a5f377f7f4984238f651f96fc40747b738651e9d1b9211d",
+          "origin": "actual-Unity-render-manifest"
+        },
+        "log": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairOpticsFacade-20261016/FinalPresentation.log",
+          "sha256": "3b8fbed5b531122943cd5f683208b939b3badd44c54544f308bb9fcf47f6993c",
+          "origin": "native-Mac-log"
+        }
+      },
+      "FinalFull": {
+        "checks": 1478,
+        "processExitCode": 0,
+        "imageCount": 60,
+        "result": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairOpticsFacade-20261016/FinalFull/PASS.txt",
+          "sha256": "74f76dd2c1b3afbd734d2ba63ba297be958e3ebccb43ebf5d83795244646d636",
+          "origin": "actual-native-result"
+        },
+        "checksFile": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairOpticsFacade-20261016/FinalFull/checks.txt",
+          "sha256": "4121850d9420f1f6fba33ef388854ebce1d2c5c365035dd46a622311c18f7eb1",
+          "origin": "actual-native-checks"
+        },
+        "provenance": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairOpticsFacade-20261016/FinalFull/PROVENANCE.json",
+          "sha256": "905690b16de553b44d7214e693cbc85011345ee874973d36f412244e743e61d5",
+          "origin": "native-source-binding"
+        },
+        "imageManifest": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairOpticsFacade-20261016/FinalFull/IMAGE-HASHES.json",
+          "sha256": "ba58f98f81d2cf85451b7c9fb4baa07969a4333fe0259d881c2afe2540f92101",
+          "origin": "actual-Unity-render-manifest"
+        },
+        "log": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairOpticsFacade-20261016/FinalFull.log",
+          "sha256": "e00926ffd85507c1bce76ba9676e7f999662190b1a66dad4d4b78c25e2f82844",
+          "origin": "native-Mac-log"
+        }
+      },
+      "FinalReload": {
+        "checks": 7,
+        "processExitCode": 0,
+        "imageCount": 1,
+        "result": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairOpticsFacade-20261016/FinalReload/PASS.txt",
+          "sha256": "38213edc12e5ec96959592e87d8dbbd73398b1a84ce00fa19c8bdea92ba590b6",
+          "origin": "actual-native-result"
+        },
+        "checksFile": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairOpticsFacade-20261016/FinalReload/checks.txt",
+          "sha256": "a47cdbe2c393a6d3242b1a93b7d3a4c797bf0fcce1aae50ab49f39ff59a87fa3",
+          "origin": "actual-native-checks"
+        },
+        "provenance": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairOpticsFacade-20261016/FinalReload/PROVENANCE.json",
+          "sha256": "767c5601f253d7f772d8dc16e453ab1389829fdf65828c65952cc42fdc59455b",
+          "origin": "native-source-binding"
+        },
+        "imageManifest": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairOpticsFacade-20261016/FinalReload/IMAGE-HASHES.json",
+          "sha256": "ce8b16c6bafd3b9b2da45a1289c8a850458782ef9f00d219c7fe44118e32550c",
+          "origin": "actual-Unity-render-manifest"
+        },
+        "log": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairOpticsFacade-20261016/FinalReload.log",
+          "sha256": "21b166127b8db2f8f83d4317161b1fdcd8f8ae1457ce5eb2b22067e3b1140374",
+          "origin": "native-Mac-log"
+        }
+      }
+    },
+    "van": {
+      "vertices": 69372,
+      "activeRenderers": 27,
+      "materials": 9,
+      "limits": [
+        70000,
+        32,
+        9
+      ]
+    },
+    "residential": {
+      "vertices": 38821,
+      "materials": 11,
+      "textures": 4,
+      "vertexLimit": 40000
+    },
+    "workshop": {
+      "vertices": 151442,
+      "activeRenderers": 29,
+      "materials": 21
+    },
+    "optics": "Six closed oriented welded-edge housings; physical reflector vertex separation from lens/backing; actual first opaque hit through module gaps/projector rims; material/mesh owner disposal.",
+    "returnWindows": "36narrowpanes/twocombinedmeshes;real center-sash and clear-pane first-visible triangle rays;owned cleanup.",
+    "preservedStreet": "54collisionfields/24halts/1728signposes/13parkedcar-furniture clearance and deterministic height RNG"
+  },
+  "candidateHistory": [
+    {
+      "stage": "Original optics and return windows RED",
+      "log": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairOpticsFacade-20261016/unity-optics-facade-real-red.log",
+        "sha256": "e132690b22306dd0e57d3173b3aa5e7bdad9a914d461ab0f5c8b3190f1894808",
+        "origin": "actual-pre-implementation-engine-failure"
+      },
+      "note": "Original lamps too small, filled gasket hides reflector rim, no silver backings,36overbroad unframed return panes. Initial fixture-only TextMesh filter issue is separately retained in unity-optics-facade-red.log; corrected test produced this genuine RED."
+    },
+    {
+      "stage": "Initial geometry green",
+      "log": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairOpticsFacade-20261016/unity-optics-facade-green1.log",
+        "sha256": "e44135f9f15357b9d5fc8937199cb9c3781280971557beab0ec5529baf654b11",
+        "origin": "actual-post-implementation-engine-check"
+      },
+      "note": "Subsequently strengthened with closed solid orientation and actual per-vertex physical optical separation before full aggregate/native runs."
+    },
+    {
+      "stage": "Assembled grille/lamp intrusion RED and fit correction",
+      "log": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairOpticsFacade-20261016/unity-assembled-optics-red.log",
+        "sha256": "49d1d9af268d2641d003eb4ac391bfc3589ee06f1e7548d0a08ad4f73065ed0b",
+        "origin": "actual-complete-production-geometry-failure"
+      },
+      "binding": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairOpticsFacade-20261016/source-native-receipt-pre-assembly.json",
+        "sha256": "03be4ebc0740ec53908a76e55ec21beb4601604893388abc7f613586ea1c4300",
+        "origin": "superseded-native-source"
+      },
+      "note": "The original details-only fixture missed the production Grille. Actual full batched VanArt rays reproduced navy backing occlusion and1.01to1.95mm lens penetration. Inboard main grille taper/width and narrowing blade ends fix the assembly; all12actual rays pass. A broader independent5mmgrid of2987lamp interior samples reports zero grille/blade overlap. Wide interimgrille native images remain inAssemblyPresentation; final dimensions.95width/taper-.22 are source-reviewed and native verified."
+    }
+  ],
+  "sourceReview": {
+    "reviewer": "Independent read-only repair_optics_review16",
+    "decision": "No remaining actionable source issue after assembled-grille correction and final dimensions follow-up.",
+    "scope": "Source correctness and actual geometry/lifetime/budget coverage."
+  },
+  "visualEvidence": {
+    "concept": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Artifacts/KamilunavoDelivery-20261009/concepts-20261010/repair-empire-3-ansichten.png",
+      "sha256": "0571d35c40de036f83f86f3b423c234f321586abcfec97d9d259710d816723f1",
+      "origin": "approved-concept"
+    },
+    "menu": [
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairOpticsFacade-20261016/FinalPresentation/showcase-de-dashboard.png",
+        "sha256": "f83fa3f027ea6b1c0a9eb954783258e037569c624f03310b8884ba3c433c99d1",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairOpticsFacade-20261016/FinalPresentation/landscape-de-section-9.png",
+        "sha256": "b1dc898e3d9f310aeeee3fec14dc4ff9f454cce85ccb881e2ff1067ecdadbd91",
+        "origin": "Unity-render"
+      }
+    ],
+    "gameplay": [
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairOpticsFacade-20261016/FinalPresentation/showcase-driving-service.png",
+        "sha256": "2383b0b06e5972633b8338ad1beb5af447226711a3b3b3ef2208917b82f8598a",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairOpticsFacade-20261016/FinalPresentation/street-layout.png",
+        "sha256": "cf36fbc533b81182905c0e04ad4006bf1434ff0c2d4e9b342450201fc4958bd3",
+        "origin": "Unity-render"
+      }
+    ],
+    "submenus": [
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairOpticsFacade-20261016/FinalPresentation/portrait-de-section-0.png",
+        "sha256": "86ef98b7047d21f47700aff05939ddfad9548759eda8d7c8354e7d587261f095",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairOpticsFacade-20261016/FinalFull/repair-faucet-stage0.png",
+        "sha256": "9f6d84378590ccb705603e2706739cda760c1eec838c3bed12435d2ae2c7b7f0",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairOpticsFacade-20261016/FinalFull/repair-faucet-stage1.png",
+        "sha256": "b86a9f3abe93b1c0b6ee89d6c8a9b348128fef1138643014e15579741970c001",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairOpticsFacade-20261016/FinalFull/repair-faucet-stage2.png",
+        "sha256": "a509c30fd89a6209f5a3e98ff3e1fe22f94bebf9e646c69162344b15d2309ad9",
+        "origin": "Unity-render"
+      }
+    ],
+    "variants": [
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairOpticsFacade-20261016/FinalPresentation/van-front-detail.png",
+        "sha256": "1c20e552414b061ea08bff81455062b5c4b9267b3d7a1bb5d4d703c21e93a7e0",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairOpticsFacade-20261016/FinalPresentation/van-front-three-quarter.png",
+        "sha256": "8ed8acdd48234adc53601e425c98c66081ba85c15c2074f798d4a7e8368e1ae8",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairOpticsFacade-20261016/FinalPresentation/van-rear.png",
+        "sha256": "3f3c75dcf500c2a0220b6000ac52c2aaa1f24e3c3fceeb4befa5d8ed15613e59",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairOpticsFacade-20261016/FinalPresentation/van-side.png",
+        "sha256": "3801c0e9cc619794154cdf6ef5e1db070c7bfffad53aaef43187ba9eafd9c79a",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairOpticsFacade-20261016/FinalPresentation/van-cabin.png",
+        "sha256": "eddb57a5fe01ddc32e2ff0db90f102a59a26bba342149d6a18d0e919be7fb21a",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairOpticsFacade-20261016/FinalPresentation/van-wheel-detail.png",
+        "sha256": "559bedec3f60601b66fbbfe7d20263e74fd6a93918306f3ffb889705827be5f0",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairOpticsFacade-20261016/FinalPresentation/street-curved-lamp.png",
+        "sha256": "55539f4081f261705dd38eea3c1e846367c06c48b39c3a0bb05d86254e1f6f3d",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairOpticsFacade-20261016/FinalPresentation/fixture-faucet.png",
+        "sha256": "d5db797fe8db7226b8b2d1b44361b3ae4174505b273f01659a9d4ad6b4696522",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairOpticsFacade-20261016/FinalPresentation/fixture-call-2-3.png",
+        "sha256": "736d35ac652f00c5836ee7ceccdb280af8348fe449d8b6e13fb27da4a6c47e25",
+        "origin": "Unity-render"
+      }
+    ]
+  },
+  "comparisons": [
+    {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairOpticsFacade-20261016/van-front-detail-vergleich.png",
+      "sha256": "7453f279fbf57ed37231849d064b3ba3243f22e9e55c2e7db96e446f4a937a68",
+      "origin": "mechanical-layout-of-unretouched-Unity-PNGs-and-labeled-reference"
+    },
+    {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairOpticsFacade-20261016/street-curved-lamp-vergleich.png",
+      "sha256": "80800be2291c54fa404dd28700bb4a67ec670cdde8716bcc1f63fd58bcaacd14",
+      "origin": "mechanical-layout-of-unretouched-Unity-PNGs-and-labeled-reference"
+    },
+    {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairOpticsFacade-20261016/konzept-strasse-vergleich.png",
+      "sha256": "9371190d0a55e19d94a7e40a7eba1f356a1ff8e191f4964b54fe7d80c4fe5da4",
+      "origin": "mechanical-layout-of-unretouched-Unity-PNGs-and-labeled-reference"
+    }
+  ],
+  "decision": {
+    "boundedOpticsFacadeFinish": "verified",
+    "fullConceptSimilarity": "failed",
+    "icon": "pending",
+    "uploadPerformed": false
+  },
+  "remaining": [
+    "Whole street/vehicle/fixture finish remains stylized; no numerical90percent claim. Chrome still too warm compared with Concept; repair accessory placement requires a separate physical geometry pass.",
+    "Mac proof does not establish physical-deviceFPS/thermal/touch, real ads/paid commerce, iOS exported icon or AppReview approval.",
+    "Approved sibling projects, OMF submission and historical user-owned Concept deletion untouched. Decorative menu art is not actual3Dgameplay evidence."
+  ]
+}

@@ -68,8 +68,9 @@ namespace Kamilunavo.RepairEmpire.Visuals
   {
    x*=side;const float y=.985f,e=.002f;float z=VanCoachworkGeometry.FrontSkinZ(x,y);
    float dx=(VanCoachworkGeometry.FrontSkinZ(x+e,y)-VanCoachworkGeometry.FrontSkinZ(x-e,y))/(2*e),dy=(VanCoachworkGeometry.FrontSkinZ(x,y+e)-VanCoachworkGeometry.FrontSkinZ(x,y-e))/(2*e);
-   var pivot=new GameObject("Recessed headlamp projector").transform;pivot.SetParent(root,false);pivot.localPosition=new Vector3(x,y,z+.019f);pivot.localRotation=Quaternion.FromToRotation(Vector3.up,new Vector3(-dx,-dy,1).normalized);
-   MeshArt.Lathe(pivot,"Concave optical reflector",new[]{.006f,.002f,-.005f,-.010f,-.011f},new[]{.038f,.035f,.025f,.012f,0f},20,metal,Vector3.one);
+   var pivot=new GameObject("Recessed headlamp projector").transform;pivot.SetParent(root,false);pivot.localPosition=new Vector3(x,y,z+.025f);pivot.localRotation=Quaternion.FromToRotation(Vector3.up,new Vector3(-dx,-dy,1).normalized);
+   MeshArt.Lathe(pivot,"Hollow projector retaining cup",new[]{-.021f,-.021f,-.001f,-.001f,-.019f,-.019f},new[]{0f,.060f,.060f,.052f,.052f,0f},20,plastic,Vector3.one);
+   MeshArt.Lathe(pivot,"Concave optical reflector",new[]{.006f,.002f,-.005f,-.010f,-.011f},new[]{.055f,.051f,.037f,.018f,0f},20,metal,Vector3.one);
    MeshArt.Lathe(pivot,"Projector optical core",new[]{.001f,.003f,.005f},new[]{.020f,.019f,0f},20,plastic,Vector3.one);
   }
   static void SidePlate(Transform root,string name,int side,Vector2 center,Vector2 size,float radius,float offset,Material material)
@@ -92,16 +93,24 @@ namespace Kamilunavo.RepairEmpire.Visuals
    for(int i=0;i<=count;i++){float a=i*Mathf.PI/count;v.Add(new Vector3(side*.62f,.22f+Mathf.Sin(a)*.370f,axle+Mathf.Cos(a)*.370f));if(i<count)t.AddRange(side>0?new[]{0,i+2,i+1}:new[]{0,i+1,i+2});}
    MeshArt.Mesh(root,"Wheelhouse inboard liner",v.ToArray(),t.ToArray(),null,rubber);
   }
-  static GameObject Lamp(Transform root,int side,string name,Material material,float scale,float offset)
+  static GameObject Lamp(Transform root,int side,string name,Material material,float scale,float offset,bool housing=false)
   {
-   var corners=new[]{new Vector2(.435f,.965f),new Vector2(.500f,1.079f),new Vector2(.748f,1.056f),new Vector2(.775f,1.010f),new Vector2(.754f,.888f),new Vector2(.550f,.895f)};var center=new Vector2(.611f,.985f);var loop=new List<Vector2>();
+   var corners=new[]{new Vector2(.400f,.970f),new Vector2(.485f,1.095f),new Vector2(.765f,1.078f),new Vector2(.802f,1.015f),new Vector2(.762f,.850f),new Vector2(.525f,.865f)};var center=new Vector2(.615f,.980f);var loop=new List<Vector2>();
    for(int c=0;c<corners.Length;c++)for(int i=0;i<5;i++){float q=i/5f;var at=corners[c];var before=Vector2.Lerp(at,corners[(c+corners.Length-1)%corners.Length],.15f);var after=Vector2.Lerp(at,corners[(c+1)%corners.Length],.15f);loop.Add(center+((1-q)*(1-q)*before+2*(1-q)*q*at+q*q*after-center)*scale);}
    var v=new List<Vector3>();var n=new List<Vector3>();var uv=new List<Vector2>();var t=new List<int>();int count=loop.Count;
    Vector3 Point(Vector2 p,float stand){p.x*=side;return new Vector3(p.x,p.y,VanCoachworkGeometry.FrontSkinZ(p.x,p.y)+stand);}
    Vector3 Normal(Vector2 p){const float e=.001f;float x=p.x*side,y=p.y;float dx=(VanCoachworkGeometry.FrontSkinZ(x+e,y)-VanCoachworkGeometry.FrontSkinZ(x-e,y))/(2*e),dy=(VanCoachworkGeometry.FrontSkinZ(x,y+e)-VanCoachworkGeometry.FrontSkinZ(x,y-e))/(2*e);return new Vector3(-dx,-dy,1).normalized;}
-   for(int ring=0;ring<4;ring++)foreach(var p0 in loop){var p=Vector2.Lerp(p0,center,ring/4f);v.Add(Point(p,offset+(ring==0?0:.003f)));n.Add(Normal(p));uv.Add(new Vector2((p.x-.435f)/.34f,(p.y-.888f)/.191f));}
+   if(housing)
+   {
+    // Closed annular moulding: outer wall, front lip, inner wall, rear lip.
+    // There is no opaque plate across the reflector opening.
+    for(int ring=0;ring<4;ring++)foreach(var p0 in loop){var p=Vector2.Lerp(center,p0,ring<2?1:.94f);v.Add(Point(p,ring==0||ring==3?.004f:offset));uv.Add(new Vector2((p.x-.400f)/.402f,(p.y-.850f)/.245f));}
+    for(int ring=0;ring<4;ring++)for(int i=0;i<count;i++){int a=ring*count+i,b=((ring+1)%4)*count+i,c=ring*count+(i+1)%count,d=((ring+1)%4)*count+(i+1)%count;t.AddRange(side>0?new[]{a,b,c,c,b,d}:new[]{a,c,b,c,d,b});}
+    return MeshArt.Mesh(root,name,v.ToArray(),t.ToArray(),uv.ToArray(),material);
+   }
+   for(int ring=0;ring<4;ring++)foreach(var p0 in loop){var p=Vector2.Lerp(p0,center,ring/4f);v.Add(Point(p,offset+(ring==0?0:.003f)));n.Add(Normal(p));uv.Add(new Vector2((p.x-.400f)/.402f,(p.y-.850f)/.245f));}
    for(int ring=1;ring<4;ring++)for(int i=0;i<count;i++){int a=(ring-1)*count+i,b=(ring-1)*count+(i+1)%count,c=a+count,d=b+count;t.AddRange(side>0?new[]{a,b,c,b,d,c}:new[]{a,c,b,b,c,d});}
-   int pole=v.Count;v.Add(Point(center,offset+.003f));n.Add(Normal(center));uv.Add(new Vector2(.5f,.5f));for(int i=0;i<count;i++)t.AddRange(side>0?new[]{pole,3*count+i,3*count+(i+1)%count}:new[]{pole,3*count+(i+1)%count,3*count+i});
+   int pole=v.Count;v.Add(Point(center,offset+.003f));n.Add(Normal(center));uv.Add(new Vector2((center.x-.400f)/.402f,(center.y-.850f)/.245f));for(int i=0;i<count;i++)t.AddRange(side>0?new[]{pole,3*count+i,3*count+(i+1)%count}:new[]{pole,3*count+(i+1)%count,3*count+i});
    // Outline winds clockwise in XY; positive-X lamp requires reversal.
    for(int i=0;i<t.Count;i+=3){int k=t[i+1];t[i+1]=t[i+2];t[i+2]=k;}
    return MeshArt.Mesh(root,name,v.ToArray(),t.ToArray(),uv.ToArray(),material,normals:n.ToArray());
@@ -117,8 +126,8 @@ namespace Kamilunavo.RepairEmpire.Visuals
     SidePlate(root,"Lower sliding-door runner",side,new Vector2(-.59f,.335f),new Vector2(.82f,.025f),.009f,.014f,metal);
     var fuel=new Vector3[33];for(int i=0;i<fuel.Length;i++){float a=i*Mathf.PI*2/32;fuel[i]=VanCoachworkGeometry.SideSkinPoint(side,.84f+Mathf.Sin(a)*.071f,.0f+Mathf.Cos(a)*.073f,.022f);}if(side<0)MeshArt.Tube(root,"Fuel filler door seam",fuel,.0027f,plastic,6);
     MeshArt.BevelBox(root,"Mirror turn repeater",new(side*1.035f,1.395f,1.272f),new(.09f,.021f,.012f),.006f,amber);MeshArt.BevelBox(root,"Mirror lower blind-spot glass",new(side*1.00f,1.296f,1.089f),new(.091f,.052f,.008f),.013f,metal);
-    Lamp(root,side,"Swept headlamp gasket",plastic,1.07f,.012f);Reflector(root,side,.555f,metal,plastic);Reflector(root,side,.695f,metal,plastic);Lamp(root,side,"Swept optical headlamp",lamp,1,.034f);
-    var drl=new Vector3[15];for(int i=0;i<drl.Length;i++){float t=i/14f,x=side*Mathf.Lerp(.55f,.745f,t),y=.901f+.006f*t;drl[i]=new Vector3(x,y,VanCoachworkGeometry.FrontSkinZ(x,y)+.033f);}MeshArt.Tube(root,"Daylight guide inside lamp",drl,.005f,metal,6);
+    Lamp(root,side,"Swept headlamp gasket",plastic,1.045f,.038f,true);Lamp(root,side,"Formed headlamp reflector backing",metal,.985f,.006f);Reflector(root,side,.505f,metal,plastic);Reflector(root,side,.700f,metal,plastic);Lamp(root,side,"Swept optical headlamp",lamp,1,.042f);
+    var drl=new Vector3[15];for(int i=0;i<drl.Length;i++){float t=i/14f,x=side*Mathf.Lerp(.525f,.750f,t),y=.880f+.007f*t;drl[i]=new Vector3(x,y,VanCoachworkGeometry.FrontSkinZ(x,y)+.033f);}MeshArt.Tube(root,"Daylight guide inside lamp",drl,.007f,paint,6);
     for(int h=0;h<2;h++){float y=.65f+h*.77f,x=side*.751f;VanCoachworkGeometry.SculptedPanel(root,"Hinge central knuckle",new Vector2(x,y),new Vector2(.045f,.025f),.009f,metal,true,.022f,.014f);}
     VanCoachworkGeometry.SculptedPanel(root,"Rear plate-light housing",new Vector2(-.34f+side*.18f,.575f),new Vector2(.075f,.028f),.010f,plastic,true,.021f,.016f);
    }
@@ -127,7 +136,7 @@ namespace Kamilunavo.RepairEmpire.Visuals
    var cowlV=new List<Vector3>();var cowlT=new List<int>();for(int z=0;z<4;z++)for(int x=0;x<=16;x++){cowlV.Add(VanCoachworkGeometry.RoofPoint(Mathf.Lerp(-.65f,.65f,x/16f),Mathf.Lerp(1.312f,1.416f,z/3f),.007f));if(z<3&&x<16){int a=z*17+x;cowlT.AddRange(new[]{a,a+17,a+1,a+1,a+17,a+18});}}MeshArt.Mesh(root,"Recessed windscreen scuttle tray",cowlV.ToArray(),cowlT.ToArray(),null,plastic);
    for(int i=0;i<12;i++){float x=-.55f+i*.10f;var path=new[]{VanCoachworkGeometry.RoofPoint(x,1.335f,.011f),VanCoachworkGeometry.RoofPoint(x,1.385f,.011f)};MeshArt.Tube(root,"Windscreen scuttle vent",path,.005f,plastic,6);}
    foreach(float x in new[]{-.60f,-.40f,.40f,.60f}){var path=new Vector3[25];for(int i=0;i<path.Length;i++)path[i]=VanCoachworkGeometry.RoofPoint(x,Mathf.Lerp(-1.99f,.51f,i/24f),.007f);MeshArt.Tube(root,"Pressed roof rain channel",path,.004f,paint,6);}
-   for(int i=0;i<9;i++){var path=new Vector3[9];float y=.62f+i*.044f,w=Mathf.Lerp(.43f,.54f,i/8f);for(int j=0;j<path.Length;j++){float x=Mathf.Lerp(-w,w,j/8f);path[j]=new Vector3(x,y,VanCoachworkGeometry.FrontSkinZ(x,y)+.035f);}MeshArt.Tube(root,"Molded grille blade",path,.009f,plastic,6);}
+   for(int i=0;i<5;i++){var path=new Vector3[9];float y=.645f+i*.075f,w=Mathf.Lerp(.52f,.35f,i/4f);for(int j=0;j<path.Length;j++){float x=Mathf.Lerp(-w,w,j/8f);path[j]=new Vector3(x,y,VanCoachworkGeometry.FrontSkinZ(x,y)+.035f);}MeshArt.Tube(root,"Molded grille blade",path,.011f,i==0||i==4?metal:plastic,6);}
    foreach(float x in new[]{-.64f,-.28f,.28f,.64f}){VanCoachworkGeometry.SculptedPanel(root,"Front parking sensor",new Vector2(x,.455f),new Vector2(.028f,.028f),.012f,plastic,false,.032f,.004f);VanCoachworkGeometry.SculptedPanel(root,"Rear parking sensor",new Vector2(x,.31f),new Vector2(.028f,.028f),.012f,metal,true,.12f,.004f);}
    MeshArt.BevelBox(root,"Rear molded step tread",new(0,.34f,-2.315f),new(.85f,.035f,.12f),.014f,plastic);for(int i=0;i<15;i++)MeshArt.Box(root,"Rear step traction rib",new(-.38f+i*.054f,.36f,-2.315f),new(.009f,.006f,.083f),metal);
    VanCoachworkGeometry.SculptedPanel(root,"Rear reversing camera",new Vector2(.08f,1.035f),new Vector2(.05f,.026f),.010f,plastic,true,.023f,.015f);

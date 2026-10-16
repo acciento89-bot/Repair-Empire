@@ -26,7 +26,7 @@ public static class RepairStreetLayoutValidation
    var renderers=root.GetComponentsInChildren<MeshRenderer>();var frontageProps=new List<(string name,Bounds bounds)>();var furniture=new List<(string name,Bounds bounds)>();var cars=new List<MeshRenderer>();
    foreach(var prop in renderers)
    {
-    if(prop.name=="Shop canvas awning"||prop.name=="Awning hanging valance"||prop.name=="Urban shop sign backing"||prop.name=="Shop continuous cornice"||prop.name=="Shop cornice dentil"||prop.name=="Window projecting stone sill"||prop.name=="Recessed residential balcony"||prop.name=="Lamp pole"||prop.name=="Lamp housing"||prop.name=="Curved street lamp arm")frontageProps.Add((prop.name,prop.bounds));
+    if(prop.name=="Shop canvas awning"||prop.name=="Awning hanging valance"||prop.name=="Urban shop sign backing"||prop.name=="Shop continuous cornice"||prop.name=="Shop cornice dentil"||prop.name=="Window projecting stone sill"||prop.name=="Recessed residential balcony"||prop.name=="Return elevation sash surrounds"||prop.name=="Lamp pole"||prop.name=="Lamp housing"||prop.name=="Curved street lamp arm")frontageProps.Add((prop.name,prop.bounds));
     if(prop.name=="Planter"||prop.name=="Street bench seat"||prop.name=="Street bench back"||prop.name=="Litter bin"||prop.name=="Kiosk enclosure")furniture.Add((prop.name,prop.bounds));
     if(prop.name=="Sculpted passenger body")cars.Add(prop);
    }
