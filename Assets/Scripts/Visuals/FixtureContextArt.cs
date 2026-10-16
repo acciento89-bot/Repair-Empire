@@ -45,13 +45,33 @@ namespace Kamilunavo.RepairEmpire.Visuals
    }
    if(phase==1&&(key=="switch"||key=="wall-outlet")){pose.Target.y=.58f;pose.FieldOfView=39;}
   }
+  // Continuous modeled room shell covers the real photo frustum, including
+  // short-wide repair panes. Metric UVs keep the shared stone/wood grain sized.
+  static GameObject RoomSurface(Transform p,string name,Vector3 at,Vector3 size,FixtureFinish finish)
+  {
+   var go=Box(p,name,at,size,finish);var mesh=go.GetComponent<MeshFilter>().sharedMesh;var points=mesh.vertices;var normals=mesh.normals;var uv=new Vector2[points.Length];
+   for(int i=0;i<points.Length;i++){var point=points[i]+at;var n=normals[i];uv[i]=Mathf.Abs(n.y)>.7f?new Vector2(point.x,point.z):Mathf.Abs(n.x)>Mathf.Abs(n.z)?new Vector2(point.z,point.y):new Vector2(point.x,point.y);}
+   mesh.uv=uv;return go;
+  }
   static void Wall(Transform p,string name,float front,float width=2.4f,FixtureFinish finish=FixtureFinish.Plaster)
-  {Box(p,name,new Vector3(0,.84f,front+.065f),new Vector3(width,2.10f,.13f),finish);}
-  static void Floor(Transform p,FixtureFinish finish,float y=-.09f)=>B(p,"Room floor",new Vector3(0,y,.0f),new Vector3(2.5f,.16f,1.95f),finish,.013f);
+  {
+   RoomSurface(p,name,new Vector3(0,.84f,front+.065f),new Vector3(Mathf.Max(width,32),16,.13f),finish);
+   // Wide oblique rays can face away from the service wall. Complete the room
+   // around the camera instead of stretching a single backdrop indefinitely.
+   foreach(int side in new[]{-1,1})RoomSurface(p,"Room side wall",new Vector3(side*16,.84f,(front-16)*.5f),new Vector3(.13f,16,front+16),finish);
+   RoomSurface(p,"Room front wall",new Vector3(0,.84f,-16),new Vector3(32,16,.13f),finish);
+   RoomSurface(p,"Room ceiling",new Vector3(0,8.775f,(front-16)*.5f),new Vector3(32,.13f,front+16),finish);
+  }
+  static void Floor(Transform p,FixtureFinish finish,float y=-.09f)=>RoomSurface(p,"Room floor",new Vector3(0,y,0),new Vector3(32,.16f,32),finish);
   static void TileLines(Transform p,float front,int columns,int rows,float bottom,float height)
   {
-   for(int i=0;i<columns;i++)Box(p,"Wet wall grout joint",new Vector3((i-(columns-1)*.5f)*.43f,bottom+height*.5f,front-.002f),new Vector3(.006f,height,.006f),FixtureFinish.Grout);
-   for(int j=0;j<rows;j++)Box(p,"Wet wall horizontal grout",new Vector3(0,bottom+j*height/(rows-1),front-.002f),new Vector3(2.4f,.006f,.006f),FixtureFinish.Grout);
+   // One actual thin surface mesh, rather than hundreds of separate draw calls.
+   var vertices=new System.Collections.Generic.List<Vector3>();var triangles=new System.Collections.Generic.List<int>();
+   void Joint(float left,float low,float right,float high){int i=vertices.Count;float z=front-.005f;vertices.AddRange(new[]{new Vector3(left,low,z),new Vector3(left,high,z),new Vector3(right,high,z),new Vector3(right,low,z)});triangles.AddRange(new[]{i,i+1,i+2,i,i+2,i+3});}
+   const float half=.003f;float origin=-(columns-1)*.43f*.5f;
+   for(int i=-40;i<=40;i++){float x=origin+i*.43f;if(x>=-16&&x<=16)Joint(x-half,-7.16f,x+half,8.84f);}
+   float spacing=height/(rows-1);for(int j=-24;j<=24;j++){float y=bottom+j*spacing;if(y>=-7.16f&&y<=8.84f)Joint(-16,y-half,16,y+half);}
+   MeshArt.Mesh(p,"Continuous wet wall grout",vertices.ToArray(),triangles.ToArray(),null,FixtureMaterials.Get(p,FixtureFinish.Grout));
   }
   // A closed stone annulus leaves the actual bowl opening visible in the counter.
   static void Counter(Transform p,float y,FixtureFinish finish,float holeWidth,float holeDepth,float centerZ,bool rectangular=false)
@@ -67,6 +87,16 @@ namespace Kamilunavo.RepairEmpire.Visuals
    for(int i=0;i<n;i++){int low=3*(n+1)+i;t.AddRange(new[]{low,low+1,i,low+1,i+1,i});}
    MeshArt.Mesh(p,"Cut stone countertop",v.ToArray(),t.ToArray(),uv.ToArray(),FixtureMaterials.Get(p,finish));
   }
+  static void OpenCabinet(Transform p,string name,float top,float bottom,float width,float depth,float centerZ,FixtureFinish finish)
+  {
+   // A real carcass leaves space for the basin below the cut countertop.
+   // A solid box would put an opaque wooden/navy lid through the bowl.
+   const float board=.07f;float height=top-bottom,mid=(top+bottom)*.5f;
+   foreach(int side in new[]{-1,1})B(p,name+" side board",new Vector3(side*(width-board)*.5f,mid,centerZ),new Vector3(board,height,depth),finish);
+   B(p,name+" bottom board",new Vector3(0,bottom+board*.5f,centerZ),new Vector3(width-board*2,board,depth),finish);
+   B(p,name+" back board",new Vector3(0,mid,centerZ+(depth-board)*.5f),new Vector3(width-board*2,height,board),finish);
+   B(p,name+" front upper rail",new Vector3(0,top-board*.5f,centerZ-(depth-board)*.5f),new Vector3(width-board*2,board,board),finish);
+  }
   static void Vanity(Transform p,bool exposedTrap)
   {
    Wall(p,"Bathroom stone wall",.54f,2.4f,FixtureFinish.Stone);TileLines(p,.54f,6,4,-.4f,1.95f);
@@ -76,8 +106,8 @@ namespace Kamilunavo.RepairEmpire.Visuals
     B(p,"Exposed plumbing back board",new Vector3(0,.05f,.45f),new Vector3(1.8f,.74f,.06f),FixtureFinish.Wood);
     Floor(p,FixtureFinish.Stone,-.39f);
    }else{
-    B(p,"Vanity cabinet body",new Vector3(0,-.48f,.02f),new Vector3(1.93f,.79f,1.14f),FixtureFinish.Wood,.025f);
-    for(int side=-1;side<=1;side+=2){B(p,"Vanity inset cabinet door",new Vector3(side*.46f,-.46f,-.568f),new Vector3(.88f,.68f,.032f),FixtureFinish.Wood,.007f);B(p,"Vanity brushed handle",new Vector3(side*.46f,-.25f,-.603f),new Vector3(.28f,.021f,.026f),FixtureFinish.Steel,.006f);}
+    OpenCabinet(p,"Vanity cabinet",-.135f,-.875f,1.93f,1.14f,.02f,FixtureFinish.Wood);
+    for(int side=-1;side<=1;side+=2){B(p,"Vanity inset cabinet door",new Vector3(side*.46f,-.505f,-.568f),new Vector3(.88f,.64f,.032f),FixtureFinish.Wood,.007f);B(p,"Vanity brushed handle",new Vector3(side*.46f,-.29f,-.603f),new Vector3(.28f,.021f,.026f),FixtureFinish.Steel,.006f);}
     Floor(p,FixtureFinish.Stone,-.95f);
    }
   }
@@ -98,7 +128,8 @@ namespace Kamilunavo.RepairEmpire.Visuals
   static void Kitchen(Transform p)
   {
    Wall(p,"Kitchen backsplash",.53f,2.7f,FixtureFinish.Stone);TileLines(p,.53f,7,4,.09f,1.3f);Counter(p,.028f,FixtureFinish.Stone,1.02f,.63f,-.05f,true);
-   B(p,"Kitchen cabinet carcass",new Vector3(0,-.48f,.05f),new Vector3(2.04f,.88f,1.14f),FixtureFinish.Navy,.025f);
+   OpenCabinet(p,"Kitchen cabinet",-.082f,-.92f,2.04f,1.14f,.05f,FixtureFinish.Navy);
+   B(p,"Kitchen recessed toe plinth",new Vector3(0,-.95f,.05f),new Vector3(1.90f,.06f,.96f),FixtureFinish.Navy);
    for(int side=-1;side<=1;side+=2){B(p,"Kitchen shaker door",new Vector3(side*.48f,-.47f,-.539f),new Vector3(.92f,.77f,.032f),FixtureFinish.Navy,.012f);B(p,"Kitchen recessed door panel",new Vector3(side*.48f,-.49f,-.559f),new Vector3(.73f,.55f,.020f),FixtureFinish.Blue,.014f);B(p,"Kitchen brass pull",new Vector3(side*.48f,-.15f,-.581f),new Vector3(.26f,.025f,.026f),FixtureFinish.Brass,.006f);}
    Floor(p,FixtureFinish.Wood,-1.06f);
    B(p,"Backsplash outlet",new Vector3(-.88f,.40f,.48f),new Vector3(.13f,.22f,.028f),FixtureFinish.Ceramic,.012f);
@@ -171,8 +202,8 @@ namespace Kamilunavo.RepairEmpire.Visuals
    }
    int center=inside.Count;inside.Add(new Vector3(0,-.19f,-.05f));for(int i=0;i<n;i++){int k=n+1+i;it.AddRange(new[]{center,k+1,k});}
    var steel=FixtureMaterials.Get(p,FixtureFinish.Steel);MeshArt.Mesh(p,"Stainless kitchen sink rim",rim.ToArray(),rt.ToArray(),null,steel);MeshArt.Mesh(p,"Kitchen sink recess",inside.ToArray(),it.ToArray(),null,steel);
-   var drain=MeshArt.Lathe(p,"Kitchen basket drain",new[]{0f,.014f,.023f},new[]{.066f,.066f,.048f},24,FixtureMaterials.Get(p,FixtureFinish.Chrome),Vector3.one);drain.transform.localPosition=new Vector3(0,-.187f,-.05f);
-   for(int i=0;i<5;i++)Box(p,"Basket drain slot",new Vector3((i-2)*.016f,-.16f,-.05f),new Vector3(.006f,.004f,.07f),FixtureFinish.Navy);
+   var drain=MeshArt.Lathe(p,"Kitchen basket drain",new[]{0f,.002f,.004f},new[]{.066f,.066f,.048f},24,FixtureMaterials.Get(p,FixtureFinish.Chrome),Vector3.one);drain.transform.localPosition=new Vector3(0,-.190f,-.05f);
+   for(int i=0;i<5;i++)Box(p,"Basket drain slot",new Vector3((i-2)*.016f,-.185f,-.05f),new Vector3(.006f,.004f,.07f),FixtureFinish.Navy);
   }
   static void Bracket(Transform p,Vector3 pipe,float reach)
   {

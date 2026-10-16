@@ -16,6 +16,9 @@ namespace Kamilunavo.RepairEmpire.Visuals {
    var key=new GameObject("Service softbox",typeof(Light));key.transform.SetParent(studio,false);key.transform.localPosition=new(-2,4,-2);key.transform.LookAt(studio.position+Vector3.up*.5f);var light=key.GetComponent<Light>();light.type=LightType.Spot;light.range=12;light.spotAngle=90;light.intensity=3.0f;light.color=new(1,.96f,.88f);light.cullingMask=1<<PreviewLayer;light.shadows=LightShadows.Soft;
    var fill=new GameObject("Service warm fill",typeof(Light));fill.transform.SetParent(studio,false);fill.transform.localPosition=new Vector3(2,1.8f,-1.3f);var fillLight=fill.GetComponent<Light>();fillLight.type=LightType.Point;fillLight.range=8;fillLight.intensity=1.1f;fillLight.color=new Color(1,.86f,.70f);fillLight.cullingMask=1<<PreviewLayer;fillLight.shadows=LightShadows.None;
    var reflection=new GameObject("Isolated service metal reflection",typeof(ReflectionProbe));reflection.transform.SetParent(studio,false);reflection.transform.localPosition=Vector3.up*.7f;var probe=reflection.GetComponent<ReflectionProbe>();probe.mode=UnityEngine.Rendering.ReflectionProbeMode.Custom;probe.customBakedTexture=FixtureMaterials.Kit(studio).Environment();probe.size=new Vector3(12,8,10);probe.center=Vector3.zero;probe.boxProjection=true;probe.blendDistance=0;probe.intensity=1.25f;probe.importance=100;probe.cullingMask=1<<PreviewLayer;
+   // Manual first-frame photographs precede the normal reflection update.
+   // Publish this one new probe before any immutable thumbnail is cached.
+   ReflectionProbe.UpdateCachedState();
   }
   RenderTexture Target(string name,int w,int h,int depth=16){var target=new RenderTexture(w,h,depth,RenderTextureFormat.ARGB32){name=name,antiAliasing=2};target.Create();ArtLifetime.Own(gameObject,target);return target;}
   void Photograph(GameObject model,RenderTexture target,bool workshop=false,Rect? clearViewport=null)
@@ -66,7 +69,7 @@ namespace Kamilunavo.RepairEmpire.Visuals {
    return root;
   }
   static void Faucet(Transform root,int phase,bool sink,int contacts){var Ceramic=FixtureMaterials.Get(root,FixtureFinish.Ceramic);var Metal=FixtureMaterials.Get(root,FixtureFinish.Chrome);var Navy=FixtureMaterials.Get(root,FixtureFinish.Navy);var Orange=FixtureMaterials.Get(root,FixtureFinish.Orange);
-   MeshArt.Lathe(root,"Porcelain basin",new[]{-.12f,-.06f,.025f,.04f,.03f,-.095f,-.095f},new[]{.13f,.26f,.46f,.48f,.41f,.13f,0f},40,Ceramic,new(1.6f,1,1.1f)).transform.localPosition=new(0,0,-.19f);MeshArt.Lathe(root,"Basin drain",new[]{0f,.009f,.017f,.017f},new[]{0f,.052f,.052f,0f},24,Metal,Vector3.one).transform.localPosition=new(0,-.025f,-.20f);
+   MeshArt.Lathe(root,"Porcelain basin",new[]{-.12f,-.06f,.025f,.04f,.03f,-.095f,-.095f},new[]{.13f,.26f,.46f,.48f,.41f,.13f,0f},40,Ceramic,new(1.6f,1,1.1f)).transform.localPosition=new(0,0,-.19f);MeshArt.Lathe(root,"Basin drain",new[]{0f,.001f,.003f,.003f},new[]{0f,.052f,.052f,0f},24,Metal,Vector3.one).transform.localPosition=new(0,-.095f,-.20f);
    var mount=MeshArt.Lathe(root,"Faucet mounting flange",new[]{0f,.018f,.038f,.06f},new[]{.12f,.13f,.11f,.085f},32,Metal,Vector3.one);mount.transform.localPosition=new(-.13f,.04f,.22f);
    var body=MeshArt.Lathe(root,"Curved chrome faucet body",new[]{0f,.025f,.07f,.17f,.27f,.34f,.38f},new[]{.10f,.105f,.09f,.08f,.077f,.094f,.086f},32,Metal,Vector3.one);body.transform.localPosition=new(-.13f,.09f,.22f);
    FaucetSpout(root,Metal);
@@ -74,9 +77,13 @@ namespace Kamilunavo.RepairEmpire.Visuals {
    MeshArt.Lathe(root,"Aerator recessed insert",new[]{0f,.003f,.003f},new[]{0f,.039f,0f},24,Navy,Vector3.one).transform.localPosition=new(-.13f,.324f,-.25f);
    for(int i=0;i<16;i++){float a=i*Mathf.PI*2/16;MeshArt.Tube(root,"Aerator machined grip",new[]{new Vector3(-.13f+Mathf.Cos(a)*.0575f,.334f,-.25f+Mathf.Sin(a)*.0575f),new Vector3(-.13f+Mathf.Cos(a)*.0575f,.351f,-.25f+Mathf.Sin(a)*.0575f)},.0014f,Metal,6);}
    bool replace=phase==1;MeshArt.BevelBox(root,"Mixer control cap",new(-.13f,replace?.74f:.47f,.22f),new(.18f,.075f,.16f),.035f,Metal);MeshArt.BevelBox(root,"Mixer lever",new(-.13f,replace?.79f:.52f,.115f),new(.06f,.035f,.31f),.013f,Metal);
-   var brass=FixtureMaterials.Get(root,FixtureFinish.Brass);MeshArt.Lathe(root,"Visible valve cartridge",new[]{0f,.075f,.11f},new[]{.055f,.055f,.038f},16,brass,Vector3.one).transform.localPosition=new(-.13f,.46f,.22f);
+   var brass=FixtureMaterials.Get(root,FixtureFinish.Brass);MeshArt.Lathe(root,"Visible valve cartridge",new[]{0f,.075f,.11f},new[]{.055f,.055f,.038f},16,brass,Vector3.one).transform.localPosition=new(-.13f,replace?.46f:.34f,.22f);
    var washer=MeshArt.Ring(root,"Replacement washer",.076f,.023f,replace&&contacts<3?.66f:.455f,Navy,40);washer.transform.localPosition=new(replace&&contacts==2?.16f:-.13f,0,.22f);if(replace){var halo=MeshArt.Ring(root,"Orange replacement focus",.113f,.008f,.66f,Orange,40);halo.transform.localPosition=new(-.13f,0,.22f);}
-   if(phase==2||phase<0)MeshArt.Tube(root,"Water test stream",new[]{new Vector3(-.13f,.324f,-.25f),new Vector3(-.13f,.03f,-.25f)},.009f,FixtureMaterials.Get(root,FixtureFinish.Glass),10);
+   if(phase==2||phase<0)
+   {
+    var water=FixtureMaterials.Get(root,FixtureFinish.Glass);MeshArt.Tube(root,"Water test stream",new[]{new Vector3(-.13f,.324f,-.25f),new Vector3(-.131f,.11f,-.25f),new Vector3(-.13f,-.094f,-.25f)},.0055f,water,10);
+    var ripple=MeshArt.Ring(root,"Water impact ripple",.031f,.0025f,-.094f,water,32);ripple.transform.localPosition=new(-.13f,0,-.25f);
+   }
    if(sink)MeshArt.Ring(root,"Drain service target",.08f,.013f,.013f,Orange,32).transform.localPosition=new(0,0,-.20f);
   }
   // Fixed X axis prevents the abrupt frame switch in a generic bent tube.

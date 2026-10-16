@@ -1,10 +1,10 @@
 {
   "game": "Repair-Empire",
   "status": "pending",
-  "sourceSha256": "49127a1196f0bf022aadfe2bd62d55b22813ec2c0b69eb43fdd2c818c049bca2",
+  "sourceSha256": "4e3c8d4e6eb4db6efae71f89d37b1b385a233e055198b0a292c136b817278750",
   "reviewer": "Codex direct source-icon and actual native-frame comparison",
   "reviewedAt": "2026-10-16",
-  "reason": "Native skyline slice verified; native Repair icon/export variants remain pending.",
+  "reason": "Native fixture slice verified; Repair icon/native export review remains pending.",
   "decision": "No new upload approval. Complete accurate native icon and variant review before setting passed.",
   "variantConsistencyChecked": false,
   "evidence": {
@@ -16,8 +16,8 @@
     "nativeIcon": null,
     "gameplay": [
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairSkylineFinish-20261016/SkylinePresentation/showcase-driving-service.png",
-        "sha256": "7344cc1719c24b2dda2fec878e9f23a4cddefcfb6fa39d02c560353c5311f624",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairFixtureFinish-20261016/AssemblyPresentation/showcase-driving-service.png",
+        "sha256": "2357fd8ce2caedef46d080582d73181bbd7bd1f581bc541a8cb93c9e76ee90a6",
         "origin": "Unity-render"
       }
     ]

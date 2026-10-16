@@ -30,12 +30,12 @@ namespace Kamilunavo.RepairEmpire.Visuals
   }
   Material Material(FixtureFinish finish)
   {
-   if(_materials.TryGetValue(finish,out var existing))return existing;var mat=new Material(Resources.Load<Material>("Materials/Surface")){name="FixturePBR"+finish};float metal=0,gloss=.25f;
+   if(_materials.TryGetValue(finish,out var existing))return existing;var mat=new Material(Resources.Load<Material>(finish==FixtureFinish.Glass?"Materials/ServiceWater-v1":"Materials/Surface")){name="FixturePBR"+finish};float metal=0,gloss=.25f;
    mat.color=finish switch {
     FixtureFinish.Ceramic=>new(.96f,.95f,.91f),FixtureFinish.Chrome=>new(.96f,.97f,.98f),FixtureFinish.Steel=>new(.55f,.60f,.61f),FixtureFinish.Copper=>new(.72f,.40f,.23f),FixtureFinish.Brass=>new(.69f,.51f,.23f),
     FixtureFinish.Navy=>new(.035f,.06f,.08f),FixtureFinish.Orange=>new(.96f,.31f,.055f),FixtureFinish.Blue=>new(.13f,.25f,.30f),FixtureFinish.Green=>new(.22f,.47f,.29f),FixtureFinish.Dirt=>new(.34f,.29f,.22f),
     FixtureFinish.Stone=>Color.white,FixtureFinish.Grout=>new(.62f,.58f,.50f),FixtureFinish.Plaster=>new(.80f,.79f,.72f),FixtureFinish.Wood=>new(.48f,.34f,.20f),FixtureFinish.Concrete=>new(.52f,.54f,.51f),
-    FixtureFinish.Cloth=>Color.white,FixtureFinish.Lamp=>new(1,.90f,.68f),_=>new(.37f,.48f,.51f)};
+    FixtureFinish.Cloth=>Color.white,FixtureFinish.Lamp=>new(1,.90f,.68f),FixtureFinish.Glass=>new(.72f,.87f,.92f,.22f),_=>new(.37f,.48f,.51f)};
    if(finish==FixtureFinish.Chrome||finish==FixtureFinish.Steel||finish==FixtureFinish.Copper||finish==FixtureFinish.Brass){metal=finish==FixtureFinish.Chrome?1f:.82f;gloss=finish==FixtureFinish.Chrome?.90f:finish==FixtureFinish.Steel?.61f:.67f;mat.mainTexture=Texture(1);}
    else if(finish==FixtureFinish.Ceramic)gloss=.73f;
    else if(finish==FixtureFinish.Stone){mat.mainTexture=Resources.Load<Texture2D>("Art/ServiceStone-v1");gloss=.34f;}
@@ -43,7 +43,7 @@ namespace Kamilunavo.RepairEmpire.Visuals
    else if(finish==FixtureFinish.Wood){mat.mainTexture=Texture(2);gloss=.27f;}
    else if(finish==FixtureFinish.Cloth){mat.mainTexture=Resources.Load<Texture2D>("Art/ServiceCloth-v1");gloss=.08f;}
    else if(finish==FixtureFinish.Blue){metal=.30f;gloss=.43f;}
-   else if(finish==FixtureFinish.Glass){metal=.30f;gloss=.78f;}
+   else if(finish==FixtureFinish.Glass){metal=.02f;gloss=.96f;}
    if(finish==FixtureFinish.Lamp){mat.EnableKeyword("_EMISSION");mat.SetColor("_EmissionColor",mat.color*.45f);}
    mat.SetFloat("_Metallic",metal);mat.SetFloat("_Glossiness",gloss);ArtLifetime.Own(gameObject,mat);_materials.Add(finish,mat);return mat;
   }
@@ -73,6 +73,7 @@ namespace Kamilunavo.RepairEmpire.Visuals
   {
    foreach(var renderer in model.GetComponentsInChildren<MeshRenderer>()){
     renderer.reflectionProbeUsage=ReflectionProbeUsage.Simple;renderer.lightProbeUsage=LightProbeUsage.Off;
+    if(renderer.sharedMaterial!=null&&renderer.sharedMaterial.renderQueue>2500)renderer.shadowCastingMode=ShadowCastingMode.Off;
     var material=renderer.sharedMaterial;if(material==null||!material.HasProperty("_Metallic")||material.GetFloat("_Metallic")<.7f)continue;
     var mesh=renderer.GetComponent<MeshFilter>()?.sharedMesh;if(mesh==null)continue;var vertices=mesh.vertices;var normals=mesh.normals;var groups=new Dictionary<(int,int,int),Vector3>();
     (int,int,int) Key(Vector3 point)=>(Mathf.RoundToInt(point.x*100000),Mathf.RoundToInt(point.y*100000),Mathf.RoundToInt(point.z*100000));

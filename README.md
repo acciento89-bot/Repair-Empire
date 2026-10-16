@@ -1,5 +1,7 @@
 # Repair Empire
 
+Latest repair finish: **complete actual rooms, corrected basin/cabinet/drain assemblies, transparent water and matching first-photo reflections**. Native **1,504 / 1,478 / 7** checks pass. [Actual images, Concept comparisons, regressions and limits](docs/QA/repair-fixture-finish-20261016.json). Whole graphics remains in progress; no Repair upload.
+
 Latest skyline pass: **original daylight sky, modeled civic hall and curved lamps**, validated in the actual street. Native **1,498 / 1,478 / 7** checks pass, including four real drives/repairs and saved-profile reload. [Actual Concept comparisons, assets and limits](docs/QA/repair-skyline-finish-20261016.json). Whole graphics remains in progress; no Repair upload.
 
 Latest lighting/studio pass: **Linear lighting, original HDR room reflections and a larger real3D repair backdrop** with responsive camera framing. Short-wide repair has its own fixed scene pane and four ordered controls in one row. Native **1492 /1478 /7** checks pass, including four real drives and a nonzero-progress orientation round trip. [Actual Concept comparison, images, original assets and limits](docs/QA/repair-lighting-studio-20261016.json). Full graphics remains in progress; no Repair upload.

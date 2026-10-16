@@ -78,3 +78,8 @@ Exact prompt, source/project/meta/material hashes, authoring method and native d
 Built-in imagegen output exec-2702cdb4-f799-4e83-8cf8-0ca7cf7ca1c1.png is sky-only original artwork. The archived 1774×887 image is mechanically resized to Assets/Resources/Art/ServiceDaySky-v1.png (1024×512); no painted city/vehicle replaces 3D objects. Unity imports shared non-readable sRGB/mipmapped/HQ compressed data, Repeat U and Clamp V. RepairSky uses true latitude/longitude coordinates. Exact prompt, original/project/import hashes and actual native comparisons are in docs/QA/repair-skyline-finish-20261016.json and Builds/RepairSkylineFinish-20261016/generated-sky-provenance.json.
 
 DistrictCivicHall.cs, rounded clock-cupola extension and StreetLampArt.cs are original authored meshes. Existing district materials are borrowed; new meshes and scene sky material are owned and disposed, while imported sky data survives. No external model/license dependency was added.
+
+
+## Original service-room assemblies and water — 2026-10-16
+
+The extended actual room shell, metric UVs/single grout mesh, open cabinet carcasses and thin seated drain/water meshes are original authored geometry. Existing original shared stone/cloth/HDR reflection assets are unchanged. ServiceWater-v1.mat is an original serialized Standard premultiplied configuration derived from the existing native-supported prototype, not a new downloaded dependency. The scene owns its material clone; the shared prototype survives disposal. No generated picture stands in for the room or service action. Exact hashes/native controls/Concept comparisons are in docs/QA/repair-fixture-finish-20261016.json.

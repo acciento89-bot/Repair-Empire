@@ -161,3 +161,16 @@ Independent review identified four buried dormer panes and a hall inside legal d
 Exact source `49127a1196f0bf022aadfe2bd62d55b22813ec2c0b69eb43fdd2c818c049bca2`: aggregate/Mac build exit 0; native presentation 1,498, four-drive/repair 1,478 and saved-profile reload 7 checks, all passing. All 314 bundle files and unchanged ProjectSettings bytes verified. Actual before/after/reference images and original asset provenance: [skyline evidence](QA/repair-skyline-finish-20261016.json), Builds/RepairSkylineFinish-20261016.
 
 This verifies the bounded skyline slice. Whole Concept graphics remains FAILED, icon pending, no Repair upload or numerical similarity claim. The native scene still has simplified materials and fixtures. Next work is fixture modeling, cold-thumbnail reflection consistency and complete room coverage. Approved siblings/OMF submission and the historical user-owned Concept deletion are untouched. Heavy jobs remain serial under the 05:30 Berlin deadline.
+
+
+## 2026-10-16 — verified repair-room and fixture assembly finish
+
+The real modeled service room now encloses wide and portrait photo frusta with side/front/back walls, floor and ceiling, metric surface UVs and one bounded grout mesh. Closed faucet stages cover the physical cartridge; replacement still exposes it. Original open bath/kitchen cabinet carcasses clear both bowls, and both drains seat flush. Physical transparent water reaches the actual basin, with its impact ripple one millimetre above the surface. No bitmap room replaces gameplay geometry.
+
+Actual native cold/fresh/OFF/ON controls proved the first cached photo was identical to reflection OFF. One initialization-time ReflectionProbe.UpdateCachedState call fixes the cause: the first capture and settled capture now agree exactly. No delayed rephotography or per-frame camera. A serialized native water material is verified for both visible contribution against a disabled surface and red/blue transmission.
+
+The geometry RED tests reproduced three protruding closed cartridges,4,255escaping room rays, a21mmfloating impact, opaque cabinet intrusion in both bowls and high drains. Corrected engine coverage:384camera cases/9,600room rays,288component framing cases/413,974vertices and132actual basin-contact rays. Twenty-four fixtures/nine room contexts/17structural signatures remain; maximum5,487vertices under the unchanged30kceiling. Independent source review closed all findings, including final assembly checks.
+
+Source `4e3c8d4e6eb4db6efae71f89d37b1b385a233e055198b0a292c136b817278750`: aggregate/Mac0, AssemblyPresentation1,504/AssemblyFull1,478/AssemblyReload7, all0. Four real Rigidbody journeys and ordered/exact-once repairs; all314bundle files and unchanged settings bytes verified. Actual screenshots, immutable Concept comparison, failures and controls: [fixture evidence](QA/repair-fixture-finish-20261016.json), Builds/RepairFixtureFinish-20261016.
+
+Whole Concept graphics remains FAILED, native icon pending, no Repair upload or numerical similarity claim. Vehicle front optics and broad unframed return windows remain next. Approved siblings/OMF submission and historical user-owned Concept deletion are untouched. Continue until05:30Berlin, heavy jobs serially.

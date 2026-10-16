@@ -1,0 +1,350 @@
+{
+  "game": "Repair Empire",
+  "date": "2026-10-16",
+  "sourceSha256": "4e3c8d4e6eb4db6efae71f89d37b1b385a233e055198b0a292c136b817278750",
+  "baseCommit": "f0717136ea141b6a3127f8e2f8df35558af0821b",
+  "scope": "Complete actual repair rooms, covered closed cartridge, physical transparent water and deterministic first-photo reflections.",
+  "supersedes": "docs/QA/repair-skyline-finish-20261016.json",
+  "implemented": [
+    "Actual modeled back/side/front walls, ceiling and floor enclose the service-photo frustum. Metric UVs preserve shared surface scale. One bounded grout mesh covers broad tiled walls; no painted background replaces3Dgeometry. All original fixture poses/floor levels and collider isolation remain.",
+    "Physical faucet cartridge fits under closed control cap in thumbnail/inspect/test; replacement phase1 exposes it beneath the lifted cap. Existing four-contact workflow and rewards unchanged.",
+    "Original open bath/kitchen cabinet carcasses leave both bowls visible; side/back/bottom/front rails support counters without penetrating basins. Both drains seat flush to their actual floors. Narrow transparent water reaches the actual basin floor, with a thin impact ripple1mmabove real basin triangles. Original serialized Standard premultiplied ServiceWater-v1 prototype, scene-owned clone, no opaque shadow; actual native disabled-surface presence plus red/blue transmission proof.",
+    "Confirmed cold immutable photo defect: initial capture was pixel-identical to probeOFF and differed814967RGBunits from settled probeON. One ReflectionProbe.UpdateCachedState call after configuring the new studio probe publishes it before the first manual Camera.Render. No delays, cache replacement or perpetual rendering. Final native cold and settled photos match exactly.",
+    "Development-only independent cold/settled/OFF/ON experiment isolates existing studio lights/probes and restores state/activeRT before yields. Existing real presentation and driving/repair/reload QA retained."
+  ],
+  "preserved": [
+    "All ProjectSettings bytes, gameplay/controller/camera/job/save/commerce/UI/scene/package/version authority unchanged.",
+    "54 collision volumes, deterministic city height RNG,24 customer halt volumes,1728 sign poses and13 parked cars/furniture clearances. Moving van68888vertices/27renderers/9materials.",
+    "Existing30k fixture limit,20material/5texture kit ceilings,64px reflection cube and768×2048 cached repair target limits; shared originals survive owner disposal.",
+    "Approved siblings/OMF submission and historical user-owned Concept deletion untouched. No Repair upload."
+  ],
+  "assets": {
+    "water": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Projects/Repair-Empire/Assets/Resources/Materials/ServiceWater-v1.mat",
+      "sha256": "b4f52b35eb5079094295b60ec378f8e6c2a9182b660fc8c19330eaaa8f49d00f",
+      "origin": "original-authored-serialized-Unity-material"
+    },
+    "waterMeta": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Projects/Repair-Empire/Assets/Resources/Materials/ServiceWater-v1.mat.meta",
+      "sha256": "3bbb4a44f505e2e2715c53d75d854f4f82b19e71c6528f07b2f09318f3b79947",
+      "origin": "Unity-importer"
+    },
+    "method": "Original material configuration extends the existing supported Standard premultiplied shader variant. All room/water mesh geometry is original; existing original stone/cloth/HDR assets are reused unchanged.",
+    "priorOriginalAssetProvenance": "docs/QA/repair-lighting-studio-20261016.json"
+  },
+  "validation": {
+    "aggregateAndMacExitCode": 0,
+    "log": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairFixtureFinish-20261016/unity-fixture-assembly.log",
+      "sha256": "f38981401f290d015ff3c27c79088324a02748ff706cda1eaf966c7587aa75b7",
+      "origin": "Unity-aggregate-and-Mac-build"
+    },
+    "receipt": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairFixtureFinish-20261016/source-native-receipt.json",
+      "sha256": "44cf5a19f3c8b51ab67ea44d57ba7a8d94c3d49072fdb9cf843e18a424387d2f",
+      "origin": "exact-source-native-binding"
+    },
+    "bundleManifest": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairFixtureFinish-20261016/native-bundle-manifest.json",
+      "sha256": "fd3fd270a31015f1c1fbfbb949cc0e0b26e986f194069bbaf1848703b3089f5d",
+      "origin": "all314native-bundle-files"
+    },
+    "settingsDelta": "None",
+    "unchangedAuthorityFiles": 78,
+    "runs": {
+      "AssemblyPresentation": {
+        "checks": 1504,
+        "processExitCode": 0,
+        "imageCount": 84,
+        "result": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairFixtureFinish-20261016/AssemblyPresentation/PASS.txt",
+          "sha256": "ba13a0e29a489eb596da1385717cff2a737448d48ac779d7698ed80baa0aad5a",
+          "origin": "actual-native-result"
+        },
+        "checksFile": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairFixtureFinish-20261016/AssemblyPresentation/checks.txt",
+          "sha256": "5a823f45364c821bd4562e88411ff98fdd587fb352ce2f0e49108221d38f12bf",
+          "origin": "actual-native-checks"
+        },
+        "provenance": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairFixtureFinish-20261016/AssemblyPresentation/PROVENANCE.json",
+          "sha256": "0cf323d5d70ab96c11f3295d7aa067a3800ecaa97f9087a4ada2b0044761c868",
+          "origin": "native-source-binding"
+        },
+        "imageManifest": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairFixtureFinish-20261016/AssemblyPresentation/IMAGE-HASHES.json",
+          "sha256": "a3807585fe81bb9b52313999c4febbccc6aae8c2e4cf1e44e36a64e1fefd6ab8",
+          "origin": "actual-Unity-render-manifest"
+        },
+        "log": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairFixtureFinish-20261016/AssemblyPresentation.log",
+          "sha256": "b0aa5b1811990d23230159a13fad8e5b7981cdae3c6b90809d67e855bee50d14",
+          "origin": "native-Mac-log"
+        }
+      },
+      "AssemblyFull": {
+        "checks": 1478,
+        "processExitCode": 0,
+        "imageCount": 60,
+        "result": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairFixtureFinish-20261016/AssemblyFull/PASS.txt",
+          "sha256": "74f76dd2c1b3afbd734d2ba63ba297be958e3ebccb43ebf5d83795244646d636",
+          "origin": "actual-native-result"
+        },
+        "checksFile": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairFixtureFinish-20261016/AssemblyFull/checks.txt",
+          "sha256": "4121850d9420f1f6fba33ef388854ebce1d2c5c365035dd46a622311c18f7eb1",
+          "origin": "actual-native-checks"
+        },
+        "provenance": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairFixtureFinish-20261016/AssemblyFull/PROVENANCE.json",
+          "sha256": "dc40e0a750cf893ee58270777390233d878f8e1c12419eeeea287301a6f60407",
+          "origin": "native-source-binding"
+        },
+        "imageManifest": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairFixtureFinish-20261016/AssemblyFull/IMAGE-HASHES.json",
+          "sha256": "c296979a027c53842ab78d95eca7fca7e031a021e0c69b0e99e773592a4143e4",
+          "origin": "actual-Unity-render-manifest"
+        },
+        "log": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairFixtureFinish-20261016/AssemblyFull.log",
+          "sha256": "040b83ffdd7244758cdd7bb7f304aff1c54f8dad13da81419f2a53065ab91ed4",
+          "origin": "native-Mac-log"
+        }
+      },
+      "AssemblyReload": {
+        "checks": 7,
+        "processExitCode": 0,
+        "imageCount": 1,
+        "result": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairFixtureFinish-20261016/AssemblyReload/PASS.txt",
+          "sha256": "38213edc12e5ec96959592e87d8dbbd73398b1a84ce00fa19c8bdea92ba590b6",
+          "origin": "actual-native-result"
+        },
+        "checksFile": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairFixtureFinish-20261016/AssemblyReload/checks.txt",
+          "sha256": "a47cdbe2c393a6d3242b1a93b7d3a4c797bf0fcce1aae50ab49f39ff59a87fa3",
+          "origin": "actual-native-checks"
+        },
+        "provenance": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairFixtureFinish-20261016/AssemblyReload/PROVENANCE.json",
+          "sha256": "7765df6a3e456bc6313b96a26990707e9c4885934ad2c22a7fe957082fd01916",
+          "origin": "native-source-binding"
+        },
+        "imageManifest": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairFixtureFinish-20261016/AssemblyReload/IMAGE-HASHES.json",
+          "sha256": "30d3bbff7ccac66d5b50e0dfcac44b78e3423edbadddef8ed3caa6c8cfa1cfb6",
+          "origin": "actual-Unity-render-manifest"
+        },
+        "log": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairFixtureFinish-20261016/AssemblyReload.log",
+          "sha256": "e663288d0188f67ec8a3aba290ea51e5a69bddf76de7d06c0acf3f9e8ffb63dd",
+          "origin": "native-Mac-log"
+        }
+      }
+    },
+    "roomCases": 384,
+    "roomRays": 9600,
+    "framingCases": 288,
+    "actualFramedVertices": 413974,
+    "fixtureKeys": 24,
+    "contexts": 9,
+    "structuralSignatures": 17,
+    "maxFixtureVertices": 5487,
+    "coldProbeDifferences": {
+      "coldSettled": 0,
+      "coldOff": 793671,
+      "coldOn": 0,
+      "settledOn": 0,
+      "offOn": 793671
+    },
+    "photoControl": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairFixtureFinish-20261016/AssemblyPresentation/photo-probe-diagnostic.txt",
+      "sha256": "91b1187eb0547135beb0b75e8d3bb0e1986a1a574be2d7c7bd97239ab78c8cff",
+      "origin": "same-phase-native-GPU-probe-control"
+    },
+    "waterControl": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairFixtureFinish-20261016/AssemblyPresentation/water-presence-control.txt",
+      "sha256": "49f20b12fd605ff2752fb5dc05d528f7c0e9f196e81de6dec9302f62f1ec00c9",
+      "origin": "native-disabled-surface-and-transmission-control"
+    }
+  },
+  "candidateHistory": [
+    {
+      "stage": "Closed cartridge/finite room RED",
+      "log": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairFixtureFinish-20261016/unity-fixture-red.log",
+        "sha256": "5d343f31a6b389efd08762639f60c72912143aedfd87406453cb88968b0c3029",
+        "origin": "pre-implementation-engine-regressions"
+      },
+      "note": "Three closed phases exposed cartridge;4255of9600 room rays escaped."
+    },
+    {
+      "stage": "Back-only shell still incomplete",
+      "log": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairFixtureFinish-20261016/unity-fixture-configure.log",
+        "sha256": "22d559a971a4c46018660606f8e6c5d645e68545e1904c1fee206a52ac8c9874",
+        "origin": "intermediate-geometry-failure"
+      },
+      "note": "163oblique rays face away from the back wall. Complete room surfaces fixed these without a bitmap backdrop."
+    },
+    {
+      "stage": "Cold photo same-phase diagnosis",
+      "result": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairFixtureFinish-20261016/ColdPhotoProbe/PASS.txt",
+        "sha256": "4511c7f81d47f907dcba3506bd2313ed7c6707a59dd4f0635b50410c811eb23c",
+        "origin": "bounded-native-diagnostic"
+      },
+      "control": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairFixtureFinish-20261016/ColdPhotoProbe/photo-probe-diagnostic.txt",
+        "sha256": "a9378ac55bf9dfd52385ae9e71ce7bfb2eaa7617961a3fadb1703c0f6ded6791",
+        "origin": "same-phase-off-on-control"
+      },
+      "binding": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairFixtureFinish-20261016/source-native-receipt-probe.json",
+        "sha256": "f5e10114146f532f806d3a0c0c6bedf55fb0bf02978cc0332cc5391e6edf05ee",
+        "origin": "superseded-native-source"
+      }
+    },
+    {
+      "stage": "First-photo regression RED",
+      "error": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairFixtureFinish-20261016/ColdPhotoRegressionRed/errors.txt",
+        "sha256": "6f11e77fe34f5c43f42399448c0c9b76d67b5e961063df75d33af6a4efdabce3",
+        "origin": "actual-native-regression-failure"
+      }
+    },
+    {
+      "stage": "Water impact source-review RED",
+      "log": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairFixtureFinish-20261016/unity-water-contact-red.log",
+        "sha256": "68a4515bba8b97fb05ecbbe0741431e2ed9197c149290a020c00ef1f5876706d",
+        "origin": "actual-basin-triangle-regression"
+      },
+      "note": "Actual21mmfloating impact corrected to1mm surface clearance; native water proof also strengthened with disabled patch control."
+    },
+    {
+      "stage": "Opaque cabinets and floating drains",
+      "log": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairFixtureFinish-20261016/unity-basins-assembly-red.log",
+        "sha256": "751d426f16b7647e10a6247822e325a6b43d5e44cd2e0d2862d32e006ccdb47f",
+        "origin": "actual-basin-first-hit-regression"
+      },
+      "intermediate": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairFixtureFinish-20261016/repair-fixture-finish-before-basin.json",
+        "sha256": "c0049a87fae53136f7b2c44a87c6fd9635e8f63d54a9dea0335a96a50eabd215",
+        "origin": "superseded-functional-source-and-native-report"
+      },
+      "note": "Actual native brown/blue bowl patches were solid cabinets through the bowls. Original open carcasses and flush drains correct both; final Assembly cases supersede intermediate FinalFixture runs."
+    }
+  ],
+  "sourceReview": {
+    "reviewer": "Independent read-only repair_fixture_review16",
+    "decision": "No remaining actionable source issue after water contact, visible contribution and cabinet/basin/drain assembly follow-ups.",
+    "scope": "Source correctness/ownership/validation only. Root separately inspects actual native visual evidence."
+  },
+  "visualEvidence": {
+    "concept": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Artifacts/KamilunavoDelivery-20261009/concepts-20261010/repair-empire-3-ansichten.png",
+      "sha256": "0571d35c40de036f83f86f3b423c234f321586abcfec97d9d259710d816723f1",
+      "origin": "approved-concept"
+    },
+    "menu": [
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairFixtureFinish-20261016/AssemblyPresentation/showcase-de-dashboard.png",
+        "sha256": "f83fa3f027ea6b1c0a9eb954783258e037569c624f03310b8884ba3c433c99d1",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairFixtureFinish-20261016/AssemblyPresentation/landscape-de-section-9.png",
+        "sha256": "b1dc898e3d9f310aeeee3fec14dc4ff9f454cce85ccb881e2ff1067ecdadbd91",
+        "origin": "Unity-render"
+      }
+    ],
+    "gameplay": [
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairFixtureFinish-20261016/AssemblyPresentation/showcase-driving-service.png",
+        "sha256": "2357fd8ce2caedef46d080582d73181bbd7bd1f581bc541a8cb93c9e76ee90a6",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairFixtureFinish-20261016/AssemblyPresentation/street-layout.png",
+        "sha256": "38037a2f4bca04870d3b564bd5e78b454ce887c5679f0558692a0d0814b3a911",
+        "origin": "Unity-render"
+      }
+    ],
+    "submenus": [
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairFixtureFinish-20261016/AssemblyPresentation/portrait-de-section-0.png",
+        "sha256": "86ef98b7047d21f47700aff05939ddfad9548759eda8d7c8354e7d587261f095",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairFixtureFinish-20261016/AssemblyFull/repair-faucet-stage0.png",
+        "sha256": "9f6d84378590ccb705603e2706739cda760c1eec838c3bed12435d2ae2c7b7f0",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairFixtureFinish-20261016/AssemblyFull/repair-faucet-stage1.png",
+        "sha256": "b86a9f3abe93b1c0b6ee89d6c8a9b348128fef1138643014e15579741970c001",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairFixtureFinish-20261016/AssemblyFull/repair-faucet-stage2.png",
+        "sha256": "a509c30fd89a6209f5a3e98ff3e1fe22f94bebf9e646c69162344b15d2309ad9",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairFixtureFinish-20261016/AssemblyFull/repair-faucet-wide-unusual.png",
+        "sha256": "c7d3b3e4dfd635d8a956ac3857768ca44a7db702de1a77b4fd7fc6a8b4bbb048",
+        "origin": "Unity-render"
+      }
+    ],
+    "variants": [
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairFixtureFinish-20261016/AssemblyPresentation/fixture-faucet.png",
+        "sha256": "d5db797fe8db7226b8b2d1b44361b3ae4174505b273f01659a9d4ad6b4696522",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairFixtureFinish-20261016/AssemblyPresentation/fixture-switch.png",
+        "sha256": "8c4586697958e5e7d55cd0c366e9ba4fdfdd6b3f9748b8f110fd6b7ac86d585e",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairFixtureFinish-20261016/AssemblyPresentation/fixture-call-2-3.png",
+        "sha256": "736d35ac652f00c5836ee7ceccdb280af8348fe449d8b6e13fb27da4a6c47e25",
+        "origin": "Unity-render"
+      }
+    ]
+  },
+  "comparisons": [
+    {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairFixtureFinish-20261016/konzept-reparatur-vergleich.png",
+      "sha256": "4ef50847cfa778a95161e4d36446a569a3d6d13c4ea8f11c94d75e7472e4b07b",
+      "origin": "mechanical-layout-of-unretouched-Unity-PNGs-and-labeled-reference"
+    },
+    {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairFixtureFinish-20261016/raum-querformat-vergleich.png",
+      "sha256": "ee880105cb0905ec9c1212e035b4bb4052cbe8e0197afa0e88315e65219060ba",
+      "origin": "mechanical-layout-of-unretouched-Unity-PNGs-and-labeled-reference"
+    },
+    {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairFixtureFinish-20261016/vorschau-reflexion-vergleich.png",
+      "sha256": "0692f00e8a4472a1a05b2fcc961fb5f29d03472ce99b93cf0e6910238351b93c",
+      "origin": "mechanical-layout-of-unretouched-Unity-PNGs-and-labeled-reference"
+    }
+  ],
+  "decision": {
+    "boundedFixtureFinish": "verified",
+    "fullConceptSimilarity": "failed",
+    "icon": "pending",
+    "uploadPerformed": false
+  },
+  "remaining": [
+    "Vehicle front optics/shape, return-facade windows and overall native town/fixture finish still need work; no numerical90percent claim.",
+    "Native Mac does not establish physical-device60FPS/thermal/touch, actual ad serving/paid purchases, iOS exported icon variants or Apple approval.",
+    "Decorative generated workshop art is not evidence of actual3Dgameplay quality."
+  ],
+  "technicalReference": "https://docs.unity3d.com/6000.0/Documentation/ScriptReference/ReflectionProbe.UpdateCachedState.html"
+}
