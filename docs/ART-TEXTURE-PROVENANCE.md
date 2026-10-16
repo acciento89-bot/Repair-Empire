@@ -83,3 +83,5 @@ DistrictCivicHall.cs, rounded clock-cupola extension and StreetLampArt.cs are or
 ## Original service-room assemblies and water — 2026-10-16
 
 The extended actual room shell, metric UVs/single grout mesh, open cabinet carcasses and thin seated drain/water meshes are original authored geometry. Existing original shared stone/cloth/HDR reflection assets are unchanged. ServiceWater-v1.mat is an original serialized Standard premultiplied configuration derived from the existing native-supported prototype, not a new downloaded dependency. The scene owns its material clone; the shared prototype survives disposal. No generated picture stands in for the room or service action. Exact hashes/native controls/Concept comparisons are in docs/QA/repair-fixture-finish-20261016.json.
+
+2026-10-16: Regular UI body uses licensed unmodified BarlowMedium1.408 from official GoogleFonts `ofl/barlow/Barlow-Medium.ttf`, matching existing1.408Regular/Bold. Existing StreamingAssets/Barlow-OFL.txt retained. Source/license URLs and exact hash: Builds/RepairTabletFinish-20261016/font-provenance.json.

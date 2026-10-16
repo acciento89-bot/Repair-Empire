@@ -1,10 +1,10 @@
 {
   "game": "Repair-Empire",
   "status": "pending",
-  "sourceSha256": "f37580d3b8699ce8c07da33a856217f0b25bb04e48d029e6c80f4165477e611c",
+  "sourceSha256": "8787086e25c4c0b4d2bce9323506b3687e233fe9cc75db887bb015a60022baa7",
   "reviewer": "Codex direct source-icon and actual native-frame comparison",
   "reviewedAt": "2026-10-16",
-  "reason": "Native street display finish verified; Repair icon/native export review remains pending.",
+  "reason": "Native tablet/photo pass verified; Repair icon/native export review remains pending.",
   "decision": "No new upload approval. Complete accurate native icon and variant review before setting passed.",
   "variantConsistencyChecked": false,
   "evidence": {
@@ -16,8 +16,8 @@
     "nativeIcon": null,
     "gameplay": [
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetFilm-20261016/FilmPresentation/showcase-driving-service.png",
-        "sha256": "6ff5823e011393db46e71a6cb29d89d73938337c1fdcee549c418e081666c0a7",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTabletFinish-20261016/TabletPresentation/showcase-driving-service.png",
+        "sha256": "3eaf7cc0ff7a1a424343eefa9e74d712b4f310754419777842d1ad45fdd7231a",
         "origin": "Unity-render"
       }
     ]

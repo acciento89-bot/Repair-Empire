@@ -22,7 +22,7 @@ namespace Kamilunavo.RepairEmpire.QA
      try
      {
       var pose=model.GetComponent<FixturePhotoPose>();float top=FixtureContextArt.TabletopHeight(key);pose.Eye=name=="bathroom-wrench"?new Vector3(1.08f,.98f,-1.06f):name=="bathroom-soap-pump"?new Vector3(1.25f,.65f,-.65f):new Vector3(1.58f,1.52f,-1.72f);pose.Target=name=="bathroom-wrench"?new Vector3(.83f,top+.03f,-.30f):name=="bathroom-soap-pump"?new Vector3(.83f,top+.21f,.31f):new Vector3(.66f,top+.04f,.06f);pose.FieldOfView=name=="bathroom-soap-pump"?30:33;
-      typeof(ServiceSceneArt).GetMethod("Photograph",BindingFlags.Instance|BindingFlags.NonPublic).Invoke(studio,new object[]{model,target,false,null});scenePixels.Remove(target);RenderedFingerprint(target);var old=RenderTexture.active;
+      typeof(ServiceSceneArt).GetMethod("Photograph",BindingFlags.Instance|BindingFlags.NonPublic).Invoke(studio,new object[]{model,target,false,null,false});scenePixels.Remove(target);RenderedFingerprint(target);var old=RenderTexture.active;
       try{RenderTexture.active=target;pixels.ReadPixels(new Rect(0,0,768,512),0,0);pixels.Apply();File.WriteAllBytes(Path.Combine(output,name+".png"),pixels.EncodeToPNG());}
       finally{RenderTexture.active=old;}
       Check(RenderTexture.active==previous,"Accessory photograph restores caller target "+name);
@@ -76,7 +76,7 @@ namespace Kamilunavo.RepairEmpire.QA
     void Retake(string name)
     {
      var model=ServiceSceneArt.BuildFixture(room,"faucet",-1);var chrome=model.transform.Find("Service fixture/Curved chrome spout").GetComponent<MeshRenderer>();Membership(name+" before",chrome);
-     try{typeof(ServiceSceneArt).GetMethod("Photograph",BindingFlags.Instance|BindingFlags.NonPublic).Invoke(studio,new object[]{model,image,false,null});Membership(name+" after",chrome);buffers.Add(name,Read(name));}
+     try{typeof(ServiceSceneArt).GetMethod("Photograph",BindingFlags.Instance|BindingFlags.NonPublic).Invoke(studio,new object[]{model,image,false,null,true});Membership(name+" after",chrome);buffers.Add(name,Read(name));}
      finally{model.SetActive(false);Destroy(model);}
     }
     buffers.Add("photo-cold",Read("photo-cold"));yield return null;yield return new WaitForEndOfFrame();Retake("photo-settled");

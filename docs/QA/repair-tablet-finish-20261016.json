@@ -1,0 +1,303 @@
+{
+  "game": "Repair Empire",
+  "date": "2026-10-16",
+  "sourceSha256": "8787086e25c4c0b4d2bce9323506b3687e233fe9cc75db887bb015a60022baa7",
+  "baseCommit": "e7fd2e78f2b4391ca23c6d3624ac81425e8cd9de",
+  "scope": "Actual service subject framing and tablet metadata hierarchy.",
+  "supersedes": "docs/QA/repair-street-film-20261016.json",
+  "implemented": [
+    "Each immutable192px thumbnail now fits the actual transformed component vertices with perspective inequalities and2%safety. Camera orientation and real room context retained; no generated bitmap substitutes for modeled fixtures. All24actual subjects stay inside margins, dominant spans.7092795–.7776474. Live repair framing remains the existing independent path.",
+    "Shared photographic exposure1.08→.82 retains more surface/highlight separation. Existing HDR/material/target cleanup and first-frame probe publication retained. Development retakes explicitly use the exact production thumbnail flag.",
+    "Same licensed Barlow family now uses the unmodified Medium1.408 face for regular body text, with Regular fallback; Bold titles unchanged. Deeper slate, slightly larger customer metadata and58pxcompactsquarephoto strengthen hierarchy without changing target/navigation/state authority."
+  ],
+  "assets": {
+    "font": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Projects/Repair-Empire/Assets/Resources/Fonts/Barlow-Medium.ttf",
+      "sha256": "f8906f762cb73dca441da034bc363b2d8e2e68bc10d5c05e58717646c20cc4b4",
+      "origin": "licensed-unmodified-Barlow-Medium"
+    },
+    "fontMeta": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Projects/Repair-Empire/Assets/Resources/Fonts/Barlow-Medium.ttf.meta",
+      "sha256": "a6dee51c234043750e49bb37b0282531e17fd2de29e5b87afb1d608e1da4b7c6",
+      "origin": "Unity-importer"
+    },
+    "license": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Projects/Repair-Empire/Assets/StreamingAssets/Barlow-OFL.txt",
+      "sha256": "186d750eb496a4c17a76385f82be6aea2ac1cf2de074a811d63786cf374ea73f",
+      "origin": "existing-SIL-OFL"
+    },
+    "provenance": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTabletFinish-20261016/font-provenance.json",
+      "sha256": "da0cc87191b1dcd3f946883d0d904441068264092ba320a392cfad7189bc774c",
+      "origin": "official-source-and-font-hash"
+    }
+  },
+  "validation": {
+    "aggregateAndMacExitCode": 0,
+    "log": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTabletFinish-20261016/unity-tablet-finish.log",
+      "sha256": "e022e38bccb9ee18d6231f8620a6b8cd2bd4f9eb8ef0bad69215c1302ad41386",
+      "origin": "Unity-aggregate-and-Mac-build"
+    },
+    "receipt": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTabletFinish-20261016/source-native-receipt.json",
+      "sha256": "21b2bc6d08192b576e832140d220917070bf9885c1dad1244ff8a2eefbb9fea8",
+      "origin": "exact-source-native-binding"
+    },
+    "bundleManifest": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTabletFinish-20261016/native-bundle-manifest.json",
+      "sha256": "5d8d961842f4baccde10d0ee0d7828c2c145727cbe51d54e798e0302f38347b1",
+      "origin": "all314native-bundle-files"
+    },
+    "settingsDelta": "None",
+    "unchangedAuthorityFiles": 77,
+    "intentionalUiFiles": [
+      "Assets/Scripts/UI/RepairHud.Dashboard.cs",
+      "Assets/Scripts/UI/RepairHud.Presentation.cs",
+      "Assets/Scripts/UI/UiFactory.cs"
+    ],
+    "runs": {
+      "TabletPresentation": {
+        "checks": 1848,
+        "processExitCode": 0,
+        "imageCount": 89,
+        "result": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTabletFinish-20261016/TabletPresentation/PASS.txt",
+          "sha256": "9f128e631795e1b7f034d0c71f73028452d4feffdd7f560d70e2bb73d23ca240",
+          "origin": "actual-native-result"
+        },
+        "checksFile": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTabletFinish-20261016/TabletPresentation/checks.txt",
+          "sha256": "e2772d20a90dd9624079dd6e6002637e3a55fd25d9736924b4aba4f3d5efc6e5",
+          "origin": "actual-native-checks"
+        },
+        "provenance": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTabletFinish-20261016/TabletPresentation/PROVENANCE.json",
+          "sha256": "a7a386ef65ef01e82aba37e5eddb71d84694c4018355c2700575aa3eb14ea273",
+          "origin": "native-source-binding"
+        },
+        "imageManifest": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTabletFinish-20261016/TabletPresentation/IMAGE-HASHES.json",
+          "sha256": "2f0e4b2699bba5d9151e2e769d980cd0fa831aab6cb36acbea1fd03facbc4a8c",
+          "origin": "actual-Unity-render-manifest"
+        },
+        "log": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTabletFinish-20261016/TabletPresentation.log",
+          "sha256": "839b4565fe4da442051d407c9159a1bccb51f384caad396756f4c0f7a2578324",
+          "origin": "native-Mac-log"
+        }
+      },
+      "TabletFull": {
+        "checks": 1569,
+        "processExitCode": 0,
+        "imageCount": 60,
+        "result": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTabletFinish-20261016/TabletFull/PASS.txt",
+          "sha256": "c4d6d619f6ebb03482107a381735ab7bc774a0cbeea7e3b790c159909e24e576",
+          "origin": "actual-native-result"
+        },
+        "checksFile": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTabletFinish-20261016/TabletFull/checks.txt",
+          "sha256": "fe30d5b6dcee8b5523379a64847f4e5fc62da02fb0029e39a1913a6fc918b7d0",
+          "origin": "actual-native-checks"
+        },
+        "provenance": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTabletFinish-20261016/TabletFull/PROVENANCE.json",
+          "sha256": "e4319069246fb1b8a107ce237276049a6f8ca18b2c6ae72729491b7077e1de4f",
+          "origin": "native-source-binding"
+        },
+        "imageManifest": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTabletFinish-20261016/TabletFull/IMAGE-HASHES.json",
+          "sha256": "6b7983a362b2fa2ff8013f882fd5a526bcd4a5d0f01767b1ad67bbc1145b28a0",
+          "origin": "actual-Unity-render-manifest"
+        },
+        "log": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTabletFinish-20261016/TabletFull.log",
+          "sha256": "66f11f319b61e3829cc1a6975322429ea345840e4b53338355139adc605b66c5",
+          "origin": "native-Mac-log"
+        }
+      },
+      "TabletReload": {
+        "checks": 7,
+        "processExitCode": 0,
+        "imageCount": 1,
+        "result": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTabletFinish-20261016/TabletReload/PASS.txt",
+          "sha256": "38213edc12e5ec96959592e87d8dbbd73398b1a84ce00fa19c8bdea92ba590b6",
+          "origin": "actual-native-result"
+        },
+        "checksFile": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTabletFinish-20261016/TabletReload/checks.txt",
+          "sha256": "a47cdbe2c393a6d3242b1a93b7d3a4c797bf0fcce1aae50ab49f39ff59a87fa3",
+          "origin": "actual-native-checks"
+        },
+        "provenance": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTabletFinish-20261016/TabletReload/PROVENANCE.json",
+          "sha256": "ad50f8817fb257b31c3963b2e9459b6643de764cc80681dbaa9a844faad653a3",
+          "origin": "native-source-binding"
+        },
+        "imageManifest": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTabletFinish-20261016/TabletReload/IMAGE-HASHES.json",
+          "sha256": "fcc53ae73f4abcc8fab1e72c75a977dcc2ea053902c6076205caeabad1575e86",
+          "origin": "actual-Unity-render-manifest"
+        },
+        "log": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTabletFinish-20261016/TabletReload.log",
+          "sha256": "a4be185cb39b49f849e3c919dd17cf5c9b7ad96cbe552dbd2122f146b1c62b9f",
+          "origin": "native-Mac-log"
+        }
+      }
+    },
+    "thumbnailFraming": {
+      "keys": 24,
+      "actualVertices": 34042,
+      "minDominantSpan": 0.7092795,
+      "maxDominantSpan": 0.7776474,
+      "unchangedCacheSize": [
+        192,
+        192
+      ]
+    },
+    "coldReflection": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTabletFinish-20261016/TabletPresentation/photo-probe-diagnostic.txt",
+      "sha256": "1eadb061ddaf403e6ea5783c552539ab974ce6d98ac3bbbf9718ef3defedc307",
+      "origin": "actual-same-phase-cold-settled-OFF-ON-control"
+    },
+    "metadataPixelControl": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTabletFinish-20261016/metadata-pixel-control.json",
+      "sha256": "e9a99e60d72500bce88c9003303fc7ea4f18834a409343a5045e355bf480d65f",
+      "origin": "unretouched-identical-ROI-analysis-not-formal-contrast-compliance"
+    }
+  },
+  "candidateHistory": [
+    {
+      "stage": "Pre-edit production camera RED",
+      "log": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTabletFinish-20261016/unity-thumbnails-red.log",
+        "sha256": "9e3aa25133a404acff78bab3aa7b02cc6c5791f6ce41a66ca2c92da8a79ce90e",
+        "origin": "actual-engine-failure-before-fix"
+      },
+      "note": "Actual switch/manifold clipping and undersized shower/pump/fuse/valve/fan subjects."
+    },
+    {
+      "stage": "Conservative world-axis box did not satisfy subject occupancy",
+      "log": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTabletFinish-20261016/unity-thumbnails-green.log",
+        "sha256": "bbf1d4747b2f11828c4406849007a0eaa61c5f3b4f47ef52ce3f155326ba45d7",
+        "origin": "retained-intermediate-failure"
+      },
+      "note": "Used exact actual component vertices for thumbnail-only fit; no relaxed bounds/occupancy tolerance."
+    },
+    {
+      "stage": "Actual vertex fit green",
+      "log": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTabletFinish-20261016/unity-thumbnails-green2.log",
+        "sha256": "1361e5baaa2d3e8cdf19274ff55c1d99c25182164a72630b61f05e1982691623",
+        "origin": "actual-engine-framing-success"
+      }
+    }
+  ],
+  "sourceReview": {
+    "reviewer": "Independent read-only repair_tablet_finish_review16",
+    "decision": "No Critical/Important/Minor source findings; independently verified exact source/all314bundlefiles/aggregate0/presentation1848 and all24native thumbnails/DE-EN dashboard/orientation. Full/Reload root verified.",
+    "declined": "Full Concept/mobile physical-device/icon acceptance remain separate."
+  },
+  "visualEvidence": {
+    "concept": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Artifacts/KamilunavoDelivery-20261009/concepts-20261010/repair-empire-3-ansichten.png",
+      "sha256": "0571d35c40de036f83f86f3b423c234f321586abcfec97d9d259710d816723f1",
+      "origin": "approved-concept"
+    },
+    "menu": [
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTabletFinish-20261016/TabletPresentation/showcase-de-dashboard.png",
+        "sha256": "1f36789a0079eaf7d77f3b7b0241679df33501f5b288e041db7a10d1cd5b61b4",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTabletFinish-20261016/TabletPresentation/landscape-de-section-9.png",
+        "sha256": "4ae3289724b3a5f7065eacdddee0b85afb40acc8c1f50675b2d1cd9f1f53592e",
+        "origin": "Unity-render"
+      }
+    ],
+    "gameplay": [
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTabletFinish-20261016/TabletPresentation/showcase-driving-service.png",
+        "sha256": "3eaf7cc0ff7a1a424343eefa9e74d712b4f310754419777842d1ad45fdd7231a",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTabletFinish-20261016/TabletPresentation/street-layout.png",
+        "sha256": "e6dcc224217d6a00ffca3d7ff50ca419a0bcc76efbc86655b5eca810d0977540",
+        "origin": "Unity-render"
+      }
+    ],
+    "submenus": [
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTabletFinish-20261016/TabletPresentation/portrait-de-section-0.png",
+        "sha256": "b4a4fa2fd9a59531be4660888bccf485ae8978f76ded77c999cd657194369597",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTabletFinish-20261016/TabletFull/repair-faucet-stage1.png",
+        "sha256": "857feec412bf7a019091bd9b126e7afbfde901c9987fc3dadcba77f70ffb0822",
+        "origin": "Unity-render"
+      }
+    ],
+    "variants": [
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTabletFinish-20261016/TabletPresentation/fixture-faucet.png",
+        "sha256": "5466b5ad44cee525f593e19fcd8af2cdb6e121da88c129095a9ebe23f750eb21",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTabletFinish-20261016/TabletPresentation/fixture-switch.png",
+        "sha256": "15220a05ebb245de3ee160baa0f46e60b465d2a20e38a722d49a59f5f73465be",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTabletFinish-20261016/TabletPresentation/fixture-call-2-3.png",
+        "sha256": "df249c04afe1a3b0d3a94dbc72875404d91fd287e837d23def61a3db86dad41d",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTabletFinish-20261016/TabletPresentation/fixture-call-2-5.png",
+        "sha256": "71b1ba851c5396b26a55da63abbdace14f06c4c8f44308271f91f1f2492164ae",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTabletFinish-20261016/TabletPresentation/photo-cold.png",
+        "sha256": "5466b5ad44cee525f593e19fcd8af2cdb6e121da88c129095a9ebe23f750eb21",
+        "origin": "Unity-render"
+      }
+    ]
+  },
+  "comparisons": [
+    {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTabletFinish-20261016/konzept-tablet-vergleich.png",
+      "sha256": "4a1dd1b928ad7f23cd77f4c8f8fedf18cd95ebe7913072f9507697fc16fce969",
+      "origin": "mechanical-layout-of-unretouched-Unity-PNGs-and-labeled-reference"
+    },
+    {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTabletFinish-20261016/auftragsbilder-vergleich.png",
+      "sha256": "845c1f9f6185eff7055cb99c13493de039e76424a77650bc60343de77cef6e13",
+      "origin": "mechanical-layout-of-unretouched-Unity-PNGs-and-labeled-reference"
+    },
+    {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTabletFinish-20261016/konzept-reparatur-vergleich.png",
+      "sha256": "fcb92d926a9afc5966c51ab55654c879851915506f21d06d711eb85057a70014",
+      "origin": "mechanical-layout-of-unretouched-Unity-PNGs-and-labeled-reference"
+    }
+  ],
+  "decision": {
+    "boundedTabletFinish": "verified",
+    "fullConceptSimilarity": "failed",
+    "icon": "pending",
+    "uploadPerformed": false
+  },
+  "remaining": [
+    "Clearer actual tablet information and component subjects improve the approved direction, but real-time city, van and fixture materials/light remain stylized. No numerical90percent claim.",
+    "Mac evidence does not establish physical-deviceFPS/thermal/touch, live paid commerce/ads, exported native icons or Apple approval.",
+    "Approved sibling projects/OMF submission and historical user-owned Concept deletion untouched; decorative menu art not3Dgameplay proof."
+  ]
+}

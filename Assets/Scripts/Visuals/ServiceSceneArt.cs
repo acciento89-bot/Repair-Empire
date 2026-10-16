@@ -21,14 +21,15 @@ namespace Kamilunavo.RepairEmpire.Visuals {
    ReflectionProbe.UpdateCachedState();
   }
   RenderTexture Target(string name,int w,int h,int depth=16){var target=new RenderTexture(w,h,depth,RenderTextureFormat.ARGB32){name=name,antiAliasing=2};target.Create();ArtLifetime.Own(gameObject,target);return target;}
-  void Photograph(GameObject model,RenderTexture target,bool workshop=false,Rect? clearViewport=null)
+  void Photograph(GameObject model,RenderTexture target,bool workshop=false,Rect? clearViewport=null,bool thumbnail=false)
   {
    SetLayer(model.transform);OwnStudioMaterials(model);FixtureMaterials.PrepareRenderers(model);
    var previousTarget=camera.targetTexture;var previousActive=RenderTexture.active;RenderTexture hdr=null;
    camera.aspect=(float)target.width/target.height;camera.transform.localPosition=workshop?new Vector3(5,2.8f,-7):new Vector3(1.55f,1.50f,-2.55f);
    camera.transform.LookAt(studio.position+(workshop?new Vector3(0,1.65f,.7f):new Vector3(0,.48f,0)));camera.fieldOfView=workshop?40:35;
    var pose=model.GetComponent<FixturePhotoPose>();if(pose!=null&&!workshop){camera.transform.localPosition=pose.Eye;camera.transform.LookAt(studio.TransformPoint(pose.Target));camera.fieldOfView=pose.FieldOfView;}
-   if(clearViewport.HasValue)RepairSceneFraming.Fit(camera,model.transform.Find("Service fixture"),clearViewport.Value);
+   if(thumbnail)RepairSceneFraming.FitThumbnail(camera,model.transform.Find("Service fixture"));
+   else if(clearViewport.HasValue)RepairSceneFraming.Fit(camera,model.transform.Find("Service fixture"),clearViewport.Value);
    try
    {
     if(SystemInfo.SupportsRenderTextureFormat(RenderTextureFormat.ARGBHalf)&&photoFinish.shader.isSupported)
@@ -44,7 +45,7 @@ namespace Kamilunavo.RepairEmpire.Visuals {
   }
   void OwnStudioMaterials(GameObject model){foreach(var renderer in model.GetComponentsInChildren<MeshRenderer>()){var material=renderer.sharedMaterial;if(material==null)continue;string name=material.name;if(name.StartsWith("Fixture")||name.StartsWith("Bathroom")||name=="ServiceCloth"||name=="WaterHighlight"||name=="ValveBrass"||name=="SoapAmber"||name=="SwitchRocker"||name=="WorkshopPlywood"||name=="WorkshopPlaster")ArtLifetime.Own(gameObject,material);}}
   static void SetLayer(Transform root){root.gameObject.layer=PreviewLayer;foreach(Transform child in root)SetLayer(child);}
-  public Texture Thumbnail(string id){Ensure();string key=VisualKey(id);if(images.TryGetValue(key,out var image))return image;image=Target("Service image "+key,192,192);var model=BuildFixture(studio,key,-1);Photograph(model,image);images.Add(key,image);DestroyModel(model);return image;}
+  public Texture Thumbnail(string id){Ensure();string key=VisualKey(id);if(images.TryGetValue(key,out var image))return image;image=Target("Service image "+key,192,192);var model=BuildFixture(studio,key,-1);Photograph(model,image,false,null,true);images.Add(key,image);DestroyModel(model);return image;}
   public Texture WorkshopImage(){Ensure();if(images.TryGetValue("workshop",out var image))return image;image=Target("Workshop hero image",960,600,24);var model=BuildWorkshop(studio);Photograph(model,image,true);images.Add("workshop",image);DestroyModel(model);return image;}
   public Texture RepairImage(string id,int phase,int contacts=0,float aspect=4f/3f,Rect? clearViewport=null)
   {

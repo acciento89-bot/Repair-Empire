@@ -1,10 +1,10 @@
 {
   "game": "Repair Empire",
   "status": "failed",
-  "sourceSha256": "f37580d3b8699ce8c07da33a856217f0b25bb04e48d029e6c80f4165477e611c",
-  "reviewer": "Codex actual native street/HDR and approved Concept comparison",
+  "sourceSha256": "8787086e25c4c0b4d2bce9323506b3687e233fe9cc75db887bb015a60022baa7",
+  "reviewer": "Codex actual native tablet/photo and approved Concept comparison",
   "reviewedAt": "2026-10-16",
-  "reason": "Actual original asphalt and bounded world display finish verified; whole real-time town/vehicle/fixture fidelity remains below Concept. No numerical similarity claim.",
+  "reason": "Actual24subject framing and tablet hierarchy improved/verified; whole real-time graphical fidelity remains below Concept. No numerical similarity claim.",
   "criteria": {
     "concept_similarity": "failed",
     "character_or_tower": "failed",
@@ -23,78 +23,73 @@
     ],
     "menu": [
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetFilm-20261016/FilmPresentation/showcase-de-dashboard.png",
-        "sha256": "5ad197e9cd9271c3ffb436c562811491afb248823009f9339f3095b5706d45fe",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTabletFinish-20261016/TabletPresentation/showcase-de-dashboard.png",
+        "sha256": "1f36789a0079eaf7d77f3b7b0241679df33501f5b288e041db7a10d1cd5b61b4",
         "origin": "Unity-render"
       },
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetFilm-20261016/FilmPresentation/landscape-de-section-9.png",
-        "sha256": "b1dc898e3d9f310aeeee3fec14dc4ff9f454cce85ccb881e2ff1067ecdadbd91",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTabletFinish-20261016/TabletPresentation/landscape-de-section-9.png",
+        "sha256": "4ae3289724b3a5f7065eacdddee0b85afb40acc8c1f50675b2d1cd9f1f53592e",
         "origin": "Unity-render"
       }
     ],
     "gameplay": [
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetFilm-20261016/FilmPresentation/showcase-driving-service.png",
-        "sha256": "6ff5823e011393db46e71a6cb29d89d73938337c1fdcee549c418e081666c0a7",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTabletFinish-20261016/TabletPresentation/showcase-driving-service.png",
+        "sha256": "3eaf7cc0ff7a1a424343eefa9e74d712b4f310754419777842d1ad45fdd7231a",
         "origin": "Unity-render"
       },
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetFilm-20261016/FilmPresentation/street-layout.png",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTabletFinish-20261016/TabletPresentation/street-layout.png",
         "sha256": "e6dcc224217d6a00ffca3d7ff50ca419a0bcc76efbc86655b5eca810d0977540",
         "origin": "Unity-render"
       }
     ],
     "submenus": [
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetFilm-20261016/FilmPresentation/portrait-de-section-0.png",
-        "sha256": "1828de97118709e5f0c73e696d5cae49cd79893c15bfcdec3084d2d563ae6fb4",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTabletFinish-20261016/TabletPresentation/portrait-de-section-0.png",
+        "sha256": "b4a4fa2fd9a59531be4660888bccf485ae8978f76ded77c999cd657194369597",
         "origin": "Unity-render"
       },
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetFilm-20261016/FilmFull/repair-faucet-stage1.png",
-        "sha256": "c63e67a3f01331b76582f0f740e495a46633f67e46674121986a2f2c258155b5",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTabletFinish-20261016/TabletFull/repair-faucet-stage1.png",
+        "sha256": "857feec412bf7a019091bd9b126e7afbfde901c9987fc3dadcba77f70ffb0822",
         "origin": "Unity-render"
       }
     ],
     "variants": [
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetFilm-20261016/FilmPresentation/van-front-detail.png",
-        "sha256": "947cb018d93513f1ab3d411f824b6d7e289bd584fb58cb336cdc252867ef97d5",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTabletFinish-20261016/TabletPresentation/fixture-faucet.png",
+        "sha256": "5466b5ad44cee525f593e19fcd8af2cdb6e121da88c129095a9ebe23f750eb21",
         "origin": "Unity-render"
       },
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetFilm-20261016/FilmPresentation/van-front-three-quarter.png",
-        "sha256": "cd8b817ae3948101fedf93a16b9a365dfd2d215ff21afc1bfaaf5cd239a9144f",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTabletFinish-20261016/TabletPresentation/fixture-switch.png",
+        "sha256": "15220a05ebb245de3ee160baa0f46e60b465d2a20e38a722d49a59f5f73465be",
         "origin": "Unity-render"
       },
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetFilm-20261016/FilmPresentation/street-civic-hall.png",
-        "sha256": "df2c794ba5cda8f6a48a07c1969574f0aa8d660efef1b6eec0484ef306ecc7ec",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTabletFinish-20261016/TabletPresentation/fixture-call-2-3.png",
+        "sha256": "df249c04afe1a3b0d3a94dbc72875404d91fd287e837d23def61a3db86dad41d",
         "origin": "Unity-render"
       },
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetFilm-20261016/FilmPresentation/world-finish-off.png",
-        "sha256": "dae2d03409c3592a809e0ca0093d605f9cf7374555878722277701ebedc738f8",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTabletFinish-20261016/TabletPresentation/fixture-call-2-5.png",
+        "sha256": "71b1ba851c5396b26a55da63abbdace14f06c4c8f44308271f91f1f2492164ae",
         "origin": "Unity-render"
       },
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetFilm-20261016/FilmPresentation/world-finish-on.png",
-        "sha256": "6ff5823e011393db46e71a6cb29d89d73938337c1fdcee549c418e081666c0a7",
-        "origin": "Unity-render"
-      },
-      {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetFilm-20261016/FilmPresentation/reserved-pane.png",
-        "sha256": "ddce5cadccd5dfa2f272de26d487af189baadb9bda8ce97dccf6640e02d77554",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTabletFinish-20261016/TabletPresentation/photo-cold.png",
+        "sha256": "5466b5ad44cee525f593e19fcd8af2cdb6e121da88c129095a9ebe23f750eb21",
         "origin": "Unity-render"
       }
     ]
   },
   "previousReview": {
-    "sourceSha256": "a6f1e4d08ffb6c59e2de1e54fbe114f7dc703ea2fe39cc29aaa5b4bc40aaa37c",
+    "sourceSha256": "f37580d3b8699ce8c07da33a856217f0b25bb04e48d029e6c80f4165477e611c",
     "status": "failed",
-    "archive": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetFilm-20261016/visual-release-gate.json.before"
+    "archive": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairTabletFinish-20261016/visual-release-gate.json.before"
   },
-  "candidateReport": "docs/QA/repair-street-film-20261016.json",
+  "candidateReport": "docs/QA/repair-tablet-finish-20261016.json",
   "evidenceNote": "Menus are genuine Unity captures containing decorative generated workshop art; this art is not evidence of3D scene quality."
 }

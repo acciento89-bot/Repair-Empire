@@ -15,6 +15,19 @@ namespace Kamilunavo.RepairEmpire.Visuals
    bool faucet=fixture.Find("Curved chrome spout")!=null;
    foreach(var renderer in fixture.GetComponentsInChildren<MeshRenderer>(true))if(renderer.enabled&&!(faucet&&(renderer.name=="Porcelain basin"||renderer.name=="Basin drain")))yield return renderer;
   }
+  // Small cached previews need a close view of the real silhouette. An oblique
+  // world-axis box includes empty corners and makes thin subjects too small.
+  public static void FitThumbnail(Camera camera,Transform fixture)
+  {
+   var orientation=camera.transform.rotation;var right=orientation*Vector3.right;var up=orientation*Vector3.up;var forward=orientation*Vector3.forward;var points=new List<Vector3>();var minimum=Vector3.one*float.PositiveInfinity;var maximum=Vector3.one*float.NegativeInfinity;
+   foreach(var renderer in Components(fixture))foreach(var vertex in renderer.GetComponent<MeshFilter>().sharedMesh.vertices)
+   {
+    var offset=renderer.transform.TransformPoint(vertex)-fixture.position;var point=new Vector3(Vector3.Dot(offset,right),Vector3.Dot(offset,up),Vector3.Dot(offset,forward));points.Add(point);minimum=Vector3.Min(minimum,point);maximum=Vector3.Max(maximum,point);
+   }
+   if(points.Count==0)throw new InvalidOperationException("Thumbnail has no modeled service vertices");var centre=(minimum+maximum)*.5f;float tangent=Mathf.Tan(camera.fieldOfView*Mathf.Deg2Rad*.5f),distance=0;
+   foreach(var point in points){var delta=point-centre;distance=Mathf.Max(distance,Mathf.Abs(delta.x)/(tangent*camera.aspect*.8f)-delta.z);distance=Mathf.Max(distance,Mathf.Abs(delta.y)/(tangent*.8f)-delta.z);distance=Mathf.Max(distance,camera.nearClipPlane+.05f-delta.z);}
+   var focus=fixture.position+right*centre.x+up*centre.y+forward*centre.z;camera.transform.SetPositionAndRotation(focus-forward*(distance*1.02f),orientation);
+  }
   public static Bounds Fit(Camera camera,Transform fixture,Rect clear)
   {
    if(camera==null||fixture==null||clear.width<.05f||clear.height<.05f||clear.xMin<0||clear.yMin<0||clear.xMax>1||clear.yMax>1)throw new ArgumentException("Invalid repair camera clear viewport");

@@ -17,7 +17,7 @@ Shader "Repair/ServicePhotoFinish"
     #ifdef UNITY_COLORSPACE_GAMMA
     c=GammaToLinearSpace(c);
     #endif
-    c*=1.08;
+    c*=.82;
     c=saturate((c*(2.51*c+.03))/(c*(2.43*c+.59)+.14));
     float luminance=dot(c,float3(.2126,.7152,.0722));c=lerp(luminance.xxx,c,1.025);
     #ifdef UNITY_COLORSPACE_GAMMA

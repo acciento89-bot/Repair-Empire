@@ -78,7 +78,7 @@ namespace Kamilunavo.RepairEmpire.UI
    if(backdrop)content.parent.GetComponent<Image>().color=Color.clear;
    var summary=Panel(content,"RepairServiceSummary",0,0,summaryW,header,Color.white);float thumbnail=header<80||summaryW<260?42:62,left=thumbnail+20;
    ServicePhoto(summary,job,8,8,thumbnail,thumbnail);Label(summary,"RepairTitle",T(job.TitleDe,job.Title),left,4,summaryW-left-10,header-38,20,Ink);
-   Label(summary,"RepairAddress",job.Address+" · $"+job.Reward+" · "+job.Xp+" XP",left,header-31,summaryW-left-10,27,13,Slate,TextAnchor.MiddleLeft,FontStyle.Normal);
+   Label(summary,"RepairAddress",job.Address+" · $"+job.Reward+" · "+job.Xp+" XP",left,header-31,summaryW-left-10,27,14,Slate,TextAnchor.MiddleLeft,FontStyle.Normal);
    WorkflowTimeline(content,job,phase,summaryW,header+10,steps);
    float headingY=header+18;Label(content,"Stage",T(stage.TitleDe,stage.TitleEn),8,headingY,summaryW-16,28,20,Ink);
    float artY=wide?0:header+steps+20;
