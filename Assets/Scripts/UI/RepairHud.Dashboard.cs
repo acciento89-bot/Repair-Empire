@@ -9,6 +9,7 @@ namespace Kamilunavo.RepairEmpire.UI {
   static readonly Color Paper=new(.975f,.96f,.93f,1),Ink=new(.025f,.065f,.11f),Slate=new(.18f,.23f,.29f),Mist=new(.91f,.89f,.84f),ActionInk=new(.66f,.25f,.04f),Line=new(.86f,.83f,.77f);
   ServiceSceneArt serviceArt;
   float RowHeight=>body!=null&&body.rect.width<300?Mathf.Max(size+94,148):Mathf.Max(size+30,90);
+  bool PortraitCompany=>width>=320&&height>=650&&height>width;
   string[] PageNames()=>new[]{T("Aufträge","Service calls"),T("Ausrüstung","Equipment"),T("Fahrzeuge","Vehicles"),T("Werkstatt","Workshop"),T("Team & Einnahmen","Team & earnings"),T("Täglich","Daily"),T("Optionen","Options"),"Shop"};
   public void ShowDashboard()=>ShowPage(9);
   JobDefinition NextCall(){if(game.ActiveJob!=null)return game.ActiveJob;foreach(var j in game.Jobs)if(RepairRules.CanTake(game.Profile,j)&&!RepairRules.IsPaid(game.Profile,j.Id))return j;return null;}
@@ -46,9 +47,9 @@ namespace Kamilunavo.RepairEmpire.UI {
    Button(modal,"Close","×",width-size-pad,pad,size,size,Close,true,Color.white);
    Panel(modal,"HeaderDivider",pad,size+pad*2-1,width-pad*2,1,Line);
    float top=size+pad*2+10,bodyW=width-pad*2,bottom=pad;
-   if(!repair){bottom=size*2+pad*3+12;if(page!=9&&!result){Label(modal,"SectionTitle",names[page],pad,top,bodyW,28,22,Ink);top+=36;}}
+   if(!repair){bottom=page==9&&!result&&PortraitCompany?NavigationHeight(bodyW)+pad:size*2+pad*3+12;if(page!=9&&!result){Label(modal,"SectionTitle",names[page],pad,top,bodyW,28,22,Ink);top+=36;}}
    body=Panel(modal,"PageBody",pad,top,bodyW,Mathf.Max(size,height-top-bottom),Color.clear);
-   if(result)RenderPaidResult();else if(repair)RenderRepair();else{RenderTablet();RenderDriveFooter(pad,bodyW);RenderNavigation(pad,bodyW);}
+   if(result)RenderPaidResult();else if(repair)RenderRepair();else{RenderTablet();if(page!=9||!PortraitCompany)RenderDriveFooter(pad,bodyW);RenderNavigation(pad,bodyW);}
   }finally{rendering=false;}}
   bool NarrowNavigation(float w)=>(w-12)/4<size;
   float NavigationHeight(float w)=>NarrowNavigation(w)?size*2+8:Mathf.Max(size+8,72);
@@ -74,6 +75,7 @@ namespace Kamilunavo.RepairEmpire.UI {
   }
   void RenderDashboard()
   {
+   if(PortraitCompany){RenderPortraitCompany();return;}
    float w=body.rect.width;bool wide=w>=600;float imageH=wide?Mathf.Clamp(body.rect.height-24,92,Mathf.Min(210,w*.22f)):Mathf.Clamp(w*.625f,150,300),imageW=wide?imageH*3:w,heroH=wide?imageH:imageH+44;var c=Scroll(heroH+600);var hero=Panel(c,"CompanyHero",0,0,w,heroH,Paper);
    var artwork=Resources.Load<Texture2D>(wide?"Art/Workshop/ServiceWorkshopHero-wide-v1":"Art/Workshop/ServiceWorkshopHero-v1");
    if(artwork!=null)ScenePhoto(hero,"WorkshopHeroArtwork",artwork,0,0,imageW,imageH);else if(Application.isPlaying)ScenePhoto(hero,"ModeledWorkshopPhoto",Studio().WorkshopImage(),0,0,imageW,imageH);else Illustration(hero,3,0,0,imageW,imageH);
@@ -92,6 +94,30 @@ namespace Kamilunavo.RepairEmpire.UI {
    if(columns&&shown>0)y+=134;
    Label(c,"CompanySections",T("DEINE FIRMA","YOUR COMPANY"),4,y+4,w-8,25,15,Slate);y+=36;
    int[] sections={4,5,7,6};string[] labels={T("Team & Einnahmen","Team & earnings"),T("Tägliche Ziele","Daily goals"),T("Designs & Shop","Designs & shop"),T("Optionen & Hilfe","Options & help")};string[] symbols={"Company","Calls","Shop","Equipment"};
+   for(int i=0;i<4;i++){int section=sections[i];var button=Button(c,"DashboardSection"+section,labels[i]+"  ›",0,y,w,size+4,()=>ShowPage(section),true,Color.white);var text=button.GetComponentInChildren<Text>();At((RectTransform)text.transform,48,0,w-60,size+4);text.color=Ink;text.fontSize=text.resizeTextMaxSize=18;text.alignment=TextAnchor.MiddleLeft;UiIcon(button.transform,symbols[i],12,(size-24)/2,28,28,ActionInk);y+=size+12;}
+   c.sizeDelta=new Vector2(w,Mathf.Max(body.rect.height,y));
+  }
+  void RenderPortraitCompany()
+  {
+   float w=body.rect.width,imageH=Mathf.Min(w*.82f,Mathf.Clamp(body.rect.height-380,160,340));var c=Scroll(imageH+740);var hero=Panel(c,"CompanyHero",0,0,w,imageH+40,Paper);var artwork=Resources.Load<Texture2D>("Art/Workshop/ServiceWorkshopHero-v1");
+   if(artwork!=null)ScenePhoto(hero,"WorkshopHeroArtwork",artwork,0,0,w,imageH);else if(Application.isPlaying)ScenePhoto(hero,"ModeledWorkshopPhoto",Studio().WorkshopImage(),0,0,w,imageH);else Illustration(hero,3,0,0,w,imageH);
+   float walletW=Mathf.Min(118,w*.4f);var wallet=Panel(hero,"CompanyWallet",w-walletW-8,imageH+4,walletW,32,Navy);UiIcon(wallet,"Cash",7,6,22,20,new Color(.43f,.83f,.46f));Label(wallet,"DashboardBalance","$"+game.Cash.ToString("N0"),34,0,walletW-40,32,18,White);
+   Label(hero,"WorkshopCaption",T("KLEINE REPARATUREN. GROSSE WIRKUNG.","SMALL REPAIRS. REAL IMPACT."),8,imageH,w-walletW-24,40,12,Ink);float y=imageH+50;Label(c,"CurrentCallHeading",game.ActiveJob!=null?T("AKTUELLER AUFTRAG","CURRENT SERVICE CALL"):T("DEIN NÄCHSTER AUFTRAG","YOUR NEXT SERVICE CALL"),4,y,w-8,23,15,Ink);y+=29;var call=NextCall();
+   if(call!=null)
+   {
+    float h=Mathf.Max(158,size+104),art=Mathf.Min(118,h-16),left=art+20,remaining=w-left-10;var card=Button(c,"DashboardCurrentCall","",0,y,w,h,()=>{selectedJob=call;ShowPage(0);},true,Color.white);ServicePhoto(card.transform,call,8,8,art,art);Label(card.transform,"Title",T(call.TitleDe,call.Title),left,6,remaining,40,20,Ink);Label(card.transform,"Meta",call.Address,left,46,remaining,23,14,Slate,TextAnchor.MiddleLeft,FontStyle.Normal);Label(card.transform,"Payout","$"+call.Reward+" · "+call.Xp+" XP",left,71,remaining*.64f,22,14,Ink);Label(card.transform,"RouteDistance",RouteDistance(call),left+remaining*.64f,71,remaining*.36f,22,14,Slate,TextAnchor.MiddleRight,FontStyle.Normal);
+    bool active=game.ActiveJob?.Id==call.Id;var action=Button(card.transform,"DashboardDrive",active?T("ZUM KUNDEN","TO CUSTOMER"):T("AUFTRAG ANSEHEN","VIEW SERVICE CALL"),left,h-size-8,remaining,size,()=>{if(active)Close();else{selectedJob=call;ShowPage(0);}},true,Orange);action.GetComponentInChildren<Text>().fontSize=action.GetComponentInChildren<Text>().resizeTextMaxSize=15;y+=h+10;
+   }
+   else
+   {
+    EmptyCalls(c,8,y,w-16,96);Button(c,"DashboardDrive",T("AUFTRÄGE ANSEHEN","VIEW SERVICE CALLS"),8,y+104,w-16,size,()=>ShowPage(0));y+=size+124;
+   }
+   int shown=0;foreach(var job in game.Jobs)
+   {
+    if(job.Id==call?.Id||RepairRules.IsPaid(game.Profile,job.Id))continue;var next=job;float cardW=(w-10)/2;CompactCall(c,next,"DashboardNext"+job.Id,(shown%2)*(cardW+10),y,cardW,124,()=>{selectedJob=next;ShowPage(0);});if(++shown==2)break;
+   }
+   if(shown>0)y+=134;
+   Label(c,"CompanySections",T("DEINE FIRMA","YOUR COMPANY"),4,y+4,w-8,25,15,Slate);y+=36;int[] sections={4,5,7,6};string[] labels={T("Team & Einnahmen","Team & earnings"),T("Tägliche Ziele","Daily goals"),T("Designs & Shop","Designs & shop"),T("Optionen & Hilfe","Options & help")};string[] symbols={"Company","Calls","Shop","Equipment"};
    for(int i=0;i<4;i++){int section=sections[i];var button=Button(c,"DashboardSection"+section,labels[i]+"  ›",0,y,w,size+4,()=>ShowPage(section),true,Color.white);var text=button.GetComponentInChildren<Text>();At((RectTransform)text.transform,48,0,w-60,size+4);text.color=Ink;text.fontSize=text.resizeTextMaxSize=18;text.alignment=TextAnchor.MiddleLeft;UiIcon(button.transform,symbols[i],12,(size-24)/2,28,28,ActionInk);y+=size+12;}
    c.sizeDelta=new Vector2(w,Mathf.Max(body.rect.height,y));
   }

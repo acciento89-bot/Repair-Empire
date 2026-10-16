@@ -1,0 +1,419 @@
+{
+  "game": "Repair Empire",
+  "date": "2026-10-16",
+  "sourceSha256": "38bf41ef6e2b81c17702da539bc0ad2a7242e22962f6d6745365f4775436cc41",
+  "baseCommit": "becc04ee9e055075bd8263efa47664eee8380f9d",
+  "scope": "Concept-oriented adaptive main tablet and accurate native-model icon; final actual thirty-minute driving validation.",
+  "supersedes": "docs/QA/repair-room-atmosphere-20261016.json",
+  "implemented": [
+    "Tall portrait Company composition groups original decorative workshop illustration, non-overlapping caption/wallet, current service-call image/information and existing orange DashboardDrive action on the actual same card, then two suggestions and four permanent destinations. Normalphone hero is larger; adaptive320x650 keeps a shorter image for accessible action. Compact/landscape retains fixedfooter and existing navigation.",
+    "Active-call action explicitly resumes the same ticket. Unaccepted-call action opens the existing paused details path; contextual Back restores Company without dispatch, pay or ticket mutation. Actual Editor12DE/ENphone/tablet active/unaccepted action/layout cases plus native1876 presentation checks.",
+    "Three actual1024square native model photographs use a development-only isolated camera and unchanged production van/street. Camera-only retreat fits every actual>60kmesh vertex inside4percent margin, preserves company/vehicle/render state and releases owned render resources. Initial cropped candidates were rejected.",
+    "Selected pose1 exact byte copy is a separate1024RGB source asset with uncompressed/noalpha/nonreadable/no mips/clamp import, assigned default GUID. Original illustratedicon is byte-identical. All seven actual MacICNS sizes16..1024 are opaque;1024pixels exactly match the selected source. This is not native iOS approval."
+  ],
+  "validation": {
+    "aggregateAndMacExitCode": 0,
+    "log": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairMenuIcon-20261016/unity-night-final.log",
+      "sha256": "6c0f2adda96d02131f55af0dda6a55f5eb021dfddee78a386fd49bef5189c134",
+      "origin": "Unity-aggregate-and-Mac-build"
+    },
+    "receipt": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairMenuIcon-20261016/source-native-receipt.json",
+      "sha256": "4bad6c7e9345ec16bb6b14e67c72a2a2394cb1fc28463e6486c23e902fbd1a97",
+      "origin": "exact-source-native-binding"
+    },
+    "bundleManifest": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairMenuIcon-20261016/native-bundle-manifest.json",
+      "sha256": "8444f7bef7b345fe238c554af5524b96ee6338f4eab03526357d75da85c7ddc5",
+      "origin": "all314native-bundle-files"
+    },
+    "settingsDelta": "Only default icon GUID; all other exact settings bytes unchanged",
+    "unchangedAuthorityFiles": 79,
+    "unchangedAuthorityPaths": [
+      "Assets/Scripts/Core/GameBootstrap.cs",
+      "Assets/Scripts/Core/RepairTutorial.cs",
+      "Assets/Scripts/Core/RepairInteraction.cs.meta",
+      "Assets/Scripts/Core/RepairPersistence.cs.meta",
+      "Assets/Scripts/Core/RepairSave.cs.meta",
+      "Assets/Scripts/Core/GameBootstrap.cs.meta",
+      "Assets/Scripts/Core/RepairPersistence.cs",
+      "Assets/Scripts/Core/RepairInteraction.cs",
+      "Assets/Scripts/Core/RepairTutorial.cs.meta",
+      "Assets/Scripts/Core/RepairProfile.cs",
+      "Assets/Scripts/Core/RepairRules.cs.meta",
+      "Assets/Scripts/Core/RepairSave.cs",
+      "Assets/Scripts/Core/RepairProfile.cs.meta",
+      "Assets/Scripts/Core/RepairRules.cs",
+      "Assets/Scripts/Monetization/RewardRules.cs",
+      "Assets/Scripts/Monetization/RewardedVideos.cs",
+      "Assets/Scripts/Monetization/InterstitialPolicy.cs",
+      "Assets/Scripts/Monetization/RewardRules.cs.meta",
+      "Assets/Scripts/Monetization/InterstitialPolicy.cs.meta",
+      "Assets/Scripts/Monetization/StoreReconnectGate.cs",
+      "Assets/Scripts/Monetization/InterstitialVideos.cs.meta",
+      "Assets/Scripts/Monetization/AdLoadGeneration.cs.meta",
+      "Assets/Scripts/Monetization/RewardedVideos.cs.meta",
+      "Assets/Scripts/Monetization/AdLoadGeneration.cs",
+      "Assets/Scripts/Monetization/CommerceRules.cs.meta",
+      "Assets/Scripts/Monetization/CommerceRules.cs",
+      "Assets/Scripts/Monetization/StoreReconnectGate.cs.meta",
+      "Assets/Scripts/Monetization/StorePurchases.cs",
+      "Assets/Scripts/Monetization/MonetizationConfig.cs",
+      "Assets/Scripts/Monetization/MonetizationConfig.cs.meta",
+      "Assets/Scripts/Monetization/InterstitialVideos.cs",
+      "Assets/Scripts/Monetization/StorePurchases.cs.meta",
+      "Assets/Scripts/Camera/VehicleCamera.cs.meta",
+      "Assets/Scripts/Camera/VehicleCamera.cs",
+      "Assets/Scripts/Gameplay/JobPresentationCatalog.cs.meta",
+      "Assets/Scripts/Gameplay/VehicleController.cs.meta",
+      "Assets/Scripts/Gameplay/RepairFeedback.cs.meta",
+      "Assets/Scripts/Gameplay/JobCatalog.cs.meta",
+      "Assets/Scripts/Gameplay/JobPresentation.cs",
+      "Assets/Scripts/Gameplay/JobPresentationCatalog.cs",
+      "Assets/Scripts/Gameplay/CityBuilder.cs.meta",
+      "Assets/Scripts/Gameplay/RepairFeedback.cs",
+      "Assets/Scripts/Gameplay/JobCatalog.cs",
+      "Assets/Scripts/Gameplay/CityBuilder.cs",
+      "Assets/Scripts/Gameplay/RepairGame.cs",
+      "Assets/Scripts/Gameplay/JobDefinition.cs.meta",
+      "Assets/Scripts/Gameplay/RepairGame.cs.meta",
+      "Assets/Scripts/Gameplay/JobPresentation.cs.meta",
+      "Assets/Scripts/Gameplay/VehicleController.cs",
+      "Assets/Scripts/Gameplay/JobDefinition.cs",
+      "Assets/Scripts/UI/RepairHud.Presentation.cs",
+      "Assets/Scripts/UI/SteeringWheelGraphic.cs.meta",
+      "Assets/Scripts/UI/JobSymbolGraphic.cs.meta",
+      "Assets/Scripts/UI/SteeringWheelGraphic.cs",
+      "Assets/Scripts/UI/RepairHud.Presentation.cs.meta",
+      "Assets/Scripts/UI/UiFactory.cs",
+      "Assets/Scripts/UI/UiFactory.cs.meta",
+      "Assets/Scripts/UI/ServiceUiIcon.cs.meta",
+      "Assets/Scripts/UI/UiMetrics.cs",
+      "Assets/Scripts/UI/RepairHud.Dashboard.cs.meta",
+      "Assets/Scripts/UI/SafeAreaFitter.cs",
+      "Assets/Scripts/UI/ServiceIllustrationGraphic.cs",
+      "Assets/Scripts/UI/JobSymbolGraphic.cs",
+      "Assets/Scripts/UI/RoundedPanel.cs",
+      "Assets/Scripts/UI/ServiceItemGlyph.cs.meta",
+      "Assets/Scripts/UI/RepairHud.cs",
+      "Assets/Scripts/UI/RoundedPanel.cs.meta",
+      "Assets/Scripts/UI/RepairHud.cs.meta",
+      "Assets/Scripts/UI/ReservedRegionProvider.cs",
+      "Assets/Scripts/UI/ServiceItemGlyph.cs",
+      "Assets/Scripts/UI/ServiceIllustrationGraphic.cs.meta",
+      "Assets/Scripts/UI/TabletController.cs",
+      "Assets/Scripts/UI/ReservedRegionProvider.cs.meta",
+      "Assets/Scripts/UI/SafeAreaFitter.cs.meta",
+      "Assets/Scripts/UI/ServiceUiIcon.cs",
+      "Assets/Scripts/UI/UiMetrics.cs.meta",
+      "Assets/Scripts/UI/TabletController.cs.meta",
+      "Packages/manifest.json",
+      "Packages/packages-lock.json"
+    ],
+    "runs": {
+      "NightPresentation": {
+        "checks": 1876,
+        "processExitCode": 0,
+        "imageCount": 92,
+        "result": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairMenuIcon-20261016/NightPresentation/PASS.txt",
+          "sha256": "3cf78272a840cd8bcdc2174dfca2555dba409696e46bfbef122474b1b0e57a15",
+          "origin": "actual-native-result"
+        },
+        "checksFile": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairMenuIcon-20261016/NightPresentation/checks.txt",
+          "sha256": "e550019badd2034d506b57b92b8cdb4e6ed9496fafcb9370edc772b140ecf1d9",
+          "origin": "actual-native-checks"
+        },
+        "provenance": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairMenuIcon-20261016/NightPresentation/PROVENANCE.json",
+          "sha256": "4cdf71bc66dc3cd6ab80b3302d27e153477446d710bb259a660dac6a1c0caa1d",
+          "origin": "native-source-binding"
+        },
+        "imageManifest": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairMenuIcon-20261016/NightPresentation/IMAGE-HASHES.json",
+          "sha256": "b01169604223a43df8037e6b14c1e75ad047fd2925600a1ddf6124a8e6c0027c",
+          "origin": "actual-Unity-render-manifest"
+        },
+        "log": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairMenuIcon-20261016/NightPresentation.log",
+          "sha256": "d23abb4a8eb6e2af3510243241e831e5856521b6ff0c550fae9df6d8624c2c72",
+          "origin": "native-Mac-log"
+        }
+      },
+      "NightSoak": {
+        "checks": 1577,
+        "processExitCode": 0,
+        "imageCount": 90,
+        "result": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairMenuIcon-20261016/NightSoak/PASS.txt",
+          "sha256": "ad62e260618a11f8ba2a12942c9485bce450aefe64c3b42a8590ec24a356e0e3",
+          "origin": "actual-native-result"
+        },
+        "checksFile": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairMenuIcon-20261016/NightSoak/checks.txt",
+          "sha256": "cb19f61a3f59499678a63cfc83095a14da122357a15dc72cb96831b4145ce2a6",
+          "origin": "actual-native-checks"
+        },
+        "provenance": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairMenuIcon-20261016/NightSoak/PROVENANCE.json",
+          "sha256": "2f85ff4e9b7cac696638e473ec7b573daf9b7a5aaaa0e5bfbe0964f832ba7ac9",
+          "origin": "native-source-binding"
+        },
+        "imageManifest": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairMenuIcon-20261016/NightSoak/IMAGE-HASHES.json",
+          "sha256": "a4120075c04764c55ef21369ce35105741b548974f61ff7d9908d2fa0bceabdd",
+          "origin": "actual-Unity-render-manifest"
+        },
+        "log": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairMenuIcon-20261016/NightSoak.log",
+          "sha256": "d1253cf2197ce4713ee283def79751c1a1368dc10e2fa0e45b77bb3f9ff0f56e",
+          "origin": "native-Mac-log"
+        }
+      },
+      "NightReload": {
+        "checks": 7,
+        "processExitCode": 0,
+        "imageCount": 1,
+        "result": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairMenuIcon-20261016/NightReload/PASS.txt",
+          "sha256": "38213edc12e5ec96959592e87d8dbbd73398b1a84ce00fa19c8bdea92ba590b6",
+          "origin": "actual-native-result"
+        },
+        "checksFile": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairMenuIcon-20261016/NightReload/checks.txt",
+          "sha256": "a47cdbe2c393a6d3242b1a93b7d3a4c797bf0fcce1aae50ab49f39ff59a87fa3",
+          "origin": "actual-native-checks"
+        },
+        "provenance": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairMenuIcon-20261016/NightReload/PROVENANCE.json",
+          "sha256": "b87d2fe682291845656106485a9825189c61de74ad640ebdfe9dc033c3635634",
+          "origin": "native-source-binding"
+        },
+        "imageManifest": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairMenuIcon-20261016/NightReload/IMAGE-HASHES.json",
+          "sha256": "3da1532b6dcdb0efbee743e71e77fcc943e7cc4f35a3928335b6c6c7abd81d40",
+          "origin": "actual-Unity-render-manifest"
+        },
+        "log": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairMenuIcon-20261016/NightReload.log",
+          "sha256": "eabaeaf545f0b1eb8fbdeb256e326c25756016bae431f88dc00d2a2db2862c62",
+          "origin": "native-Mac-log"
+        }
+      }
+    },
+    "soak": {
+      "elapsedSeconds": 1800.080052875,
+      "frames": 101952,
+      "p95ms": 32.66192,
+      "startMemory": 249929617,
+      "endMemory": 249657261,
+      "peakMemory": 249933277,
+      "errors": 0,
+      "actualDrivingLaps": 66,
+      "p95TargetMs": 16.666666666666668,
+      "p95TargetMet": false
+    },
+    "soakData": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairMenuIcon-20261016/NightSoak/soak.json",
+      "sha256": "f98974d53462254d2d284c983cf7f05ae5d575a1b3935deccaa340c5c5f5a705",
+      "origin": "actual-native1800second-driving-measurement"
+    },
+    "limitations": "macOS Metal only; no physical-device FPS/thermal/touch or native iOS/real paid-commerce/ads acceptance"
+  },
+  "icon": {
+    "selection": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairMenuIcon-20261016/icon-selection-provenance.json",
+      "sha256": "c619aa20f160d4833ab4a755a92cde3698ec35f2ede825c6be775a30d637c108",
+      "origin": "unretouched-exact-native-capture-provenance"
+    },
+    "source": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Projects/Repair-Empire/Assets/Resources/Art/RepairEmpireIcon-native-v2.png",
+      "sha256": "e8b8110449c7483292d45c8fe155d90a2d052f2bd3d772abc7ba4ab6d06c48f7",
+      "origin": "project-icon"
+    },
+    "macNativeVariants": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairMenuIcon-20261016/native-icon-variants.json",
+      "sha256": "b1d680a3f74d6338cb295bc47a5ae50978f1a7a27d591822106b46b5e4d574e5",
+      "origin": "actual-Mac-ICNS-variants"
+    },
+    "nativeIos": null,
+    "sourceContentAccuracy": "Reviewed against actual gameplay and actual model",
+    "fullPlatformDecision": "pending"
+  },
+  "candidateHistory": [
+    {
+      "stage": "Pre-change detached-action composition RED",
+      "log": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairMenuIcon-20261016/unity-mainmenu-red.log",
+        "sha256": "6c64a8546d197d28990f006dbf78069d5ccd8fd2c234dbd21a6525be800cff3d",
+        "origin": "actual-engine-red-before-edit"
+      }
+    },
+    {
+      "stage": "Old no-overlap assertion exposed initial overlay candidate",
+      "log": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairMenuIcon-20261016/unity-menu-candidate.log",
+        "sha256": "beb9f45acd191261acefb66256c86a4f37b127ab56f1b09ee10a1ff2a3ce133f",
+        "origin": "retained-failure"
+      }
+    },
+    {
+      "stage": "Candidate1872functionallygreen but wallet/art overlap and cropped vehicle icon rejected",
+      "binding": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairMenuIcon-20261016/source-native-receipt-candidate-menu-icon.json",
+        "sha256": "0942e83d007ee827ce944cf8b8f4367b566333ab68be20b58ae55e67ae28cd73",
+        "origin": "retained-actual-source-binding"
+      },
+      "log": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairMenuIcon-20261016/MenuCandidate.log",
+        "sha256": "f4396bed54c0da29257d62f7314a9b41b93105d1848ed737bf650eb361e1659f",
+        "origin": "retained-visually-rejected-native-candidate"
+      }
+    },
+    {
+      "stage": "MenuFinal1876withnonoverlap and whole icon before source assignment",
+      "binding": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairMenuIcon-20261016/source-native-receipt-menu-final-before-icon.json",
+        "sha256": "2d984d4a7d7e77c5e2f0a746dc99e6e6be6ac0809feb7aa9f9ba0e698b50abc7",
+        "origin": "retained-pre-icon-assignment-binding"
+      },
+      "log": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairMenuIcon-20261016/MenuFinal.log",
+        "sha256": "2d077b2fb5ee618b829a578bf0e62b522ee43b189de4b8f00bf36ba317ab3c03",
+        "origin": "actual-native-before-icon-assignment"
+      }
+    }
+  ],
+  "sourceReview": {
+    "reviewer": "Independent read-only repair_menu_icon_review16",
+    "decision": "No outstanding Critical/Important findings; source/settings/selected actual icon/original icon preservation/314bundle files/final1876and raw DE-EN/portrait/landscape/icons independently inspected.",
+    "rootFinal": "Actual30minute driving, same-profile reload and complete evidence binding verified separately by root."
+  },
+  "visualEvidence": {
+    "concept": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Artifacts/KamilunavoDelivery-20261009/concepts-20261010/repair-empire-3-ansichten.png",
+      "sha256": "0571d35c40de036f83f86f3b423c234f321586abcfec97d9d259710d816723f1",
+      "origin": "approved-concept"
+    },
+    "menu": [
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairMenuIcon-20261016/NightPresentation/showcase-de-dashboard.png",
+        "sha256": "c8415f9e293f88655b2345e66ccdd7b1081a1d51f5cd404a7e06d80de73df406",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairMenuIcon-20261016/NightPresentation/showcase-en-dashboard.png",
+        "sha256": "494743febd80b8ea1bd775a3e86e4a12b22c9412d8f1171c9d8fb3575deb014e",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairMenuIcon-20261016/NightPresentation/landscape-de-section-9.png",
+        "sha256": "4ae3289724b3a5f7065eacdddee0b85afb40acc8c1f50675b2d1cd9f1f53592e",
+        "origin": "Unity-render"
+      }
+    ],
+    "gameplay": [
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairMenuIcon-20261016/NightPresentation/showcase-driving-service.png",
+        "sha256": "573aaafd740da01d610041abc2787e87aa0c26f942d4186ca4b4a57419aecdba",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairMenuIcon-20261016/NightPresentation/street-layout.png",
+        "sha256": "1aa5a113e18af1d8ac0693840a16cdb056ef692c26c340117398fb6d983bc7eb",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairMenuIcon-20261016/NightSoak/soak-29.png",
+        "sha256": "d5e2f6bf64bcce20292df16c07889bf23d5343b7e5da5c31ccff0c65cf6e604d",
+        "origin": "Unity-render"
+      }
+    ],
+    "submenus": [
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairMenuIcon-20261016/NightPresentation/portrait-de-section-0.png",
+        "sha256": "1a99e45fbd6bcfde0c6465a7fccf55b99f1ee7d3a472f8d2cd2363e7a190996d",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairMenuIcon-20261016/NightSoak/repair-faucet-stage1.png",
+        "sha256": "c7a4e921c558de412660e1cbfa81bebcf66bc5be2c8409a4766519262632411f",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairMenuIcon-20261016/NightSoak/repair-switch-stage1.png",
+        "sha256": "c29a9d2399f53c4a2b003ecfa90ef92bd2ea01d689cd140093185b640518f242",
+        "origin": "Unity-render"
+      }
+    ],
+    "variants": [
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairMenuIcon-20261016/NightPresentation/van-front-three-quarter.png",
+        "sha256": "3ba6c3a33881c7a3cfda59506ce340698c8282bf40f4db22ee37e4a191c2b887",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairMenuIcon-20261016/NightPresentation/van-side.png",
+        "sha256": "57957bc87dbebe7d8808f53402cdfe50234866bb2906ff06ea782faee5cbb08d",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairMenuIcon-20261016/NightPresentation/van-wheel-detail.png",
+        "sha256": "09ca88cf2fe0cf5b1a87173ad85567a4507d46e09461a173eb227ad05e9dea1e",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairMenuIcon-20261016/NightPresentation/bathroom-wrench.png",
+        "sha256": "bea168d994727317fe9bb9eb577d449ab620218f72c49fea7db452bf1914741d",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairMenuIcon-20261016/NightPresentation/kitchen-accessories.png",
+        "sha256": "c0586c6701cdc552db3c69b1425fc2e0ae7be79ccaa4e5b7593181c7db71b88c",
+        "origin": "Unity-render"
+      }
+    ]
+  },
+  "comparisons": [
+    {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairMenuIcon-20261016/konzept-gegen-unity-aktuell.png",
+      "sha256": "97ec1271fa40caf2827ee3b8c05848cdcae36cdf926fb3354a0f6416b704da4d",
+      "origin": "mechanical-layout-of-unretouched-Unity-PNGs-and-labeled-reference"
+    },
+    {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairMenuIcon-20261016/menue-konzept-vergleich.png",
+      "sha256": "d4bf905346010399e6ceef3889ea26b8cf81129d4731f30315ccf5dc31133c21",
+      "origin": "mechanical-layout-of-unretouched-Unity-PNGs-and-labeled-reference"
+    },
+    {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairMenuIcon-20261016/menue-vorher-aktuell.png",
+      "sha256": "4dc8c2fba0ed1b817beef8df40a66e1871c6d0a8cca36e68ca883c59e20eb93e",
+      "origin": "mechanical-layout-of-unretouched-Unity-PNGs-and-labeled-reference"
+    },
+    {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairMenuIcon-20261016/fahrzeug-details-aktuell.png",
+      "sha256": "a6d431af440cfe2b07c9a29348f2962e686fa2886265bdcded1fb0d1613bf990",
+      "origin": "mechanical-layout-of-unretouched-Unity-PNGs-and-labeled-reference"
+    }
+  ],
+  "comparisonProvenance": {
+    "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairMenuIcon-20261016/comparison-provenance.json",
+    "sha256": "35bc7394bb6a326b89a53188290ade476cec3b7cc514234e4155ac2b8b6ebfef",
+    "origin": "source-and-all16-original-panel-and-board-hashes"
+  },
+  "decision": {
+    "boundedMenuAndSourceIcon": "verified",
+    "fullConceptSimilarity": "failed",
+    "nativeIosIcon": "pending",
+    "macP95FrameBudget": "failed",
+    "uploadPerformed": false
+  },
+  "remaining": [
+    "Actual Mac driving p95 is 32.66192ms versus16.67ms target: stable60FPS not established; profile actual device and optimize before release.",
+    "Actual model/street/fixtures remain more stylized than the approved Concept. No unsupported90percentclaim. Decorative workshop illustration is not evidence of3Dgameplayfidelity.",
+    "Mac ICNS proof does not establish native iOS icon variants or AppReview acceptance. Physical iPhone/iPad performance/touch/thermal and live paid-commerce/ads remain separate.",
+    "No Repair TestFlight/AppReview upload. Approved siblings/OMFsubmission/user-owned historical Concept deletion untouched."
+  ]
+}

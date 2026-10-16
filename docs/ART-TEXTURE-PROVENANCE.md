@@ -85,3 +85,10 @@ DistrictCivicHall.cs, rounded clock-cupola extension and StreetLampArt.cs are or
 The extended actual room shell, metric UVs/single grout mesh, open cabinet carcasses and thin seated drain/water meshes are original authored geometry. Existing original shared stone/cloth/HDR reflection assets are unchanged. ServiceWater-v1.mat is an original serialized Standard premultiplied configuration derived from the existing native-supported prototype, not a new downloaded dependency. The scene owns its material clone; the shared prototype survives disposal. No generated picture stands in for the room or service action. Exact hashes/native controls/Concept comparisons are in docs/QA/repair-fixture-finish-20261016.json.
 
 2026-10-16: Regular UI body uses licensed unmodified BarlowMedium1.408 from official GoogleFonts `ofl/barlow/Barlow-Medium.ttf`, matching existing1.408Regular/Bold. Existing StreamingAssets/Barlow-OFL.txt retained. Source/license URLs and exact hash: Builds/RepairTabletFinish-20261016/font-provenance.json.
+
+
+## Original actual-model Repair icon — 2026-10-16
+
+`Assets/Resources/Art/RepairEmpireIcon-native-v2.png` is an exact byte copy of nativeUnity `Builds/RepairMenuIcon-20261016/MenuFinal/store-icon-native-1.png`, SHAe8b8110449c7483292d45c8fe155d90a2d052f2bd3d772abc7ba4ab6d06c48f7. No imagegeneration, repaint, composite, crop or enhancement. The camera photographs the actual productionVanArt/street, keeps everyactualmeshvertex inside4percentmargin and preserves livecompany/vehicle/rendercontext. Existing originalillustratedRepairEmpireIcon.png is unchanged.
+
+Shared1024RGB/noalpha/no mips/nonreadable/uncompressed/clamp import; defaultPlayerSettingsGUIDcfc88a6230a77423c856cb5a92a0eba7. AllsevenactualMacICNSvariants16..1024opaque;1024pixelsidenticalsource. NativeiOSiconvariants notyetapproved. Exactcapture-source/executable/projectasset/nativevariantsha and originalretention: `docs/QA/repair-menu-icon-20261016.json` and Builds/RepairMenuIcon-20261016/icon-selection-provenance.json. Mechanicalcomparisonboards onlylayout/resize/label actualnativePNGandapprovedConceptcroppings.

@@ -195,3 +195,10 @@ Aggregate/Mac0, native1848/1569/7/314files/settings; independent source/math/all
 Original built-in-imagegen medium greige limestone is applied to actual wall/counter meshes at the unchanged256square shared texture ceiling. Initial512candidate was rejected by the existing budget guard, which stays unchanged. New original1024x512room panorama v4 supplies the existing64RGBAHalf/7mip reflection prototype/owned nonreadable clone. A brown/gold v3candidate was actually rendered, rejected and retained externally; finalv4hasneutral R/B1.021789 andmean.352820versusprevious.634122. All32766texels across all7mips finite/opaque;262128bytebudgetunchanged. Production lights/probe intensity/camera/model/UI/state unchanged; originalstone/cloth/v1/v2images/assets/metas identical.
 
 Finalaggregate/Mac0, native1848/1569/7/314bundle/settings andunchangedauthoritybound. Independentasset/source/nativeinspection nooutstandingfindings. Rawfinalchrome now silver withdeeperstone; stillstylizedagainstConcept. Evidence `docs/QA/repair-room-atmosphere-20261016.json`. WholegraphicsFAILED/iconpending/no upload or90percentassertion.
+
+
+## 2026-10-16 — grouped main tablet, accurate actual-model icon and final driving soak
+
+Current native portrait tablet follows Concept grouping more closely: larger original workshop image, separate non-overlappingwallet caption, currentcallphoto/details/action as one card, two suggestions, permanent fourtabnavigation. Real active/unacceptedaction/parentBack/pause and adaptivecompactlandscape remain. This decorative workshop image must not be used as3Dgameplayquality proof.
+
+The new source icon is a mechanically copied actual1024square native photograph of the real modeled van in its actual street. AllsevenMacICNSvariants areverified,1024identicalpixels; nativeiOSacceptancepending. ActualcurrentConceptcomparison still exposes simpler3Dbody/material/street/fixture realism. No numericalsimilarityclaim or fullgraphicalapproval. Source/capture/Concept hashes and currentactualscreenshots: `docs/QA/repair-menu-icon-20261016.json`.

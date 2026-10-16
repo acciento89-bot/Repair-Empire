@@ -1,82 +1,43 @@
 # Repair Empire
 
-Latest repair finish: **complete actual rooms, corrected basin/cabinet/drain assemblies, transparent water and matching first-photo reflections**. Native **1,504 / 1,478 / 7** checks pass. [Actual images, Concept comparisons, regressions and limits](docs/QA/repair-fixture-finish-20261016.json). Whole graphics remains in progress; no Repair upload.
+Native iOS/Android Unity service-business simulator by Kamilunavo. Current work is Repair Empire only. Approved Perfect Drop and Rising Steps remain untouched; One More Floor1.0(7) was already resubmitted and must not be resubmitted again without a new instruction.
 
-Latest skyline pass: **original daylight sky, modeled civic hall and curved lamps**, validated in the actual street. Native **1,498 / 1,478 / 7** checks pass, including four real drives/repairs and saved-profile reload. [Actual Concept comparisons, assets and limits](docs/QA/repair-skyline-finish-20261016.json). Whole graphics remains in progress; no Repair upload.
+## Latest verified work — 16 October 2026
 
-Latest lighting/studio pass: **Linear lighting, original HDR room reflections and a larger real3D repair backdrop** with responsive camera framing. Short-wide repair has its own fixed scene pane and four ordered controls in one row. Native **1492 /1478 /7** checks pass, including four real drives and a nonzero-progress orientation round trip. [Actual Concept comparison, images, original assets and limits](docs/QA/repair-lighting-studio-20261016.json). Full graphics remains in progress; no Repair upload.
+The original commercial van has a curved body, true window openings and visible cabin, formed headlights, molded bumpers, steel wheels and tire detail. The street now has closer authored facades, original parked cars/trees, modeled civic architecture, curved lamps, an original sky and actual district reflections. Modeled service rooms have fitted basins/cabinets, seated drains/water, an adjustable wrench, original limestone and neutral chrome reflections. Twenty-four actual fixture thumbnails use perspective fitting and clearer matching Barlow typography.
 
-Latest environment finish: original textured560sprig canopies and once-captured actual city reflections, with **1492 /1377 /7** exact-source native checks. The selected real window responds in2612of2612sampledpixels. Indexed flat facade faces preserve the40kfixture limit at33637vertices. [Original assets, real images, Concept comparison and limits](docs/QA/repair-environment-finish-20261016.json). Overall lighting/materials and repair framing remain in progress; no Repair upload.
+The current portrait workshop tablet puts the action on the actual service-call card, below a larger decorative workshop illustration. The wallet does not cover the artwork. Two suggestions and four permanent destinations remain visible on the normal portrait phone; short/landscape layouts retain their adaptive footer. Parent Back and explicit resume remain distinct. Its accurate new icon is an unretouched photograph of the actual production van.
 
-Current overnight street pass: **13.2m avenue, closer facades,13modeled parking pockets/original curved cars**, aligned street furniture, warmer fill and closer driving view. Native **1481 /1377 /7** checks pass on the exact source, including four real drives and saved-profile reload. Customer signs are checked against actual projecting architecture/lamps through1728poses. Original54collision volumes retain every field except the intended22main-frontage X18→15 move. [Actual Concept comparison, native images and evidence](docs/QA/repair-street-rebuild-20261015.json). Whole Concept review remains failed; next work is canopy/glazing/materials and repair composition.
+Latest source `38bf41ef6e2b81c17702da539bc0ad2a7242e22962f6d6745365f4775436cc41`: actual Unity aggregate/Mac build exit0; native presentation **1876**, four real driven jobs plus thirty-minute driving soak **1577**, same-profile fresh-process reload **7**, all exit0. The soak ran **1800.1seconds/66 actual driving laps**, errors0. All314 native bundle files were rechecked. Actual Mac p95 frame time is **32.66ms**, above the16.67ms budget: stable60FPS is not established. These are Mac Metal results, not physical iPhone/iPad performance, touch or thermal acceptance.
 
-Native iOS + Android service-business simulator by Kamilunavo.
+[Current evidence, raw captures, exact source binding and Concept comparisons](docs/QA/repair-menu-icon-20261016.json). Original assets/provenance and previous bounded passes remain in [the canonical ledger](docs/REPAIR-EMPIRE-V1-LEDGER.md) and [art provenance](docs/ART-TEXTURE-PROVENANCE.md).
 
-## Current work — 2026-10-15
+**Whole Concept graphics remains failed; native iOS icon verification remains pending. No new Repair TestFlight/App Review upload.** The actual3D scene is still more stylized than the Concept; no numerical90percentclaim. The generated workshop illustration is decorative menu art and does not prove the quality of3Dgameplay.
 
-Latest scope: the user reports Perfect Drop and Rising Steps approved. Leave both apps and their submissions untouched; current work is Repair Empire only.
+## Product and architecture
 
-Previous verified van finish: full-width wheel cavities and inboard liners remove the visible painted underside; rounded wraparound bumpers, real reflector assemblies under transparent headlamp lenses and lighter cabin glazing improve the model. An original generated micrograin height asset supplies shared Unity normal detail on rubber/plastic. Stable metric UVs/tangents and a serialized native shader variant retain the existing material/batching owners.
+Drive a branded service van through the authored city, accept calls, navigate to the actual customer, complete ordered job-specific repair stages, earn Cash/XP exactly once, and grow the company. Twenty-four service calls, tools/vehicles/workshop/company progression, daily rewards, achievements, cosmetics and a visible Shop are implemented; real paid purchases/restore/consent/ad delivery still require native service/device acceptance.
 
-Fresh exact-source Unity aggregate/Mac build and native presentation /four-driven-job /saved-profile reload pass **1,475 /1,377 /7** checks. Actual GPU relief differs from its flat control in12,033pixels. Moving model: **68,888 retained vertices /27 active renderers /9 materials**, inside unchanged ceilings. New actual wheelhouse regression failed before the fix and passes all16clearance rays afterward. All314native bundle files and byte-identical ProjectSettings reverified. [Original assets, real before/after and Concept comparison](docs/QA/repair-van-finish-20261015.json).
+Unity6000.6.4f1, Built-in rendering, C#, uGUI, legacy input. Startup scene `Assets/Scenes/Main.unity`. `GameBootstrap` composes `RepairGame`, `CityBuilder`, Rigidbody driving, follow camera and `RepairHud` partials. Core owns tickets/profile/save/payment authority. Original meshes/materials/targets use explicit ownership and retained resource ceilings.
 
-The next largest Concept gap is the broad sparse avenue, street composition/light and overall scene/repair finish. Whole-game graphical gate **FAILED**, Repair native icon pending; no Repair upload/version/ASC. Approved Perfect Drop/Rising Steps remain untouched. One More Floor1.0(7) with accurate icon is already resubmitted; do not repeat it. User authorizes ongoing Repair work until16October05:30Europe/Berlin; a time-bounded thread continuation is configured. [Previous van-detail evidence](docs/QA/repair-transit-details-20261015.json).
+- Portrait-first, safe-area aware,48logical-point targets, DE/EN.
+- Tablet pauses driving; contextual parent Back is separate from resume.
+- Ordered repairs and persist-before-reward acknowledgment prevent replay payout.
+- iOS/Android bundle ID `com.kamilunavo.repairempire`.
+- 60FPS is a product target; physical-device acceptance remains open.
 
-Previous service presentation slice:
+## Verification and distribution
 
-The service presentation now has its own job-information board with actual customer/distance, pay, required tool, level and three job-specific stages. Ordered repair actions stay on a fixed shelf; a dedicated paid receipt exposes resume and Shop. A smaller driving card, separate Route/Start action and distinct modeled pedal icons clear more of the road. Two original stone/cloth material textures, folded towel and vanity props improve the real service photos, now rendered through an isolated cached HDR/filmic finish. Original clock/bridge geometry and a fitted two-row customer sign add district identity.
+Use `BuildAutomation.ValidateAll`, then `BuildAutomation.BuildMacPreview` for actual native QA. Presentation/full/soak/reload must use fresh isolated QA profiles and source/executable/bundle receipts; reload uses the matching saved profile. Run heavy Editor/player/Xcode jobs serially on this8GBMac and do not change source during frozen native capture.
 
-Fresh final-source native Mac presentation / four-driven-job / reload runs pass **1,422 / 1,371 / 7** checks. Actual image review caught tutorial-control overlap and customer-sign mirroring/overflow; native regressions reproduce and verify the corrections. All 314 bundle files were reverified; ProjectSettings, the 54 district colliders and height RNG remain unchanged. [Current art/UI evidence, original assets and actual Concept comparisons](docs/QA/repair-art-complete-20261015.json). The complete graphical gate remains **FAILED** for town/van/lighting/detail and full Concept finish; no new Repair upload or build-number change.
+`python3 -B scripts/verify-visual-release.py --fingerprint` identifies Assets/Packages/ProjectSettings. `python3 -B scripts/verify-visual-release.py` is the fail-closed distribution guard. Compilation or functional green checks do not approve graphical fidelity or icons. Before any new upload both [visual evidence](docs/QA/visual-release-gate.json) and [source/native icon review](docs/QA/store-icon-review.json) must pass on the exact source, along with other release requirements.
 
-Earlier verified slices:
+## Canonical project documents
 
-The street now uses two original brick/leaf material assets, broader layered trees, visible foreground brick terraces and mansards, finer asphalt and warmer daylight with amber route chevrons. All 54 district BoxColliders and the serialized height Random state match the pre-edit native baseline. Fresh native Mac presentation / four-driven-job / reload runs pass 1,422 / 1,311 / 7 checks. [Street evidence and actual Concept comparison](docs/QA/repair-street-concept-20261015.json). The overall graphical gate remains **FAILED**; the road composition, vehicle/fixture finish and driving UI still differ materially from the reference.
+1. [Master plan](docs/MASTER-PLAN.md)
+2. [Art direction](docs/ART-DIRECTION.md)
+3. [V1 ledger](docs/REPAIR-EMPIRE-V1-LEDGER.md)
+4. [Original asset provenance](docs/ART-TEXTURE-PROVENANCE.md)
+5. [Current project context](docs/AI/UnityProjectContext.md)
 
-The workshop tablet now uses warm ivory surfaces, real rounded card/photo geometry, four original navigation icons and a direct header Shop with parent Back. The driving overlay has a smaller matching 3D call preview and retains vehicle controls; short reserved panes keep the van clear. Fresh exact-source native presentation / four-driven-job / reload runs pass 1,422 / 1,311 / 7 checks. [Current UI evidence](docs/QA/repair-ui-concept-20261015.json).
-
-The original 3D workshop now has authored room geometry, tool storage, workbench details, warm local lights and two original generated material textures. Its larger company-dashboard photograph is rendered and cached by Unity. The van's front glass follows the curved body, correcting the visible body intersections. Fresh native Mac presentation, four-job driving/repair and fresh-process save runs pass 1,381 / 1,296 / 7 checks from the same verified source. [Current evidence and limits](docs/QA/repair-workshop-20261015.json), [implementation scope](docs/REPAIR-WORKSHOP-20261015.md).
-
-The whole-game visual release gate remains **FAILED**: street composition, van/foliage/lighting and driving HUD still need further work against the approved Concept. No new Repair Empire TestFlight upload or version increment was made in this pass. The ledger remains canonical for previous deliveries.
-
-Future uploads also require [accurate source/native icon and variant evidence](docs/QA/store-icon-review.json), following the user's report of Apple's separate One More Floor icon issue. The check remains pending; synthetic validator tests do not approve artwork or establish Apple acceptance.
-
-## Initial internal delivery — 2026-10-08
-Playable native internal test build1: 24 service calls, four ordered repair types, progression/tablet/shop, authored city/van/art/audio. Central-signed Android and strict AppleDistribution IPA are backed up in an unpublished draft; iOS uploaded through TestFlightInternalOnly at21:33Berlin. Final compact simulator606checks plus real30-minute driving soak, iPad604checks, fresh-processreload6checks each.
-Apple processed1.0(1); export questionnaire completed and Kamilunavo Intern now has the build plus1 existing owner tester, invitation saved and build Bereit zum Testen (22:55–22:58Berlin). Actual invitation acceptance/physical installation, genuine commerce/privacy, physical hardware and Duo landscape/fold acceptance remain open. See [canonical delivery evidence](docs/REPAIR-EMPIRE-V1-LEDGER.md) and [art provenance](docs/ART-TEXTURE-PROVENANCE.md).
-
-
-## Product
-Drive a branded service van through a compact city, accept repair calls, navigate to customers, complete jobs, earn Cash/XP and grow the company.
-
-## Platforms
-- iOS
-- Android
-- Unity / C#
-- Portrait
-- 60 FPS target
-
-## Bundle IDs
-- iOS: com.kamilunavo.repairempire
-- Android: com.kamilunavo.repairempire
-
-## Current vertical slice
-- Rigidbody service-van driving
-- wide unobstructed road corridor
-- left/right steering + brake/accelerator touch input
-- follow camera
-- Cash / Level / Tool HUD
-- active service-call card
-- live destination distance + route arrows
-- functional Tablet
-- Jobs / Tools / Vehicles / Workshop / Employees / Daily tabs
-- selectable service calls
-- Start Job + arrival detection + Complete Repair loop
-- safe-area UI
-
-Unity editor bootstrap creates Assets/Scenes/Main.unity.
-
-## Canonical docs
-1. docs/MASTER-PLAN.md
-2. docs/ART-DIRECTION.md
-3. docs/CONCEPT-SPEC.md
-4. docs/REPAIR-EMPIRE-V1-LEDGER.md
+Previous internal delivery, historical failures and earlier test results remain recorded in the ledger and Git. They are not approval of this graphical revision or evidence of physical-device installation/commerce.

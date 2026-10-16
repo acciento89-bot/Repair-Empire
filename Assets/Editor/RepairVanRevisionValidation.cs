@@ -61,7 +61,7 @@ public static class RepairVanRevisionValidation
  }
  public static void ValidateArtwork()
  {
-  foreach(var pane in new[]{new Vector2(393,852),new Vector2(844,390),new Vector2(245,625)})
+  foreach(var pane in new[]{new Vector2(393,852),new Vector2(768,1024),new Vector2(320,650),new Vector2(844,390),new Vector2(245,625)})
   {
    var host=new GameObject("Original artwork layout fixture");host.SetActive(false);var canvas=new GameObject("Workshop artwork canvas",typeof(Canvas));
    try
@@ -69,10 +69,10 @@ public static class RepairVanRevisionValidation
     var region=new GameObject("Workshop artwork region",typeof(RectTransform)).GetComponent<RectTransform>();region.SetParent(canvas.transform,false);region.sizeDelta=pane;
     var game=host.AddComponent<RepairGame>();game.Profile=new RepairProfile();var hud=host.AddComponent<RepairHud>();hud.Build(region,game);hud.ShowDashboard();Canvas.ForceUpdateCanvases();
     RawImage actual=null;foreach(var graphic in region.GetComponentsInChildren<RawImage>())if(graphic.name=="WorkshopHeroArtwork")actual=graphic;
-    var expected=Resources.Load<Texture2D>(pane.x-24>=600?"Art/Workshop/ServiceWorkshopHero-wide-v1":"Art/Workshop/ServiceWorkshopHero-v1");Require(actual!=null&&expected!=null&&actual.texture==expected,"ORIGINAL_WORKSHOP_ART_NOT_BOUND "+pane);
-    Require(expected.width<=2048&&expected.height<=1024&&!expected.isReadable,"ARTWORK_IMPORT_BUDGET");Require(Mathf.Abs(expected.width/(float)expected.height-(pane.x-24>=600?3f:1.6f))<.01f,"ARTWORK_PROPORTIONS_CHANGED_ON_IMPORT");
-    var wallet=region.Find("TabletModal/PageBody/ScrollViewport/ScrollContent/CompanyHero/CompanyWallet")as RectTransform;Require(wallet!=null&&!UiMetrics.ScreenRect(actual.rectTransform).Overlaps(UiMetrics.ScreenRect(wallet)),"BALANCE_HIDES_ORIGINAL_ARTWORK "+pane);
-    if(pane.x-24>=600){var viewport=region.Find("TabletModal/PageBody/ScrollViewport")as RectTransform;var view=UiMetrics.ScreenRect(viewport);var image=UiMetrics.ScreenRect(actual.rectTransform);Require(view.yMin<=image.yMin+.5f&&view.yMax>=image.yMax-.5f&&actual.uvRect.width>.999f&&actual.uvRect.height>.999f,"LANDSCAPE_CROPS_WORKSHOP_VAN "+pane);}
+    bool portrait=pane.x>=320&&pane.y>=650&&pane.y>pane.x;var expected=Resources.Load<Texture2D>(pane.x-24>=600&&!portrait?"Art/Workshop/ServiceWorkshopHero-wide-v1":"Art/Workshop/ServiceWorkshopHero-v1");Require(actual!=null&&expected!=null&&actual.texture==expected,"ORIGINAL_WORKSHOP_ART_NOT_BOUND "+pane);
+    Require(expected.width<=2048&&expected.height<=1024&&!expected.isReadable,"ARTWORK_IMPORT_BUDGET");Require(Mathf.Abs(expected.width/(float)expected.height-(pane.x-24>=600&&!portrait?3f:1.6f))<.01f,"ARTWORK_PROPORTIONS_CHANGED_ON_IMPORT");
+    var wallet=region.Find("TabletModal/PageBody/ScrollViewport/ScrollContent/CompanyHero/CompanyWallet")as RectTransform;Require(wallet!=null,"BALANCE_MISSING "+pane);var artRect=UiMetrics.ScreenRect(actual.rectTransform);var walletRect=UiMetrics.ScreenRect(wallet);Require(!artRect.Overlaps(walletRect),"BALANCE_HIDES_ORIGINAL_ARTWORK "+pane);
+    if(pane.x-24>=600&&!portrait){var viewport=region.Find("TabletModal/PageBody/ScrollViewport")as RectTransform;var view=UiMetrics.ScreenRect(viewport);var image=UiMetrics.ScreenRect(actual.rectTransform);Require(view.yMin<=image.yMin+.5f&&view.yMax>=image.yMax-.5f&&actual.uvRect.width>.999f&&actual.uvRect.height>.999f,"LANDSCAPE_CROPS_WORKSHOP_VAN "+pane);}
    }
    finally{UnityEngine.Object.DestroyImmediate(canvas);UnityEngine.Object.DestroyImmediate(host);}
   }

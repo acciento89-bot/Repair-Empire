@@ -1,10 +1,10 @@
 {
   "game": "Repair Empire",
   "status": "failed",
-  "sourceSha256": "fe60fda329ffe3b0b16c9ac14e64906634cd58b3a2b3535a5a8929273e67c635",
-  "reviewer": "Codex actual neutral chrome/stone native and approved Concept comparison",
+  "sourceSha256": "38bf41ef6e2b81c17702da539bc0ad2a7242e22962f6d6745365f4775436cc41",
+  "reviewer": "Codex direct final native menu/model/street/repair and approved Concept comparison",
   "reviewedAt": "2026-10-16",
-  "reason": "Own neutral reflection and original stone verified on actual modeled fixtures; whole real-time graphical fidelity remains below Concept. No numerical similarity claim.",
+  "reason": "Concept-oriented adaptive menu and original actual models/materials verified; whole real-time scene fidelity still below Concept. No numerical similarity claim.",
   "criteria": {
     "concept_similarity": "failed",
     "character_or_tower": "failed",
@@ -23,68 +23,88 @@
     ],
     "menu": [
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoomAtmosphere-20261016/NeutralPresentation/showcase-de-dashboard.png",
-        "sha256": "f89f51caa08ce886d477b286356aae22ec5f7fe3fd1d403e7ad0648aad6b254e",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairMenuIcon-20261016/NightPresentation/showcase-de-dashboard.png",
+        "sha256": "c8415f9e293f88655b2345e66ccdd7b1081a1d51f5cd404a7e06d80de73df406",
         "origin": "Unity-render"
       },
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoomAtmosphere-20261016/NeutralPresentation/landscape-de-section-9.png",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairMenuIcon-20261016/NightPresentation/showcase-en-dashboard.png",
+        "sha256": "494743febd80b8ea1bd775a3e86e4a12b22c9412d8f1171c9d8fb3575deb014e",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairMenuIcon-20261016/NightPresentation/landscape-de-section-9.png",
         "sha256": "4ae3289724b3a5f7065eacdddee0b85afb40acc8c1f50675b2d1cd9f1f53592e",
         "origin": "Unity-render"
       }
     ],
     "gameplay": [
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoomAtmosphere-20261016/NeutralPresentation/showcase-driving-service.png",
-        "sha256": "275a7d37f9d67d3879caafc594503b187ebf9b23d21184f3224f79a9b77901c5",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairMenuIcon-20261016/NightPresentation/showcase-driving-service.png",
+        "sha256": "573aaafd740da01d610041abc2787e87aa0c26f942d4186ca4b4a57419aecdba",
         "origin": "Unity-render"
       },
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoomAtmosphere-20261016/NeutralPresentation/street-layout.png",
-        "sha256": "e6dcc224217d6a00ffca3d7ff50ca419a0bcc76efbc86655b5eca810d0977540",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairMenuIcon-20261016/NightPresentation/street-layout.png",
+        "sha256": "1aa5a113e18af1d8ac0693840a16cdb056ef692c26c340117398fb6d983bc7eb",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairMenuIcon-20261016/NightSoak/soak-29.png",
+        "sha256": "d5e2f6bf64bcce20292df16c07889bf23d5343b7e5da5c31ccff0c65cf6e604d",
         "origin": "Unity-render"
       }
     ],
     "submenus": [
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoomAtmosphere-20261016/NeutralPresentation/portrait-de-section-0.png",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairMenuIcon-20261016/NightPresentation/portrait-de-section-0.png",
         "sha256": "1a99e45fbd6bcfde0c6465a7fccf55b99f1ee7d3a472f8d2cd2363e7a190996d",
         "origin": "Unity-render"
       },
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoomAtmosphere-20261016/NeutralFull/repair-faucet-stage1.png",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairMenuIcon-20261016/NightSoak/repair-faucet-stage1.png",
         "sha256": "c7a4e921c558de412660e1cbfa81bebcf66bc5be2c8409a4766519262632411f",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairMenuIcon-20261016/NightSoak/repair-switch-stage1.png",
+        "sha256": "c29a9d2399f53c4a2b003ecfa90ef92bd2ea01d689cd140093185b640518f242",
         "origin": "Unity-render"
       }
     ],
     "variants": [
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoomAtmosphere-20261016/NeutralPresentation/fixture-faucet.png",
-        "sha256": "411e661dac930b54e76a0b354b10dffa154807746f2dfa914362a017b7856b64",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairMenuIcon-20261016/NightPresentation/van-front-three-quarter.png",
+        "sha256": "3ba6c3a33881c7a3cfda59506ce340698c8282bf40f4db22ee37e4a191c2b887",
         "origin": "Unity-render"
       },
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoomAtmosphere-20261016/NeutralPresentation/bathroom-wrench.png",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairMenuIcon-20261016/NightPresentation/van-side.png",
+        "sha256": "57957bc87dbebe7d8808f53402cdfe50234866bb2906ff06ea782faee5cbb08d",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairMenuIcon-20261016/NightPresentation/van-wheel-detail.png",
+        "sha256": "09ca88cf2fe0cf5b1a87173ad85567a4507d46e09461a173eb227ad05e9dea1e",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairMenuIcon-20261016/NightPresentation/bathroom-wrench.png",
         "sha256": "bea168d994727317fe9bb9eb577d449ab620218f72c49fea7db452bf1914741d",
         "origin": "Unity-render"
       },
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoomAtmosphere-20261016/NeutralPresentation/kitchen-accessories.png",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairMenuIcon-20261016/NightPresentation/kitchen-accessories.png",
         "sha256": "c0586c6701cdc552db3c69b1425fc2e0ae7be79ccaa4e5b7593181c7db71b88c",
-        "origin": "Unity-render"
-      },
-      {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoomAtmosphere-20261016/NeutralPresentation/photo-cold.png",
-        "sha256": "411e661dac930b54e76a0b354b10dffa154807746f2dfa914362a017b7856b64",
         "origin": "Unity-render"
       }
     ]
   },
   "previousReview": {
-    "sourceSha256": "8787086e25c4c0b4d2bce9323506b3687e233fe9cc75db887bb015a60022baa7",
+    "sourceSha256": "fe60fda329ffe3b0b16c9ac14e64906634cd58b3a2b3535a5a8929273e67c635",
     "status": "failed",
-    "archive": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairRoomAtmosphere-20261016/visual-release-gate.json.before"
+    "archive": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairMenuIcon-20261016/visual-release-gate.json.before"
   },
-  "candidateReport": "docs/QA/repair-room-atmosphere-20261016.json",
+  "candidateReport": "docs/QA/repair-menu-icon-20261016.json",
   "evidenceNote": "Menus are genuine Unity captures containing decorative generated workshop art; this art is not evidence of3D scene quality."
 }
