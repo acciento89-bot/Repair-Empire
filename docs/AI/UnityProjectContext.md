@@ -1,10 +1,12 @@
 # Repair Empire project context
 
-## Current execution — 16 October 2026
+## Current priority — user steering16October2026
 
-User authorizes Repair only until05:30Europe/Berlin/03:30UTC. Stop new implementation at that deadline, secure the reached state, report honestly and pause heartbeat `repair-empire-bis-05-30-weiterbauen`; do not create another automation. Ninety percent is a quality target, not a result to claim without evidence. Heavy Unity Editor/player/Xcode jobs remain serial on the8GBMac; no source edits during frozen native runs.
+User explicitly deferred Repair Empire until the other rejected apps are handled. Work on one combined calculator app with lifetimePro first, then other rejected apps and resubmission, until14:00Europe/Berlin/12:00UTC today. ALL approved calculator apps remain unchanged and in store: HydroCalc SHK, MAGCalc and BrennerCalc are excluded. Only six rejected products combine: RohrCalc, KälteCalc, LüftungsCalc, HeizkörperCalc, AnlagenCheck (SHK repository) and VolumeCalc (AnlagenVolumen). Old rejected calculator entries can be cleaned up only after the common replacement is available. Active deadline heartbeatapps-bis-14-uhr-fertigstellen; oldRepair05:30heartbeat staysPAUSED.
 
-Approved Perfect Drop/Rising Steps remain untouched. One More Floor accurate-icon1.0(7)+threeIAPs was already resubmitted15October and officially WAITING_FOR_REVIEW; do not repeat. User-owned ` D docs/concepts/PRIMARY-CONCEPT.png` must remain unstaged. Coherent verified slices go to main and push as authorized in AGENTS.md. No Repair upload before actual full graphical and icon gates pass.
+Production Repair source remains0063568b…/HEAD044738e. No runtime or graphical changes after the overnight handoff. A separately retained dev-only performance probe compiled and ran20checks/actualexit0, seven32-second actual driving laps with rendering A/B/A controls. Its temporary routing/newQA sources were saved outside the repo under Builds/RepairPerformance-20261016/retained-diagnostic-source and restored out of production. Reportdocs/QA/repair-performance-probe-20261016.json binds exactprobe5578eb9c/native314files/counters and names limitations. Counter selection included UI Toolkit zeros and omitted render-thread timing; no speculative CPU bottleneck or optimization claim. Actual production short-routeGPU p954.55–4.62ms/intervalp9516.859–17.021ms onAppleM1/394x852, not device60FPS or explanation of old30minsoak. No further Repair work while new priority active.
+
+Read-only App Store/GitHub inventory: /Volumes/SSK SSD/Kamilunavo/Artifacts/AppPortfolio-20261016/App-Uebersicht.html.34activeapps/10rejected/40repos. SHK and AnlagenVolumen are now cloned into sibling Projects folders. Approved PerfectDrop/RisingSteps remain untouched; OneMoreFloor1.0(7) alreadyWAITING_FOR_REVIEW. User-owned deletedPRIMARY-CONCEPT staysunstaged. No Repair upload before graphics/icon gates pass.
 
 ## Latest platform-stable source
 

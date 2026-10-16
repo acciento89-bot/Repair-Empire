@@ -1,0 +1,116 @@
+{
+  "date": "2026-10-16",
+  "scope": "Reproducible development-only A/B/A measurement, retained outside shipped source after user reprioritized. No production optimization or visual change.",
+  "productionSourceSha256": "0063568b51f655e89d8f3ea3f1963d101204f17c99ad5faac6bcc26c9ed787af",
+  "probeSourceSha256": "5578eb9c18d0949b7a587d983b49637204525befbb24458b7d99b8efa3d5800f",
+  "baseCommit": "044738ed7174e9761a0157a7635036716ce8bbcf",
+  "artifactFolder": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairPerformance-20261016",
+  "aggregateAndMacBuildExitCode": 0,
+  "nativeChecks": 20,
+  "nativeProcessExitCode": 0,
+  "metrics": [
+    {
+      "segment": "production-repeat-2",
+      "seconds": 32.003051833,
+      "frames": 1860,
+      "laps": 1,
+      "frameP95ms": 17.021166160702705,
+      "framesOver20ms": 60,
+      "gpuP95ms": 4.5495
+    },
+    {
+      "segment": "production-repeat-3",
+      "seconds": 32.022987666000006,
+      "frames": 1899,
+      "laps": 1,
+      "frameP95ms": 16.87745936214924,
+      "framesOver20ms": 21,
+      "gpuP95ms": 4.53925
+    },
+    {
+      "segment": "production-repeat",
+      "seconds": 32.00378141700001,
+      "frames": 1894,
+      "laps": 1,
+      "frameP95ms": 16.859374940395355,
+      "framesOver20ms": 26,
+      "gpuP95ms": 4.596874
+    },
+    {
+      "segment": "production",
+      "seconds": 32.02169145800001,
+      "frames": 1861,
+      "laps": 1,
+      "frameP95ms": 16.975708305835724,
+      "framesOver20ms": 57,
+      "gpuP95ms": 4.621291
+    },
+    {
+      "segment": "without-msaa",
+      "seconds": 32.00338229100001,
+      "frames": 1907,
+      "laps": 1,
+      "frameP95ms": 16.75958000123501,
+      "framesOver20ms": 13,
+      "gpuP95ms": 4.222624
+    },
+    {
+      "segment": "without-shadows",
+      "seconds": 32.019771042,
+      "frames": 1914,
+      "laps": 1,
+      "frameP95ms": 16.794295981526375,
+      "framesOver20ms": 7,
+      "gpuP95ms": 2.679041
+    },
+    {
+      "segment": "without-world-finish",
+      "seconds": 32.01982862499998,
+      "frames": 1895,
+      "laps": 1,
+      "frameP95ms": 16.83995872735977,
+      "framesOver20ms": 26,
+      "gpuP95ms": 4.548624
+    }
+  ],
+  "counterInterpretation": [
+    "The name-only recorder selection includes UI Toolkit Batches Count and UI Toolkit Vertices Count. Their all-zero values are not scene draw-call or geometry measurements.",
+    "The second Vertices Count in each frozen output is Render/Vertices Count, verified against available-profiler-counters.txt order. Triangles Count and SetPass Calls Count refer to Render.",
+    "CPU Render Thread Frame Time is available but was not selected by the old exact name Render Thread; no render-thread result and no CPU bottleneck conclusion.",
+    "GPU Frame Time is nonzero in this native Metal player; hardware Apple M1,394x852. The frame-limit wait is included in main-thread time.",
+    "Earlier unstarted-recorder run is INVALID and intentionally terminated. A subsequent compiler-error attempt is retained, not passed evidence."
+  ],
+  "limits": [
+    "Seven32-second routes with one actual lap each; not a30-minute soak or physical-device acceptance.",
+    "Production p95 interval varied16.859\u201317.021ms; measured GPU p95 stayed4.55\u20134.62ms. Removing shadows lowered GPU cost, but shadows stay enabled; quality was not downgraded.",
+    "Short controlled measurements do not explain the earlier30-minute32.66ms p95 or establish steady60FPS on iPhone/iPad.",
+    "Only docs change in the production repository; complete original gameplay/rendering source fingerprint0063 restored.",
+    "The sampling loop includes forced lap-reset ReturnToWorkshop(), which serializes/saves and refreshes HUD, plus ordinary5second autosaves. GC and stall maxima are mixed driving/reset/save workload, not isolated rendering. The archived diagnostic no-allocation/write comment was inaccurate.",
+    "Cleanup restores production rendering flags and cash/completions/ticket, not original van pose or tutorial stage; the tutorial is restarted. Probe profile is isolated."
+  ],
+  "decision": "Repair deferred by user; graphical release gate remainsFAILED; no upload.",
+  "evidenceSha256": {
+    "/Volumes/SSK SSD/Kamilunavo/Builds/RepairPerformance-20261016/RecorderControls/Controls/PROVENANCE.json": "2c12c1a21c149a72a40550f414b7d9bb686be66a753a823c4495b75fc03a3666",
+    "/Volumes/SSK SSD/Kamilunavo/Builds/RepairPerformance-20261016/RecorderControls/Controls/PASS.txt": "940c79119053b4a3d41c246110daf7509ac71d14b5ea53cfa3c84bd19fc8ceac",
+    "/Volumes/SSK SSD/Kamilunavo/Builds/RepairPerformance-20261016/RecorderControls/native-bundle-manifest.json": "1d945096400771f48cabefa0d17571a53382d47974a2ae861cab7e6e31f5f0b4",
+    "/Volumes/SSK SSD/Kamilunavo/Builds/RepairPerformance-20261016/RecorderControls/unity.log": "3e1708fd1ed3c8b8c8c89fae931e123783deca5aceff20ca7a111a30dad273f0",
+    "/Volumes/SSK SSD/Kamilunavo/Builds/RepairPerformance-20261016/RecorderControls/Controls/available-profiler-counters.txt": "d966cbb887933de729981bd5ac005cb48f206f9a9b774f650f9145b028ede425",
+    "/Volumes/SSK SSD/Kamilunavo/Builds/RepairPerformance-20261016/RecorderControls/Controls/without-world-finish.json": "cfb0c47b5a4ec0fe753e3b9ea13929dd6b362f725048e5aaf40f3a39d0a26c75",
+    "/Volumes/SSK SSD/Kamilunavo/Builds/RepairPerformance-20261016/RecorderControls/Controls/without-shadows.json": "82706d509113486e6c7ee8343978b24732e7ee0f5cbea28a2702edc9827cf57a",
+    "/Volumes/SSK SSD/Kamilunavo/Builds/RepairPerformance-20261016/RecorderControls/Controls/production-repeat-2.json": "cb434b3e2dc57e6aa78200df43aa58fe154294fc51ab7c1e75ab073394ce5451",
+    "/Volumes/SSK SSD/Kamilunavo/Builds/RepairPerformance-20261016/RecorderControls/Controls/production.json": "68d142c3903f96a9434d58e55d47d4acd0e52e2ac56a96c4b56a40d92b60f939",
+    "/Volumes/SSK SSD/Kamilunavo/Builds/RepairPerformance-20261016/RecorderControls/Controls/without-msaa.json": "c073011985849ed70cf486babe187b18aabf51487ad861224777a61107a76fe0",
+    "/Volumes/SSK SSD/Kamilunavo/Builds/RepairPerformance-20261016/RecorderControls/Controls/production-repeat.json": "4a1c51e9f41e4ca772beb9cfcf4ff066fa26887d9bf9478b8f4793455a16f4eb",
+    "/Volumes/SSK SSD/Kamilunavo/Builds/RepairPerformance-20261016/RecorderControls/Controls/production-repeat-3.json": "7b9fcd2f3617ea95b87c6833b636f15043b557343d0bd10baacbe62a629f4731",
+    "/Volumes/SSK SSD/Kamilunavo/Builds/RepairPerformance-20261016/retained-diagnostic-source/tracked.patch": "b5a1ede6608c84c220b0ca5746c832f43c0cffce7a96fc7838ad70ec8a738f9a",
+    "/Volumes/SSK SSD/Kamilunavo/Builds/RepairPerformance-20261016/retained-diagnostic-source/base-commit.txt": "268bf6e366b83effee2eeaeb5fa23eba6629118672da9a7d47dbc16a9f2e7ced",
+    "/Volumes/SSK SSD/Kamilunavo/Builds/RepairPerformance-20261016/retained-diagnostic-source/Assets/Scripts/QA/RepairRuntimeQa.cs": "a565e5cab6b2ad7be10f3a9b8a69c64f998b16ab7967fb06ad4bcc060779fe81",
+    "/Volumes/SSK SSD/Kamilunavo/Builds/RepairPerformance-20261016/retained-diagnostic-source/Assets/Scripts/QA/RepairPerformanceQa.cs.meta": "9b150006e7c9f6eb3e919534535e4a9f13fd8fe3223a5e281258bbeb56f98ad3",
+    "/Volumes/SSK SSD/Kamilunavo/Builds/RepairPerformance-20261016/retained-diagnostic-source/Assets/Scripts/QA/RepairPerformanceQa.cs": "7ff83eb655d67baa5e255142efad28c2548217800459a0f958da50cc662d4e48"
+  },
+  "independentReadOnlyReview": {
+    "reviewer": "repair_menu_icon_review16",
+    "decision": "Suitable as archived diagnostic with recorded qualifications; no production optimization or device-performance claim.",
+    "sourceAnd314BundleFilesVerified": true
+  }
+}
