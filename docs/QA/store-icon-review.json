@@ -1,10 +1,10 @@
 {
   "game": "Repair-Empire",
   "status": "pending",
-  "sourceSha256": "719870c67f190cbee6b4623efdaf079910d669bf5416db6ba5862a16f3810e0b",
+  "sourceSha256": "a6f1e4d08ffb6c59e2de1e54fbe114f7dc703ea2fe39cc29aaa5b4bc40aaa37c",
   "reviewer": "Codex direct source-icon and actual native-frame comparison",
   "reviewedAt": "2026-10-16",
-  "reason": "Native optics/facade slice verified; Repair icon/native export review remains pending.",
+  "reason": "Native chrome/tool slice verified; Repair icon/native export review remains pending.",
   "decision": "No new upload approval. Complete accurate native icon and variant review before setting passed.",
   "variantConsistencyChecked": false,
   "evidence": {
@@ -16,8 +16,8 @@
     "nativeIcon": null,
     "gameplay": [
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairOpticsFacade-20261016/FinalPresentation/showcase-driving-service.png",
-        "sha256": "2383b0b06e5972633b8338ad1beb5af447226711a3b3b3ef2208917b82f8598a",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairChromeTools-20261016/ChromePresentation/showcase-driving-service.png",
+        "sha256": "33b18fa32eb16b07733abd3e74192308fbe19d53fdb660867af82115d3787fb1",
         "origin": "Unity-render"
       }
     ]

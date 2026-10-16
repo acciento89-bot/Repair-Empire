@@ -10,6 +10,31 @@ namespace Kamilunavo.RepairEmpire.QA
 {
  public sealed partial class RepairRuntimeQa
  {
+  IEnumerator CaptureRepairAccessories()
+  {
+   var original=game.GetComponentInChildren<ServiceSceneArt>();var originalRoom=original.GetComponentInChildren<Camera>(true).transform.parent.gameObject;bool active=originalRoom.activeSelf;var host=new GameObject("QA actual repair accessory photographs");var previous=RenderTexture.active;var target=new RenderTexture(768,512,24,RenderTextureFormat.ARGB32){antiAliasing=2};var pixels=new Texture2D(768,512,TextureFormat.RGB24,false);int cash=game.Profile.Cash;long ticket=game.Profile.ActiveTicket;
+   try
+   {
+    originalRoom.SetActive(false);yield return null;yield return new WaitForEndOfFrame();var studio=host.AddComponent<ServiceSceneArt>();studio.Thumbnail("faucet");var room=studio.GetComponentInChildren<Camera>(true).transform.parent;target.Create();
+    foreach(var name in new[]{"bathroom-wrench","bathroom-soap-pump","kitchen-accessories"})
+    {
+     string key=name=="kitchen-accessories"?"kitchen-mixer":"faucet";var model=ServiceSceneArt.BuildFixture(room,key,-1);
+     try
+     {
+      var pose=model.GetComponent<FixturePhotoPose>();float top=FixtureContextArt.TabletopHeight(key);pose.Eye=name=="bathroom-wrench"?new Vector3(1.08f,.98f,-1.06f):name=="bathroom-soap-pump"?new Vector3(1.25f,.65f,-.65f):new Vector3(1.58f,1.52f,-1.72f);pose.Target=name=="bathroom-wrench"?new Vector3(.83f,top+.03f,-.30f):name=="bathroom-soap-pump"?new Vector3(.83f,top+.21f,.31f):new Vector3(.66f,top+.04f,.06f);pose.FieldOfView=name=="bathroom-soap-pump"?30:33;
+      typeof(ServiceSceneArt).GetMethod("Photograph",BindingFlags.Instance|BindingFlags.NonPublic).Invoke(studio,new object[]{model,target,false,null});scenePixels.Remove(target);RenderedFingerprint(target);var old=RenderTexture.active;
+      try{RenderTexture.active=target;pixels.ReadPixels(new Rect(0,0,768,512),0,0);pixels.Apply();File.WriteAllBytes(Path.Combine(output,name+".png"),pixels.EncodeToPNG());}
+      finally{RenderTexture.active=old;}
+      Check(RenderTexture.active==previous,"Accessory photograph restores caller target "+name);
+     }
+     finally{model.SetActive(false);Destroy(model);}
+     yield return null;
+    }
+    Check(game.Profile.Cash==cash&&game.Profile.ActiveTicket==ticket,"Accessory photographs never mutate company or active ticket");
+   }
+   finally{RenderTexture.active=previous;scenePixels.Remove(target);target.Release();Destroy(target);Destroy(pixels);host.SetActive(false);Destroy(host);originalRoom.SetActive(active);}
+   yield return null;yield return new WaitForEndOfFrame();Check(RenderTexture.active==previous&&originalRoom.activeSelf==active,"Accessory inspection restores original studio and target");
+  }
   void CheckNativeServiceWater()
   {
    var studio=game.GetComponentInChildren<ServiceSceneArt>();var material=FixtureMaterials.Get(studio.transform,FixtureFinish.Glass);

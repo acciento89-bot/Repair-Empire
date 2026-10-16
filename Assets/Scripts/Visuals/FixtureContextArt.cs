@@ -5,6 +5,7 @@ namespace Kamilunavo.RepairEmpire.Visuals
  public static class FixtureContextArt
  {
   public static bool Tabletop(string key)=>key=="faucet"||key=="kitchen-mixer";
+  public static float TabletopHeight(string key)=>key=="kitchen-mixer"?.028f:key=="faucet"?-.025f:throw new System.ArgumentException("No service tabletop: "+key);
   static GameObject B(Transform p,string name,Vector3 pos,Vector3 size,FixtureFinish finish,float bevel=.012f)=>MeshArt.BevelBox(p,name,pos,size,bevel,FixtureMaterials.Get(p,finish));
   static GameObject Box(Transform p,string name,Vector3 pos,Vector3 size,FixtureFinish finish)=>MeshArt.Box(p,name,pos,size,FixtureMaterials.Get(p,finish));
   public static void Build(Transform model,string key,int phase)
@@ -100,7 +101,7 @@ namespace Kamilunavo.RepairEmpire.Visuals
   static void Vanity(Transform p,bool exposedTrap)
   {
    Wall(p,"Bathroom stone wall",.54f,2.4f,FixtureFinish.Stone);TileLines(p,.54f,6,4,-.4f,1.95f);
-   float top=exposedTrap?.44f:-.025f;Counter(p,top,FixtureFinish.Stone,exposedTrap?1.12f:1.40f,exposedTrap?.88f:.94f,exposedTrap?0:-.18f);
+   float top=exposedTrap?.44f:TabletopHeight("faucet");Counter(p,top,FixtureFinish.Stone,exposedTrap?1.12f:1.40f,exposedTrap?.88f:.94f,exposedTrap?0:-.18f);
    if(exposedTrap){
     foreach(int side in new[]{-1,1})B(p,"Open vanity side support",new Vector3(side*.84f,.05f,.09f),new Vector3(.12f,.72f,.91f),FixtureFinish.Wood,.014f);
     B(p,"Exposed plumbing back board",new Vector3(0,.05f,.45f),new Vector3(1.8f,.74f,.06f),FixtureFinish.Wood);
@@ -127,7 +128,7 @@ namespace Kamilunavo.RepairEmpire.Visuals
   }
   static void Kitchen(Transform p)
   {
-   Wall(p,"Kitchen backsplash",.53f,2.7f,FixtureFinish.Stone);TileLines(p,.53f,7,4,.09f,1.3f);Counter(p,.028f,FixtureFinish.Stone,1.02f,.63f,-.05f,true);
+   Wall(p,"Kitchen backsplash",.53f,2.7f,FixtureFinish.Stone);TileLines(p,.53f,7,4,.09f,1.3f);Counter(p,TabletopHeight("kitchen-mixer"),FixtureFinish.Stone,1.02f,.63f,-.05f,true);
    OpenCabinet(p,"Kitchen cabinet",-.082f,-.92f,2.04f,1.14f,.05f,FixtureFinish.Navy);
    B(p,"Kitchen recessed toe plinth",new Vector3(0,-.95f,.05f),new Vector3(1.90f,.06f,.96f),FixtureFinish.Navy);
    for(int side=-1;side<=1;side+=2){B(p,"Kitchen shaker door",new Vector3(side*.48f,-.47f,-.539f),new Vector3(.92f,.77f,.032f),FixtureFinish.Navy,.012f);B(p,"Kitchen recessed door panel",new Vector3(side*.48f,-.49f,-.559f),new Vector3(.73f,.55f,.020f),FixtureFinish.Blue,.014f);B(p,"Kitchen brass pull",new Vector3(side*.48f,-.15f,-.581f),new Vector3(.26f,.025f,.026f),FixtureFinish.Brass,.006f);}

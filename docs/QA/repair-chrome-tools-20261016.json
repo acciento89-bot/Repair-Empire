@@ -1,0 +1,333 @@
+{
+  "game": "Repair Empire",
+  "date": "2026-10-16",
+  "sourceSha256": "a6f1e4d08ffb6c59e2de1e54fbe114f7dc703ea2fe39cc29aaa5b4bc40aaa37c",
+  "baseCommit": "5171cfe2a7ca0be410252a77c61a5af50fc0b4c3",
+  "scope": "Original neutral room reflection source and physically assembled repair tools/props.",
+  "supersedes": "docs/QA/repair-optics-facades-20261016.json",
+  "implemented": [
+    "Built-in imagegen authored a neutral daylight lighting edit of our own original bathroom panorama. Original1024x512ArtSources input is converted by the existing deterministic process to64RGBAHalf/7mips, with shared original/scene-owned nonreadable clone. It supplies reflection lighting only; the actual room and fixtures remain3D. All four v1source/asset files preserved byte-for-byte. No production light/camera/finish-shader/gloss change.",
+    "One shared TabletopHeight supplies the existing bath/kitchen counter and decorative assembly. Cloth/pot/tray/wrench now rest on actual counter; closed soap body sits on tray, with a physically connected collar/stem/head/nozzle. Original open-mouth closed-bottom pot and soil retain the finite shared material kit.",
+    "Original adjustable wrench has chamfered forged head, an actual through-slot exposing the thumbworm/axle/rack, separate fixed/sliding jaws, steel shank, fitted orange grip and dark insert/ribs. This is modeled geometry, not a flat tool picture. No task component/contacts/job state changed.",
+    "Development-only close-up photography invokes the same production factory/HDR photographic path, isolates and restores the old room, restores active targets before yields, cleans up and preserves company/ticket state. Actual native images show the new tool, soap assembly and kitchen context."
+  ],
+  "assets": {
+    "neutralPanorama": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Projects/Repair-Empire/Assets/ArtSources/ServiceRoomReflection-v2.png",
+      "sha256": "ed958125baa3daf4d78f55799d4fdd97b0638fdab364bfb055e4461db32907ee",
+      "origin": "built-in-imagegen-own-original-lighting-edit"
+    },
+    "panoramaMeta": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Projects/Repair-Empire/Assets/ArtSources/ServiceRoomReflection-v2.png.meta",
+      "sha256": "f94f8ddbf9fc2cbd9a31d8289815fd52b702dd101c499bb15401f59927519b9d",
+      "origin": "Unity-importer"
+    },
+    "reflection": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Projects/Repair-Empire/Assets/Resources/Art/ServiceRoomReflection-v2.asset",
+      "sha256": "b0563801f1805c30915d26abe35642ee186810b3c523b6a0c7a54bc5e3904f61",
+      "origin": "deterministic-Unity64RGBAHalf-derived-source"
+    },
+    "reflectionMeta": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Projects/Repair-Empire/Assets/Resources/Art/ServiceRoomReflection-v2.asset.meta",
+      "sha256": "93c4f57d0ba74eb5e42eeca08dd01ab92b185e81d5ad36555121f69a55a0c8af",
+      "origin": "Unity-importer"
+    },
+    "provenance": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairChromeTools-20261016/generated-asset-provenance.json",
+      "sha256": "e7d6a73e1936234cb01750f1408b7027d64f5d0856cfece5d7d5cc5a8e8a54cf",
+      "origin": "exact-built-in-imagegen-prompt-and-source-hashes"
+    },
+    "budget": "Only the active v2environment is loaded by production. Existing64pxcube/7mips/scene-clone budget retained; v1stored for provenance, not actively loaded by production."
+  },
+  "validation": {
+    "aggregateAndMacExitCode": 0,
+    "log": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairChromeTools-20261016/unity-chrome-tools.log",
+      "sha256": "d11cf14aa7f144eda7b9208670cc81809a254d922ff29646b5934ec81cfb925c",
+      "origin": "Unity-aggregate-and-Mac-build"
+    },
+    "receipt": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairChromeTools-20261016/source-native-receipt.json",
+      "sha256": "09f4adae15978e8c3e10dcfacc02da62ad0b5f5842fce956217257d4c81f86c4",
+      "origin": "exact-source-native-binding"
+    },
+    "bundleManifest": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairChromeTools-20261016/native-bundle-manifest.json",
+      "sha256": "3b3100070f192637fc2d8c9bbaf44270a551bd2bc344a0fbb9ad41b181c7e660",
+      "origin": "all314native-bundle-files"
+    },
+    "settingsDelta": "None",
+    "unchangedAuthorityFiles": 80,
+    "runs": {
+      "ChromePresentation": {
+        "checks": 1515,
+        "processExitCode": 0,
+        "imageCount": 87,
+        "result": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairChromeTools-20261016/ChromePresentation/PASS.txt",
+          "sha256": "83b926432996c0f3b540c2f33bb4420777a027f0f6bb46493f48e756d85e32b8",
+          "origin": "actual-native-result"
+        },
+        "checksFile": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairChromeTools-20261016/ChromePresentation/checks.txt",
+          "sha256": "cbbaebbbe4e42a48b6b7edc6a962a301707d650faaf81250e2aaa8a3b57ca12f",
+          "origin": "actual-native-checks"
+        },
+        "provenance": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairChromeTools-20261016/ChromePresentation/PROVENANCE.json",
+          "sha256": "7c85d70286c4723efcdd08d385c163aafee1b6cfc589fdaa5992a98c73a9cf85",
+          "origin": "native-source-binding"
+        },
+        "imageManifest": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairChromeTools-20261016/ChromePresentation/IMAGE-HASHES.json",
+          "sha256": "5fdb6a0cd6d44c30c3dc8b5b7216c4db0a21c3f997e1f1547e73aa39deab2c05",
+          "origin": "actual-Unity-render-manifest"
+        },
+        "log": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairChromeTools-20261016/ChromePresentation.log",
+          "sha256": "7f30adb67eb116588cb867fe408f97f2ba7ed7b5afa04c68a7627bc78f8006c3",
+          "origin": "native-Mac-log"
+        }
+      },
+      "ChromeFull": {
+        "checks": 1478,
+        "processExitCode": 0,
+        "imageCount": 60,
+        "result": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairChromeTools-20261016/ChromeFull/PASS.txt",
+          "sha256": "74f76dd2c1b3afbd734d2ba63ba297be958e3ebccb43ebf5d83795244646d636",
+          "origin": "actual-native-result"
+        },
+        "checksFile": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairChromeTools-20261016/ChromeFull/checks.txt",
+          "sha256": "4121850d9420f1f6fba33ef388854ebce1d2c5c365035dd46a622311c18f7eb1",
+          "origin": "actual-native-checks"
+        },
+        "provenance": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairChromeTools-20261016/ChromeFull/PROVENANCE.json",
+          "sha256": "380fdabe1e9158d30bab51f05def741de5f66034ae1e2d2f306e2f8ac9f762d3",
+          "origin": "native-source-binding"
+        },
+        "imageManifest": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairChromeTools-20261016/ChromeFull/IMAGE-HASHES.json",
+          "sha256": "e636e31f0ee633f4f6de2a17b231f9333451d1bb7e6f8861cfd730eb097a4c11",
+          "origin": "actual-Unity-render-manifest"
+        },
+        "log": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairChromeTools-20261016/ChromeFull.log",
+          "sha256": "72742140d8ee34f5e66eaaba72e37249e1ed87822a6df780e1a9f209c20b33ca",
+          "origin": "native-Mac-log"
+        }
+      },
+      "ChromeReload": {
+        "checks": 7,
+        "processExitCode": 0,
+        "imageCount": 1,
+        "result": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairChromeTools-20261016/ChromeReload/PASS.txt",
+          "sha256": "38213edc12e5ec96959592e87d8dbbd73398b1a84ce00fa19c8bdea92ba590b6",
+          "origin": "actual-native-result"
+        },
+        "checksFile": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairChromeTools-20261016/ChromeReload/checks.txt",
+          "sha256": "a47cdbe2c393a6d3242b1a93b7d3a4c797bf0fcce1aae50ab49f39ff59a87fa3",
+          "origin": "actual-native-checks"
+        },
+        "provenance": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairChromeTools-20261016/ChromeReload/PROVENANCE.json",
+          "sha256": "d348525acaefdaf1aa7684499ceda6d969b47094b4c168f18416b01a078a00d4",
+          "origin": "native-source-binding"
+        },
+        "imageManifest": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairChromeTools-20261016/ChromeReload/IMAGE-HASHES.json",
+          "sha256": "7a10207b8a5ffe8517a1d075680e611e02c367b64515d0d8f6110c13dbad8bb3",
+          "origin": "actual-Unity-render-manifest"
+        },
+        "log": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairChromeTools-20261016/ChromeReload.log",
+          "sha256": "b74afe927ecb14f746b4b967b8f91b69ef208ab266e6fd79a805cb9519eeb0d0",
+          "origin": "native-Mac-log"
+        }
+      }
+    },
+    "contacts": {
+      "cases": 12,
+      "supportRays": 60,
+      "worldTranslationAndRotation": true,
+      "soapConnections": "actual vertical triangle intervals"
+    },
+    "wrench": "Four actual first-visible mouth/fixed-jaw/sliding-jaw/worm rays; independent closed solid topology/winding math review.",
+    "environmentWarmth": {
+      "previousRedBlueRatio": 1.60032282720538,
+      "currentRedBlueRatio": 1.12777340539606
+    },
+    "fixture": {
+      "keys": 24,
+      "contexts": 9,
+      "structuralSignatures": 17,
+      "maxVertices": 8270,
+      "limit": 30000
+    },
+    "framing": {
+      "cases": 288,
+      "actualComponentVertices": 413974
+    },
+    "van": {
+      "vertices": 69372,
+      "renderers": 27,
+      "materials": 9
+    },
+    "residential": {
+      "vertices": 38821,
+      "materials": 11,
+      "textures": 4
+    },
+    "workshop": {
+      "vertices": 151442,
+      "renderers": 29,
+      "materials": 21
+    }
+  },
+  "candidateHistory": [
+    {
+      "stage": "Pre-edit physical prop RED",
+      "log": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairChromeTools-20261016/unity-prop-contacts-red.log",
+        "sha256": "9ed8eaf47c7f63982e535164b5a51d7b4e744f58e120ae988ea1f14f226de6d4",
+        "origin": "actual-pre-implementation-engine-regression"
+      },
+      "note": "Bath47.5mmwrench/66mmcloth/35mmpot/20.5mmtray float; bottle penetratedtray20.5mm. Kitchen wrench/pot/tray penetrations and disconnected pump."
+    },
+    {
+      "stage": "HDR authored; translated support test precision corrected",
+      "log": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairChromeTools-20261016/unity-neutral-props-configure.log",
+        "sha256": "f347329e63f08a939f28492a2d8a3770cf1ec33e35874260621bac211777b1d3",
+        "origin": "retained-initial-configure-and-test-failure"
+      },
+      "note": "All untranslated new support cases passed. Summing hundreds world positions atstudioY=-1000produced test-only millimetre foot error. Foot now averages transformed small offsets; physical contact tolerances unchanged. No production workaround."
+    },
+    {
+      "stage": "Complete bounded geometry green",
+      "log": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairChromeTools-20261016/unity-chrome-tools-green.log",
+        "sha256": "8d0bfb494396618885ceaf04aa5858c965eff69a9adcd23028b6c0a11f1fd7f2",
+        "origin": "actual-engine-geometry-and-HDR-proof"
+      }
+    }
+  ],
+  "sourceReview": {
+    "reviewer": "Independent read-only repair_chrome_tools_review16",
+    "decision": "APPROVE: no Critical/Important source finding.",
+    "math": "Head annulus88vertices/176triangles, closed consistently directed edges/positive volume/top-bottom winding; both jaw solids closed/outward. Parsed all v1/v2HDR half-float texels/mips: finite,alpha1,262128bytes each.",
+    "minor": "Optional future topology-regression assertion; current topology independently verified. Existing actual first-hit/support/native and budget checks retained."
+  },
+  "visualEvidence": {
+    "concept": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Artifacts/KamilunavoDelivery-20261009/concepts-20261010/repair-empire-3-ansichten.png",
+      "sha256": "0571d35c40de036f83f86f3b423c234f321586abcfec97d9d259710d816723f1",
+      "origin": "approved-concept"
+    },
+    "menu": [
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairChromeTools-20261016/ChromePresentation/showcase-de-dashboard.png",
+        "sha256": "5ad197e9cd9271c3ffb436c562811491afb248823009f9339f3095b5706d45fe",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairChromeTools-20261016/ChromePresentation/landscape-de-section-9.png",
+        "sha256": "b1dc898e3d9f310aeeee3fec14dc4ff9f454cce85ccb881e2ff1067ecdadbd91",
+        "origin": "Unity-render"
+      }
+    ],
+    "gameplay": [
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairChromeTools-20261016/ChromePresentation/showcase-driving-service.png",
+        "sha256": "33b18fa32eb16b07733abd3e74192308fbe19d53fdb660867af82115d3787fb1",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairChromeTools-20261016/ChromePresentation/street-layout.png",
+        "sha256": "cf36fbc533b81182905c0e04ad4006bf1434ff0c2d4e9b342450201fc4958bd3",
+        "origin": "Unity-render"
+      }
+    ],
+    "submenus": [
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairChromeTools-20261016/ChromePresentation/portrait-de-section-0.png",
+        "sha256": "1828de97118709e5f0c73e696d5cae49cd79893c15bfcdec3084d2d563ae6fb4",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairChromeTools-20261016/ChromeFull/repair-faucet-stage0.png",
+        "sha256": "31825a09cc40501e26662b0da834f730e21781898d3855256ecf709a51ea9110",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairChromeTools-20261016/ChromeFull/repair-faucet-stage1.png",
+        "sha256": "c63e67a3f01331b76582f0f740e495a46633f67e46674121986a2f2c258155b5",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairChromeTools-20261016/ChromeFull/repair-faucet-stage2.png",
+        "sha256": "011b0c89268ab7d5fde620b321a195ce877dfe8a13522f5dfd18ba3a6d8e45fb",
+        "origin": "Unity-render"
+      }
+    ],
+    "variants": [
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairChromeTools-20261016/ChromePresentation/fixture-faucet.png",
+        "sha256": "621526cb491206b562bbae6e28ac6dc296a65860d87a595737bbe9e53b2e2b92",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairChromeTools-20261016/ChromePresentation/fixture-call-2-3.png",
+        "sha256": "d1bd957f900dd52060f03218a3462e79fc12a729bf488fb7a98b395e82929871",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairChromeTools-20261016/ChromePresentation/bathroom-wrench.png",
+        "sha256": "64af88578dafc7e12a16214b1dd7734d81d52ae14260a0a5efba375f427bb08c",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairChromeTools-20261016/ChromePresentation/bathroom-soap-pump.png",
+        "sha256": "571533f524d8681bd4eb25645ae8c4997d581c58e5e5372a12b1c2848599eb7d",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairChromeTools-20261016/ChromePresentation/kitchen-accessories.png",
+        "sha256": "57f9d1cc10d0d1004d7747a164861e895b732c66541ad8b6da393faa41a1f611",
+        "origin": "Unity-render"
+      }
+    ]
+  },
+  "comparisons": [
+    {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairChromeTools-20261016/konzept-chrom-vergleich.png",
+      "sha256": "411e5986d867f6ca70e1f5a9761cc55e07490076cb8c45c8a83b0d46f427187d",
+      "origin": "mechanical-layout-of-unretouched-Unity-PNGs-and-labeled-reference"
+    },
+    {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairChromeTools-20261016/eigene-reparaturobjekte.png",
+      "sha256": "e2f36fd7ee6ce6a781022e3c8ef7c2949270d58374b3b722be0137cb69d529b6",
+      "origin": "mechanical-layout-of-unretouched-Unity-PNGs-and-labeled-reference"
+    },
+    {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairChromeTools-20261016/chrom-vorschau-vergleich.png",
+      "sha256": "ef31bf8d5788700e2a6ba7e006f9c8e60957989f34785782bc87c10705e66c2f",
+      "origin": "mechanical-layout-of-unretouched-Unity-PNGs-and-labeled-reference"
+    }
+  ],
+  "decision": {
+    "boundedChromeToolsFinish": "verified",
+    "fullConceptSimilarity": "failed",
+    "icon": "pending",
+    "uploadPerformed": false
+  },
+  "remaining": [
+    "Actual chrome is visibly more silver and props are seated/detailed, but overall real-time street/vehicle/fixture finish remains stylized. No numerical90percent claim.",
+    "Mac QA does not establish physical-deviceFPS/thermal/touch, real advertising/paid purchases, exported iOSicons or Apple approval.",
+    "Approved sibling projects, OMF submission and user-owned historical Concept deletion untouched. Decorative menu illustration is not actual3Dgameplay evidence."
+  ]
+}
