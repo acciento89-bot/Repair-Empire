@@ -1,23 +1,28 @@
 {
   "game": "Repair-Empire",
-  "status": "pending",
-  "sourceSha256": "38bf41ef6e2b81c17702da539bc0ad2a7242e22962f6d6745365f4775436cc41",
-  "reviewer": "Codex actual native-model source and Macvariant review; independent read-only repair_menu_icon_review16",
+  "status": "passed",
+  "sourceSha256": "0063568b51f655e89d8f3ea3f1963d101204f17c99ad5faac6bcc26c9ed787af",
+  "reviewer": "Codex actual native icon and fresh gameplay/variant inspection; independent bounded-source review repair_menu_icon_review16",
   "reviewedAt": "2026-10-16",
-  "reason": "Accurate actual-model source icon assigned and all7nativeMacvariants verified; exported native iOS store/small variants still pending.",
-  "decision": "Source content accurate and Mac variants verified; no iOS or upload approval.",
-  "variantConsistencyChecked": false,
+  "reason": "Unretouched actual-model source icon, matching assigneddefault, exact1024RGBactualiOSexport and everyphone/tabletvariant reviewed against freshactualgameplay.",
+  "decision": "Source/native icon content and consistency passed; wholegraphics stillfailed, no upload or Appleapproval.",
+  "variantConsistencyChecked": true,
   "evidence": {
     "sourceIcon": {
       "path": "/Volumes/SSK SSD/Kamilunavo/Projects/Repair-Empire/Assets/Resources/Art/RepairEmpireIcon-native-v2.png",
       "sha256": "e8b8110449c7483292d45c8fe155d90a2d052f2bd3d772abc7ba4ab6d06c48f7",
       "origin": "project-icon"
     },
-    "nativeIcon": null,
+    "nativeIcon": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairArrayStable-20261016/iOS/Unity-iPhone/Images.xcassets/AppIcon.appiconset/Icon-Store-1024.png",
+      "sha256": "dccf7050b338e7da308fcf230006f00cb1e58d9680a9dd396b7a9c7bd13b3b56",
+      "origin": "native-build-icon",
+      "sourceSha256": "0063568b51f655e89d8f3ea3f1963d101204f17c99ad5faac6bcc26c9ed787af"
+    },
     "gameplay": [
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairMenuIcon-20261016/NightPresentation/showcase-driving-service.png",
-        "sha256": "573aaafd740da01d610041abc2787e87aa0c26f942d4186ca4b4a57419aecdba",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairArrayStable-20261016/StablePresentation/showcase-driving-service.png",
+        "sha256": "afbb0012b27667c9c171618eec6b8d1c2c4e49483083db252dd65ae59f598ef3",
         "origin": "Unity-render"
       }
     ],
@@ -25,6 +30,11 @@
       "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairMenuIcon-20261016/native-icon-variants.json",
       "sha256": "b1d680a3f74d6338cb295bc47a5ae50978f1a7a27d591822106b46b5e4d574e5",
       "origin": "actual-Mac-ICNS-variants"
+    },
+    "nativeIosVariants": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairArrayStable-20261016/native-ios-icon-proof.json",
+      "sha256": "1acbf3c0c27d35a9d756ae06eb277962260d11ad6e4baa576962581b891128d1",
+      "origin": "actual-Unity-iOS-icon-export-variants"
     }
   },
   "policy": "https://developer.apple.com/app-store/review/guidelines/#accurate-metadata",

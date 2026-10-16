@@ -1,0 +1,169 @@
+{
+  "game": "Repair Empire",
+  "date": "2026-10-16",
+  "sourceSha256": "0063568b51f655e89d8f3ea3f1963d101204f17c99ad5faac6bcc26c9ed787af",
+  "baseCommit": "884ba3f9b060f023757e2e91d3601eb84644f9cc",
+  "scope": "Cross-target deterministic original world texture array and native iOS icon export proof",
+  "cause": "Actual previous iOS export changed only world array format8to4 plus platform-dependent AssetDependencyHash, staling frozen native source. Original failure/receipt retained in RepairMenuIcon-20261016.",
+  "fix": "Hash original PNG+import metadata; explicit linear RGBA32 array across targets, idempotent actual data/meta validation. Pixel payload and format8 preserved; serialized ColorSpace1to0 is intentional and sampling changes slightly. Fresh actual native frames inspected; no claim entireasset or rendering is byte-identical.",
+  "changedUnityFiles": [
+    "Assets/Editor/BuildAutomation.cs",
+    "Assets/Editor/RepairArtImports.cs",
+    "Assets/Resources/Art/WorldSurfaceArray.asset",
+    "Assets/Resources/Art/WorldSurfaceArray.asset.meta"
+  ],
+  "runtimeGeometryControllersPackagesSettings": "All exact bytes unchanged against884ba3f",
+  "validation": {
+    "macReceipt": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairArrayStable-20261016/source-native-receipt.json",
+      "sha256": "60c9ccdac8163d61fc5533ed4c57b60ff23cf77cd73a0da28d588d5014713f65",
+      "origin": "actual-source-native-binding"
+    },
+    "bundle": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairArrayStable-20261016/native-bundle-manifest.json",
+      "sha256": "b34c1460d791c7f694fb79adb8e9addb14c20cf63783b4b6a4b136129c743f8b",
+      "origin": "all314-native-bundle-files"
+    },
+    "macLog": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairArrayStable-20261016/unity-mac.log",
+      "sha256": "59ccbd8fc49caa9180a80f5dc5dcd1f31f7b2f4f455425e6b92ba78491b2b5b0",
+      "origin": "actual-Unity-log"
+    },
+    "runs": {
+      "StablePresentation": {
+        "checks": 1876,
+        "processExitCode": 0,
+        "provenance": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairArrayStable-20261016/StablePresentation/PROVENANCE.json",
+          "sha256": "d5f635d0ada1f066c2ef9b34f6667257743d69e91e488beb27d38b3db0b6feb7",
+          "origin": "native-source-binding"
+        },
+        "result": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairArrayStable-20261016/StablePresentation/PASS.txt",
+          "sha256": "3cf78272a840cd8bcdc2174dfca2555dba409696e46bfbef122474b1b0e57a15",
+          "origin": "actual-native-result"
+        },
+        "checksFile": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairArrayStable-20261016/StablePresentation/checks.txt",
+          "sha256": "6c8a72f0d3b6171847b9c4f667a91e1c53a40770d3c08b75a0c26d4a4d75afbe",
+          "origin": "actual-native-checks"
+        },
+        "images": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairArrayStable-20261016/StablePresentation/IMAGE-HASHES.json",
+          "sha256": "a90b9f075703f3066b995f4d9959ab71b3f3ea60fec48f00ae291b041f73b211",
+          "origin": "actual-native-PNG-manifest"
+        }
+      },
+      "StableFull": {
+        "checks": 1575,
+        "processExitCode": 0,
+        "provenance": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairArrayStable-20261016/StableFull/PROVENANCE.json",
+          "sha256": "dcf6488877d96a6a3c15e9ecb7e5c918f49e27ef01d622b03b3459e11c0af671",
+          "origin": "native-source-binding"
+        },
+        "result": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairArrayStable-20261016/StableFull/PASS.txt",
+          "sha256": "3734bae84abbbfa6989c8495dfdd71b059e27373b1ed38dab719f9d9a940479e",
+          "origin": "actual-native-result"
+        },
+        "checksFile": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairArrayStable-20261016/StableFull/checks.txt",
+          "sha256": "1578f51adcb3ff56db3fc41fae764b8c340cd96b29512936e350ee063b740b31",
+          "origin": "actual-native-checks"
+        },
+        "images": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairArrayStable-20261016/StableFull/IMAGE-HASHES.json",
+          "sha256": "f6e9b630162bbae28975fcd3a6be195a101ceea10a820e4bd346c2813b13ff1e",
+          "origin": "actual-native-PNG-manifest"
+        }
+      },
+      "StableReload": {
+        "checks": 7,
+        "processExitCode": 0,
+        "provenance": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairArrayStable-20261016/StableReload/PROVENANCE.json",
+          "sha256": "e517ff7c8003e85a1e73ffca05a99e694f45ff67393005f08317f2ef47cf3dff",
+          "origin": "native-source-binding"
+        },
+        "result": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairArrayStable-20261016/StableReload/PASS.txt",
+          "sha256": "38213edc12e5ec96959592e87d8dbbd73398b1a84ce00fa19c8bdea92ba590b6",
+          "origin": "actual-native-result"
+        },
+        "checksFile": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairArrayStable-20261016/StableReload/checks.txt",
+          "sha256": "a47cdbe2c393a6d3242b1a93b7d3a4c797bf0fcce1aae50ab49f39ff59a87fa3",
+          "origin": "actual-native-checks"
+        },
+        "images": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairArrayStable-20261016/StableReload/IMAGE-HASHES.json",
+          "sha256": "d1299013d9a0186308a8e6c8def5f83923aed5c8138391ff6eececee26a0a4b9",
+          "origin": "actual-native-PNG-manifest"
+        }
+      }
+    },
+    "iosExport": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairArrayStable-20261016/ios-export-receipt.json",
+      "sha256": "1a9506ddd419ca3069ebd35163812a09efb8aa3a295e2a775c2d34aba16f8b5c",
+      "origin": "actual-iOS-exit0-and-unchanged-source"
+    },
+    "iosLog": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairArrayStable-20261016/unity-ios-export.log",
+      "sha256": "b788e95bf6947038aabfd1c63db8e659d7813ac8fb28b3cfa7c2c5d28d3e857a",
+      "origin": "actual-Unity-iOS-log"
+    },
+    "crossTargetSourceStable": true
+  },
+  "icon": {
+    "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairArrayStable-20261016/native-ios-icon-proof.json",
+    "sha256": "1acbf3c0c27d35a9d756ae06eb277962260d11ad6e4baa576962581b891128d1",
+    "origin": "actual-Unity-iOS-icon-export-variants"
+  },
+  "comparisonProvenance": {
+    "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairArrayStable-20261016/comparison-provenance.json",
+    "sha256": "50410290399e74b0aaa7099278816724a00a578314e4339ae4bdda900f69212a",
+    "origin": "all16-unretouched-inputs-and-boards"
+  },
+  "concept": {
+    "path": "/Volumes/SSK SSD/Kamilunavo/Artifacts/KamilunavoDelivery-20261009/concepts-20261010/repair-empire-3-ansichten.png",
+    "sha256": "0571d35c40de036f83f86f3b423c234f321586abcfec97d9d259710d816723f1",
+    "origin": "approved-concept"
+  },
+  "sourceReview": "Independent read-only repair_menu_icon_review16: noCritical/Important code defects; actual payload/format/runtime preservation, fresh source and small sampling change independently checked. Final nativeiOSreview independentlychecked19variants/sourceprepostcurrent006/47.029sexit0 and actualcurrentgameplay; boundediconaccuracy passes.",
+  "macPostBuildSdkIssue": {
+    "observed": true,
+    "classification": "Preserved post-build SDK FileNotFoundException when iOS-active Editor builds Mac; actual build resultSuccess/exit0 and actual native1876/1575/7passed. Do not describe initial log error-free. ExplicitMacTarget repeat subsequentlypassed exit0 with no FileNotFoundException; initialfailure kept.",
+    "cleanTargetRepeat": {
+      "log": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairArrayStable-20261016/unity-mac-clean.log",
+        "sha256": "9ba7bbe1a19907a0358e2eebf5a89a68ba70c5e70bf23e4fc3bf3b5b690bfede",
+        "origin": "explicit-osx-build-log"
+      },
+      "passed": true,
+      "processExitCode": 0
+    }
+  },
+  "priorLongDrive": {
+    "report": "docs/QA/repair-menu-icon-20261016.json",
+    "sourceSha256": "38bf41ef6e2b81c17702da539bc0ad2a7242e22962f6d6745365f4775436cc41",
+    "seconds": 1800.080052875,
+    "laps": 66,
+    "errors": 0,
+    "p95ms": 32.66192,
+    "p95TargetMs": 16.6666666667,
+    "stable60FPS": false,
+    "limits": "Prior actual soak belongs to frozen previous source, not repeated on newsource. Fresh full driving/reload above are newsource."
+  },
+  "decision": {
+    "boundedArrayFix": "verified",
+    "sourceAndNativeIosIcon": "passed",
+    "fullConceptSimilarity": "failed",
+    "uploadPerformed": false
+  },
+  "remaining": [
+    "Actual3Dcity/vehicle/fixture still more stylized thanConcept; no90percentclaim.",
+    "NativeiOSexport/icons are not signed Xcode archive/device launch/AppReview/physicalFPS/thermal/touch/livepaidcommerce/ad acceptance.",
+    "Initial Macposthookexception is retained; explicit-Mac-target repeat succeeded exit0 with noFileNotFoundException. Keep explicit target for futurebuilds."
+  ]
+}

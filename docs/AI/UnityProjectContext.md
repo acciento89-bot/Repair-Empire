@@ -6,7 +6,13 @@ User authorizes Repair only until05:30Europe/Berlin/03:30UTC. Stop new implement
 
 Approved Perfect Drop/Rising Steps remain untouched. One More Floor accurate-icon1.0(7)+threeIAPs was already resubmitted15October and officially WAITING_FOR_REVIEW; do not repeat. User-owned ` D docs/concepts/PRIMARY-CONCEPT.png` must remain unstaged. Coherent verified slices go to main and push as authorized in AGENTS.md. No Repair upload before actual full graphical and icon gates pass.
 
-## Latest verified source
+## Latest platform-stable source
+
+Source0063568b51f655e89d8f3ea3f1963d101204f17c99ad5faac6bcc26c9ed787af, reportdocs/QA/repair-platform-array-20261016.json, Builds/RepairArrayStable-20261016. Only2Editorfiles +WorldSurfaceArrayasset/meta changed versus884ba3f; allruntime/geometry/controllers/Packages/ProjectSettings byte-identical. Explicit linearRGBA32retainsformat8/payload; ColorSpace1→0has smallactualsamplingdifference, notbyte-identicalrendering. StablePNG+metaSHAavoidsplatformhash. Actualidempotenceguardpassed. Macnative1876/1575/7exit0; iOSexportexit0 with EXACTsamepre/postsource/no changedfiles. ActualnativeiOS1024RGBsourceidentical and allphone/tabletvariants reviewed; iconpassed. WholegraphicsFAILED/noUpload/no90claim.
+
+InitialMaclogcontainsnonfatalGoogleAdsPListProcessor FileNotFoundException (iOS-activeEditor/Macexportpath); recordpreserved, noterror-freelogclaim. Explicit-Mac-target repeat subsequentlypassed exit0/noFileNotFoundException; actualMacplayerpasses separately. Prior1800s/66laps/p9532.66measurementbelongs38bf baselineonly; freshfull/reloadabovecurrent. CurrentactualcomparisonsfolderandnativeIOSproofseparatefromoldmenuBuilds.
+
+## Previous verified menu and soak source
 
 Source `38bf41ef6e2b81c17702da539bc0ad2a7242e22962f6d6745365f4775436cc41`, report `docs/QA/repair-menu-icon-20261016.json`, Builds/RepairMenuIcon-20261016/RepairNightFinal.app. Tallportrait Company groups workshop art/non-overlappingwallet/current-call/info/action/twosuggestions/fournav; compact/landscape oldfixedfooter. Editor12DE/ENphone/tablet active/unaccepted actioncases preserveticket/pause/Back/no-pay. Native1876 actualpresentation inspected. New separate1024RGBicon exactunretouched MenuFinal/pose1 native actualvan/street. Actual>60kvertex4percentcamera containment, three uniqueviews/restoredstate/ownedtargetcleanup. Originalillustratedicon identical. Onlysettingsdelta defaultGUID621dbf→cfc88a; allotherexactsettings/79authorityfiles preserved.
 
