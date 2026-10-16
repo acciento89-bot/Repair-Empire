@@ -1,0 +1,327 @@
+{
+  "game": "Repair Empire",
+  "date": "2026-10-16",
+  "sourceSha256": "f37580d3b8699ce8c07da33a856217f0b25bb04e48d029e6c80f4165477e611c",
+  "baseCommit": "3b0d48670e6cfb3e645c93753d1309ce639410f4",
+  "scope": "Original asphalt surface and bounded world-only HDR display finish.",
+  "supersedes": "docs/QA/repair-chrome-tools-20261016.json",
+  "implemented": [
+    "Original built-in-imagegen fine neutral asphalt, mechanically resized to512px/mips/Repeat/Trilinear/aniso4/nonreadable. Bound only tile0 at existing .72m world scale; original WorldSurfaceArray and other layers remain unchanged. No city geometry/collision/RNG change.",
+    "One original Built-in image effect on main and matching diagnostic world cameras. Fixed5samples with restrained highlight glow and filmic HDR compression, no per-frame C# allocations/retained frame target, package migration, dynamic exposure or scene authority mutation. ScreenSpaceOverlay UI and isolated repair photography remain outside effect. Unsupported shader/HDR/pipeline path disables the component and retains normal camera rendering.",
+    "Owned material is released on disable/destroy, camera priorHDR restored. Native two initialHDRstates x3cycles explicitly prove counts/cleanup and imported shader survival."
+  ],
+  "assets": {
+    "asphalt": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Projects/Repair-Empire/Assets/Resources/Art/StreetAsphalt-v2.png",
+      "sha256": "17abf588e3bc8791ef855f60cb2288b6e8d6786c739bae4172464db5189d633c",
+      "origin": "built-in-imagegen-own-original"
+    },
+    "asphaltMeta": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Projects/Repair-Empire/Assets/Resources/Art/StreetAsphalt-v2.png.meta",
+      "sha256": "8240ca7adb33d026199d8431d116361afddb9595817af397e11e054fbf825bc9",
+      "origin": "Unity-importer"
+    },
+    "shader": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Projects/Repair-Empire/Assets/Resources/DrivingSceneFinish.shader",
+      "sha256": "55e21568378770a81018affdec84dccae9e60f15248a7252a0b13277670854fd",
+      "origin": "original-ShaderLab"
+    },
+    "provenance": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetFilm-20261016/generated-asset-provenance.json",
+      "sha256": "773b51f49933fd6383ad5bba0087223c690975594bf75215f391ab3259639fe4",
+      "origin": "exact-prompt-and-source-hashes"
+    }
+  },
+  "validation": {
+    "aggregateAndMacExitCode": 0,
+    "log": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetFilm-20261016/unity-street-film-final.log",
+      "sha256": "04226fd7f75dac4302ed0662480ed5cb65bf8c8436c03aa405af4d8c280d62d3",
+      "origin": "Unity-aggregate-and-Mac-build"
+    },
+    "receipt": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetFilm-20261016/source-native-receipt.json",
+      "sha256": "9a8ecb144b0bcc572a2905b0f0d686dfe058c0cf76a56088283cdc13a17cb234",
+      "origin": "exact-source-native-binding"
+    },
+    "bundleManifest": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetFilm-20261016/native-bundle-manifest.json",
+      "sha256": "1b715dfa4438d728e535f9f0b12e81f0c09107aad69612be006b9aa6b563166a",
+      "origin": "all314native-bundle-files"
+    },
+    "settingsDelta": "None",
+    "unchangedAuthorityFiles": 78,
+    "onlyAuthorityAdditions": {
+      "Assets/Scripts/Core/GameBootstrap.cs": "camera.AddComponent<DrivingSceneFinish>();",
+      "Assets/Scripts/Gameplay/CityBuilder.cs": "if(tile==0)mat.SetTexture(\"_RoadAlbedo\",Resources.Load<Texture2D>(\"Art/StreetAsphalt-v2\"));"
+    },
+    "runs": {
+      "FilmPresentation": {
+        "checks": 1848,
+        "processExitCode": 0,
+        "imageCount": 89,
+        "result": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetFilm-20261016/FilmPresentation/PASS.txt",
+          "sha256": "9f128e631795e1b7f034d0c71f73028452d4feffdd7f560d70e2bb73d23ca240",
+          "origin": "actual-native-result"
+        },
+        "checksFile": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetFilm-20261016/FilmPresentation/checks.txt",
+          "sha256": "e2772d20a90dd9624079dd6e6002637e3a55fd25d9736924b4aba4f3d5efc6e5",
+          "origin": "actual-native-checks"
+        },
+        "provenance": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetFilm-20261016/FilmPresentation/PROVENANCE.json",
+          "sha256": "4489785f3d492e115a176e27f9b24440a68752095ceecfeab9b6e660b965fd67",
+          "origin": "native-source-binding"
+        },
+        "imageManifest": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetFilm-20261016/FilmPresentation/IMAGE-HASHES.json",
+          "sha256": "7bdf2d026de2f6344a32798b91675c711ee9dbb5f8d73c8ae38f9507caa4591a",
+          "origin": "actual-Unity-render-manifest"
+        },
+        "log": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetFilm-20261016/FilmPresentation.log",
+          "sha256": "8ee27176a3389dce40b508ccb05124b94a9c85a35338b47c5905ba507827d4b5",
+          "origin": "native-Mac-log"
+        }
+      },
+      "FilmFull": {
+        "checks": 1569,
+        "processExitCode": 0,
+        "imageCount": 60,
+        "result": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetFilm-20261016/FilmFull/PASS.txt",
+          "sha256": "c4d6d619f6ebb03482107a381735ab7bc774a0cbeea7e3b790c159909e24e576",
+          "origin": "actual-native-result"
+        },
+        "checksFile": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetFilm-20261016/FilmFull/checks.txt",
+          "sha256": "fe30d5b6dcee8b5523379a64847f4e5fc62da02fb0029e39a1913a6fc918b7d0",
+          "origin": "actual-native-checks"
+        },
+        "provenance": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetFilm-20261016/FilmFull/PROVENANCE.json",
+          "sha256": "c4807affcc64c7a8670c05835b7ee02de8b5cb7c019b554f5a3a3fd34fb55329",
+          "origin": "native-source-binding"
+        },
+        "imageManifest": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetFilm-20261016/FilmFull/IMAGE-HASHES.json",
+          "sha256": "4ecb208574f0be280644ee51e2b5c4d64193347876e9233e4374156cf03934e6",
+          "origin": "actual-Unity-render-manifest"
+        },
+        "log": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetFilm-20261016/FilmFull.log",
+          "sha256": "381edc86daa419985679edba59d27f640b91429b6a1454fa829c45fb2ae08403",
+          "origin": "native-Mac-log"
+        }
+      },
+      "FilmReload": {
+        "checks": 7,
+        "processExitCode": 0,
+        "imageCount": 1,
+        "result": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetFilm-20261016/FilmReload/PASS.txt",
+          "sha256": "38213edc12e5ec96959592e87d8dbbd73398b1a84ce00fa19c8bdea92ba590b6",
+          "origin": "actual-native-result"
+        },
+        "checksFile": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetFilm-20261016/FilmReload/checks.txt",
+          "sha256": "a47cdbe2c393a6d3242b1a93b7d3a4c797bf0fcce1aae50ab49f39ff59a87fa3",
+          "origin": "actual-native-checks"
+        },
+        "provenance": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetFilm-20261016/FilmReload/PROVENANCE.json",
+          "sha256": "85823a90efcea30cad10866e68e685e8f98e83b892075c15de082ebebc88b7d0",
+          "origin": "native-source-binding"
+        },
+        "imageManifest": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetFilm-20261016/FilmReload/IMAGE-HASHES.json",
+          "sha256": "53202e0c5023adb7b2441d18a64cf074669f03bdf72977711fc7287eb8fda9ce",
+          "origin": "actual-Unity-render-manifest"
+        },
+        "log": {
+          "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetFilm-20261016/FilmReload.log",
+          "sha256": "1bda67cdfe52b6ea27394bd880d1bb040fbec8075deb28169080f8ad94d2efcf",
+          "origin": "native-Mac-log"
+        }
+      }
+    },
+    "gpuGrayRamp": [
+      0,
+      0.00970459,
+      0.251709,
+      0.5991211,
+      0.7924805,
+      0.9086914,
+      0.9702148,
+      1
+    ],
+    "actualHdrInput": true,
+    "actualWorldChangedPixels": 179060,
+    "overlayGlyphCoresUnchanged": 194,
+    "unusedViewportBlackSamples": 90,
+    "componentLifecycle": {
+      "initialHdrStates": 2,
+      "cyclesPerState": 3,
+      "ownedMaterialsPerInstance": 1,
+      "cleanupProven": true
+    },
+    "windowProbe": {
+      "changedPixels": 2611,
+      "windowPixels": 2612,
+      "matchingProductionDisplayFinish": true
+    },
+    "van": {
+      "vertices": 69372,
+      "renderers": 27,
+      "materials": 9
+    },
+    "residential": {
+      "vertices": 38821,
+      "materials": 11,
+      "textures": 4
+    }
+  },
+  "candidateHistory": [
+    {
+      "stage": "HDR contract RED",
+      "log": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetFilm-20261016/unity-world-ramp-red.log",
+        "sha256": "9309a9fb0408f7358a6a4e358a5d53bb8fe613b74dd27b756f7d4f9d222edb50",
+        "origin": "actual-engine-failure-before-implementation"
+      }
+    },
+    {
+      "stage": "Configuration and GPU green",
+      "log": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetFilm-20261016/unity-world-configure.log",
+        "sha256": "c01a44167f00bc47f00dd43cafc87871c017f0895b47609011103453c36b2dd6",
+        "origin": "actual-engine-configuration"
+      }
+    },
+    {
+      "stage": "Initial native exact frozen source",
+      "checks": 988,
+      "log": {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetFilm-20261016/FilmProbe.log",
+        "sha256": "cc336febb208abdb2c00864af6b6a876200ca56475e81c0d401f5c91ccb83565",
+        "origin": "retained-pre-lifecycle-native-run"
+      },
+      "note": "Native viewport/input/output evidence retained; superseded by final exact-source runs with component lifecycle and matching window camera."
+    }
+  ],
+  "sourceReview": {
+    "reviewer": "Independent read-only repair_street_finish_review16",
+    "decision": "Ready to merge bounded slice; no outstanding Critical, Important or Minor findings. Independently verified41reportartifacthashes,314nativefiles, source/provenance,1848/1569/7 exit0 and actual OFF/ON/viewport/lifetime evidence.",
+    "resolvedMinor": "The city-window diagnostic now uses the same production display finish. Added explicit runtime material/HDR lifetime evidence requested by review."
+  },
+  "visualEvidence": {
+    "concept": {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Artifacts/KamilunavoDelivery-20261009/concepts-20261010/repair-empire-3-ansichten.png",
+      "sha256": "0571d35c40de036f83f86f3b423c234f321586abcfec97d9d259710d816723f1",
+      "origin": "approved-concept"
+    },
+    "menu": [
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetFilm-20261016/FilmPresentation/showcase-de-dashboard.png",
+        "sha256": "5ad197e9cd9271c3ffb436c562811491afb248823009f9339f3095b5706d45fe",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetFilm-20261016/FilmPresentation/landscape-de-section-9.png",
+        "sha256": "b1dc898e3d9f310aeeee3fec14dc4ff9f454cce85ccb881e2ff1067ecdadbd91",
+        "origin": "Unity-render"
+      }
+    ],
+    "gameplay": [
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetFilm-20261016/FilmPresentation/showcase-driving-service.png",
+        "sha256": "6ff5823e011393db46e71a6cb29d89d73938337c1fdcee549c418e081666c0a7",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetFilm-20261016/FilmPresentation/street-layout.png",
+        "sha256": "e6dcc224217d6a00ffca3d7ff50ca419a0bcc76efbc86655b5eca810d0977540",
+        "origin": "Unity-render"
+      }
+    ],
+    "submenus": [
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetFilm-20261016/FilmPresentation/portrait-de-section-0.png",
+        "sha256": "1828de97118709e5f0c73e696d5cae49cd79893c15bfcdec3084d2d563ae6fb4",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetFilm-20261016/FilmFull/repair-faucet-stage1.png",
+        "sha256": "c63e67a3f01331b76582f0f740e495a46633f67e46674121986a2f2c258155b5",
+        "origin": "Unity-render"
+      }
+    ],
+    "variants": [
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetFilm-20261016/FilmPresentation/van-front-detail.png",
+        "sha256": "947cb018d93513f1ab3d411f824b6d7e289bd584fb58cb336cdc252867ef97d5",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetFilm-20261016/FilmPresentation/van-front-three-quarter.png",
+        "sha256": "cd8b817ae3948101fedf93a16b9a365dfd2d215ff21afc1bfaaf5cd239a9144f",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetFilm-20261016/FilmPresentation/street-civic-hall.png",
+        "sha256": "df2c794ba5cda8f6a48a07c1969574f0aa8d660efef1b6eec0484ef306ecc7ec",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetFilm-20261016/FilmPresentation/world-finish-off.png",
+        "sha256": "dae2d03409c3592a809e0ca0093d605f9cf7374555878722277701ebedc738f8",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetFilm-20261016/FilmPresentation/world-finish-on.png",
+        "sha256": "6ff5823e011393db46e71a6cb29d89d73938337c1fdcee549c418e081666c0a7",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetFilm-20261016/FilmPresentation/reserved-pane.png",
+        "sha256": "ddce5cadccd5dfa2f272de26d487af189baadb9bda8ce97dccf6640e02d77554",
+        "origin": "Unity-render"
+      }
+    ]
+  },
+  "comparisons": [
+    {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetFilm-20261016/konzept-strasse-vergleich.png",
+      "sha256": "43ca8420cdeba21aab8a07c46e8908251d358a24fea683e5b1f053999fc845f8",
+      "origin": "mechanical-layout-of-unretouched-Unity-PNGs-and-labeled-reference"
+    },
+    {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetFilm-20261016/licht-kontrolle.png",
+      "sha256": "02a157ed7426a4c3a1dfc73833bf147b92895de8385403f94cf5f16aacdb1da2",
+      "origin": "mechanical-layout-of-unretouched-Unity-PNGs-and-labeled-reference"
+    },
+    {
+      "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetFilm-20261016/strasse-fahrzeug-details.png",
+      "sha256": "4eeffd16b5332e6a95e3d61f382c4baa040a16cecc082e412639bce2da2e0bd1",
+      "origin": "mechanical-layout-of-unretouched-Unity-PNGs-and-labeled-reference"
+    }
+  ],
+  "decision": {
+    "boundedStreetFilmFinish": "verified",
+    "fullConceptSimilarity": "failed",
+    "icon": "pending",
+    "uploadPerformed": false
+  },
+  "remaining": [
+    "Main world has finer original surface and better highlight separation, but real-time city, van and fixture lighting/materials remain visibly stylized against the approved Concept. No numerical90percent claim.",
+    "Mac QA does not establish physical-deviceFPS/thermal/touch, real advertising/paid purchases, exported iOSicons or Apple approval.",
+    "Approved sibling projects, OMF submission and user-owned historical Concept deletion untouched. Decorative menu illustration is not3Dgameplay evidence."
+  ],
+  "technicalReferences": [
+    "https://docs.unity3d.com/6000.0/Documentation/ScriptReference/MonoBehaviour.OnRenderImage.html",
+    "https://docs.unity3d.com/6000.0/Documentation/ScriptReference/Camera-allowHDR.html",
+    "https://docs.unity3d.com/6000.0/Documentation/ScriptReference/Graphics.Blit.html"
+  ]
+}

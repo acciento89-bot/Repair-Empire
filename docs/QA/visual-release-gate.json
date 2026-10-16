@@ -1,10 +1,10 @@
 {
   "game": "Repair Empire",
   "status": "failed",
-  "sourceSha256": "a6f1e4d08ffb6c59e2de1e54fbe114f7dc703ea2fe39cc29aaa5b4bc40aaa37c",
-  "reviewer": "Codex actual native chrome/tool and approved Concept comparison",
+  "sourceSha256": "f37580d3b8699ce8c07da33a856217f0b25bb04e48d029e6c80f4165477e611c",
+  "reviewer": "Codex actual native street/HDR and approved Concept comparison",
   "reviewedAt": "2026-10-16",
-  "reason": "Actual more neutral chrome and original assembled/seated repair props verified; whole real-time town/vehicle/fixture fidelity remains below Concept. No numerical similarity claim.",
+  "reason": "Actual original asphalt and bounded world display finish verified; whole real-time town/vehicle/fixture fidelity remains below Concept. No numerical similarity claim.",
   "criteria": {
     "concept_similarity": "failed",
     "character_or_tower": "failed",
@@ -23,83 +23,78 @@
     ],
     "menu": [
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairChromeTools-20261016/ChromePresentation/showcase-de-dashboard.png",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetFilm-20261016/FilmPresentation/showcase-de-dashboard.png",
         "sha256": "5ad197e9cd9271c3ffb436c562811491afb248823009f9339f3095b5706d45fe",
         "origin": "Unity-render"
       },
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairChromeTools-20261016/ChromePresentation/landscape-de-section-9.png",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetFilm-20261016/FilmPresentation/landscape-de-section-9.png",
         "sha256": "b1dc898e3d9f310aeeee3fec14dc4ff9f454cce85ccb881e2ff1067ecdadbd91",
         "origin": "Unity-render"
       }
     ],
     "gameplay": [
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairChromeTools-20261016/ChromePresentation/showcase-driving-service.png",
-        "sha256": "33b18fa32eb16b07733abd3e74192308fbe19d53fdb660867af82115d3787fb1",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetFilm-20261016/FilmPresentation/showcase-driving-service.png",
+        "sha256": "6ff5823e011393db46e71a6cb29d89d73938337c1fdcee549c418e081666c0a7",
         "origin": "Unity-render"
       },
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairChromeTools-20261016/ChromePresentation/street-layout.png",
-        "sha256": "cf36fbc533b81182905c0e04ad4006bf1434ff0c2d4e9b342450201fc4958bd3",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetFilm-20261016/FilmPresentation/street-layout.png",
+        "sha256": "e6dcc224217d6a00ffca3d7ff50ca419a0bcc76efbc86655b5eca810d0977540",
         "origin": "Unity-render"
       }
     ],
     "submenus": [
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairChromeTools-20261016/ChromePresentation/portrait-de-section-0.png",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetFilm-20261016/FilmPresentation/portrait-de-section-0.png",
         "sha256": "1828de97118709e5f0c73e696d5cae49cd79893c15bfcdec3084d2d563ae6fb4",
         "origin": "Unity-render"
       },
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairChromeTools-20261016/ChromeFull/repair-faucet-stage0.png",
-        "sha256": "31825a09cc40501e26662b0da834f730e21781898d3855256ecf709a51ea9110",
-        "origin": "Unity-render"
-      },
-      {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairChromeTools-20261016/ChromeFull/repair-faucet-stage1.png",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetFilm-20261016/FilmFull/repair-faucet-stage1.png",
         "sha256": "c63e67a3f01331b76582f0f740e495a46633f67e46674121986a2f2c258155b5",
-        "origin": "Unity-render"
-      },
-      {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairChromeTools-20261016/ChromeFull/repair-faucet-stage2.png",
-        "sha256": "011b0c89268ab7d5fde620b321a195ce877dfe8a13522f5dfd18ba3a6d8e45fb",
         "origin": "Unity-render"
       }
     ],
     "variants": [
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairChromeTools-20261016/ChromePresentation/fixture-faucet.png",
-        "sha256": "621526cb491206b562bbae6e28ac6dc296a65860d87a595737bbe9e53b2e2b92",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetFilm-20261016/FilmPresentation/van-front-detail.png",
+        "sha256": "947cb018d93513f1ab3d411f824b6d7e289bd584fb58cb336cdc252867ef97d5",
         "origin": "Unity-render"
       },
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairChromeTools-20261016/ChromePresentation/fixture-call-2-3.png",
-        "sha256": "d1bd957f900dd52060f03218a3462e79fc12a729bf488fb7a98b395e82929871",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetFilm-20261016/FilmPresentation/van-front-three-quarter.png",
+        "sha256": "cd8b817ae3948101fedf93a16b9a365dfd2d215ff21afc1bfaaf5cd239a9144f",
         "origin": "Unity-render"
       },
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairChromeTools-20261016/ChromePresentation/bathroom-wrench.png",
-        "sha256": "64af88578dafc7e12a16214b1dd7734d81d52ae14260a0a5efba375f427bb08c",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetFilm-20261016/FilmPresentation/street-civic-hall.png",
+        "sha256": "df2c794ba5cda8f6a48a07c1969574f0aa8d660efef1b6eec0484ef306ecc7ec",
         "origin": "Unity-render"
       },
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairChromeTools-20261016/ChromePresentation/bathroom-soap-pump.png",
-        "sha256": "571533f524d8681bd4eb25645ae8c4997d581c58e5e5372a12b1c2848599eb7d",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetFilm-20261016/FilmPresentation/world-finish-off.png",
+        "sha256": "dae2d03409c3592a809e0ca0093d605f9cf7374555878722277701ebedc738f8",
         "origin": "Unity-render"
       },
       {
-        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairChromeTools-20261016/ChromePresentation/kitchen-accessories.png",
-        "sha256": "57f9d1cc10d0d1004d7747a164861e895b732c66541ad8b6da393faa41a1f611",
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetFilm-20261016/FilmPresentation/world-finish-on.png",
+        "sha256": "6ff5823e011393db46e71a6cb29d89d73938337c1fdcee549c418e081666c0a7",
+        "origin": "Unity-render"
+      },
+      {
+        "path": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetFilm-20261016/FilmPresentation/reserved-pane.png",
+        "sha256": "ddce5cadccd5dfa2f272de26d487af189baadb9bda8ce97dccf6640e02d77554",
         "origin": "Unity-render"
       }
     ]
   },
   "previousReview": {
-    "sourceSha256": "719870c67f190cbee6b4623efdaf079910d669bf5416db6ba5862a16f3810e0b",
+    "sourceSha256": "a6f1e4d08ffb6c59e2de1e54fbe114f7dc703ea2fe39cc29aaa5b4bc40aaa37c",
     "status": "failed",
-    "archive": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairChromeTools-20261016/visual-release-gate.json.before"
+    "archive": "/Volumes/SSK SSD/Kamilunavo/Builds/RepairStreetFilm-20261016/visual-release-gate.json.before"
   },
-  "candidateReport": "docs/QA/repair-chrome-tools-20261016.json",
+  "candidateReport": "docs/QA/repair-street-film-20261016.json",
   "evidenceNote": "Menus are genuine Unity captures containing decorative generated workshop art; this art is not evidence of3D scene quality."
 }

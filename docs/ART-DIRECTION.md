@@ -174,3 +174,10 @@ The geometry RED tests reproduced three protruding closed cartridges,4,255escapi
 Source `4e3c8d4e6eb4db6efae71f89d37b1b385a233e055198b0a292c136b817278750`: aggregate/Mac0, AssemblyPresentation1,504/AssemblyFull1,478/AssemblyReload7, all0. Four real Rigidbody journeys and ordered/exact-once repairs; all314bundle files and unchanged settings bytes verified. Actual screenshots, immutable Concept comparison, failures and controls: [fixture evidence](QA/repair-fixture-finish-20261016.json), Builds/RepairFixtureFinish-20261016.
 
 Whole Concept graphics remains FAILED, native icon pending, no Repair upload or numerical similarity claim. Vehicle front optics and broad unframed return windows remain next. Approved siblings/OMF submission and historical user-owned Concept deletion are untouched. Continue until05:30Berlin, heavy jobs serially.
+
+
+## 2026-10-16 — actual street surface and bounded world finish
+
+Original imagegen fine neutral asphalt supplies only tile0 at the existing .72m world scale, shared512px/mips/nonreadable. Other array layers and all city/vehicle/controller geometry remain unchanged. The actual main Built-in camera and diagnostic world cameras use one owned five-sample HDR display finish, retaining neutral gray, black and restrained highlights. Overlay UI and isolated fixture photos are outside the effect. Unsupported configurations disable the component. Actual native two initialHDRstates×3disable/re-enablecycles restore HDR/material counts; owner destruction preserves imported shader. Native viewport control verifies90blackunusedsamples,194unchangedcashglyphs and179060changedscenepixels.
+
+Aggregate/Mac0 and exact-source native1848/1569/7 verify display, DE/EN/orientation, four driven jobs/ordered repair/exact-oncepay and reload. All314nativefiles/settings/authoritybound; only attachment inGameBootstrap and tile0binding inCityBuilder are exact literal additions. Raw native/reference comparisons and provenance: `docs/QA/repair-street-film-20261016.json`. This bounded pass is verified; full Concept fidelity remains failed, native icon pending, no upload or numerical similarity claim.
